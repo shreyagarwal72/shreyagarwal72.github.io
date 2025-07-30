@@ -2,35 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Instagram Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .highlight-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .highlight {
+      width: 180px;
+      height: 320px; /* 9:16 ratio */
+      background-color: #222;
+      border: 2px solid #555;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      text-align: center;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .highlight h3 {
+      margin: 10px 0 0;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
-  <div class="layout">
+  <div class="container">
     <nav class="sidebar">
+      <h2>Nextup Studio</h2>
       <ul>
-        <li><a href="index.html">🏠 Home</a></li>
-        <li><a href="yt.html">🎬 YouTube</a></li>
-        <li><a href="insta.html" class="active">📸 Instagram</a></li>
-        <li><a href="journey.html">📖 My Journey</a></li>
-        <li><a href="settings.html">⚙️ Settings</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="yt.html">YouTube</a></li>
+        <li><a href="insta.html" class="active">Instagram</a></li>
+        <li><a href="journey.html">Journey</a></li>
+        <li><a href="settings.html">Settings</a></li>
       </ul>
     </nav>
 
     <main class="content">
-      <h1>📸 Instagram Highlights</h1>
-      <div class="embed-container">
-        <iframe 
-          src="https://www.instagram.com/vanshu_ag_72/embed" 
-          width="360" 
-          height="480" 
-          frameborder="0" 
-          allowfullscreen 
-          scrolling="no"
-        ></iframe>
+      <h1>Instagram Highlights</h1>
+      <div class="highlight-container">
+        <div class="highlight">
+          <h3>Behind the Scenes</h3>
+        </div>
+        <div class="highlight">
+          <h3>AI Songs</h3>
+        </div>
+        <div class="highlight">
+          <h3>Minecraft Reels</h3>
+        </div>
+        <div class="highlight">
+          <h3>Funny Shorts</h3>
+        </div>
       </div>
     </main>
   </div>
 </body>
-</html>
+  </html>
