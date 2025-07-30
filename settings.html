@@ -1,36 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Settings - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">Nextup Studio</div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="yt.html">YouTube</a></li>
-        <li><a href="instagram.html">Instagram</a></li>
-        <li><a href="journey.html">My Life</a></li>
-        <li><a href="settings.html" class="active">Settings</a></li>
-      </ul>
-    </nav>
-  </header>
+  <nav class="sidebar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="yt.html">YouTube</a></li>
+      <li><a href="insta.html">Instagram</a></li>
+      <li><a href="journey.html">My Life Journey</a></li>
+      <li><a href="setting.html" class="active">Settings</a></li>
+    </ul>
+  </nav>  <main class="content">
+    <h1>Settings</h1><!-- Personalization -->
+<section class="settings-section">
+  <h2>🎨 Personalization</h2>
+  <label>
+    Profile Picture:
+    <input type="file" />
+  </label>
+  <label>
+    Channel Tagline:
+    <input type="text" placeholder="Enter tagline" />
+  </label>
+  <label>
+    Edit Bio:
+    <textarea placeholder="Write something about yourself..."></textarea>
+  </label>
+</section>
 
-  <main class="settings-page">
-    <div class="settings-container">
-      <h2>Settings</h2>
-      <div class="theme-toggle">
-        <label for="themeSwitch">🌙 Dark Mode</label>
-        <input type="checkbox" id="themeSwitch" />
-      </div>
-      <p class="coming-soon">More settings coming soon...</p>
-    </div>
+<!-- Privacy -->
+<section class="settings-section">
+  <h2>🔐 Privacy & Security</h2>
+  <label>
+    Change Password:
+    <input type="password" placeholder="New Password" />
+  </label>
+  <label>
+    2-Step Verification:
+    <input type="checkbox" /> Enable
+  </label>
+  <label>
+    Data Sharing:
+    <select>
+      <option>Allow All</option>
+      <option>Only Essential</option>
+      <option>Don't Share</option>
+    </select>
+  </label>
+</section>
+
+<!-- Notifications -->
+<section class="settings-section">
+  <h2>🔔 Notifications</h2>
+  <label>
+    Comment Alerts:
+    <input type="checkbox" checked /> Enable
+  </label>
+  <label>
+    New Subscriber Alert:
+    <input type="checkbox" /> Enable
+  </label>
+  <label>
+    Email Notifications:
+    <input type="checkbox" /> Enable
+  </label>
+</section>
+
+<!-- Advanced -->
+<section class="settings-section">
+  <h2>🛠️ Advanced Settings</h2>
+  <button>Reset Preferences</button>
+  <button>Clear Cache</button>
+  <button disabled>Export Channel Data (Coming Soon)</button>
+</section>
+
   </main>
-
-  <script src="script.js"></script>
 </body>
-</html>
+  </html>
