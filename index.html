@@ -3,32 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="M47WYVVvbO1rSPwhZ2hK67SLKkirv_U8bF3439Ck3ZQ" />
   <title>Nextup Studio</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background-color: #1e1e1e;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 5px;
+    }
+
+    nav a:hover {
+      color: #00bcd4;
+    }
+
+    nav i {
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+    }
+
+    main {
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #cfcfcf;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <nav class="sidebar">
-      <h2>Nextup Studio</h2>
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="yt.html">YouTube</a></li>
-        <li><a href="insta.html">Instagram</a></li>
-        <li><a href="journey.html">Journey</a></li>
-        <li><a href="settings.html">Settings</a></li>
-      </ul>
-    </nav>
+  <nav>
+    <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="yt.html"><i class="fas fa-video"></i>YouTube</a>
+    <a href="insta.html"><i class="fas fa-camera-retro"></i>Instagram</a>
+    <a href="settings.html"><i class="fas fa-cog"></i>Settings</a>
+    <a href="journey.html"><i class="fas fa-book"></i>Journey</a>
+  </nav>
 
-    <main class="content home">
-      <h1>Welcome to Nextup Studio</h1>
-      <p>
-        This is the official site of <strong>Nextup Studio</strong>, home to AI-generated stories, music videos, Minecraft content, Squid Game shorts, and more.
-      </p>
-      <p>
-        Stay connected and explore the world of creative content!
-      </p>
-    </main>
-  </div>
+  <main>
+    <h1>Welcome to <strong>Nextup Studio</strong></h1>
+    <p>
+      This is the official site of <strong>Nextup Studio</strong>, home to AI-generated stories, music videos, Minecraft content, Squid Game shorts, and more.
+    </p>
+    <p>
+      Stay connected and explore the world of creative content!
+    </p>
+  </main>
 </body>
 </html>
