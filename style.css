@@ -1,4 +1,4 @@
-/* General Reset */
+/* Base reset */
 * {
   margin: 0;
   padding: 0;
@@ -6,120 +6,123 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* Body */
-body.dark-theme {
-  background-color: #0d0d0d;
-  color: #f1f1f1;
+body {
+  background-color: #111;
+  color: #fff;
   min-height: 100vh;
-  padding: 20px;
+  padding-top: 60px;
 }
 
-/* Navigation Bar */
+/* Horizontal Navbar */
 .horizontal-navbar {
-  display: flex;
-  justify-content: center;
-  background-color: #111;
-  padding: 12px 0;
-  border-bottom: 1px solid #222;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #1e1e1e;
+  border-bottom: 1px solid #333;
+  z-index: 999;
 }
 
 .horizontal-navbar ul {
-  display: flex;
   list-style: none;
-  gap: 30px;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
 }
 
-.horizontal-navbar li a {
-  color: #aaa;
+.horizontal-navbar li {
+  margin: 0 20px;
+}
+
+.horizontal-navbar a {
   text-decoration: none;
-  font-size: 16px;
+  color: #ccc;
   font-weight: 500;
-  transition: color 0.3s;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
 }
 
-.horizontal-navbar li a:hover,
+.horizontal-navbar a:hover,
 .horizontal-navbar .active a {
-  color: #00ff99;
-  border-bottom: 2px solid #00ff99;
+  background-color: #333;
+  color: #fff;
 }
 
-/* Content */
-.content-box {
+/* Page Content */
+.page-content {
   max-width: 1000px;
-  margin: 30px auto;
+  margin: auto;
   padding: 20px;
-  background-color: #1a1a1a;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-}
-
-/* Channel Info */
-.channel-box {
-  background-color: #262626;
-  padding: 20px;
-  border-radius: 12px;
-  margin-top: 25px;
   text-align: center;
 }
 
-.channel-box h2 {
-  font-size: 22px;
-  color: #00ffcc;
+.page-content h1 {
+  font-size: 32px;
   margin-bottom: 10px;
+  color: #ff5252;
 }
 
-.channel-box p {
+.channel-desc {
   font-size: 16px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  color: #aaa;
 }
 
-.btn-visit {
+/* Channel Info */
+.channel-info {
+  margin-bottom: 30px;
+}
+
+.visit-btn {
   display: inline-block;
-  padding: 10px 20px;
-  background: #00ff99;
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
+  background-color: #ff0000;
+  color: #fff;
+  padding: 10px 18px;
   border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
   transition: background 0.3s;
 }
 
-.btn-visit:hover {
-  background: #00cc77;
+.visit-btn:hover {
+  background-color: #cc0000;
 }
 
-/* Video Embed */
-.video-grid {
+/* Video Section */
+.video-section h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #eee;
+}
+
+.video-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
-.video-grid iframe {
-  width: 90%;
-  max-width: 700px;
-  height: 400px;
-  border: none;
+.video-wrapper iframe {
+  width: 450px;
+  height: 255px;
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  border: 2px solid #333;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+  .video-wrapper iframe {
+    width: 90%;
+    height: 200px;
+  }
+
   .horizontal-navbar ul {
     flex-direction: column;
-    gap: 15px;
-    align-items: center;
   }
 
-  .video-grid iframe {
-    height: 250px;
+  .horizontal-navbar li {
+    margin: 10px 0;
   }
-
-  .btn-visit {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-}
+    }
