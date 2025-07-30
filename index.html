@@ -2,47 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nextup Studio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     body {
-      background-color: #121212;
-      color: #ffffff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
-      padding: 0;
+      background-color: #121212;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    nav {
-      background-color: #1e1e1e;
+    .sidebar {
+      width: 100%;
+      background-color: #1f1f1f;
       display: flex;
       justify-content: space-around;
-      align-items: center;
       padding: 10px 0;
       flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
-    nav a {
+    .sidebar a {
       color: white;
       text-decoration: none;
+      text-align: center;
       font-size: 0.9rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 5px;
     }
 
-    nav a:hover {
-      color: #00bcd4;
-    }
-
-    nav i {
+    .sidebar i {
+      display: block;
       font-size: 1.3rem;
       margin-bottom: 5px;
     }
 
-    main {
+    .sidebar a:hover {
+      color: #00bcd4;
+    }
+
+    .content {
       padding: 20px;
       text-align: center;
     }
@@ -54,27 +54,31 @@
 
     p {
       font-size: 1rem;
-      color: #cfcfcf;
+      color: #ccc;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html"><i class="fas fa-home"></i>Home</a>
-    <a href="yt.html"><i class="fas fa-video"></i>YouTube</a>
-    <a href="insta.html"><i class="fas fa-camera-retro"></i>Instagram</a>
-    <a href="settings.html"><i class="fas fa-cog"></i>Settings</a>
-    <a href="journey.html"><i class="fas fa-book"></i>Journey</a>
-  </nav>
 
-  <main>
+  <div class="sidebar">
+    <a href="index.html"><i class="fas fa-house"></i>Home</a>
+    <a href="yt.html"><i class="fas fa-play"></i>YouTube</a>
+    <a href="insta.html"><i class="fab fa-instagram"></i>Instagram</a>
+    <a href="journey.html"><i class="fas fa-road"></i>Journey</a>
+    <a href="settings.html"><i class="fas fa-gear"></i>Settings</a>
+  </div>
+
+  <div class="content">
     <h1>Welcome to <strong>Nextup Studio</strong></h1>
     <p>
-      This is the official site of <strong>Nextup Studio</strong>, home to AI-generated stories, music videos, Minecraft content, Squid Game shorts, and more.
+      This is the official site of <strong>Nextup Studio</strong>, home to AI-generated stories, music videos,
+      Minecraft content, Squid Game shorts, and more.
     </p>
     <p>
       Stay connected and explore the world of creative content!
     </p>
-  </main>
+  </div>
+
 </body>
 </html>
