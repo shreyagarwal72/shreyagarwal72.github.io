@@ -1,127 +1,160 @@
-/* ---------- Reset & Base ---------- */
+/* ========== Root Variables ========== */
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --card: #f2f2f2;
+  --primary: #007bff;
+  --nav-bg: #eaeaea;
+}
+
+body.dark {
+  --bg: #121212;
+  --text: #ffffff;
+  --card: #1f1f1f;
+  --primary: #00aaff;
+  --nav-bg: #1a1a1a;
+}
+
+/* ========== Base Styles ========== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  scroll-behavior: smooth;
 }
 
 body {
-  background-color: #121212;
-  color: #ffffff;
-  transition: background-color 0.4s ease, color 0.4s ease;
-  padding-bottom: 80px;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease-in-out;
 }
 
-.light-theme {
-  background-color: #f5f5f5;
-  color: #1a1a1a;
-}
-
-/* ---------- Navigation Bar ---------- */
-nav {
-  background-color: #1e1e1e;
-  padding: 15px 0;
+/* ========== Navbar ========== */
+.navbar {
+  background-color: var(--nav-bg);
   display: flex;
-  justify-content: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary);
 }
 
 .nav-links {
-  display: flex;
-  gap: 25px;
   list-style: none;
-  flex-wrap: wrap;
-  padding: 0;
-  margin: 0;
+  display: flex;
+  gap: 20px;
 }
 
 .nav-links li a {
   text-decoration: none;
-  color: #ffffff;
-  font-weight: 600;
-  padding: 8px 15px;
-  border-radius: 6px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  color: var(--text);
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: 0.3s;
 }
 
-.nav-links li a:hover {
-  background-color: #333;
-  color: #ff3c00;
+.nav-links li a:hover,
+.nav-links li a.active {
+  background-color: var(--primary);
+  color: #fff;
 }
 
-/* Light Theme Support */
-.light-theme nav {
-  background-color: #eaeaea;
-}
-
-.light-theme .nav-links li a {
-  color: #121212;
-}
-
-.light-theme .nav-links li a:hover {
-  background-color: #cfcfcf;
-  color: #d72600;
-}
-
-/* Responsive Nav */
-@media (max-width: 600px) {
-  .nav-links {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
-
-  nav {
-    padding: 10px 0;
-  }
-}
-
-/* ---------- General Page Styling ---------- */
+/* ========== Main Section ========== */
 main {
-  padding: 30px;
+  padding: 40px 20px;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-h1 {
-  font-size: 2.5rem;
+/* ========== Card Container ========== */
+.card {
+  background-color: var(--card);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-width: 700px;
+  width: 100%;
+}
+
+/* ========== Journey Page ========== */
+.journey-page {
+  background: url('https://i.postimg.cc/8CZNWWVP/journeybg.jpg') no-repeat center center/cover;
+  padding: 60px 20px;
+  min-height: 100vh;
+  color: var(--text);
+  backdrop-filter: blur(3px);
+}
+
+.journey-content {
+  background-color: var(--card);
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.journey-content h2 {
   margin-bottom: 20px;
 }
 
-p {
-  font-size: 1.1rem;
-  line-height: 1.7;
+.journey-content ul.journey-points {
+  margin-left: 20px;
+  line-height: 1.6;
 }
 
-/* ---------- Theme Toggle (Settings Page) ---------- */
-.toggle-container {
-  margin-top: 40px;
+/* ========== Settings Page ========== */
+.settings {
   text-align: center;
 }
 
-.toggle-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  background-color: #ff3c00;
-  border: none;
-  border-radius: 8px;
-  color: #fff;
+.toggle-container {
+  margin-top: 20px;
+}
+
+.toggle-container label {
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1rem;
 }
 
-.toggle-button:hover {
-  background-color: #e63600;
+.toggle-container input {
+  margin-right: 10px;
 }
 
-.light-theme .toggle-button {
-  background-color: #333;
-  color: #fff;
-}
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-.light-theme .toggle-button:hover {
-  background-color: #555;
-}
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links li a {
+    display: block;
+    width: 100%;
+  }
+
+  main {
+    padding: 20px;
+  }
+  }
