@@ -1,58 +1,58 @@
-/* Reset and base styles */
+/* Global Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
   background-color: #121212;
-  color: #ffffff;
+  color: #f0f0f0;
   display: flex;
   height: 100vh;
   overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Layout */
 .layout {
   display: flex;
   width: 100%;
-  height: 100%;
 }
 
-/* Sidebar Navigation */
+/* Sidebar */
 .sidebar {
   width: 220px;
-  background-color: #1e1e1e;
-  padding-top: 40px;
-  flex-shrink: 0;
+  background-color: #1f1f1f;
+  padding: 30px 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 20px;
+  height: 100vh;
   position: fixed;
-  top: 0;
-  bottom: 0;
   left: 0;
+  top: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar ul {
   list-style: none;
-  width: 100%;
-  padding: 0;
-}
-
-.sidebar ul li {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .sidebar ul li a {
-  display: block;
-  width: 100%;
-  padding: 15px 20px;
   color: #ccc;
-  text-decoration: none;
-  transition: 0.3s;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+  display: block;
 }
 
 .sidebar ul li a:hover,
@@ -61,65 +61,77 @@ body {
   color: #fff;
 }
 
-/* Main Content Area */
+/* Main Content */
 .content {
   margin-left: 220px;
-  padding: 30px;
-  width: calc(100% - 220px);
+  padding: 40px 30px;
+  flex-grow: 1;
   overflow-y: auto;
+  height: 100vh;
+  background-color: #121212;
 }
 
-.content h1 {
-  font-size: 28px;
+/* Headings */
+h1, h2, h3 {
   margin-bottom: 20px;
 }
 
-/* YouTube Page */
+/* Paragraphs */
+p {
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+/* YouTube Video Styling */
 .video-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column;
+  gap: 25px;
 }
 
 .video-container iframe {
   width: 100%;
-  max-width: 480px;
-  height: 270px;
+  max-width: 800px;
+  height: 450px;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
-/* Scrollbar customization */
-::-webkit-scrollbar {
-  width: 6px;
+/* Intro Animation */
+.intro {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideIn 1s ease-out forwards;
+  animation-delay: 0.2s;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: #444;
-  border-radius: 10px;
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive */
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   .sidebar {
-    width: 60px;
-    padding-top: 20px;
+    width: 100px;
+    padding: 20px 10px;
   }
 
   .sidebar ul li a {
-    padding: 10px;
-    font-size: 12px;
+    padding: 8px;
+    font-size: 14px;
     text-align: center;
   }
 
   .content {
-    margin-left: 60px;
-    padding: 20px;
-    width: calc(100% - 60px);
+    margin-left: 100px;
+    padding: 25px 20px;
   }
 
   .video-container iframe {
-    width: 100%;
-    height: 200px;
+    height: 250px;
   }
 }
