@@ -1,4 +1,4 @@
-/* General Reset */
+/* Base Reset */
 * {
   margin: 0;
   padding: 0;
@@ -7,129 +7,82 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f0f0;
+  color: #222;
   line-height: 1.6;
-  background-color: #ffffff;
-  color: #000000;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-header, footer {
-  background-color: #f4f4f4;
-  color: #000;
-  padding: 1rem;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-nav ul {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-nav ul li {
-  margin: 0 15px;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-  color: #007bff;
-}
-
-main {
-  padding: 2rem;
-  max-width: 900px;
-  margin: auto;
-}
-
-section {
-  margin-bottom: 2rem;
-}
-
-/* Footer */
-footer {
-  margin-top: 3rem;
-  font-size: 0.9rem;
-}
-
-/* Button */
-button {
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-/* Images */
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* Animations */
-.fade-in {
-  animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Dark Theme */
-body.dark-theme {
+/* Dark Mode */
+.dark-theme {
   background-color: #121212;
   color: #ffffff;
 }
 
-body.dark-theme header,
-body.dark-theme footer {
-  background-color: #1f1f1f;
-  color: #ffffff;
+/* Navbar */
+nav {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
 }
 
-body.dark-theme nav ul li a {
-  color: #cccccc;
+nav a {
+  color: #fff;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-body.dark-theme nav ul li a:hover {
-  color: #66ccff;
+nav a:hover {
+  text-decoration: underline;
 }
 
-body.dark-theme button {
-  background-color: #66ccff;
-  color: #000;
+/* Container */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
 }
 
-body.dark-theme button:hover {
-  background-color: #33aaff;
+/* Buttons */
+button {
+  padding: 10px 20px;
+  background-color: #222;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.3s;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  nav ul {
-    flex-direction: column;
-  }
+button:hover {
+  background-color: #555;
+}
 
-  nav ul li {
+/* Background image for journey page */
+.journey-bg {
+  background-image: url('https://images.unsplash.com/photo-1529333166437-7750a6dd5a70');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding: 20px;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav a {
+    display: block;
     margin: 10px 0;
   }
-        }
+
+  .container {
+    padding: 10px;
+  }
+
+  button {
+    width: 100%;
+  }
+}
