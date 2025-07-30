@@ -3,48 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Settings - Nextup Studio</title>
+  <title>Settings | Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="dark-mode">
-  <!-- Navigation -->
-  <nav class="navbar">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="yt.html">YouTube</a></li>
-      <li><a href="insta.html">Instagram</a></li>
-      <li><a href="journey.html">My Life Journey</a></li>
-      <li><a class="active" href="setting.html">Settings</a></li>
-    </ul>
-  </nav>
+<body>
+  <div class="layout">
 
-  <!-- Settings Page -->
-  <div class="settings-container">
-    <h1>⚙️ Settings</h1>
+    <!-- Navigation Sidebar -->
+    <nav class="sidebar">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="yt.html">🎬 YouTube</a></li>
+        <li><a href="insta.html">📸 Instagram</a></li>
+        <li><a href="journey.html">📖 Journey</a></li>
+        <li><a href="settings.html" class="active">⚙️ Settings</a></li>
+      </ul>
+    </nav>
 
-    <section class="settings-section">
-      <h2>🔧 Personalization</h2>
-      <label><input type="checkbox" disabled checked /> Dark Mode (Enabled)</label><br />
-      <label><input type="checkbox" /> Show Tips & Tutorials</label>
-    </section>
+    <!-- Main Content -->
+    <main class="content intro">
+      <h1>⚙️ Settings</h1>
+      <p>Customize your experience here. (Currently dark mode is enabled by default)</p>
 
-    <section class="settings-section">
-      <h2>🔐 Privacy</h2>
-      <label><input type="checkbox" /> Keep Profile Private</label><br />
-      <label><input type="checkbox" /> Hide My Likes</label>
-    </section>
+      <div class="settings-grid">
+        <div class="setting-item">
+          <label>🔈 Sound Effects</label>
+          <select>
+            <option>Enabled</option>
+            <option>Disabled</option>
+          </select>
+        </div>
 
-    <section class="settings-section">
-      <h2>🔔 Notifications</h2>
-      <label><input type="checkbox" /> Email Updates</label><br />
-      <label><input type="checkbox" /> Push Notifications</label>
-    </section>
+        <div class="setting-item">
+          <label>🌐 Language</label>
+          <select>
+            <option>English</option>
+            <option>Hindi</option>
+          </select>
+        </div>
 
-    <section class="settings-section">
-      <h2>🧪 Advanced Settings</h2>
-      <label><input type="checkbox" /> Enable Beta Features</label><br />
-      <label><input type="checkbox" /> Developer Mode</label>
-    </section>
+        <div class="setting-item">
+          <label>🔒 Privacy</label>
+          <select>
+            <option>Public</option>
+            <option>Private</option>
+          </select>
+        </div>
+
+        <!-- Add more settings here -->
+      </div>
+    </main>
+    
   </div>
 </body>
 </html>
