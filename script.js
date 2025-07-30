@@ -1,25 +1,17 @@
-// Theme toggle script
-document.addEventListener("DOMContentLoaded", function () {
-  const toggle = document.getElementById("theme-toggle");
-  const body = document.body;
+document.addEventListener("DOMContentLoaded", () => {
+  const themeButton = document.getElementById("toggle-theme");
 
-  // Load theme from localStorage
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme) {
-    body.classList.add(savedTheme);
-  }
+  if (themeButton) {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-theme");
+    }
 
-  // Toggle theme on click
-  if (toggle) {
-    toggle.addEventListener("click", function () {
-      body.classList.toggle("dark-theme");
+    themeButton.addEventListener("click", () => {
+      document.body.classList.toggle("dark-theme");
 
-      // Save to localStorage
-      if (body.classList.contains("dark-theme")) {
-        localStorage.setItem("theme", "dark-theme");
-      } else {
-        localStorage.removeItem("theme");
-      }
+      const currentTheme = document.body.classList.contains("dark-theme") ? "dark" : "light";
+      localStorage.setItem("theme", currentTheme);
     });
   }
 });
