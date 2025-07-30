@@ -2,30 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Settings - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Settings</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="youtube.html">YouTube</a>
-      <a href="instagram.html">Instagram</a>
-      <a href="journey.html">My Journey</a>
-      <a href="settings.html">Settings</a>
+    <nav class="navbar">
+      <div class="logo">Nextup Studio</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="yt.html">YouTube</a></li>
+        <li><a href="instagram.html">Instagram</a></li>
+        <li><a href="journey.html">My Life</a></li>
+        <li><a href="settings.html" class="active">Settings</a></li>
+      </ul>
     </nav>
   </header>
 
-  <main>
-    <h2>Theme Settings</h2>
-    <button id="toggle-theme">Toggle Dark/Light Theme</button>
+  <main class="settings-page">
+    <div class="settings-container">
+      <h2>Settings</h2>
+      <div class="theme-toggle">
+        <label for="themeSwitch">🌙 Dark Mode</label>
+        <input type="checkbox" id="themeSwitch" />
+      </div>
+      <p class="coming-soon">More settings coming soon...</p>
+    </div>
   </main>
-
-  <footer>
-    <p>&copy; 2025 Nextup Studio</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
