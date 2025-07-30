@@ -1,17 +1,14 @@
+// Script for navigation link highlighting
 document.addEventListener("DOMContentLoaded", () => {
-  const themeButton = document.getElementById("toggle-theme");
+  const currentPage = window.location.pathname.split("/").pop();
+  const navLinks = document.querySelectorAll(".navbar a");
 
-  if (themeButton) {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      document.body.classList.add("dark-theme");
+  navLinks.forEach(link => {
+    const linkPage = link.getAttribute("href");
+    if (linkPage === currentPage) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
     }
-
-    themeButton.addEventListener("click", () => {
-      document.body.classList.toggle("dark-theme");
-
-      const currentTheme = document.body.classList.contains("dark-theme") ? "dark" : "light";
-      localStorage.setItem("theme", currentTheme);
-    });
-  }
+  });
 });
