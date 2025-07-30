@@ -3,42 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nextup Studio | YouTube</title>
+  <title>YouTube - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="yt.html" class="active">📺 YouTube</a></li>
+        <li><a href="insta.html">📷 Instagram</a></li>
+        <li><a href="journey.html">📖 My Journey</a></li>
+        <li><a href="settings.html">⚙️ Settings</a></li>
+      </ul>
+    </nav>
 
-  <!-- Sidebar Navigation -->
-  <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="yt.html">📺 YouTube</a>
-    <a href="insta.html">📸 Instagram</a>
-    <a href="journey.html">🛤️ My Life Journey</a>
-    <a href="settings.html">⚙️ Settings</a>
-  </nav>
+    <!-- Main Content -->
+    <div class="content yt">
+      <h1>🎥 My YouTube Shorts</h1>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <h1>📺 Nextup Studio on YouTube</h1>
-    <p>Discover our latest creative videos and music shorts!</p>
-
-    <div class="yt-channel-info">
-      <h2>@nextupstudioyt</h2>
-      <p>Subscribe for AI-generated stories, Squid Game Shorts, Minecraft moments, and much more!</p>
-      <a href="https://www.youtube.com/@nextupstudioyt" target="_blank" class="visit-btn">Visit Channel</a>
-    </div>
-
-    <!-- YouTube Videos -->
-    <div class="video-grid">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/xftcj39h-QY" title="YouTube video" allowfullscreen></iframe>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/xftcj39h-QY" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/9Nxe02t7gl4" allowfullscreen></iframe>
+        <!-- Add more videos like this below -->
+        <!-- <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe> -->
       </div>
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/9Nxe02t7gl4" title="YouTube video" allowfullscreen></iframe>
-      </div>
-      <!-- You can add more <div class="video-wrapper">...</div> blocks here -->
     </div>
   </div>
-
 </body>
 </html>
