@@ -1,147 +1,127 @@
-/* Global Styles */
+/* ---------- Reset & Base ---------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  transition: background-color 0.3s, color 0.3s;
   background-color: #121212;
-  color: #f0f0f0;
-  overflow-x: hidden;
+  color: #ffffff;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  padding-bottom: 80px;
 }
 
 .light-theme {
-  background-color: #ffffff;
-  color: #121212;
+  background-color: #f5f5f5;
+  color: #1a1a1a;
 }
 
-/* Navigation */
+/* ---------- Navigation Bar ---------- */
 nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   background-color: #1e1e1e;
   padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+  list-style: none;
   flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
 }
 
-nav a {
-  color: white;
+.nav-links li a {
   text-decoration: none;
-  padding: 10px 15px;
-  transition: 0.3s;
-  font-weight: bold;
-}
-
-nav a:hover {
-  background-color: #333;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 8px 15px;
   border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.nav-links li a:hover {
+  background-color: #333;
+  color: #ff3c00;
+}
+
+/* Light Theme Support */
 .light-theme nav {
   background-color: #eaeaea;
 }
 
-.light-theme nav a {
+.light-theme .nav-links li a {
   color: #121212;
 }
 
-/* Section Layouts */
-section {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 60px 20px;
-  text-align: center;
-  position: relative;
+.light-theme .nav-links li a:hover {
+  background-color: #cfcfcf;
+  color: #d72600;
 }
 
-.overlay {
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 40px;
-  border-radius: 12px;
-  max-width: 90%;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-
-.light-theme .overlay {
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-/* Page Specific Backgrounds */
-.home-page {
-  background: url('home-bg.jpg') no-repeat center center/cover;
-}
-
-.yt-page {
-  background: url('yt-bg.jpg') no-repeat center center/cover;
-}
-
-.instagram-page {
-  background: url('insta-bg.jpg') no-repeat center center/cover;
-}
-
-.journey-page {
-  background: url('journey-bg.jpg') no-repeat center center/cover;
-}
-
-.settings-page {
-  background-color: #1f1f1f;
-}
-
-.light-theme .settings-page {
-  background-color: #f4f4f4;
-}
-
-/* Life Journey Text */
-.journey-page .overlay {
-  font-size: 18px;
-  line-height: 1.8;
-}
-
-/* Toggle Switch */
-.theme-toggle {
-  margin-top: 20px;
-  font-size: 18px;
-  cursor: pointer;
-  background: #333;
-  padding: 10px 20px;
-  border: none;
-  color: white;
-  border-radius: 8px;
-  transition: background 0.3s;
-}
-
-.theme-toggle:hover {
-  background: #555;
-}
-
-.light-theme .theme-toggle {
-  background: #ddd;
-  color: #121212;
-}
-
-.light-theme .theme-toggle:hover {
-  background: #bbb;
-}
-
-/* Responsive */
-@media screen and (max-width: 768px) {
-  nav {
+/* Responsive Nav */
+@media (max-width: 600px) {
+  .nav-links {
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    gap: 15px;
   }
 
-  .overlay {
-    padding: 20px;
-    font-size: 16px;
+  nav {
+    padding: 10px 0;
   }
 }
 
-html, body {
-  height: 100%;
+/* ---------- General Page Styling ---------- */
+main {
+  padding: 30px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* ---------- Theme Toggle (Settings Page) ---------- */
+.toggle-container {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.toggle-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #ff3c00;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #e63600;
+}
+
+.light-theme .toggle-button {
+  background-color: #333;
+  color: #fff;
+}
+
+.light-theme .toggle-button:hover {
+  background-color: #555;
 }
