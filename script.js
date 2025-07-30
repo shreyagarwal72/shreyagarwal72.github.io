@@ -1,33 +1,25 @@
-// ===== DARK MODE TOGGLE =====
-const toggleSwitch = document.getElementById('toggle');
+// Theme toggle script
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.getElementById("theme-toggle");
+  const body = document.body;
 
-if (toggleSwitch) {
-  toggleSwitch.addEventListener('change', function () {
-    if (this.checked) {
-      document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
-  });
-}
+  // Load theme from localStorage
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    body.classList.add(savedTheme);
+  }
 
-// ===== SMOOTH SCROLL (for nav links) =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth'
-      });
-    }
-  });
-});
+  // Toggle theme on click
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      body.classList.toggle("dark-theme");
 
-// ===== OPTIONAL: PAGE LOADER (if added later) =====
-window.addEventListener("load", function () {
-  const loader = document.querySelector(".loader");
-  if (loader) {
-    loader.style.display = "none";
+      // Save to localStorage
+      if (body.classList.contains("dark-theme")) {
+        localStorage.setItem("theme", "dark-theme");
+      } else {
+        localStorage.removeItem("theme");
+      }
+    });
   }
 });
