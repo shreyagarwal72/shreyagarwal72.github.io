@@ -19,7 +19,6 @@
       display: flex;
       justify-content: space-around;
       padding: 10px 0;
-      flex-wrap: wrap;
       position: sticky;
       top: 0;
       z-index: 10;
@@ -43,23 +42,67 @@
     }
 
     .content {
-      padding: 20px;
+      padding: 40px 20px;
       text-align: center;
     }
 
-    .content img {
-      width: 100%;
-      max-width: 400px;
-      aspect-ratio: 9/16;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 10px #000;
+    .insta-id {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #e1306c;
+      margin-bottom: 10px;
     }
 
-    .caption {
+    .intro {
       font-size: 1rem;
       color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .visit-btn {
+      display: inline-block;
+      background-color: #e1306c;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+      margin-bottom: 40px;
+    }
+
+    .visit-btn:hover {
+      background-color: #c1205a;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 10px;
+      padding: 0 20px 40px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      .insta-id {
+        font-size: 1.3rem;
+      }
+      .visit-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -74,15 +117,20 @@
   </div>
 
   <div class="content">
-    <h2>Instagram Highlights</h2>
-    <img src="https://via.placeholder.com/360x640.png?text=Instagram+Highlight+1" alt="Highlight 1"/>
-    <div class="caption">Behind the scenes from our latest video shoot.</div>
+    <div class="insta-id">@vanshu_ag_72</div>
+    <div class="intro">Follow me on Instagram for exclusive content, behind-the-scenes and more!</div>
+    <a class="visit-btn" href="https://www.instagram.com/vanshu_ag_72" target="_blank">
+      Visit Profile
+    </a>
+  </div>
 
-    <img src="https://via.placeholder.com/360x640.png?text=Instagram+Highlight+2" alt="Highlight 2"/>
-    <div class="caption">AI-powered story preview 🎬✨</div>
-
-    <img src="https://via.placeholder.com/360x640.png?text=Instagram+Highlight+3" alt="Highlight 3"/>
-    <div class="caption">Minecraft + Squid Game combo edit 🔥</div>
+  <div class="gallery">
+    <img src="https://i.postimg.cc/8z8J5zGr/ig1.jpg" alt="insta post">
+    <img src="https://i.postimg.cc/VNqKphZ7/ig2.jpg" alt="insta post">
+    <img src="https://i.postimg.cc/hPDfP5Sr/ig3.jpg" alt="insta post">
+    <img src="https://i.postimg.cc/q7L2YNHb/ig4.jpg" alt="insta post">
+    <img src="https://i.postimg.cc/Y2bntG34/ig5.jpg" alt="insta post">
+    <img src="https://i.postimg.cc/XYmQdhm0/ig6.jpg" alt="insta post">
   </div>
 
 </body>
