@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Life Journey - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0d0d0d;
+      color: #fff;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: #1a1a1a;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px;
+    }
+    .navbar a.active {
+      color: #ff2e7e;
+      font-weight: bold;
+    }
+    .main-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .content {
+      max-width: 700px;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #ff2e7e;
+    }
+    p {
+      font-size: 1rem;
+      color: #ccc;
+      line-height: 1.6;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      p {
+        font-size: 0.95rem;
+        padding: 0 10px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="navbar">
@@ -13,18 +71,24 @@
     <a href="insta.html"><i class="icon">📷</i>Instagram</a>
     <a href="journey.html" class="active"><i class="icon">🛣️</i>Journey</a>
     <a href="settings.html"><i class="icon">⚙️</i>Settings</a>
-  </div>
-
-  <div class="main-content">
+  </div>  <div class="main-content">
     <div class="content">
-      <h1 style="font-size: 2rem; color: #ff2e7e;">My Life Journey</h1>
-      <p style="font-size: 1rem; color: #ccc; max-width: 700px; margin: 20px auto;">
-        Mera journey ek simple bacche se lekar ek digital creator banne tak ka safar hai. Class 11 se maine apni creativity explore karni shuru ki – chahe wo Minecraft videos ho, Squid Game series, ya AI-generated music shorts. Maine seekha ki content creation sirf editing nahi hoti, ek emotion hota hai.
-        <br/><br/>
-        YouTube ke saath maine ek alag duniya jaani – jahan log apni kahaniyan, fun, struggle sab kuch share karte hain. Maine bhi wahi kiya – bina dare, bina rukhe.
-        <br/><br/>
-        Nextup Studio mera dream project hai jahan mai har emotion ko capture karta hoon – thrill, fun, heartbreak, ya revenge. Ab har short, har story, aur har sound ke peeche ek real connection hota hai.
-        <br/><br/>
+      <h1>My Life Journey</h1>
+      <p>
+        Mera journey ek simple bacche se lekar ek digital creator banne tak ka safar hai.
+        Class 11 se maine apni creativity explore karni shuru ki – chahe wo Minecraft videos ho,
+        Squid Game series, ya AI-generated music shorts. Maine seekha ki content creation sirf
+        editing nahi hoti, ek emotion hota hai.
+      </p>
+      <p>
+        YouTube ke saath maine ek alag duniya jaani – jahan log apni kahaniyan, fun, struggle sab kuch share karte hain.
+        Maine bhi wahi kiya – bina dare, bina rukhe.
+      </p>
+      <p>
+        Nextup Studio mera dream project hai jahan mai har emotion ko capture karta hoon – thrill, fun, heartbreak, ya revenge.
+        Ab har short, har story, aur har sound ke peeche ek real connection hota hai.
+      </p>
+      <p>
         Ye sirf journey nahi, ye meri pehchaan hai.
       </p>
     </div>
