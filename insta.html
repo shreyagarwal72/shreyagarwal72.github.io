@@ -1,137 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Instagram - Nextup Studio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <style>
-    body {
-      margin: 0;
-      background-color: #121212;
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .sidebar {
-      width: 100%;
-      background-color: #1f1f1f;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .sidebar a {
-      color: white;
-      text-decoration: none;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    .sidebar i {
-      display: block;
-      font-size: 1.3rem;
-      margin-bottom: 5px;
-    }
-
-    .sidebar a:hover {
-      color: #e1306c;
-    }
-
-    .content {
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    .insta-id {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #e1306c;
-      margin-bottom: 10px;
-    }
-
-    .intro {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-
-    .visit-btn {
-      display: inline-block;
-      background-color: #e1306c;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1rem;
-      transition: background 0.3s ease;
-      margin-bottom: 40px;
-    }
-
-    .visit-btn:hover {
-      background-color: #c1205a;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 10px;
-      padding: 0 20px 40px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      transition: transform 0.3s ease;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-
-    @media (max-width: 600px) {
-      .insta-id {
-        font-size: 1.3rem;
-      }
-      .visit-btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <div class="sidebar">
-    <a href="index.html"><i class="fas fa-house"></i>Home</a>
-    <a href="yt.html"><i class="fas fa-play"></i>YouTube</a>
-    <a href="insta.html"><i class="fab fa-instagram"></i>Instagram</a>
-    <a href="journey.html"><i class="fas fa-road"></i>Journey</a>
-    <a href="settings.html"><i class="fas fa-gear"></i>Settings</a>
+  <div class="navbar">
+    <a href="index.html"><i class="icon">🏠</i>Home</a>
+    <a href="yt.html"><i class="icon">▶️</i>YouTube</a>
+    <a href="insta.html" class="active"><i class="icon">📷</i>Instagram</a>
+    <a href="journey.html"><i class="icon">🛣️</i>Journey</a>
+    <a href="settings.html"><i class="icon">⚙️</i>Settings</a>
   </div>
 
-  <div class="content">
-    <div class="insta-id">@vanshu_ag_72</div>
-    <div class="intro">Follow me on Instagram for exclusive content, behind-the-scenes and more!</div>
-    <a class="visit-btn" href="https://www.instagram.com/vanshu_ag_72" target="_blank">
-      Visit Profile
-    </a>
+  <div class="main-content">
+    <div class="content">
+      <div class="insta-id">@vanshu_ag_72</div>
+      <div class="intro">Follow me on Instagram for exclusive content, behind-the-scenes and more!</div>
+      <a class="visit-btn" href="https://www.instagram.com/vanshu_ag_72" target="_blank">
+        Visit Profile
+      </a>
+      <div style="margin-top: 40px; font-size: 1rem; color: #ccc; padding: 0 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        From music drops to creative edits, my Instagram is where stories begin before they reach YouTube.  
+        <br/><br/>
+        Expect raw moments, sneak peeks, and vibes that don't make it to the final cut — all in one feed.
+      </div>
+    </div>
   </div>
-
-  <div class="gallery">
-    <img src="https://i.postimg.cc/8z8J5zGr/ig1.jpg" alt="insta post">
-    <img src="https://i.postimg.cc/VNqKphZ7/ig2.jpg" alt="insta post">
-    <img src="https://i.postimg.cc/hPDfP5Sr/ig3.jpg" alt="insta post">
-    <img src="https://i.postimg.cc/q7L2YNHb/ig4.jpg" alt="insta post">
-    <img src="https://i.postimg.cc/Y2bntG34/ig5.jpg" alt="insta post">
-    <img src="https://i.postimg.cc/XYmQdhm0/ig6.jpg" alt="insta post">
-  </div>
-
 </body>
 </html>
