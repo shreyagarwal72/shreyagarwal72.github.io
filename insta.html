@@ -1,33 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Instagram | Nextup Studio</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Instagram - Nextup Studio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .sidebar {
+      width: 100%;
+      background-color: #1f1f1f;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .sidebar i {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+    }
+
+    .sidebar a:hover {
+      color: #e1306c;
+    }
+
+    .content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .content img {
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 9/16;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px #000;
+    }
+
+    .caption {
+      font-size: 1rem;
+      color: #ccc;
+    }
+  </style>
 </head>
 <body>
-  <div class="navbar">
-    <div class="nav-container">
-      <a href="index.html">🏠 Home</a>
-      <a href="youtube.html">▶️ YouTube</a>
-      <a href="instagram.html">📸 Instagram</a>
-      <a href="journey.html">🗺️ Journey</a>
-      <a href="settings.html">⚙️ Settings</a>
-    </div>
+
+  <div class="sidebar">
+    <a href="index.html"><i class="fas fa-house"></i>Home</a>
+    <a href="yt.html"><i class="fas fa-play"></i>YouTube</a>
+    <a href="insta.html"><i class="fab fa-instagram"></i>Instagram</a>
+    <a href="journey.html"><i class="fas fa-road"></i>Journey</a>
+    <a href="settings.html"><i class="fas fa-gear"></i>Settings</a>
   </div>
 
   <div class="content">
-    <h1>Instagram Highlights ✨</h1>
-    <p>Follow me on Instagram for exclusive stories, music & updates!</p>
-    <a href="https://www.instagram.com/vanshu_ag_72/" class="visit-btn" target="_blank">Visit Instagram</a>
+    <h2>Instagram Highlights</h2>
+    <img src="https://via.placeholder.com/360x640.png?text=Instagram+Highlight+1" alt="Highlight 1"/>
+    <div class="caption">Behind the scenes from our latest video shoot.</div>
 
-    <div class="insta-grid">
-      <img src="images/insta1.jpg" alt="Highlight 1" />
-      <img src="images/insta2.jpg" alt="Highlight 2" />
-      <img src="images/insta3.jpg" alt="Highlight 3" />
-      <img src="images/insta4.jpg" alt="Highlight 4" />
-    </div>
+    <img src="https://via.placeholder.com/360x640.png?text=Instagram+Highlight+2" alt="Highlight 2"/>
+    <div class="caption">AI-powered story preview 🎬✨</div>
+
+    <img src="https://via.placeholder.com/360x640.png?text=Instagram+Highlight+3" alt="Highlight 3"/>
+    <div class="caption">Minecraft + Squid Game combo edit 🔥</div>
   </div>
+
 </body>
 </html>
