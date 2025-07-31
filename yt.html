@@ -4,118 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>YouTube - Nextup Studio</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      background-color: #111;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-    .navbar {
-      background-color: #000;
-      padding: 10px 0;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      padding: 8px 15px;
-      font-size: 16px;
-    }
-
-    .navbar a:hover {
-      background-color: #222;
-      border-radius: 5px;
-    }
-
-    .content {
-      padding: 40px 20px;
-    }
-
-    .content h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      color: #ff0000;
-    }
-
-    .content p {
-      font-size: 1rem;
-      margin-bottom: 30px;
-      color: #ccc;
-    }
-
-    .btn {
-      background-color: #ff0000;
-      color: #fff;
-      padding: 12px 24px;
-      font-size: 16px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: 0.3s;
-      text-decoration: none;
-    }
-
-    .btn:hover {
-      background-color: #cc0000;
-    }
-
-    .video-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      max-width: 100%;
-    }
-
-    iframe {
-      width: 90%;
-      max-width: 500px;
-      aspect-ratio: 16/9;
-      border: none;
-      border-radius: 10px;
-    }
-
-    @media (min-width: 768px) {
-      .video-section {
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      iframe {
-        margin: 10px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="navbar">
-    <a href="index.html">Home</a>
-    <a href="youtube.html">YouTube</a>
-    <a href="instagram.html">Instagram</a>
-    <a href="journey.html">Journey</a>
-    <a href="settings.html">Settings</a>
-  </div>
-
-  <div class="content">
-    <h1>🎬 Nextup Studio on YouTube</h1>
-    <p>Watch trending shorts, AI music videos, Minecraft challenges, Squid Game edits, and much more!</p>
-    <a class="btn" href="https://www.youtube.com/@nextupstudioyt" target="_blank">Visit Channel</a>
-
-    <div class="video-section">
-      <!-- Add your best video embeds -->
-      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
+  <div class="container">
+    <div class="sidebar">
+      <h2>Nextup Studio</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="active"><a href="youtube.html">YouTube</a></li>
+        <li><a href="instagram.html">Instagram</a></li>
+        <li><a href="journey.html">My Journey</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </div>
+    <div class="content">
+      <h1>📺 My YouTube Channel</h1>
+      <p>Welcome to <strong>Nextup Studio</strong> on YouTube! Check out our latest shorts, AI videos, and more.</p>
+      <a href="https://www.youtube.com/@nextupstudioyt" target="_blank" class="button">Visit Channel</a>
     </div>
   </div>
 </body>
-  </html>
+</html>
