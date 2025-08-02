@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Journey | Nextup Studio</title>
+  <title>My Life Journey</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="favicon.png" />
 </head>
 <body>
-  <div class="layout">
-
-    <!-- Sidebar Navigation -->
+  <div class="container">
     <nav class="sidebar">
+      <h2>Nextup</h2>
       <ul>
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="yt.html">🎬 YouTube</a></li>
@@ -19,25 +19,30 @@
       </ul>
     </nav>
 
-    <!-- Main Content -->
-    <main class="content intro">
-      <h1>📖 My Life Journey</h1>
-      <p>Hello! I'm <strong>Vanshu Agarwal</strong> from Agra, currently a Class 11 student with a strong passion for YouTube and gaming.</p>
+    <main class="content">
+      <header>
+        <h1>My Life Journey</h1>
+        <p>Yeh meri kahani hai — kaise maine shuru kiya, kya sikha, aur aage kya banna hai.</p>
+      </header>
 
-      <ul style="list-style: disc; padding-left: 20px; margin-top: 20px;">
-        <li>📍 From: Agra, India</li>
-        <li>📚 Favorite Subject: Maths</li>
-        <li>🎮 Passion: YouTube & Gaming</li>
-        <li>🧠 Student Level: Between Average and Topper</li>
-        <li>⏳ 5 Years Ago: Desperate and Average Boy</li>
-      </ul>
+      <!-- Optional: Apni journey yahan likh sakte ho -->
+      <section>
+        <p>Shuruat hui school se, phir coding aur AI mein interest bada. YouTube journey start ki with shorts, stories, and rap videos. Ab Nextup Studio ka sapna poora kar raha hoon!</p>
+      </section>
 
-      <p style="margin-top: 20px;">
-        I'm building this platform to share my creative content and journey with you all. Thank you for visiting!
-      </p>
+      <!-- 🎵 Music Player -->
+      <section style="margin-top: 40px; text-align: center;">
+        <audio id="bgMusic" loop>
+          <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+        <button onclick="toggleMusic()" style="background-color: #1db954; color: white; padding: 12px 25px; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer;">
+          🔊 Play / Pause Music
+        </button>
+      </section>
     </main>
-
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
