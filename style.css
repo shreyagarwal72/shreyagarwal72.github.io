@@ -1,148 +1,113 @@
-/* === Global Reset === */
-body {
+/* Reset and Base */
+* {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: url('https://i.ibb.co/1fx1Fm0t/bg.jpg') no-repeat center center fixed;
-  background-size: cover;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #111;
   color: #fff;
   min-height: 100vh;
-  position: relative;
-}
-
-/* === Background Overlay === */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: -1;
-}
-
-/* === Top Navbar === */
-.navbar {
-  width: 100%;
-  background-color: rgba(26, 26, 26, 0.9);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-}
-
-.nav-logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #00bfff;
-}
-
-.nav-links a {
-  margin-left: 20px;
-  color: #ccc;
-  text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: #00bfff;
-}
-
-/* === Main Content Area === */
-.content {
-  padding: 100px 20px 40px; /* Top space for fixed navbar */
-  flex: 1;
-}
-
-.content h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
-  color: #fff;
-}
-
-.content p {
-  font-size: 18px;
-  line-height: 1.6;
-  color: #ddd;
-}
-
-/* === Buttons (YT, Insta, WhatsApp) === */
-.button-container {
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  max-width: 300px;
 }
 
-.button {
-  display: block;
-  text-align: center;
-  padding: 12px 20px;
-  background-color: #00bfff;
-  color: white;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-}
-
-/* === Loader Styles === */
+/* Loader */
 #loader {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #111;
-  color: #00bfff;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
   z-index: 9999;
   transition: opacity 0.5s ease;
 }
-
-#loader.fade-out {
+.loader-text {
+  color: #fff;
+  font-size: 1.5rem;
+  font-family: monospace;
+}
+.fade-out {
   opacity: 0;
   pointer-events: none;
 }
 
-/* === Responsive Design === */
-@media screen and (max-width: 768px) {
+/* Navbar */
+.navbar {
+  background: #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+.nav-logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+}
+.nav-links a {
+  color: #bbb;
+  margin-left: 1rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: #fff;
+}
+
+/* Main Content */
+.content {
+  flex: 1;
+  padding: 2rem;
+  text-align: center;
+}
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* Buttons */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+.button {
+  background-color: #e50914;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  text-decoration: none;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+.button:hover {
+  background-color: #ff1c1c;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
   .navbar {
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px 20px;
   }
-
   .nav-links {
-    margin-top: 10px;
+    margin-top: 0.5rem;
   }
-
-  .nav-links a {
-    display: block;
-    margin: 8px 0;
-  }
-
-  .content {
-    padding: 120px 20px 40px;
-  }
-
   .button-container {
-    max-width: 100%;
+    width: 100%;
+  }
+  .button {
+    width: 80%;
   }
 }
