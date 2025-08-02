@@ -3,63 +3,74 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Instagram - Nextup Studio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <title>Instagram Highlights | Nextup Studio – Creative Reels & Stories</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Catch behind-the-scenes moments and trending Instagram highlights from Nextup Studio. Created by Shrey from Agra." />
+  <meta name="keywords" content="Instagram Highlights, Nextup Studio, vanshu_ag_72, AI Reels, Content Creation, Shrey Agarwal" />
+  <meta name="author" content="Shrey Agarwal" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://shreyagarwal72.github.io/Nextup-Studio/insta.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Instagram Highlights | Nextup Studio" />
+  <meta property="og:description" content="Explore creative reels and content from @vanshu_ag_72 on Instagram, part of the Nextup Studio journey." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shreyagarwal72.github.io/Nextup-Studio/insta.html" />
+
+  <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      margin: 0;
-      background-color: #121212;
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .sidebar {
-      width: 100%;
-      background-color: #1f1f1f;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      flex-wrap: wrap;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .sidebar a {
-      color: white;
-      text-decoration: none;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    .sidebar i {
-      display: block;
-      font-size: 1.3rem;
-      margin-bottom: 5px;
-    }
-
-    .sidebar a:hover {
-      color: #e1306c;
-    }
-
     .content {
-      padding: 20px;
+      padding: 40px 20px;
       text-align: center;
     }
 
-    .content img {
+    .content h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .content p {
+      color: #aaa;
+      margin-bottom: 30px;
+    }
+
+    .insta-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .insta-post {
       width: 100%;
-      max-width: 400px;
+      max-width: 280px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform 0.3s;
+    }
+
+    .insta-post:hover {
+      transform: translateY(-5px);
+    }
+
+    .insta-post img {
+      width: 100%;
       aspect-ratio: 9/16;
       object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 10px #000;
     }
 
     .caption {
-      font-size: 1rem;
+      padding: 12px;
+      font-size: 0.95rem;
       color: #ccc;
+      text-align: left;
+    }
+
+    .caption strong {
+      color: #e1306c;
     }
   </style>
 </head>
@@ -68,21 +79,34 @@
   <div class="sidebar">
     <a href="index.html"><i class="fas fa-house"></i>Home</a>
     <a href="yt.html"><i class="fas fa-play"></i>YouTube</a>
-    <a href="insta.html"><i class="fab fa-instagram"></i>Instagram</a>
+    <a href="insta.html" class="active"><i class="fab fa-instagram"></i>Instagram</a>
     <a href="journey.html"><i class="fas fa-road"></i>Journey</a>
     <a href="settings.html"><i class="fas fa-gear"></i>Settings</a>
   </div>
 
   <div class="content">
     <h2>Instagram Highlights</h2>
-    <img src="https://via.placeholder.com/360x640.png?text=Instagram+Highlight+1" alt="Highlight 1"/>
-    <div class="caption">Behind the scenes from our latest video shoot.</div>
+    <p>Follow me on Instagram: <a href="https://instagram.com/vanshu_ag_72" target="_blank" style="color:#e1306c;">@vanshu_ag_72</a></p>
 
-    <img src="https://via.placeholder.com/360x640.png?text=Instagram+Highlight+2" alt="Highlight 2"/>
-    <div class="caption">AI-powered story preview 🎬✨</div>
+    <div class="insta-grid">
+      <!-- Post 1 -->
+      <div class="insta-post">
+        <img src="https://via.placeholder.com/360x640.png?text=Reel+1" alt="Insta Reel 1">
+        <div class="caption"><strong>🔥</strong> Trending Squid Game transition effect — only on Reels!</div>
+      </div>
 
-    <img src="https://via.placeholder.com/360x640.png?text=Instagram+Highlight+3" alt="Highlight 3"/>
-    <div class="caption">Minecraft + Squid Game combo edit 🔥</div>
+      <!-- Post 2 -->
+      <div class="insta-post">
+        <img src="https://via.placeholder.com/360x640.png?text=Reel+2" alt="Insta Reel 2">
+        <div class="caption"><strong>🎮</strong> POV: Minecraft world turns cinematic.</div>
+      </div>
+
+      <!-- Post 3 -->
+      <div class="insta-post">
+        <img src="https://via.placeholder.com/360x640.png?text=Reel+3" alt="Insta Reel 3">
+        <div class="caption"><strong>✨</strong> AI Story visuals – short, sharp & emotional edits.</div>
+      </div>
+    </div>
   </div>
 
 </body>
