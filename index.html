@@ -1,6 +1,73 @@
-<!-- Background Music -->
-<audio id="bg-music" loop preload="auto">
-  <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg" />
-  Your browser does not support the audio element.
-</audio>
-<button id="music-toggle" aria-label="Toggle Music">🔇</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nextup Studio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <h2>Nextup</h2>
+      <ul>
+        <li><a href="index.html" class="active">🏠 Home</a></li>
+        <li><a href="yt.html">🎬 YouTube</a></li>
+        <li><a href="journey.html">📖 Journey</a></li>
+        <li><a href="settings.html">⚙️ Settings</a></li>
+      </ul>
+    </nav>
+
+    <main class="content">
+      <header>
+        <h1>Nextup Studio</h1>
+        <p>Welcome to the official site of Nextup Studio. AI-generated stories, music videos, Minecraft content, Squid Game shorts aur bhi bohot kuch!</p>
+      </header>
+
+      <!-- Button-style Social Links -->
+      <section class="socials" style="text-align: center; margin-top: 30px;">
+        <a href="https://www.youtube.com/@nextupstudioyt" target="_blank" style="background-color: #ff0000; color: white; padding: 12px 25px; border-radius: 10px; text-decoration: none; margin: 10px; display: inline-block; font-weight: bold;">
+          📺 Subscribe on YouTube
+        </a>
+        <a href="https://instagram.com/vanshu_ag_72" target="_blank" style="background-color: #e1306c; color: white; padding: 12px 25px; border-radius: 10px; text-decoration: none; margin: 10px; display: inline-block; font-weight: bold;">
+          📷 Follow on Instagram
+        </a>
+      </section>
+
+      <!-- WhatsApp Contact Button -->
+      <section class="contact-whatsapp" style="text-align: center; margin-top: 40px;">
+        <a href="https://wa.me/919412104618" target="_blank" style="background-color: #25D366; color: white; padding: 12px 25px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 16px;">
+          📱 Contact on WhatsApp
+        </a>
+      </section>
+    </main>
+  </div>
+
+  <!-- Music Button (Bottom Right) -->
+  <div style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+    <button onclick="playMusic()" style="background-color: #1e1e1e; border: none; border-radius: 50%; padding: 10px; cursor: pointer; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+      <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play Music" width="20" height="20">
+    </button>
+  </div>
+
+  <!-- Audio -->
+  <audio id="bg-music" preload="auto">
+    <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Script -->
+  <script>
+    function playMusic() {
+      const audio = document.getElementById('bg-music');
+      if (audio) {
+        audio.volume = 0.25;
+        audio.play().catch((e) => {
+          console.log("Music play blocked or failed", e);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
