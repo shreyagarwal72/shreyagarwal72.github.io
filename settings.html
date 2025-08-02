@@ -3,39 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nextup Studio - Settings</title>
+  <title>Settings | Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="favicon.png" type="image/png" />
 </head>
 <body>
+  <div class="layout">
 
-  <!-- Page Loader -->
-  <div id="loader">
-    <div class="loader-text">Loading...</div>
-  </div>
-
-  <!-- Top Navigation Bar -->
-  <header class="navbar">
-    <div class="nav-logo">Nextup</div>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="yt.html">YouTube</a>
-      <a href="journey.html">Journey</a>
-      <a href="settings.html" class="active">Settings</a>
+    <!-- Navigation Sidebar -->
+    <nav class="sidebar">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="yt.html">🎬 YouTube</a></li>
+        <li><a href="insta.html">📸 Instagram</a></li>
+        <li><a href="journey.html">📖 Journey</a></li>
+        <li><a href="settings.html" class="active">⚙️ Settings</a></li>
+      </ul>
     </nav>
-  </header>
 
-  <!-- Main Content -->
-  <div class="content">
-    <h1>Website Settings</h1>
-    <p>Customize your Nextup Studio experience. More settings will be added soon!</p>
+    <!-- Main Content -->
+    <main class="content intro">
+      <h1>⚙️ Settings</h1>
+      <p>Customize your experience here. (Currently dark mode is enabled by default)</p>
 
-    <div class="button-container">
-      <a href="mailto:shreyagarwal7272@gmail.com" class="button">Contact Support</a>
-      <a href="index.html" class="button">Go Back to Home</a>
-    </div>
+      <div class="settings-grid">
+        <div class="setting-item">
+          <label>🔈 Sound Effects</label>
+          <select>
+            <option>Enabled</option>
+            <option>Disabled</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <label>🌐 Language</label>
+          <select>
+            <option>English</option>
+            <option>Hindi</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <label>🔒 Privacy</label>
+          <select>
+            <option>Public</option>
+            <option>Private</option>
+          </select>
+        </div>
+
+        <!-- Add more settings here -->
+      </div>
+    </main>
+    
   </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
