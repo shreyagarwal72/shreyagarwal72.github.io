@@ -5,7 +5,6 @@ body {
   background: url('https://i.ibb.co/1fx1Fm0t/bg.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #fff;
-  display: flex;
   min-height: 100vh;
   position: relative;
 }
@@ -18,53 +17,46 @@ body::before {
   left: 0;
   height: 100vh;
   width: 100vw;
-  background: rgba(0, 0, 0, 0.6); /* darkness level */
+  background: rgba(0, 0, 0, 0.6);
   z-index: -1;
 }
 
-/* === Sidebar === */
-.sidebar {
-  width: 220px;
+/* === Top Navbar === */
+.navbar {
+  width: 100%;
   background-color: rgba(26, 26, 26, 0.9);
-  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
   position: fixed;
   top: 0;
-  bottom: 0;
   left: 0;
+  z-index: 1000;
 }
 
-.sidebar h1 {
+.nav-logo {
   font-size: 24px;
+  font-weight: bold;
   color: #00bfff;
-  margin-bottom: 30px;
 }
 
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar ul li {
-  margin-bottom: 15px;
-}
-
-.sidebar ul li a {
+.nav-links a {
+  margin-left: 20px;
   color: #ccc;
   text-decoration: none;
   font-size: 18px;
-  transition: color 0.2s ease;
+  transition: color 0.3s;
 }
 
-.sidebar ul li a:hover,
-.sidebar ul li a.active {
+.nav-links a:hover,
+.nav-links a.active {
   color: #00bfff;
 }
 
-/* === Main Content === */
+/* === Main Content Area === */
 .content {
-  margin-left: 240px;
-  padding: 40px 20px;
+  padding: 100px 20px 40px; /* Top space for fixed navbar */
   flex: 1;
 }
 
@@ -80,7 +72,7 @@ body::before {
   color: #ddd;
 }
 
-/* === Button Box (YT, Insta, WhatsApp) === */
+/* === Buttons (YT, Insta, WhatsApp) === */
 .button-container {
   margin-top: 30px;
   display: flex;
@@ -107,16 +99,47 @@ body::before {
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
-/* === Responsive Layout === */
+/* === Loader Styles === */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #111;
+  color: #00bfff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+#loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* === Responsive Design === */
 @media screen and (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    position: relative;
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  .nav-links {
+    margin-top: 10px;
+  }
+
+  .nav-links a {
+    display: block;
+    margin: 8px 0;
   }
 
   .content {
-    margin-left: 0;
-    padding: 20px;
+    padding: 120px 20px 40px;
   }
 
   .button-container {
