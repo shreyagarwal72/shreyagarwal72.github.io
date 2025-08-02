@@ -1,35 +1,35 @@
-/* General Reset */
-body {
+/* Reset */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #121212;
   color: white;
 }
 
-/* Layout Wrapper */
-.layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-/* Sidebar Navigation */
+/* Sidebar */
 .sidebar {
   width: 220px;
   background-color: #1f1f1f;
-  padding-top: 30px;
-  padding-left: 15px;
+  padding-top: 40px;
+  padding-left: 20px;
   position: sticky;
   top: 0;
   height: 100vh;
 }
 
 .sidebar ul {
-  list-style-type: none;
-  padding: 0;
+  list-style: none;
 }
 
 .sidebar li {
-  margin: 20px 0;
+  margin: 25px 0;
 }
 
 .sidebar a {
@@ -37,7 +37,7 @@ body {
   color: white;
   font-size: 1rem;
   display: block;
-  transition: color 0.3s;
+  transition: 0.3s ease;
 }
 
 .sidebar a:hover,
@@ -46,14 +46,10 @@ body {
   font-weight: bold;
 }
 
-/* Main Content */
+/* Content */
 .content {
   flex: 1;
   padding: 30px;
-}
-
-.intro {
-  text-align: center;
 }
 
 h1 {
@@ -64,9 +60,10 @@ h1 {
 p {
   font-size: 1rem;
   color: #ccc;
+  line-height: 1.5;
 }
 
-/* Settings Grid */
+/* Optional grid or box styling for settings page */
 .settings-grid {
   margin-top: 30px;
   display: grid;
@@ -84,6 +81,7 @@ p {
   display: block;
   margin-bottom: 10px;
   font-weight: bold;
+  color: #eee;
 }
 
 .setting-item select {
