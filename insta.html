@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Instagram Highlights | Nextup Studio – Creative Reels & Stories</title>
+  <title>Instagram Highlights | Nextup Studio</title>
 
   <!-- SEO Meta Tags -->
   <meta name="description" content="Catch behind-the-scenes moments and trending Instagram highlights from Nextup Studio. Created by Shrey from Agra." />
@@ -20,94 +20,95 @@
 
   <link rel="stylesheet" href="style.css" />
   <style>
-    .content {
-      padding: 40px 20px;
-      text-align: center;
+    .insta-section {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
     }
 
-    .content h2 {
-      font-size: 24px;
+    .insta-section h2 {
+      font-size: 26px;
       margin-bottom: 10px;
     }
 
-    .content p {
-      color: #aaa;
-      margin-bottom: 30px;
+    .insta-section a {
+      color: #e1306c;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     .insta-grid {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 20px;
+      justify-content: center;
     }
 
-    .insta-post {
+    .insta-item {
       width: 100%;
-      max-width: 280px;
+      max-width: 260px;
       background-color: #1e1e1e;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      transition: transform 0.3s;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
-    .insta-post:hover {
-      transform: translateY(-5px);
-    }
-
-    .insta-post img {
+    .insta-item img {
       width: 100%;
-      aspect-ratio: 9/16;
+      aspect-ratio: 9 / 16;
       object-fit: cover;
+      border-bottom: 1px solid #333;
     }
 
-    .caption {
-      padding: 12px;
-      font-size: 0.95rem;
+    .insta-item .caption {
+      padding: 10px;
       color: #ccc;
-      text-align: left;
+      font-size: 0.9rem;
     }
 
-    .caption strong {
-      color: #e1306c;
+    @media screen and (max-width: 768px) {
+      .insta-grid {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="yt.html">🎬 YouTube</a></li>
+        <li><a href="insta.html" class="active">📸 Instagram</a></li>
+        <li><a href="journey.html">📖 Journey</a></li>
+        <li><a href="settings.html">⚙️ Settings</a></li>
+      </ul>
+    </nav>
 
-  <div class="sidebar">
-    <a href="index.html"><i class="fas fa-house"></i>Home</a>
-    <a href="yt.html"><i class="fas fa-play"></i>YouTube</a>
-    <a href="insta.html" class="active"><i class="fab fa-instagram"></i>Instagram</a>
-    <a href="journey.html"><i class="fas fa-road"></i>Journey</a>
-    <a href="settings.html"><i class="fas fa-gear"></i>Settings</a>
+    <!-- Main Content -->
+    <main class="content">
+      <section class="insta-section">
+        <h2>Instagram Highlights</h2>
+        <p>Follow me on <a href="https://instagram.com/vanshu_ag_72" target="_blank">@vanshu_ag_72</a> for latest reels and updates.</p>
+
+        <div class="insta-grid">
+          <div class="insta-item">
+            <img src="https://via.placeholder.com/360x640.png?text=Reel+1" alt="Reel 1">
+            <div class="caption">🔥 Behind-the-scenes of our Squid Game short</div>
+          </div>
+          <div class="insta-item">
+            <img src="https://via.placeholder.com/360x640.png?text=Reel+2" alt="Reel 2">
+            <div class="caption">🎮 POV: Minecraft turns cinematic</div>
+          </div>
+          <div class="insta-item">
+            <img src="https://via.placeholder.com/360x640.png?text=Reel+3" alt="Reel 3">
+            <div class="caption">🎬 AI-generated story preview</div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
-
-  <div class="content">
-    <h2>Instagram Highlights</h2>
-    <p>Follow me on Instagram: <a href="https://instagram.com/vanshu_ag_72" target="_blank" style="color:#e1306c;">@vanshu_ag_72</a></p>
-
-    <div class="insta-grid">
-      <!-- Post 1 -->
-      <div class="insta-post">
-        <img src="https://via.placeholder.com/360x640.png?text=Reel+1" alt="Insta Reel 1">
-        <div class="caption"><strong>🔥</strong> Trending Squid Game transition effect — only on Reels!</div>
-      </div>
-
-      <!-- Post 2 -->
-      <div class="insta-post">
-        <img src="https://via.placeholder.com/360x640.png?text=Reel+2" alt="Insta Reel 2">
-        <div class="caption"><strong>🎮</strong> POV: Minecraft world turns cinematic.</div>
-      </div>
-
-      <!-- Post 3 -->
-      <div class="insta-post">
-        <img src="https://via.placeholder.com/360x640.png?text=Reel+3" alt="Insta Reel 3">
-        <div class="caption"><strong>✨</strong> AI Story visuals – short, sharp & emotional edits.</div>
-      </div>
-    </div>
-  </div>
-
 </body>
 </html>
