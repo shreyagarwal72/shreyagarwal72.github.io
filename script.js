@@ -1,14 +1,25 @@
-// Script for navigation link highlighting
-document.addEventListener("DOMContentLoaded", () => {
-  const currentPage = window.location.pathname.split("/").pop();
-  const navLinks = document.querySelectorAll(".navbar a");
+const music = document.getElementById("bg-music");
+const toggle = document.getElementById("music-toggle");
 
-  navLinks.forEach(link => {
-    const linkPage = link.getAttribute("href");
-    if (linkPage === currentPage) {
-      link.classList.add("active");
-    } else {
-      link.classList.remove("active");
-    }
-  });
+let isPlaying = false;
+
+// Auto-pause if page not in focus (optional)
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden && isPlaying) {
+    music.pause();
+    toggle.textContent = "🔇";
+    isPlaying = false;
+  }
+});
+
+// Toggle music on button click
+toggle.addEventListener("click", () => {
+  if (isPlaying) {
+    music.pause();
+    toggle.textContent = "🔇";
+  } else {
+    music.play();
+    toggle.textContent = "🎵";
+  }
+  isPlaying = !isPlaying;
 });
