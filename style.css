@@ -1,169 +1,160 @@
-/* Reset & Base Styles */
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
-
-body {
+/* Reset & Base */
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', sans-serif;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #121212;
-  color: #f0f0f0;
-  display: flex;
-  zoom: 1;
-  -webkit-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
+  color: white;
+  line-height: 1.6;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+a {
+  color: #1e90ff;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 /* Layout */
 .layout, .container {
   display: flex;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
 }
 
 /* Sidebar */
 .sidebar {
-  width: 220px;
-  background-color: #1e1e1e;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  width: 180px;
+  background-color: #111;
+  padding: 20px 0;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
 }
-
 .sidebar h2 {
-  color: #fff;
-  margin-bottom: 30px;
+  color: white;
   text-align: center;
+  margin-bottom: 20px;
 }
-
 .sidebar ul {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
 }
-
-.sidebar ul li {
-  margin: 20px 0;
-}
-
 .sidebar ul li a {
-  text-decoration: none;
-  color: #ccc;
-  font-size: 18px;
-  transition: 0.3s;
+  display: block;
+  padding: 12px 20px;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
-
 .sidebar ul li a.active,
 .sidebar ul li a:hover {
-  color: #ffffff;
-  font-weight: bold;
+  background-color: #444;
+  border-left: 4px solid white;
 }
 
-/* Content */
+/* Main Content */
 .content {
+  margin-left: 180px;
+  padding: 30px 20px;
   flex: 1;
-  padding: 40px;
-  overflow-y: auto;
 }
 
-.content h1 {
-  margin-bottom: 20px;
-  font-size: 28px;
+/* Home Page Specific */
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
-
-/* Social Links */
-.socials p a {
-  color: #4ea8ff;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.socials p a:hover {
-  text-decoration: underline;
+header p {
+  font-size: 1rem;
+  color: #ccc;
 }
 
 /* WhatsApp Button */
 .contact-whatsapp a {
+  display: inline-block;
   background-color: #25D366;
   color: white;
   padding: 12px 25px;
   border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 30px;
+}
+
+/* Subscribe Button */
+.subscribe-btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #FF0000;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 25px;
   text-decoration: none;
   font-weight: bold;
   font-size: 16px;
-  display: inline-block;
-  margin-top: 10px;
+}
+.subscribe-btn img {
+  height: 20px;
+  margin-right: 10px;
 }
 
-/* Music Toggle Button */
+/* Video Grid */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+.video-item iframe {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* Music Button */
 #music-toggle {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #333;
+  background-color: #444;
   color: white;
+  border: none;
   font-size: 18px;
-  border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(255,255,255,0.2);
-  transition: background 0.3s;
-  z-index: 1000;
-}
-
-#music-toggle:hover {
-  background: #555;
-}
-
-/* Instagram Embed Styling */
-.embed-container {
+  z-index: 999;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
-iframe {
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0 0 10px rgba(255,255,255,0.1);
-}
-
-/* Responsive Design */
+/* Responsive Fixes */
 @media screen and (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+  }
+  .content {
+    margin-left: 0;
+    padding: 20px;
+  }
   .layout, .container {
     flex-direction: column;
   }
-
-  .sidebar {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-  }
-
-  .sidebar ul {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .content {
-    padding: 20px;
-  }
-
-  iframe {
-    width: 100%;
-    height: auto;
-  }
-
   #music-toggle {
     bottom: 15px;
     right: 15px;
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
+    width: 40px;
+    height: 40px;
   }
-  }
+}
