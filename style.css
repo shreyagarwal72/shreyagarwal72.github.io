@@ -2,16 +2,30 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #111;
+  background: url('https://i.ibb.co/1fx1Fm0t/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: #fff;
   display: flex;
   min-height: 100vh;
+  position: relative;
+}
+
+/* === Background Overlay === */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.6); /* darkness level */
+  z-index: -1;
 }
 
 /* === Sidebar === */
 .sidebar {
   width: 220px;
-  background-color: #1a1a1a;
+  background-color: rgba(26, 26, 26, 0.9);
   padding: 20px;
   position: fixed;
   top: 0;
@@ -66,7 +80,7 @@ body {
   color: #ddd;
 }
 
-/* === Buttons (YT, Insta, WhatsApp) === */
+/* === Button Box (YT, Insta, WhatsApp) === */
 .button-container {
   margin-top: 30px;
   display: flex;
@@ -93,7 +107,7 @@ body {
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
-/* === Responsive Design === */
+/* === Responsive Layout === */
 @media screen and (max-width: 768px) {
   .sidebar {
     width: 100%;
