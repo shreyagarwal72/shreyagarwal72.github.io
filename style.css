@@ -1,31 +1,27 @@
-/* Reset & base styling */
+/* === Global Styles === */
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #0d0d0d;
-  color: #ffffff;
-}
-
-/* Container */
-.container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #111;
+  color: #fff;
   display: flex;
-  flex-direction: row;
   min-height: 100vh;
 }
 
-/* Sidebar Navigation */
+/* === Sidebar Styles === */
 .sidebar {
-  width: 240px;
-  background-color: #111;
+  width: 220px;
+  background-color: #1a1a1a;
   padding: 20px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
   position: fixed;
-  height: 100vh;
-  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
 }
 
-.sidebar h2 {
+.sidebar h1 {
   font-size: 24px;
+  color: #00bfff;
   margin-bottom: 30px;
 }
 
@@ -34,70 +30,72 @@ body {
   padding: 0;
 }
 
-.sidebar li {
-  margin: 20px 0;
+.sidebar ul li {
+  margin-bottom: 15px;
 }
 
-.sidebar a {
-  text-decoration: none;
+.sidebar ul li a {
   color: #ccc;
+  text-decoration: none;
   font-size: 18px;
+  transition: color 0.2s ease;
 }
 
-.sidebar a.active,
-.sidebar a:hover {
-  color: #00ffcc;
-  font-weight: bold;
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  color: #00bfff;
 }
 
-/* Content */
+/* === Content Area === */
 .content {
   margin-left: 240px;
-  padding: 40px 60px;
-  flex-grow: 1;
+  padding: 40px 20px;
+  flex: 1;
 }
 
-header h1 {
-  font-size: 42px;
-  margin-bottom: 20px;
+.content h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #fff;
 }
 
-header p {
+.content p {
   font-size: 18px;
-  color: #aaa;
-  max-width: 800px;
+  line-height: 1.6;
+  color: #ddd;
 }
 
-.socials p {
-  font-size: 16px;
-  margin: 10px 0;
+/* === Button Links (YT, WhatsApp, Insta) === */
+.button-container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 300px;
 }
 
-.socials a {
-  color: #00ffcc;
+.button {
+  text-align: center;
+  padding: 12px 20px;
+  background-color: #00bfff;
+  color: white;
+  font-weight: bold;
   text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* WhatsApp Contact Button */
-.contact-whatsapp a {
-  transition: 0.3s ease;
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
-.contact-whatsapp a:hover {
-  background-color: #128C7E;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-
+/* === Responsive Layout === */
+@media screen and (max-width: 768px) {
   .sidebar {
-    position: static;
     width: 100%;
-    height: auto;
-    box-shadow: none;
+    position: relative;
   }
 
   .content {
@@ -105,24 +103,7 @@ header p {
     padding: 20px;
   }
 
-  header h1 {
-    font-size: 28px;
-  }
-
-  header p {
-    font-size: 16px;
-  }
-
-  .sidebar h2 {
-    text-align: center;
-  }
-
-  .sidebar ul {
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .sidebar li {
-    margin: 10px 0;
+  .button-container {
+    max-width: 100%;
   }
 }
