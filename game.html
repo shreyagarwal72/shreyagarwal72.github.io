@@ -5,32 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Games | Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .tab-buttons {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    .tab-buttons button {
-      padding: 10px 20px;
-      background: #333;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .tab-buttons button.active {
-      background: #0f0f0f;
-      outline: 2px solid limegreen;
-    }
-    .game-tab {
-      display: none;
-    }
-    .game-tab.active {
-      display: block;
-    }
-  </style>
 </head>
 <body>
   <div class="layout">
@@ -45,74 +19,95 @@
 
     <!-- Main Content -->
     <div class="main-content">
-      <h1>🎮 Welcome to Game Zone</h1>
-
-      <!-- Tab Buttons -->
-      <div class="tab-buttons">
-        <button onclick="openTab('quiz')" class="active">🧠 Quiz</button>
-        <button onclick="openTab('snake')">🐍 Snake</button>
-        <button onclick="openTab('memory')">🧠 Memory</button>
-        <button onclick="openTab('minecraft')">🧱 Minecraft Trivia</button>
+      <h1>🧠 Quiz Game</h1>
+      <div id="quiz-container">
+        <div id="question">Loading question...</div>
+        <div id="options"></div>
+        <button onclick="nextQuestion()">Next</button>
+        <div id="score" style="margin-top: 20px;"></div>
       </div>
-
-      <!-- Quiz Game -->
-      <div id="quiz" class="game-tab active">
-        <h2>🧠 Quiz Game</h2>
-        <form id="quizForm">
-          <p>Q1. Minecraft me diamond kaha milta hai?</p>
-          <input type="radio" name="q1" value="a"> Nether <br>
-          <input type="radio" name="q1" value="b"> Caves <br>
-          <input type="radio" name="q1" value="c"> Trees <br>
-
-          <p>Q2. Creeper kaun explode karta hai?</p>
-          <input type="radio" name="q2" value="a"> Zombie <br>
-          <input type="radio" name="q2" value="b"> Skeleton <br>
-          <input type="radio" name="q2" value="c"> Creeper <br>
-
-          <br>
-          <button type="button" onclick="checkAnswers()">Submit</button>
-        </form>
-        <p id="result"></p>
-      </div>
-
-      <!-- Snake Game -->
-      <div id="snake" class="game-tab">
-        <h2>🐍 Snake Game</h2>
-        <iframe src="https://playsnake.org/" width="100%" height="400" style="border: none;"></iframe>
-      </div>
-
-      <!-- Memory Game -->
-      <div id="memory" class="game-tab">
-        <h2>🧠 Memory Match</h2>
-        <iframe src="https://html5games.com/Game/Memory/610c0a6b12a3f403be0000f8" width="100%" height="400" style="border: none;"></iframe>
-      </div>
-
-      <!-- Minecraft Trivia -->
-      <div id="minecraft" class="game-tab">
-        <h2>🧱 Minecraft Trivia</h2>
-        <iframe src="https://www.quiz-maker.com/Q65UAYR7M" width="100%" height="400" style="border: none;"></iframe>
-      </div>
-
     </div>
   </div>
 
   <script>
-    function openTab(tabId) {
-      document.querySelectorAll('.game-tab').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.tab-buttons button').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
+    const quizData = [
+      {
+        question: "What is the capital of India?",
+        options: ["Mumbai", "Delhi", "Kolkata", "Chennai"],
+        answer: "Delhi"
+      },
+      {
+        question: "Which mob explodes in Minecraft?",
+        options: ["Zombie", "Enderman", "Creeper", "Skeleton"],
+        answer: "Creeper"
+      },
+      {
+        question: "Who is the CEO of Tesla?",
+        options: ["Mark Zuckerberg", "Elon Musk", "Jeff Bezos", "Bill Gates"],
+        answer: "Elon Musk"
+      },
+      {
+        question: "What is 5 × 6?",
+        options: ["11", "30", "56", "25"],
+        answer: "30"
+      },
+      {
+        question: "Which color is made by mixing red and blue?",
+        options: ["Pink", "Purple", "Green", "Orange"],
+        answer: "Purple"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      document.getElementById("question").textContent = `Q${currentQuestion + 1}: ${q.question}`;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.className = "quiz-btn";
+        btn.onclick = () => {
+          if (option === q.answer) {
+            score++;
+          }
+          document.querySelectorAll(".quiz-btn").forEach(b => b.disabled = true);
+        };
+        optionsDiv.appendChild(btn);
+      });
     }
 
-    function checkAnswers() {
-      const q1 = document.querySelector('input[name="q1"]:checked');
-      const q2 = document.querySelector('input[name="q2"]:checked');
-      let score = 0;
-      if (q1 && q1.value === "b") score++;
-      if (q2 && q2.value === "c") score++;
-
-      document.getElementById("result").innerText = `Your Score: ${score}/2`;
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("quiz-container").innerHTML = `<h2>Game Over! 🎉</h2><p>Your score: ${score} / ${quizData.length}</p><button onclick="location.reload()">Play Again</button>`;
+      }
     }
+
+    loadQuestion();
   </script>
+
+  <style>
+    .quiz-btn {
+      display: block;
+      margin: 10px 0;
+      padding: 10px 15px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .quiz-btn:hover {
+      background-color: #555;
+    }
+  </style>
 </body>
 </html>
