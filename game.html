@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quiz Game - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="game.js"></script>
 </head>
 <body>
   <div class="layout">
@@ -13,32 +12,83 @@
       <h2>Nextup Studio</h2>
       <a href="index.html">Home</a>
       <a href="yt.html">YouTube</a>
-      <a href="insta.html">Instagram</a>
-      <a href="journey.html">Journey</a>
-      <a href="game.html" class="active">Game</a>
+      <a href="instagram.html">Instagram</a>
+      <a href="journey.html">My Journey</a>
       <a href="settings.html">Settings</a>
+      <a href="game.html" class="active">Game</a>
     </div>
-    <div class="content">
+
+    <div class="main-content" style="padding: 20px;">
       <h1>🎮 Quiz Game</h1>
-      <div id="game-container">
-        <div id="topic-select">
-          <h3>Select Topic</h3>
-          <button onclick="startGame('minecraft')">Minecraft</button>
-          <button onclick="startGame('gk')">GK</button>
-        </div>
+      <label for="quizType">Choose Quiz Type:</label>
+      <select id="quizType">
+        <option value="gk">General Knowledge</option>
+        <option value="minecraft">Minecraft</option>
+      </select>
+      <button onclick="startQuiz()">Start Quiz</button>
 
-        <div id="quiz" style="display:none;">
-          <h3 id="question"></h3>
-          <div id="options"></div>
-          <button id="next-btn" onclick="nextQuestion()">Next</button>
-        </div>
-
-        <div id="result" style="display:none;">
-          <h3>Your Score: <span id="score"></span>/5</h3>
-          <button onclick="restartGame()">Retry</button>
-        </div>
-      </div>
+      <div id="quizContainer" style="margin-top: 20px;"></div>
+      <div id="scoreContainer" style="margin-top: 20px;"></div>
     </div>
   </div>
+
+  <script>
+    const questions = {
+      gk: [
+        { q: "Capital of India?", o: ["Delhi", "Mumbai", "Kolkata", "Chennai"], a: 0 },
+        { q: "Which planet is known as the Red Planet?", o: ["Earth", "Mars", "Jupiter", "Saturn"], a: 1 },
+        { q: "Largest ocean?", o: ["Atlantic", "Indian", "Pacific", "Arctic"], a: 2 },
+        { q: "Who wrote Ramayan?", o: ["Valmiki", "Tulsidas", "Kalidas", "Ved Vyas"], a: 0 },
+        { q: "Which is a mammal?", o: ["Shark", "Dolphin", "Octopus", "Penguin"], a: 1 }
+      ],
+      minecraft: [
+        { q: "What do you need to make a Nether portal?", o: ["Obsidian", "Stone", "Wood", "Iron"], a: 0 },
+        { q: "What mob explodes?", o: ["Zombie", "Creeper", "Skeleton", "Spider"], a: 1 },
+        { q: "Which tool mines diamonds?", o: ["Wooden", "Gold", "Stone", "Iron"], a: 3 },
+        { q: "What item restores health?", o: ["Sword", "Apple", "Pickaxe", "Stick"], a: 1 },
+        { q: "Who is the End boss?", o: ["Wither", "Enderman", "Ender Dragon", "Piglin"], a: 2 }
+      ]
+    };
+
+    let currentQuiz = [];
+    let currentIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      const type = document.getElementById("quizType").value;
+      currentQuiz = questions[type];
+      currentIndex = 0;
+      score = 0;
+      document.getElementById("scoreContainer").innerHTML = "";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = currentQuiz[currentIndex];
+      let html = `<h2>Q${currentIndex + 1}. ${q.q}</h2>`;
+      q.o.forEach((option, i) => {
+        html += `<button onclick="checkAnswer(${i})">${option}</button><br>`;
+      });
+      document.getElementById("quizContainer").innerHTML = html;
+    }
+
+    function checkAnswer(selected) {
+      if (selected === currentQuiz[currentIndex].a) score++;
+      currentIndex++;
+      if (currentIndex < currentQuiz.length) {
+        showQuestion();
+      } else {
+        showScore();
+      }
+    }
+
+    function showScore() {
+      document.getElementById("quizContainer").innerHTML = "";
+      document.getElementById("scoreContainer").innerHTML = `
+        <h2>🎉 Your Score: ${score} / ${currentQuiz.length}</h2>
+        <button onclick="startQuiz()">Retry</button>
+      `;
+    }
+  </script>
 </body>
 </html>
