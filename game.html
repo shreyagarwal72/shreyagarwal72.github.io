@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Game - Nextup Studio</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <div class="layout">
+    <div class="sidebar">
+      <h2>Nextup Studio</h2>
+      <a href="index.html">Home</a>
+      <a href="yt.html">YouTube</a>
+      <a href="insta.html">Instagram</a>
+      <a href="journey.html">Journey</a>
+      <a href="game.html" class="active">Game</a>
+      <a href="settings.html">Settings</a>
+    </div>
+    <div class="content">
+      <h1>🎮 Quiz Game</h1>
+      <div id="game-container">
+        <div id="topic-select">
+          <h3>Select Topic</h3>
+          <button onclick="startGame('minecraft')">Minecraft</button>
+          <button onclick="startGame('gk')">GK</button>
+        </div>
+
+        <div id="quiz" style="display:none;">
+          <h3 id="question"></h3>
+          <div id="options"></div>
+          <button id="next-btn" onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div id="result" style="display:none;">
+          <h3>Your Score: <span id="score"></span>/5</h3>
+          <button onclick="restartGame()">Retry</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
