@@ -3,52 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz Game - Nextup Studio</title>
+  <title>Games | Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .quiz-container {
-      max-width: 600px;
-      margin: auto;
-      background: #1e1e1e;
-      padding: 20px;
-      border-radius: 10px;
-    }
-
-    .question {
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
       margin-bottom: 20px;
+      flex-wrap: wrap;
     }
-
-    .options button {
-      display: block;
-      margin: 10px 0;
-      padding: 10px;
-      background-color: #00bcd4;
-      color: #121212;
+    .tab-buttons button {
+      padding: 10px 20px;
+      background: #333;
+      color: #fff;
       border: none;
-      border-radius: 5px;
-      font-weight: bold;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.2s;
-      width: 100%;
     }
-
-    .options button:hover {
-      background-color: #0097a7;
-      color: white;
+    .tab-buttons button.active {
+      background: #0f0f0f;
+      outline: 2px solid limegreen;
     }
-
-    #score {
-      font-size: 20px;
-      margin-top: 20px;
+    .game-tab {
+      display: none;
     }
-
-    #retry {
-      margin-top: 20px;
+    .game-tab.active {
+      display: block;
     }
   </style>
 </head>
 <body>
   <div class="layout">
+    <!-- Sidebar -->
     <div class="sidebar">
       <h2>Nextup Studio</h2>
       <a href="index.html">Home</a>
@@ -57,91 +43,76 @@
       <a href="game.html" class="active">Game</a>
     </div>
 
+    <!-- Main Content -->
     <div class="main-content">
-      <h1>Quiz Game</h1>
-      <div class="quiz-container" id="quiz">
-        <div id="question" class="question">Loading...</div>
-        <div class="options" id="options"></div>
-        <div id="score"></div>
-        <button id="retry" style="display: none;" onclick="startQuiz()">Retry</button>
+      <h1>🎮 Welcome to Game Zone</h1>
+
+      <!-- Tab Buttons -->
+      <div class="tab-buttons">
+        <button onclick="openTab('quiz')" class="active">🧠 Quiz</button>
+        <button onclick="openTab('snake')">🐍 Snake</button>
+        <button onclick="openTab('memory')">🧠 Memory</button>
+        <button onclick="openTab('minecraft')">🧱 Minecraft Trivia</button>
       </div>
+
+      <!-- Quiz Game -->
+      <div id="quiz" class="game-tab active">
+        <h2>🧠 Quiz Game</h2>
+        <form id="quizForm">
+          <p>Q1. Minecraft me diamond kaha milta hai?</p>
+          <input type="radio" name="q1" value="a"> Nether <br>
+          <input type="radio" name="q1" value="b"> Caves <br>
+          <input type="radio" name="q1" value="c"> Trees <br>
+
+          <p>Q2. Creeper kaun explode karta hai?</p>
+          <input type="radio" name="q2" value="a"> Zombie <br>
+          <input type="radio" name="q2" value="b"> Skeleton <br>
+          <input type="radio" name="q2" value="c"> Creeper <br>
+
+          <br>
+          <button type="button" onclick="checkAnswers()">Submit</button>
+        </form>
+        <p id="result"></p>
+      </div>
+
+      <!-- Snake Game -->
+      <div id="snake" class="game-tab">
+        <h2>🐍 Snake Game</h2>
+        <iframe src="https://playsnake.org/" width="100%" height="400" style="border: none;"></iframe>
+      </div>
+
+      <!-- Memory Game -->
+      <div id="memory" class="game-tab">
+        <h2>🧠 Memory Match</h2>
+        <iframe src="https://html5games.com/Game/Memory/610c0a6b12a3f403be0000f8" width="100%" height="400" style="border: none;"></iframe>
+      </div>
+
+      <!-- Minecraft Trivia -->
+      <div id="minecraft" class="game-tab">
+        <h2>🧱 Minecraft Trivia</h2>
+        <iframe src="https://www.quiz-maker.com/Q65UAYR7M" width="100%" height="400" style="border: none;"></iframe>
+      </div>
+
     </div>
   </div>
 
   <script>
-    const quizData = [
-      {
-        question: "Which game is played in the Nether dimension?",
-        options: ["Free Fire", "Minecraft", "Valorant", "Clash of Clans"],
-        answer: "Minecraft"
-      },
-      {
-        question: "What does AI stand for?",
-        options: ["Artificial Intelligence", "Auto Input", "Android Interface", "Auto Intelligence"],
-        answer: "Artificial Intelligence"
-      },
-      {
-        question: "Which YouTuber is known for MrBeast-style giveaways?",
-        options: ["Dream", "CarryMinati", "MrBeast", "Techno Gamerz"],
-        answer: "MrBeast"
-      },
-      {
-        question: "What color is the Squid Game guard's circle mask?",
-        options: ["Red", "Black", "White", "Green"],
-        answer: "Red"
-      },
-      {
-        question: "Which block do creepers avoid in Minecraft?",
-        options: ["Stone", "Obsidian", "Cat", "Torch"],
-        answer: "Cat"
-      }
-    ];
-
-    let currentQuestion = 0;
-    let score = 0;
-
-    function startQuiz() {
-      currentQuestion = 0;
-      score = 0;
-      document.getElementById("score").innerHTML = "";
-      document.getElementById("retry").style.display = "none";
-      loadQuestion();
+    function openTab(tabId) {
+      document.querySelectorAll('.game-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-buttons button').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
     }
 
-    function loadQuestion() {
-      const q = quizData[currentQuestion];
-      document.getElementById("question").textContent = q.question;
-      const optionsDiv = document.getElementById("options");
-      optionsDiv.innerHTML = "";
+    function checkAnswers() {
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      let score = 0;
+      if (q1 && q1.value === "b") score++;
+      if (q2 && q2.value === "c") score++;
 
-      q.options.forEach(option => {
-        const btn = document.createElement("button");
-        btn.textContent = option;
-        btn.onclick = () => checkAnswer(option);
-        optionsDiv.appendChild(btn);
-      });
+      document.getElementById("result").innerText = `Your Score: ${score}/2`;
     }
-
-    function checkAnswer(selected) {
-      if (selected === quizData[currentQuestion].answer) {
-        score++;
-      }
-      currentQuestion++;
-      if (currentQuestion < quizData.length) {
-        loadQuestion();
-      } else {
-        showScore();
-      }
-    }
-
-    function showScore() {
-      document.getElementById("question").textContent = "Quiz Completed!";
-      document.getElementById("options").innerHTML = "";
-      document.getElementById("score").innerHTML = `Your Score: <strong>${score}/${quizData.length}</strong>`;
-      document.getElementById("retry").style.display = "inline-block";
-    }
-
-    window.onload = startQuiz;
   </script>
 </body>
 </html>
