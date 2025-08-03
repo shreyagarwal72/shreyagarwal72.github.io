@@ -5,6 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quiz Game - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .options button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #00bcd4;
+      color: #121212;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+    }
+
+    .options button:hover {
+      background-color: #0097a7;
+      color: white;
+    }
+
+    #score {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+
+    #retry {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
   <div class="layout">
@@ -18,77 +59,92 @@
       <a href="game.html" class="active">Game</a>
     </div>
 
-    <div class="main-content" style="padding: 20px;">
-      <h1>🎮 Quiz Game</h1>
-      <label for="quizType">Choose Quiz Type:</label>
-      <select id="quizType">
-        <option value="gk">General Knowledge</option>
-        <option value="minecraft">Minecraft</option>
-      </select>
-      <button onclick="startQuiz()">Start Quiz</button>
-
-      <div id="quizContainer" style="margin-top: 20px;"></div>
-      <div id="scoreContainer" style="margin-top: 20px;"></div>
+    <div class="main-content">
+      <h1>Quiz Game</h1>
+      <div class="quiz-container" id="quiz">
+        <div id="question" class="question">Loading...</div>
+        <div class="options" id="options"></div>
+        <div id="score"></div>
+        <button id="retry" style="display: none;" onclick="startQuiz()">Retry</button>
+      </div>
     </div>
   </div>
 
   <script>
-    const questions = {
-      gk: [
-        { q: "Capital of India?", o: ["Delhi", "Mumbai", "Kolkata", "Chennai"], a: 0 },
-        { q: "Which planet is known as the Red Planet?", o: ["Earth", "Mars", "Jupiter", "Saturn"], a: 1 },
-        { q: "Largest ocean?", o: ["Atlantic", "Indian", "Pacific", "Arctic"], a: 2 },
-        { q: "Who wrote Ramayan?", o: ["Valmiki", "Tulsidas", "Kalidas", "Ved Vyas"], a: 0 },
-        { q: "Which is a mammal?", o: ["Shark", "Dolphin", "Octopus", "Penguin"], a: 1 }
-      ],
-      minecraft: [
-        { q: "What do you need to make a Nether portal?", o: ["Obsidian", "Stone", "Wood", "Iron"], a: 0 },
-        { q: "What mob explodes?", o: ["Zombie", "Creeper", "Skeleton", "Spider"], a: 1 },
-        { q: "Which tool mines diamonds?", o: ["Wooden", "Gold", "Stone", "Iron"], a: 3 },
-        { q: "What item restores health?", o: ["Sword", "Apple", "Pickaxe", "Stick"], a: 1 },
-        { q: "Who is the End boss?", o: ["Wither", "Enderman", "Ender Dragon", "Piglin"], a: 2 }
-      ]
-    };
+    const quizData = [
+      {
+        question: "Which game is played in the Nether dimension?",
+        options: ["Free Fire", "Minecraft", "Valorant", "Clash of Clans"],
+        answer: "Minecraft"
+      },
+      {
+        question: "What does AI stand for?",
+        options: ["Artificial Intelligence", "Auto Input", "Android Interface", "Auto Intelligence"],
+        answer: "Artificial Intelligence"
+      },
+      {
+        question: "Which YouTuber is known for MrBeast-style giveaways?",
+        options: ["Dream", "CarryMinati", "MrBeast", "Techno Gamerz"],
+        answer: "MrBeast"
+      },
+      {
+        question: "What color is the Squid Game guard's circle mask?",
+        options: ["Red", "Black", "White", "Green"],
+        answer: "Red"
+      },
+      {
+        question: "Which block do creepers avoid in Minecraft?",
+        options: ["Stone", "Obsidian", "Cat", "Torch"],
+        answer: "Cat"
+      }
+    ];
 
-    let currentQuiz = [];
-    let currentIndex = 0;
+    let currentQuestion = 0;
     let score = 0;
 
     function startQuiz() {
-      const type = document.getElementById("quizType").value;
-      currentQuiz = questions[type];
-      currentIndex = 0;
+      currentQuestion = 0;
       score = 0;
-      document.getElementById("scoreContainer").innerHTML = "";
-      showQuestion();
+      document.getElementById("score").innerHTML = "";
+      document.getElementById("retry").style.display = "none";
+      loadQuestion();
     }
 
-    function showQuestion() {
-      const q = currentQuiz[currentIndex];
-      let html = `<h2>Q${currentIndex + 1}. ${q.q}</h2>`;
-      q.o.forEach((option, i) => {
-        html += `<button onclick="checkAnswer(${i})">${option}</button><br>`;
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      document.getElementById("question").textContent = q.question;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => checkAnswer(option);
+        optionsDiv.appendChild(btn);
       });
-      document.getElementById("quizContainer").innerHTML = html;
     }
 
     function checkAnswer(selected) {
-      if (selected === currentQuiz[currentIndex].a) score++;
-      currentIndex++;
-      if (currentIndex < currentQuiz.length) {
-        showQuestion();
+      if (selected === quizData[currentQuestion].answer) {
+        score++;
+      }
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
       } else {
         showScore();
       }
     }
 
     function showScore() {
-      document.getElementById("quizContainer").innerHTML = "";
-      document.getElementById("scoreContainer").innerHTML = `
-        <h2>🎉 Your Score: ${score} / ${currentQuiz.length}</h2>
-        <button onclick="startQuiz()">Retry</button>
-      `;
+      document.getElementById("question").textContent = "Quiz Completed!";
+      document.getElementById("options").innerHTML = "";
+      document.getElementById("score").innerHTML = `Your Score: <strong>${score}/${quizData.length}</strong>`;
+      document.getElementById("retry").style.display = "inline-block";
     }
+
+    // Start the quiz when page loads
+    window.onload = startQuiz;
   </script>
 </body>
 </html>
