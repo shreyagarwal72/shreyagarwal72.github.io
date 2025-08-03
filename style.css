@@ -1,20 +1,19 @@
 /* Global Reset and Dark Theme */
-* {
+body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #121212;
   color: #f0f0f0;
+  display: flex;
 }
 
 /* Layout */
 .layout {
   display: flex;
-  min-height: 100vh;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* Sidebar */
@@ -22,80 +21,110 @@ body {
   width: 220px;
   background-color: #1e1e1e;
   padding: 20px;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   gap: 15px;
+  transition: background 0.3s ease;
 }
 
 .sidebar h2 {
-  color: #00bcd4;
+  color: #ffffff;
+  font-size: 24px;
   margin-bottom: 20px;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
 }
 
 .sidebar a {
-  color: #f0f0f0;
+  color: #ccc;
   text-decoration: none;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background 0.2s;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
-.sidebar a:hover {
-  background-color: #333;
-}
-
+.sidebar a:hover,
 .sidebar a.active {
-  background-color: #00bcd4;
-  color: #121212;
-  font-weight: bold;
+  background-color: #333;
+  color: #00bcd4;
+  transform: translateX(5px);
 }
 
 /* Main Content */
 .main-content {
   flex: 1;
-  padding: 30px;
+  padding: 40px;
+  overflow-y: auto;
+  animation: fadeIn 0.5s ease;
 }
 
-/* Buttons */
+/* Button Styles */
 .button {
   display: inline-block;
-  background-color: #00bcd4;
-  color: #121212;
   padding: 10px 20px;
   margin-right: 10px;
-  border-radius: 5px;
-  text-decoration: none;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 25px;
   font-weight: bold;
-  transition: background 0.3s;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .button:hover {
-  background-color: #0097a7;
-  color: #fff;
+  opacity: 0.85;
+  transform: scale(1.05);
 }
 
-/* Responsive Design */
+.button.red {
+  background-color: #ff4d4d;
+}
+
+.button.green {
+  background-color: #4caf50;
+}
+
+.button.pink {
+  background-color: #e91e63;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Layout Fix */
 @media (max-width: 768px) {
   .layout {
     flex-direction: column;
   }
 
   .sidebar {
-    width: 100%;
     flex-direction: row;
-    justify-content: space-around;
+    width: 100%;
+    overflow-x: auto;
+    box-shadow: none;
     padding: 10px;
   }
 
-  .sidebar h2 {
-    display: none;
+  .sidebar a {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
   }
 
   .main-content {
     padding: 20px;
-  }
-
-  .button {
-    margin-top: 10px;
   }
 }
