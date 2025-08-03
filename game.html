@@ -3,43 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Games | Nextup Studio</title>
+  <title>Quiz Game - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .game-section {
-      margin-bottom: 50px;
-      border: 1px solid #444;
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: #1e1e1e;
       padding: 20px;
       border-radius: 10px;
-      background-color: #1c1c1c;
     }
-    .game-section h2 {
-      margin-bottom: 10px;
+
+    .question {
+      margin-bottom: 20px;
     }
-    .quiz-btn {
+
+    .options button {
       display: block;
       margin: 10px 0;
-      padding: 10px 15px;
-      background-color: #333;
-      color: #fff;
+      padding: 10px;
+      background-color: #00bcd4;
+      color: #121212;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
+      font-weight: bold;
       cursor: pointer;
-      transition: 0.3s;
+      transition: background 0.2s;
+      width: 100%;
     }
-    .quiz-btn:hover {
-      background-color: #555;
+
+    .options button:hover {
+      background-color: #0097a7;
+      color: white;
     }
-    canvas {
-      background-color: #000;
-      border: 2px solid #444;
-      margin-top: 10px;
+
+    #score {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+
+    #retry {
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <div class="layout">
-    <!-- Sidebar -->
     <div class="sidebar">
       <h2>Nextup Studio</h2>
       <a href="index.html">Home</a>
@@ -48,150 +57,91 @@
       <a href="game.html" class="active">Game</a>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content">
-      <h1>🎮 Play Games</h1>
-
-      <!-- 🎯 Quiz Game -->
-      <div class="game-section">
-        <h2>🧠 Quiz Game</h2>
-        <div id="quiz-container">
-          <div id="question">Loading question...</div>
-          <div id="options"></div>
-          <button onclick="nextQuestion()">Next</button>
-          <div id="score" style="margin-top: 20px;"></div>
-        </div>
-      </div>
-
-      <!-- 🐍 Snake Game -->
-      <div class="game-section">
-        <h2>🐍 Snake Game</h2>
-        <canvas id="snake" width="300" height="300"></canvas>
-      </div>
-
-      <!-- 🧠 Memory Game -->
-      <div class="game-section">
-        <h2>🧠 Memory Match (COMING SOON)</h2>
-        <p>Coming soon...</p>
-      </div>
-
-      <!-- ❓ Trivia Game -->
-      <div class="game-section">
-        <h2>❓ Trivia Game (COMING SOON)</h2>
-        <p>Coming soon...</p>
+      <h1>Quiz Game</h1>
+      <div class="quiz-container" id="quiz">
+        <div id="question" class="question">Loading...</div>
+        <div class="options" id="options"></div>
+        <div id="score"></div>
+        <button id="retry" style="display: none;" onclick="startQuiz()">Retry</button>
       </div>
     </div>
   </div>
 
-  <!-- Script for Quiz -->
   <script>
     const quizData = [
-      { question: "Capital of India?", options: ["Mumbai", "Delhi", "Kolkata", "Chennai"], answer: "Delhi" },
-      { question: "Minecraft mob that explodes?", options: ["Zombie", "Enderman", "Creeper", "Skeleton"], answer: "Creeper" },
-      { question: "CEO of Tesla?", options: ["Zuckerberg", "Elon Musk", "Bezos", "Gates"], answer: "Elon Musk" },
-      { question: "What is 5×6?", options: ["11", "30", "56", "25"], answer: "30" },
-      { question: "Red + Blue = ?", options: ["Pink", "Purple", "Green", "Orange"], answer: "Purple" }
+      {
+        question: "Which game is played in the Nether dimension?",
+        options: ["Free Fire", "Minecraft", "Valorant", "Clash of Clans"],
+        answer: "Minecraft"
+      },
+      {
+        question: "What does AI stand for?",
+        options: ["Artificial Intelligence", "Auto Input", "Android Interface", "Auto Intelligence"],
+        answer: "Artificial Intelligence"
+      },
+      {
+        question: "Which YouTuber is known for MrBeast-style giveaways?",
+        options: ["Dream", "CarryMinati", "MrBeast", "Techno Gamerz"],
+        answer: "MrBeast"
+      },
+      {
+        question: "What color is the Squid Game guard's circle mask?",
+        options: ["Red", "Black", "White", "Green"],
+        answer: "Red"
+      },
+      {
+        question: "Which block do creepers avoid in Minecraft?",
+        options: ["Stone", "Obsidian", "Cat", "Torch"],
+        answer: "Cat"
+      }
     ];
+
     let currentQuestion = 0;
     let score = 0;
 
+    function startQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      document.getElementById("score").innerHTML = "";
+      document.getElementById("retry").style.display = "none";
+      loadQuestion();
+    }
+
     function loadQuestion() {
       const q = quizData[currentQuestion];
-      document.getElementById("question").textContent = `Q${currentQuestion + 1}: ${q.question}`;
+      document.getElementById("question").textContent = q.question;
       const optionsDiv = document.getElementById("options");
       optionsDiv.innerHTML = "";
+
       q.options.forEach(option => {
         const btn = document.createElement("button");
         btn.textContent = option;
-        btn.className = "quiz-btn";
-        btn.onclick = () => {
-          if (option === q.answer) score++;
-          document.querySelectorAll(".quiz-btn").forEach(b => b.disabled = true);
-        };
+        btn.onclick = () => checkAnswer(option);
         optionsDiv.appendChild(btn);
       });
     }
 
-    function nextQuestion() {
+    function checkAnswer(selected) {
+      if (selected === quizData[currentQuestion].answer) {
+        score++;
+      }
       currentQuestion++;
       if (currentQuestion < quizData.length) {
         loadQuestion();
       } else {
-        document.getElementById("quiz-container").innerHTML = `<h2>Game Over! 🎉</h2><p>Your score: ${score} / ${quizData.length}</p><button onclick="location.reload()">Play Again</button>`;
+        showScore();
       }
     }
 
-    loadQuestion();
-  </script>
-
-  <!-- Script for Snake Game -->
-  <script>
-    const canvas = document.getElementById("snake");
-    const ctx = canvas.getContext("2d");
-    const box = 20;
-    let snake = [{x: 5 * box, y: 5 * box}];
-    let food = {
-      x: Math.floor(Math.random() * 15) * box,
-      y: Math.floor(Math.random() * 15) * box
-    };
-    let d;
-
-    document.addEventListener("keydown", direction);
-    function direction(event) {
-      if (event.keyCode == 37 && d != "RIGHT") d = "LEFT";
-      else if (event.keyCode == 38 && d != "DOWN") d = "UP";
-      else if (event.keyCode == 39 && d != "LEFT") d = "RIGHT";
-      else if (event.keyCode == 40 && d != "UP") d = "DOWN";
+    function showScore() {
+      document.getElementById("question").textContent = "Quiz Completed!";
+      document.getElementById("options").innerHTML = "";
+      document.getElementById("score").innerHTML = `Your Score: <strong>${score}/${quizData.length}</strong>`;
+      document.getElementById("retry").style.display = "inline-block";
     }
 
-    function draw() {
-      ctx.clearRect(0, 0, 300, 300);
-      for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = (i == 0) ? "lime" : "white";
-        ctx.fillRect(snake[i].x, snake[i].y, box, box);
-      }
-
-      ctx.fillStyle = "red";
-      ctx.fillRect(food.x, food.y, box, box);
-
-      let snakeX = snake[0].x;
-      let snakeY = snake[0].y;
-
-      if (d == "LEFT") snakeX -= box;
-      if (d == "UP") snakeY -= box;
-      if (d == "RIGHT") snakeX += box;
-      if (d == "DOWN") snakeY += box;
-
-      if (snakeX == food.x && snakeY == food.y) {
-        food = {
-          x: Math.floor(Math.random() * 15) * box,
-          y: Math.floor(Math.random() * 15) * box
-        };
-      } else {
-        snake.pop();
-      }
-
-      let newHead = {x: snakeX, y: snakeY};
-
-      if (
-        snakeX < 0 || snakeX >= 300 || snakeY < 0 || snakeY >= 300 ||
-        collision(newHead, snake)
-      ) {
-        clearInterval(game);
-        alert("Game Over");
-      }
-
-      snake.unshift(newHead);
-    }
-
-    function collision(head, array) {
-      for (let i = 0; i < array.length; i++) {
-        if (head.x == array[i].x && head.y == array[i].y) return true;
-      }
-      return false;
-    }
-
-    let game = setInterval(draw, 150);
+    window.onload = startQuiz;
   </script>
 </body>
 </html>
