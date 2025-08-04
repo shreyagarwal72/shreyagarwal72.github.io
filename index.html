@@ -83,7 +83,7 @@
   </div>
 
   <!-- 🎵 Hidden Audio & Floating Play Button -->
-  <audio id="song-player">
+  <audio id="song-player" autoplay loop>
     <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
@@ -95,18 +95,39 @@
   <script>
     const player = document.getElementById('song-player');
     const playIcon = document.getElementById('play-icon');
-    let isPlaying = false;
+    const savedTime = localStorage.getItem('musicTime');
+    const isPaused = localStorage.getItem('musicPaused');
+    let isPlaying = true;
+
+    // Restore time and pause state
+    if (savedTime) player.currentTime = parseFloat(savedTime);
+    if (isPaused === 'true') {
+      player.pause();
+      isPlaying = false;
+      playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png"; // play
+    } else {
+      player.play();
+      isPlaying = true;
+      playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png"; // pause
+    }
 
     function togglePlayPause() {
       if (isPlaying) {
         player.pause();
-        playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png"; // Play icon
+        playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";
+        localStorage.setItem('musicPaused', 'true');
       } else {
         player.play();
-        playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png"; // Pause icon
+        playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";
+        localStorage.setItem('musicPaused', 'false');
       }
       isPlaying = !isPlaying;
     }
+
+    // Save time every second
+    setInterval(() => {
+      localStorage.setItem('musicTime', player.currentTime);
+    }, 1000);
   </script>
 </body>
 </html>
