@@ -26,6 +26,19 @@
     .button:hover {
       opacity: 0.85;
     }
+
+    audio {
+      width: 100%;
+      max-width: 500px;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      audio {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -41,8 +54,16 @@
     <div class="main-content">
       <h1>Welcome to Nextup Studio</h1>
       <p>This is the official site of <strong>Vanshu Agarwal</strong>, aka <em>Shrey</em>. Explore AI-generated stories, music videos, Squid Game content, and Minecraft fun. Stay tuned for epic content!</p>
-      
-      <div style="margin-top: 20px;">
+
+      <!-- 🎵 Song Player -->
+      <h2 style="margin-top: 40px;">🎵 Listen to My Latest Rap</h2>
+      <audio controls>
+        <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+
+      <!-- 🔗 Social Buttons -->
+      <div style="margin-top: 30px;">
         <a href="https://wa.me/919412104618" target="_blank" class="button wa-btn">WhatsApp</a>
         <a href="https://www.youtube.com/@nextupstudioyt" target="_blank" class="button yt-btn">YouTube</a>
         <a href="https://www.instagram.com/vanshu_ag_72" target="_blank" class="button insta-btn">Instagram</a>
