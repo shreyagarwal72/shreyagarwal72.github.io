@@ -3,62 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Journey - Nextup Studio</title>
+  <title>My Life Journey - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.png" type="image/png" sizes="48x48">
 </head>
 <body>
-  <div class="layout">
-    <div class="sidebar">
-      <h2>Nextup Studio</h2>
-      <a href="index.html">Home</a>
-      <a href="yt.html">YouTube</a>
-      <a href="journey.html" class="active">My Journey</a>
-      <a href="game.html">Game</a>
-    </div>
 
-    <div class="main-content">
-      <h1>🌟 My Life Journey</h1>
-      <p>
-        I'm <strong>Vanshu Agarwal</strong>, also known as Shrey — a creator driven by curiosity, creativity, and consistency.  
-        My journey began with a simple interest in technology and games. Slowly, I discovered a deep love for digital content creation — 
-        from YouTube Shorts and Minecraft edits to AI-generated stories and original rap tracks.  
-      </p>
-
-      <p>
-        With <strong>Nextup Studio</strong>, I’ve built a space where imagination meets execution. Every project, be it a video, a song, or a game,
-        reflects my passion for storytelling and innovation. Whether you're watching "Fire Within" or laughing at a Minecraft short, 
-        you're experiencing a piece of my creative journey.
-      </p>
-
-      <p>
-        This is just the beginning — there's a lot more to come. I'm learning, evolving, and building something bigger, one creation at a time.  
-        Thanks for being a part of it!
-      </p>
-
-      <div style="margin-top: 20px;">
-        <button onclick="toggleAudio()" style="padding: 10px 20px; font-size: 16px; border-radius: 8px; background-color: #444; color: white; border: none; cursor: pointer;">▶ Play Trust.mp3</button>
-        <audio id="trustAudio" src="music/Raat-Ka-Banda.mp3"></audio>
-      </div>
-    </div>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Nextup Studio</h2>
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="youtube.html">🎬 YouTube</a></li>
+      <li><a href="instagram.html">📸 Instagram</a></li>
+      <li><a href="journey.html" class="active">🛤️ Journey</a></li>
+      <li><a href="settings.html">⚙️ Settings</a></li>
+    </ul>
   </div>
 
+  <!-- Top Navbar -->
+  <div class="topnav">
+    <h1>My Life Journey</h1>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <p>
+      🚀 Mera safar start hua ek choti si soch se, jahan maine sirf ek phone aur YouTube channel ke sapne ke saath shuru kiya.
+      Pehle editing apps se shorts banana, phir Minecraft videos, aur fir AI-generated kahaniyaan...
+      har cheez ek nayi learning thi. <br><br>
+      👨‍💻 School life ke pressure ke saath saath, maine apni creativity ko kabhi marne nahi diya.
+      Chahe coding seekhna ho ya thumbnail design karna — har skill self-taught hai.
+      Aaj bhi main apni journey ko enjoy karta hoon, aur har naye subscriber ke saath motivation double hoti hai.<br><br>
+      ❤️ Thank you sabhi ko jo iss journey ka hissa bane. Ye sirf shuruaat hai...
+      #NextupStudio #MyJourney #FromZeroToSomething
+    </p>
+  </div>
+
+  <!-- Background Music (autoplay with loop) -->
+  <audio id="bg-music" autoplay loop>
+    <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Optional: Play/Pause Button -->
+  <button id="toggleMusic" style="position: fixed; bottom: 10px; right: 10px; padding: 8px 16px; z-index: 999;">
+    🔊 Pause Music
+  </button>
+
   <script>
-    const audio = document.getElementById('trustAudio');
-    const button = document.querySelector('button');
+    const music = document.getElementById("bg-music");
+    const toggleBtn = document.getElementById("toggleMusic");
 
-    function toggleAudio() {
-      if (audio.paused) {
-        audio.play();
-        button.textContent = '⏸ Pause Raat-Ka-Banda.mp3';
+    toggleBtn.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        toggleBtn.textContent = "🔊 Pause Music";
       } else {
-        audio.pause();
-        button.textContent = '▶ Play Music.mp3';
+        music.pause();
+        toggleBtn.textContent = "🔈 Play Music";
       }
-    }
-
-    audio.addEventListener('ended', () => {
-      button.textContent MPlay ay Music.mp3';
     });
   </script>
+
 </body>
 </html>
