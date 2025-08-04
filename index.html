@@ -19,25 +19,43 @@
       transition: background-color 0.3s ease;
     }
 
-    .yt-btn { background-color: #FF0000; }        /* YouTube Red */
-    .insta-btn { background-color: #E1306C; }     /* Instagram Pink */
-    .wa-btn { background-color: #25D366; }        /* WhatsApp Green */
+    .yt-btn { background-color: #FF0000; }
+    .insta-btn { background-color: #E1306C; }
+    .wa-btn { background-color: #25D366; }
 
     .button:hover {
       opacity: 0.85;
     }
 
-    audio {
-      width: 100%;
-      max-width: 500px;
-      margin-top: 10px;
-      border-radius: 10px;
+    /* Floating Audio Button */
+    .audio-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #00bcd4;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 999;
     }
 
-    @media (max-width: 768px) {
-      audio {
-        width: 100%;
-      }
+    .audio-button:hover {
+      background-color: #0097a7;
+    }
+
+    .audio-button img {
+      width: 28px;
+      height: 28px;
+    }
+
+    audio {
+      display: none;
     }
   </style>
 </head>
@@ -55,13 +73,6 @@
       <h1>Welcome to Nextup Studio</h1>
       <p>This is the official site of <strong>Vanshu Agarwal</strong>, aka <em>Shrey</em>. Explore AI-generated stories, music videos, Squid Game content, and Minecraft fun. Stay tuned for epic content!</p>
 
-      <!-- 🎵 Song Player -->
-      <h2 style="margin-top: 40px;">🎵 Listen to My Latest Rap</h2>
-      <audio controls>
-        <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-
       <!-- 🔗 Social Buttons -->
       <div style="margin-top: 30px;">
         <a href="https://wa.me/919412104618" target="_blank" class="button wa-btn">WhatsApp</a>
@@ -70,5 +81,32 @@
       </div>
     </div>
   </div>
+
+  <!-- 🎵 Hidden Audio & Floating Play Button -->
+  <audio id="song-player">
+    <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <button class="audio-button" onclick="togglePlayPause()">
+    <img id="play-icon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">
+  </button>
+
+  <script>
+    const player = document.getElementById('song-player');
+    const playIcon = document.getElementById('play-icon');
+    let isPlaying = false;
+
+    function togglePlayPause() {
+      if (isPlaying) {
+        player.pause();
+        playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png"; // Play icon
+      } else {
+        player.play();
+        playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png"; // Pause icon
+      }
+      isPlaying = !isPlaying;
+    }
+  </script>
 </body>
 </html>
