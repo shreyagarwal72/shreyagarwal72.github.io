@@ -2,121 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nextup Studio</title>
-  <meta name="description" content="Welcome to the official site of Vanshu Agarwal aka Nextup Studio — home of original rap songs like Seong Gii Hun, epic Minecraft content, online games, and more. Tune in now!" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nextup Studio (Official Site)</title>
+  <meta name="description" content="Nextup Studio is the official website of our YouTube channel featuring music videos, Minecraft gameplay, Squid Game shorts, and much more." />
+  <meta name="keywords" content="Nextup Studio, YouTube, Minecraft, Music, Shorts, Squid Game, Official Website, Vanshu, Shrey Agarwal" />
+  <meta name="author" content="Nextup Studio" />
+  <meta name="robots" content="index, follow" />
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Notification popup */
-    .popup {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background-color: #222;
-      color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      z-index: 999;
-      max-width: 300px;
-      word-wrap: break-word;
-      font-size: 14px;
-    }
-
-    .popup a {
-      color: #00f;
-      text-decoration: underline;
-    }
-
-    /* Social buttons */
-    .social-buttons {
-      margin-top: 50px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .social-buttons a {
-      padding: 12px 20px;
-      border-radius: 25px;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s ease;
-    }
-
-    .social-buttons a:hover {
-      opacity: 0.8;
-      transform: scale(1.05);
-    }
-
-    .whatsapp { background-color: #25D366; }
-    .youtube { background-color: #FF0000; }
-    .instagram { background-color: #E1306C; }
-
-    @media (max-width: 768px) {
-      .popup {
-        right: 10px;
-        left: 10px;
-        bottom: 20px;
-        padding: 15px;
-        font-size: 13px;
-        max-width: unset;
-      }
-    }
-  </style>
+  <link rel="icon" type="image/png" href="favicon.png" />
 </head>
 <body>
 
-  <!-- Background music autoplay -->
-  <iframe src="music/Music.mp3" allow="autoplay" style="display: none;"></iframe>
-
-  <!-- Layout -->
   <div class="layout">
     <!-- Sidebar -->
     <div class="sidebar">
       <h2>Nextup Studio</h2>
       <a href="index.html" class="active">Home</a>
-      <a href="yt.html">YouTube</a>
       <a href="journey.html">My Journey</a>
-      <a href="game.html">Game</a>
+      <a href="game.html">Quiz Game</a>
+      <a href="https://www.youtube.com/@nextupstudioyt" target="_blank">YouTube</a>
+      <a href="https://www.instagram.com/vanshu_ag_72" target="_blank">Instagram</a>
+      <a href="settings.html">Settings</a>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-      <h1>👋 Welcome to Nextup Studio</h1>
-      <p>This is the official site of <strong>Vanshu Agarwal</strong>. Here you’ll find:
-        <ul>
-          <li>🎵 Original Songs like "Seong Gii Hun Rap"</li>
-          <li>🎮 Minecraft Shorts & Gameplay</li>
-          <li>🧠 Quiz Game (check out Game section)</li>
-          <li>📈 Life Journey & Achievements</li>
-        </ul>
-        Stay connected with me through Instagram, YouTube, and WhatsApp!
-      </p>
+      <h1>Welcome to Nextup Studio</h1>
+      <p>This is the official website of <strong>Nextup Studio</strong> – home to Minecraft videos, Squid Game shorts, and our original music. Explore and enjoy the world of creativity!</p>
+
+      <!-- Optional: Video previews or latest content -->
+      <div class="video-grid">
+        <div class="video-item">
+          <iframe src="https://www.youtube.com/embed/pUuJgCNx4RI" frameborder="0" allowfullscreen></iframe>
+          <p>Life of Steve - My Rap Song</p>
+        </div>
+        <div class="video-item">
+          <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+          <p>Your Next Video</p>
+        </div>
+      </div>
 
       <!-- Social Buttons -->
       <div class="social-buttons">
-        <a class="whatsapp" href="https://wa.me/919876543210" target="_blank">📱 WhatsApp</a>
-        <a class="youtube" href="https://www.youtube.com/@nextupstudioyt" target="_blank">▶️ YouTube</a>
-        <a class="instagram" href="https://www.instagram.com/vanshu_ag_72" target="_blank">📷 Instagram</a>
+        <a href="https://wa.me/919412104618" class="wa" target="_blank">WhatsApp</a>
+        <a href="https://www.youtube.com/@nextupstudioyt" class="yt" target="_blank">YouTube</a>
+        <a href="https://www.instagram.com/vanshu_ag_72" class="insta" target="_blank">Instagram</a>
       </div>
     </div>
   </div>
 
-  <!-- Notification popup -->
-  <div class="popup" id="popup">
-    🔔 New Release! "Seong Gii Hun Rap" is now live on YouTube!<br>
-    <a href="https://youtu.be/pUuJgCNx4RI?feature=shared" target="_blank">▶️ Watch Now</a>
-  </div>
-
-  <!-- Hide popup after 30 seconds -->
-  <script>
-    setTimeout(() => {
-      document.getElementById('popup').style.display = 'none';
-    }, 30000);
-  </script>
+  <!-- Optional Music Player -->
+  <!--
+  <audio id="music-player" controls autoplay loop>
+    <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+  -->
 
 </body>
 </html>
