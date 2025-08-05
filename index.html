@@ -4,148 +4,63 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nextup Studio</title>
+  <meta name="description" content="Welcome to Nextup Studio - music, games, Minecraft & more!" />
   <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="Nextup Studio is the official site of Vanshu Agarwal, featuring AI-generated stories, music videos, Minecraft content, and Squid Game shorts." />
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #111;
-      color: #fff;
-    }
-
-    .layout {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    .sidebar {
-      width: 220px;
-      background-color: #1f1f1f;
-      padding: 20px;
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .sidebar h2 {
-      font-size: 22px;
-      margin-bottom: 20px;
-      color: #00bcd4;
-    }
-
-    .sidebar a {
-      display: block;
-      padding: 10px;
-      color: #ccc;
-      text-decoration: none;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      transition: background 0.3s;
-    }
-
-    .sidebar a:hover,
-    .sidebar a.active {
-      background-color: #00bcd4;
-      color: #fff;
-    }
-
-    .main-content {
-      flex: 1;
-      padding: 40px 20px;
-    }
-
-    h1 {
-      font-size: 36px;
-      margin-bottom: 15px;
-    }
-
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 25px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      transition: background-color 0.3s ease;
-    }
-
-    .yt-btn { background-color: #FF0000; }
-    .insta-btn { background-color: #E1306C; }
-    .wa-btn { background-color: #25D366; }
-
-    .button:hover {
-      opacity: 0.85;
-    }
-
-    /* Floating Audio Button */
-    .audio-button {
+    /* Notification Popup */
+    .popup {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #00bcd4;
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      bottom: 30px;
+      right: 30px;
+      background: #1e1e1e;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #000;
+      z-index: 1000;
+      animation: slideIn 0.5s ease-out;
+      font-family: Arial, sans-serif;
+    }
+
+    .popup a {
+      color: #00bcd4;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .popup a:hover {
+      text-decoration: underline;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 5px;
+      right: 10px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      z-index: 999;
+      font-size: 20px;
+      color: #aaa;
     }
 
-    .audio-button:hover {
-      background-color: #0097a7;
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .audio-button img {
-      width: 28px;
-      height: 28px;
-    }
-
-    audio {
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .layout {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        overflow-x: auto;
-      }
-
-      .sidebar h2 {
-        display: none;
-      }
-
-      .sidebar a {
-        flex: 1;
-        text-align: center;
-        font-size: 16px;
-        padding: 15px 0;
-      }
-
-      .main-content {
-        padding: 20px;
-      }
+    /* Responsive padding */
+    .main-content {
+      padding: 20px;
     }
   </style>
 </head>
 <body>
   <div class="layout">
+    <!-- Sidebar -->
     <div class="sidebar">
       <h2>Nextup Studio</h2>
       <a href="index.html" class="active">Home</a>
@@ -154,75 +69,33 @@
       <a href="game.html">Game</a>
     </div>
 
+    <!-- Main Content -->
     <div class="main-content">
-      <h1>Welcome to Nextup Studio</h1>
-      <p>This is the official site of <strong>Vanshu Agarwal</strong>, aka <em>Shrey</em>. Explore AI-generated stories, original rap songs, Minecraft adventures, and Squid Game-inspired content.</p>
-      
-      <p style="margin-top: 10px;">🎮 Whether you're into music, gaming, or storytelling — <strong>Nextup Studio</strong> brings it all in one place. Join me on this creative journey and stay tuned for epic content drops every week!</p>
+      <h1>👋 Welcome to Nextup Studio</h1>
+      <p>This is where beats, blocks, and brains collide. Explore music, Minecraft, and fun games – all created by Vanshu.</p>
 
-      <!-- 🔗 Social Buttons -->
-      <div style="margin-top: 30px;">
-        <a href="https://wa.me/919412104618" target="_blank" class="button wa-btn">WhatsApp</a>
-        <a href="https://www.youtube.com/@nextupstudioyt" target="_blank" class="button yt-btn">YouTube</a>
-        <a href="https://www.instagram.com/vanshu_ag_72" target="_blank" class="button insta-btn">Instagram</a>
-      </div>
-
-      <!-- 🔮 Future Sections Placeholder -->
-      <div style="margin-top: 50px;">
-        <h2>🚀 Latest Highlights (Coming Soon)</h2>
-        <ul>
-          <li>🎵 New Song: Life of Steve – A Minecraft Rap</li>
-          <li>🧠 AI Storytelling Series launching soon!</li>
-          <li>🎮 Squid Game Season 3 (Fan Made) episodes dropping soon</li>
-        </ul>
+      <!-- Replace Highlights with Notification -->
+      <div id="notification" class="popup">
+        <span class="close-btn" onclick="closePopup()">×</span>
+        🎧 <strong>New Song Out Now!</strong><br>
+        <a href="https://youtu.be/pUuJgCNx4RI" target="_blank">🔥 Raat Ka Banda – Watch on YouTube</a>
       </div>
     </div>
   </div>
 
-  <!-- 🎵 Hidden Audio & Floating Play Button -->
-  <audio id="song-player" autoplay loop>
-    <source src="music/Music.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
-  <button class="audio-button" onclick="togglePlayPause()">
-    <img id="play-icon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">
-  </button>
+  <!-- Background Music -->
+  <iframe src="music/Music.mp3" allow="autoplay" style="display: none;"></iframe>
 
   <script>
-    const player = document.getElementById('song-player');
-    const playIcon = document.getElementById('play-icon');
-    const savedTime = localStorage.getItem('musicTime');
-    const isPaused = localStorage.getItem('musicPaused');
-    let isPlaying = true;
-
-    if (savedTime) player.currentTime = parseFloat(savedTime);
-    if (isPaused === 'true') {
-      player.pause();
-      isPlaying = false;
-      playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";
-    } else {
-      player.play();
-      isPlaying = true;
-      playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";
+    function closePopup() {
+      const popup = document.getElementById("notification");
+      popup.style.display = "none";
     }
 
-    function togglePlayPause() {
-      if (isPlaying) {
-        player.pause();
-        playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";
-        localStorage.setItem('musicPaused', 'true');
-      } else {
-        player.play();
-        playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";
-        localStorage.setItem('musicPaused', 'false');
-      }
-      isPlaying = !isPlaying;
-    }
-
-    setInterval(() => {
-      localStorage.setItem('musicTime', player.currentTime);
-    }, 1000);
+    // Auto close after 10 seconds
+    setTimeout(() => {
+      closePopup();
+    }, 10000);
   </script>
 </body>
 </html>
