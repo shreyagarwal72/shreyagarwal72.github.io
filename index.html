@@ -84,7 +84,6 @@
       opacity: 0.85;
     }
 
-    /* Floating Audio Button */
     .audio-button {
       position: fixed;
       bottom: 20px;
@@ -175,50 +174,32 @@
     </div>
   </div>
 
-  <!-- 🎵 Hidden Audio & Floating Play Button -->
-  <audio id="song-player" autoplay loop>
-    <source src="music/Music.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
+  <!-- 🎵 Floating Play Button (Optional) -->
   <button class="audio-button" onclick="togglePlayPause()">
     <img id="play-icon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">
   </button>
 
   <script>
-    const player = document.getElementById('song-player');
     const playIcon = document.getElementById('play-icon');
-    const savedTime = localStorage.getItem('musicTime');
-    const isPaused = localStorage.getItem('musicPaused');
     let isPlaying = true;
 
-    if (savedTime) player.currentTime = parseFloat(savedTime);
-    if (isPaused === 'true') {
-      player.pause();
-      isPlaying = false;
-      playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";
-    } else {
-      player.play();
-      isPlaying = true;
-      playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";
-    }
-
     function togglePlayPause() {
+      const iframe = document.querySelector('iframe');
+      const innerAudio = iframe.contentWindow.document.querySelector('audio');
+      if (!innerAudio) return;
+
       if (isPlaying) {
-        player.pause();
+        innerAudio.pause();
         playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";
-        localStorage.setItem('musicPaused', 'true');
       } else {
-        player.play();
+        innerAudio.play();
         playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";
-        localStorage.setItem('musicPaused', 'false');
       }
       isPlaying = !isPlaying;
     }
-
-    setInterval(() => {
-      localStorage.setItem('musicTime', player.currentTime);
-    }, 1000);
   </script>
+
+  <!-- 🔊 Invisible Audio via iframe -->
+  <iframe src="player.html" allow="autoplay" style="display: none;"></iframe>
 </body>
 </html>
