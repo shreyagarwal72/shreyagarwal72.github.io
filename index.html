@@ -1,63 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nextup Studio (Official Site)</title>
-  <meta name="description" content="Nextup Studio is the official website of our YouTube channel featuring music videos, Minecraft gameplay, Squid Game shorts, and much more." />
-  <meta name="keywords" content="Nextup Studio, YouTube, Minecraft, Music, Shorts, Squid Game, Official Website, Vanshu, Shrey Agarwal" />
-  <meta name="author" content="Nextup Studio" />
-  <meta name="robots" content="index, follow" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="favicon.png" />
-</head>
-<body>
+/* Global Reset and Dark Theme */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  <div class="layout">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <h2>Nextup Studio</h2>
-      <a href="index.html" class="active">Home</a>
-      <a href="journey.html">My Journey</a>
-      <a href="game.html">Quiz Game</a>
-      <a href="https://www.youtube.com/@nextupstudioyt" target="_blank">YouTube</a>
-      <a href="https://www.instagram.com/vanshu_ag_72" target="_blank">Instagram</a>
-      <a href="settings.html">Settings</a>
-    </div>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #121212;
+  color: #f0f0f0;
+}
 
-    <!-- Main Content -->
-    <div class="main-content">
-      <h1>Welcome to Nextup Studio</h1>
-      <p>This is the official website of <strong>Nextup Studio</strong> – home to Minecraft videos, Squid Game shorts, and our original music. Explore and enjoy the world of creativity!</p>
+/* Layout */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
 
-      <!-- Optional: Video previews or latest content -->
-      <div class="video-grid">
-        <div class="video-item">
-          <iframe src="https://www.youtube.com/embed/pUuJgCNx4RI" frameborder="0" allowfullscreen></iframe>
-          <p>Life of Steve - My Rap Song</p>
-        </div>
-        <div class="video-item">
-          <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-          <p>Your Next Video</p>
-        </div>
-      </div>
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #1e1e1e;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
-      <!-- Social Buttons -->
-      <div class="social-buttons">
-        <a href="https://wa.me/919412104618" class="wa" target="_blank">WhatsApp</a>
-        <a href="https://www.youtube.com/@nextupstudioyt" class="yt" target="_blank">YouTube</a>
-        <a href="https://www.instagram.com/vanshu_ag_72" class="insta" target="_blank">Instagram</a>
-      </div>
-    </div>
-  </div>
+.sidebar h2 {
+  color: #00bcd4;
+  margin-bottom: 20px;
+}
 
-  <!-- Optional Music Player -->
-  <!--
-  <audio id="music-player" controls autoplay loop>
-    <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
-  -->
+.sidebar a {
+  color: #f0f0f0;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
 
-</body>
-</html>
+.sidebar a:hover {
+  background-color: #333;
+}
+
+.sidebar a.active {
+  background-color: #00bcd4;
+  color: #121212;
+  font-weight: bold;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 30px;
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  background-color: #00bcd4;
+  color: #121212;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background-color: #0097a7;
+  color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+
+  .button {
+    margin-top: 10px;
+  }
+}
