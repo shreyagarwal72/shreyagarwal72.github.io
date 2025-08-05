@@ -3,69 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Life Journey - Nextup Studio</title>
+  <title>My Journey - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="favicon.png" type="image/png" sizes="48x48">
+  <meta name="description" content="Explore the personal journey of Vanshu Agarwal, the creator behind Nextup Studio." />
+  <style>
+    .audio-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #00bcd4;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    .audio-button:hover {
+      background-color: #0097a7;
+    }
+
+    .audio-button img {
+      width: 28px;
+      height: 28px;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
 </head>
 <body>
+  <div class="layout">
+    <div class="sidebar">
+      <h2>Nextup Studio</h2>
+      <a href="index.html">Home</a>
+      <a href="yt.html">YouTube</a>
+      <a href="journey.html" class="active">My Journey</a>
+      <a href="game.html">Game</a>
+    </div>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h2>Nextup Studio</h2>
-    <ul>
-      <li><a href="index.html">🏠 Home</a></li>
-      <li><a href="youtube.html">🎬 YouTube</a></li>
-      <li><a href="instagram.html">📸 Instagram</a></li>
-      <li><a href="journey.html" class="active">🛤️ Journey</a></li>
-      <li><a href="settings.html">⚙️ Settings</a></li>
-    </ul>
+    <div class="main-content">
+      <h1>My Life Journey</h1>
+      <p>Welcome to my journey! I'm <strong>Vanshu Agarwal</strong> aka <em>Shrey</em>, the creator behind Nextup Studio. This page is all about my path — from my early interests to becoming a content creator blending AI, music, and gaming into one experience. Thanks for being a part of it!</p>
+      
+      <!-- Add your own life story below -->
+      <p style="margin-top: 20px;">
+        From childhood dreams to creating epic Minecraft moments and Squid Game shorts, my journey has been all about creativity and passion. I started experimenting with content at an early age and slowly built what is now known as <strong>Nextup Studio</strong>. I'm excited to share every step of this path with you.
+      </p>
+    </div>
   </div>
 
-  <!-- Top Navbar (same as index.html) -->
-  <div class="main-navbar">
-    <div class="navbar-title">Nextup Studio</div>
-  </div>
-
-  <!-- Main Content -->
-  <div class="content">
-    <h1>My Life Journey</h1>
-    <p>
-      🚀 Mera safar start hua ek choti si soch se, jahan maine sirf ek phone aur YouTube channel ke sapne ke saath shuru kiya.
-      Pehle editing apps se shorts banana, phir Minecraft videos, aur fir AI-generated kahaniyaan...
-      har cheez ek nayi learning thi. <br><br>
-      👨‍💻 School life ke pressure ke saath saath, maine apni creativity ko kabhi marne nahi diya.
-      Chahe coding seekhna ho ya thumbnail design karna — har skill self-taught hai.
-      Aaj bhi main apni journey ko enjoy karta hoon, aur har naye subscriber ke saath motivation double hoti hai.<br><br>
-      ❤️ Thank you sabhi ko jo iss journey ka hissa bane. Ye sirf shuruaat hai...
-      #NextupStudio #MyJourney #FromZeroToSomething
-    </p>
-  </div>
-
-  <!-- Background Music -->
-  <audio id="bg-music" autoplay loop>
-    <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg">
+  <!-- 🎵 Hidden Audio & Floating Play Button -->
+  <audio id="song-player" autoplay loop>
+    <source src="music/Music.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Music Toggle Button -->
-  <button id="toggleMusic" style="position: fixed; bottom: 10px; right: 10px; padding: 8px 16px; z-index: 999;">
-    🔊 Pause Music
+  <button class="audio-button" onclick="togglePlayPause()">
+    <img id="play-icon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">
   </button>
 
   <script>
-    const music = document.getElementById("bg-music");
-    const toggleBtn = document.getElementById("toggleMusic");
+    const player = document.getElementById('song-player');
+    const playIcon = document.getElementById('play-icon');
+    const savedTime = localStorage.getItem('musicTime');
+    const isPaused = localStorage.getItem('musicPaused');
+    let isPlaying = true;
 
-    toggleBtn.addEventListener("click", () => {
-      if (music.paused) {
-        music.play();
-        toggleBtn.textContent = "🔊 Pause Music";
+    // Restore time and pause state
+    if (savedTime) player.currentTime = parseFloat(savedTime);
+    if (isPaused === 'true') {
+      player.pause();
+      isPlaying = false;
+      playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png"; // play
+    } else {
+      player.play();
+      isPlaying = true;
+      playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png"; // pause
+    }
+
+    function togglePlayPause() {
+      if (isPlaying) {
+        player.pause();
+        playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";
+        localStorage.setItem('musicPaused', 'true');
       } else {
-        music.pause();
-        toggleBtn.textContent = "🔈 Play Music";
+        player.play();
+        playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";
+        localStorage.setItem('musicPaused', 'false');
       }
-    });
-  </script>
+      isPlaying = !isPlaying;
+    }
 
+    // Save time every second
+    setInterval(() => {
+      localStorage.setItem('musicTime', player.currentTime);
+    }, 1000);
+  </script>
 </body>
 </html>
