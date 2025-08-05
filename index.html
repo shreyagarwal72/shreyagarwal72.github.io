@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nextup Studio</title>
-  <meta name="description" content="Nextup Studio is the official website of Vanshu Agarwal. Explore original music, Minecraft content, games, and more." />
+  <meta name="description" content="Welcome to the official site of Vanshu Agarwal aka Nextup Studio — home of original rap songs like Seong Gii Hun, epic Minecraft content, online games, and more. Tune in now!" />
   <link rel="stylesheet" href="style.css" />
   <style>
     /* Notification popup */
@@ -18,13 +18,14 @@
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       z-index: 999;
-      animation: fadeout 10s forwards;
+      max-width: 300px;
+      word-wrap: break-word;
+      font-size: 14px;
     }
 
-    @keyframes fadeout {
-      0% {opacity: 1;}
-      85% {opacity: 1;}
-      100% {opacity: 0;}
+    .popup a {
+      color: #00f;
+      text-decoration: underline;
     }
 
     /* Social buttons */
@@ -60,7 +61,8 @@
         left: 10px;
         bottom: 20px;
         padding: 15px;
-        font-size: 14px;
+        font-size: 13px;
+        max-width: unset;
       }
     }
   </style>
@@ -86,15 +88,15 @@
       <h1>👋 Welcome to Nextup Studio</h1>
       <p>This is the official site of <strong>Vanshu Agarwal</strong>. Here you’ll find:
         <ul>
-          <li>🎵 Original Songs (like "Seong Gii Hun Rap")</li>
+          <li>🎵 Original Songs like "Seong Gii Hun Rap"</li>
           <li>🎮 Minecraft Shorts & Gameplay</li>
-          <li>🧠 Quiz Game in Game section</li>
-          <li>📈 My Life Journey and Milestones</li>
+          <li>🧠 Quiz Game (check out Game section)</li>
+          <li>📈 Life Journey & Achievements</li>
         </ul>
         Stay connected with me through Instagram, YouTube, and WhatsApp!
       </p>
 
-      <!-- Social Buttons at Bottom -->
+      <!-- Social Buttons -->
       <div class="social-buttons">
         <a class="whatsapp" href="https://wa.me/919876543210" target="_blank">📱 WhatsApp</a>
         <a class="youtube" href="https://www.youtube.com/@nextupstudioyt" target="_blank">▶️ YouTube</a>
@@ -104,10 +106,17 @@
   </div>
 
   <!-- Notification popup -->
-  <div class="popup">
-    🔔 New! "Seong Gii Hun Rap" is now live! <br>
-    Watch it here: <a href="https://youtu.be/pUuJgCNx4RI?feature=shared" target="_blank" style="color: #00f;">Click to Watch</a>
+  <div class="popup" id="popup">
+    🔔 New Release! "Seong Gii Hun Rap" is now live on YouTube!<br>
+    <a href="https://youtu.be/pUuJgCNx4RI?feature=shared" target="_blank">▶️ Watch Now</a>
   </div>
+
+  <!-- Hide popup after 30 seconds -->
+  <script>
+    setTimeout(() => {
+      document.getElementById('popup').style.display = 'none';
+    }, 30000);
+  </script>
 
 </body>
 </html>
