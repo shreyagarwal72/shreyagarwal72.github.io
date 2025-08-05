@@ -56,9 +56,19 @@
     #startBtn:hover, #retry:hover {
       background-color: #666;
     }
+
+    iframe {
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <!-- Background Music -->
+  <iframe src="music/Music.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+  <audio autoplay loop hidden>
+    <source src="music/Music.mp3" type="audio/mpeg">
+  </audio>
+
   <div class="layout">
     <div class="sidebar">
       <h2>Nextup Studio</h2>
@@ -153,8 +163,6 @@
       document.getElementById("score").innerHTML = `Your Score: <strong>${score}/${quizData.length}</strong>`;
       document.getElementById("retry").style.display = "inline-block";
     }
-
-    // window.onload removed to delay quiz start until user clicks Start
   </script>
 </body>
 </html>
