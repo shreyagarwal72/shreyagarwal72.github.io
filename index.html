@@ -81,6 +81,24 @@
         padding: 12px 20px;
       }
     }
+
+    /* Secret link style */
+    .secret-link {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 12px;
+      opacity: 0.3;
+    }
+
+    .secret-link a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .secret-link a:hover {
+      text-decoration: underline;
+      opacity: 0.6;
+    }
   </style>
 </head>
 <body>
@@ -123,6 +141,12 @@
           📷 Follow on Instagram
         </a>
       </div>
+
+      <!-- Secret Vault Link (Hidden) -->
+      <p class="secret-link">
+        Some <a href="vault.html">secrets</a> are better left unspoken...
+      </p>
+
     </div>
   </div>
 
