@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nextup Vault 🔐</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #111;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .vault-box {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      width: 80%;
+      border: none;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #00c3ff;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .hidden-content {
+      display: none;
+      margin-top: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="vault-box">
+    <h2>🔐 Welcome to the Nextup Vault</h2>
+    <p>Only real ones know the password 👀</p>
+    <input type="password" id="password" placeholder="Enter Password">
+    <br>
+    <button onclick="checkPassword()">Unlock</button>
+    <p class="error" id="error"></p>
+    
+    <div class="hidden-content" id="vaultContent">
+      <h3>🎉 Welcome Insider!</h3>
+      <p>Here's your exclusive content:</p>
+      <ul>
+        <li>😆 <b>Bloopers:</b> Coming Soon...</li>
+        <li>🎶 <b>Unreleased Track:</b> “Boom Boom Extended” sneak peek</li>
+        <li>🤫 <b>Upcoming Project:</b> “AI vs Human” Music Video Teaser (TBA)</li>
+        <li>🔥 <b>Meme Dump Vault</b> (downloadable zip – coming soon)</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const content = document.getElementById("vaultContent");
+      const error = document.getElementById("error");
+
+      if (input === "opbolte") {
+        content.style.display = "block";
+        error.textContent = "";
+      } else {
+        content.style.display = "none";
+        error.textContent = "❌ Wrong password. Try again.";
+      }
+    }
+  </script>
+</body>
+</html>
