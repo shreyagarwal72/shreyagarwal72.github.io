@@ -6,40 +6,64 @@
   <title>Games - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* (Same styles as before) */
+    /* Sidebar (Nav bar) style — Pehle jaisa */
+    .sidebar {
+      width: 200px;
+      background-color: #121212;
+      padding: 20px;
+      box-sizing: border-box;
+      height: 100vh;
+    }
+
+    .sidebar h2 {
+      color: #90e0ef;
+      margin-bottom: 25px;
+      font-weight: normal;
+      font-size: 24px;
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #90e0ef;
+      text-decoration: none;
+      margin-bottom: 15px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 18px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transition: background-color 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      background-color: #007ea7;
+      color: #fff;
+    }
+
+    .sidebar a.active {
+      background-color: #007ea7;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* Layout and main content */
     .layout {
       display: flex;
       min-height: 100vh;
       background: #121212;
       color: white;
     }
-    .sidebar {
-      width: 200px;
-      background: #1e1e1e;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-    .sidebar h2 {
-      margin-bottom: 20px;
-    }
-    .sidebar a {
-      display: block;
-      color: #90e0ef;
-      text-decoration: none;
-      margin-bottom: 10px;
-      padding: 8px;
-      border-radius: 4px;
-    }
-    .sidebar a.active, .sidebar a:hover {
-      background-color: #007ea7;
-      color: white;
-    }
+
     .main-content {
       flex: 1;
       padding: 30px;
       box-sizing: border-box;
       text-align: center;
     }
+
+    /* Buttons style */
     button {
       background-color: #00bcd4;
       color: #121212;
@@ -52,10 +76,13 @@
       font-size: 16px;
       transition: background-color 0.3s;
     }
+
     button:hover {
       background-color: #0097a7;
       color: white;
     }
+
+    /* Game container styles */
     .quiz-container, .hide-seek-container, .rope-bridge-container, .reaction-container {
       max-width: 600px;
       margin: 20px auto 0;
@@ -64,10 +91,12 @@
       border-radius: 10px;
       text-align: left;
     }
+
     .question {
       margin-bottom: 20px;
       font-size: 18px;
     }
+
     .options button {
       display: block;
       margin: 10px 0;
@@ -104,13 +133,32 @@
   </div>
 
   <script>
-    // Existing quizData and quiz functions here ...
     const quizData = [
-      { question: "Which game is played in the Nether dimension?", options: ["Free Fire", "Minecraft", "Valorant", "Clash of Clans"], answer: "Minecraft" },
-      { question: "What does AI stand for?", options: ["Artificial Intelligence", "Auto Input", "Android Interface", "Auto Intelligence"], answer: "Artificial Intelligence" },
-      { question: "Which YouTuber is known for MrBeast-style giveaways?", options: ["Dream", "CarryMinati", "MrBeast", "Techno Gamerz"], answer: "MrBeast" },
-      { question: "What color is the Squid Game guard's circle mask?", options: ["Red", "Black", "White", "Green"], answer: "Red" },
-      { question: "Which block do creepers avoid in Minecraft?", options: ["Stone", "Obsidian", "Cat", "Torch"], answer: "Cat" }
+      {
+        question: "Minecraft mein Nether ka main portal kaise banate hain?",
+        options: ["Obsidian frame + Flint and Steel", "Wooden frame + Torch", "Stone frame + Pickaxe", "Diamond frame + Fire Charge"],
+        answer: "Obsidian frame + Flint and Steel"
+      },
+      {
+        question: "AI ka full form kya hai?",
+        options: ["Artificial Intelligence", "Automatic Input", "Android Interface", "Auto Identification"],
+        answer: "Artificial Intelligence"
+      },
+      {
+        question: "YouTube par sabse zyada subscribers wala channel kaun hai?",
+        options: ["T-Series", "PewDiePie", "Cocomelon", "MrBeast"],
+        answer: "MrBeast"
+      },
+      {
+        question: "Squid Game mein guard ke mask par kaun sa shape hota hai?",
+        options: ["Circle", "Triangle", "Square", "Star"],
+        answer: "Triangle"
+      },
+      {
+        question: "Minecraft mein Creeper kisse dur rehta hai?",
+        options: ["Cat", "Wolf/Dog", "Water", "Lava"],
+        answer: "Cat"
+      }
     ];
 
     let currentQuestion = 0;
@@ -153,7 +201,6 @@
       renderQuizQuestion();
     }
 
-    // Hide and Seek Game
     function loadHideSeek() {
       const container = document.getElementById("gameContainer");
       container.innerHTML = `
@@ -174,7 +221,6 @@
       document.getElementById("hideSeekResult").textContent = result;
     }
 
-    // Rope Bridge Game
     function loadRopeBridge() {
       const container = document.getElementById("gameContainer");
       container.innerHTML = `
@@ -208,7 +254,6 @@
       }
     }
 
-    // Reaction Time Test Game
     let reactionStartTime = 0;
     let reactionTimeout;
 
@@ -235,7 +280,6 @@
       btn.disabled = true;
       result.textContent = "";
 
-      // Random delay between 2 to 5 seconds before enabling button
       const delay = Math.floor(Math.random() * 3000) + 2000;
 
       reactionTimeout = setTimeout(() => {
@@ -251,12 +295,10 @@
           btn.textContent = `Your reaction time: ${reactionTime.toFixed(2)} ms`;
           btn.disabled = true;
           btn.style.cursor = "default";
-          // Remove onclick to prevent multiple clicks
           btn.onclick = null;
         };
       }, delay);
 
-      // If user clicks early, detect that
       btn.onclick = () => {
         clearTimeout(reactionTimeout);
         btn.style.backgroundColor = "red";
@@ -266,7 +308,6 @@
       };
     }
 
-    // Load selected game
     function loadGame(game) {
       document.getElementById("gameChoice").style.display = "none";
 
@@ -285,14 +326,12 @@
       }
     }
 
-    // Show initial game choice menu & clear game container
     function showGameChoice() {
       document.getElementById("gameChoice").style.display = "block";
       document.getElementById("gameTitle").textContent = "Choose a Game to Play";
       document.getElementById("gameContainer").innerHTML = "";
     }
 
-    // On page load show choice
     window.onload = showGameChoice;
   </script>
 </body>
