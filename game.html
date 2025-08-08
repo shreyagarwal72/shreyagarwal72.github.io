@@ -6,7 +6,7 @@
   <title>Games - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Journey.html jaisa Sidebar aur Layout */
+    /* Journey.html jaisa Sidebar and layout style */
 
     body, html {
       margin: 0; padding: 0;
@@ -14,7 +14,6 @@
       background: #121212;
       color: white;
       height: 100%;
-      overflow-x: hidden;
     }
 
     .layout {
@@ -31,7 +30,7 @@
       position: fixed;
       top: 0; left: 0;
       overflow-y: auto;
-      z-index: 1100;
+      z-index: 1000;
     }
     .sidebar h2 {
       color: #90e0ef;
@@ -106,6 +105,7 @@
       font-weight: bold;
     }
 
+    /* Mobile responsive, sidebar becomes horizontal menu */
     @media (max-width: 768px) {
       .sidebar {
         position: relative;
@@ -134,15 +134,15 @@
 </head>
 <body>
   <div class="layout">
-    <nav class="sidebar">
+    <div class="sidebar">
       <h2>Nextup Studio</h2>
       <a href="index.html">Home</a>
       <a href="yt.html">YouTube</a>
       <a href="journey.html">My Journey</a>
       <a href="game.html" class="active">Game</a>
-    </nav>
+    </div>
 
-    <main class="main-content">
+    <div class="main-content">
       <h1 id="gameTitle">Choose a Game to Play</h1>
 
       <div id="gameChoice">
@@ -154,11 +154,10 @@
       </div>
 
       <div id="gameContainer"></div>
-    </main>
+    </div>
   </div>
 
   <script>
-    // Quiz questions updated
     const quizData = [
       {
         question: "Minecraft mein Nether ka main portal kaise banate hain?",
