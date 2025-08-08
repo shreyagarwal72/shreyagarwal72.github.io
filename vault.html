@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vault | Nextup Studio</title>
   <style>
     body {
@@ -15,53 +15,85 @@
     }
     .vault-container {
       padding: 20px;
-      max-width: 600px;
-      margin: auto;
+      max-width: 900px;
+      margin: 30px auto;
     }
     input {
-      padding: 10px;
+      padding: 14px 18px;
       width: 60%;
+      max-width: 500px;
       border: none;
       border-radius: 5px;
       margin-top: 20px;
+      font-size: 16px;
     }
     button {
-      padding: 10px 15px;
+      padding: 14px 20px;
       border: none;
       border-radius: 5px;
       background-color: #00b4d8;
       color: white;
       cursor: pointer;
-      margin-left: 5px;
+      margin-left: 8px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #0096c7;
     }
     .hidden-content {
       display: none;
-      margin-top: 30px;
+      margin-top: 40px;
       text-align: left;
       background: rgba(255,255,255,0.1);
-      padding: 15px;
+      padding: 25px;
       border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 180, 216, 0.4);
     }
     .file-block {
       background: rgba(255,255,255,0.05);
-      padding: 10px;
-      margin: 10px 0;
+      padding: 15px;
+      margin: 15px 0;
       border-radius: 5px;
+      word-wrap: break-word;
     }
     a {
       color: #90e0ef;
       text-decoration: none;
+      word-break: break-all;
     }
     a:hover {
       text-decoration: underline;
     }
     img, video {
       max-width: 100%;
-      margin-top: 10px;
+      margin-top: 12px;
       border-radius: 8px;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      input {
+        width: 80%;
+        max-width: none;
+      }
+      button {
+        margin-left: 5px;
+        padding: 12px 15px;
+        font-size: 14px;
+      }
+      .vault-container {
+        padding: 15px;
+        margin: 20px auto;
+      }
+      .hidden-content {
+        padding: 15px;
+        margin-top: 25px;
+      }
+      .file-block {
+        padding: 10px;
+        margin: 10px 0;
+      }
     }
   </style>
 </head>
@@ -69,38 +101,45 @@
   <div class="vault-container">
     <h1>🔒 Welcome to the Vault</h1>
     <p>Enter the passcode to unlock hidden content.</p>
-    <input type="password" id="passcode" placeholder="Enter passcode">
+    <input type="password" id="passcode" placeholder="Enter passcode" />
     <button onclick="unlockVault()">Unlock</button>
 
     <div class="hidden-content" id="vaultContent">
       <h2>💎 Hidden Content</h2>
 
       <div class="file-block">
-        <strong>1. Minecraft Skin</strong><br>
-        <a href="video/1.png" download>Download Skin</a>
-        <br><img src="video/1.png" alt="Minecraft Skin">
+        <strong>1. Minecraft Skin</strong><br />
+        <a href="video/1.png" download>Download Skin</a><br />
+        <img src="video/1.png" alt="Minecraft Skin" />
       </div>
 
       <div class="file-block">
-        <strong>2. Minecraft Editing Video</strong><br>
-        <a href="video/2.mp4" download>Download Video</a>
-        <br><video controls src="video/2.mp4"></video>
+        <strong>2. Minecraft Editing Video</strong><br />
+        <a href="video/2.mp4" download>Download Video</a><br />
+        <video controls src="video/2.mp4"></video>
       </div>
 
       <div class="file-block">
-        <strong>3. My Editing App</strong><br>
-        <a href="https://s1.spiderdown.com/Filmora/Filmora%20v14.9.11%20%28Pro%29.apk" target="_blank">Download APK</a>
+        <strong>3. My Editing App</strong><br />
+        <a href="https://s1.spiderdown.com/Filmora/Filmora%20v14.9.11%20%28Pro%29.apk" target="_blank" >Download APK</a>
       </div>
 
       <div class="file-block">
-        <strong>4. My Editing Assets</strong><br>
+        <strong>4. My Editing Assets</strong><br />
         <a href="https://drive.google.com/drive/folders/1C3-5UJ6aeTXC9LnXdvXwMM8iT87e9zfZ" target="_blank">Open Google Drive Folder</a>
       </div>
 
       <div class="file-block">
-        <strong>5. Fav Telegram Channel</strong><br>
+        <strong>5. Fav Telegram Channel</strong><br />
         <a href="https://t.me/techinsiderashish1" target="_blank" rel="noopener noreferrer">
           https://t.me/techinsiderashish1
+        </a>
+      </div>
+
+      <div class="file-block">
+        <strong>6. App with unlimited entertainment anime and more</strong><br />
+        <a href="https://cloud.9mod.com/MovieBox/MovieBox%20v3.0.05.0711.03%20%28Premium%29.apk" target="_blank" rel="noopener noreferrer">
+          Download APK
         </a>
       </div>
     </div>
