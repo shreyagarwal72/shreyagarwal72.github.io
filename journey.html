@@ -23,18 +23,26 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       z-index: 999;
     }
-
     .audio-button:hover {
       background-color: #0097a7;
     }
-
     .audio-button img {
       width: 28px;
       height: 28px;
     }
-
     audio {
       display: none;
+    }
+    /* Daily Quote Style */
+    .daily-quote {
+      margin-top: 30px;
+      padding: 15px 20px;
+      background: rgba(0, 188, 212, 0.1);
+      border-left: 4px solid #00bcd4;
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.5;
+      border-radius: 6px;
     }
   </style>
 </head>
@@ -52,10 +60,14 @@
       <h1>My Life Journey</h1>
       <p>Welcome to my journey! I'm <strong>Vanshu Agarwal</strong> aka <em>Shrey</em>, the creator behind Nextup Studio. This page is all about my path — from my early interests to becoming a content creator blending AI, music, and gaming into one experience. Thanks for being a part of it!</p>
       
-      <!-- Add your own life story below -->
       <p style="margin-top: 20px;">
         From childhood dreams to creating epic Minecraft moments and Squid Game shorts, my journey has been all about creativity and passion. I started experimenting with content at an early age and slowly built what is now known as <strong>Nextup Studio</strong>. I'm excited to share every step of this path with you.
       </p>
+
+      <!-- Daily Quote Section -->
+      <div class="daily-quote" id="dailyQuote">
+        Loading today's quote...
+      </div>
     </div>
   </div>
 
@@ -76,16 +88,15 @@
     const isPaused = localStorage.getItem('musicPaused');
     let isPlaying = true;
 
-    // Restore time and pause state
     if (savedTime) player.currentTime = parseFloat(savedTime);
     if (isPaused === 'true') {
       player.pause();
       isPlaying = false;
-      playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png"; // play
+      playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";
     } else {
       player.play();
       isPlaying = true;
-      playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png"; // pause
+      playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";
     }
 
     function togglePlayPause() {
@@ -101,10 +112,25 @@
       isPlaying = !isPlaying;
     }
 
-    // Save time every second
     setInterval(() => {
       localStorage.setItem('musicTime', player.currentTime);
     }, 1000);
+
+    // Daily Quote System
+    const quotes = [
+      "Every great journey begins with a single step.",
+      "Your story is unique — make it worth telling.",
+      "Dream big, start small, but start today.",
+      "The harder the climb, the better the view.",
+      "Consistency beats talent when talent doesn't work hard.",
+      "Turn your can'ts into cans and dreams into plans.",
+      "In the middle of every difficulty lies opportunity.",
+      "Your future is created by what you do today, not tomorrow.",
+      "Small progress is still progress — keep going.",
+      "Don't wait for inspiration, be the inspiration."
+    ];
+    const todayIndex = new Date().getDate() % quotes.length;
+    document.getElementById("dailyQuote").innerText = quotes[todayIndex];
   </script>
 </body>
 </html>
