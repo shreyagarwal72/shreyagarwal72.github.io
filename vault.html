@@ -1,102 +1,107 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nextup Vault 🔐</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nextup Vault — 500 Subscribers Special Launch</title>
+  <meta name="description" content="Celebrate 500 subscribers with the launch of Nextup Vault! Exclusive BTS, beats, wallpapers, and more. Passcode: opbolte." />
+  <!-- social image: replace with your hosted image path (example: /assets/500-special.png) -->
+  <meta property="og:title" content="Nextup Vault — 500 Subscribers Special Launch" />
+  <meta property="og:description" content="Vault launch — exclusive BTS, beats, wallpapers. Use passcode: opbolte to unlock." />
+  <meta property="og:image" content="/assets/500-special.png" />
   <style>
-    body {
-      background-color: #111;
-      color: #f0f0f0;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-
-    .vault-box {
-      background: #1e1e1e;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
-      max-width: 400px;
-      width: 90%;
-    }
-
-    input[type="password"] {
-      padding: 10px;
-      width: 80%;
-      border: none;
-      margin-top: 20px;
-      border-radius: 8px;
-    }
-
-    button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #00c3ff;
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .hidden-content {
-      display: none;
-      margin-top: 20px;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    .error {
-      color: red;
-      margin-top: 10px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+    :root { --bg:#0b1020; --card:#0f1724; --accent:#ffcc00; --muted:#9aa4b2 }
+    * { box-sizing:border-box; font-family:Inter, system-ui, Arial, sans-serif }
+    body { margin:0; background:linear-gradient(180deg,#071026 0%, #0b1120 100%); color:#eee; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px }
+    .container { width:100%; max-width:980px }
+    .card { background:radial-gradient(1200px 400px at 10% 0%, rgba(255,204,0,0.04), transparent 10%), var(--card); border-radius:14px; padding:18px; box-shadow:0 8px 30px rgba(2,6,23,0.6); }
+    header{display:flex;gap:14px;align-items:center}
+    .logo{width:64px;height:64px;border-radius:10px;background:linear-gradient(135deg,#111827,#374151);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent);font-size:20px}
+    h1{margin:0;font-size:20px}
+    p.lead{color:var(--muted);margin:6px 0 14px}
+    .badge{display:inline-block;background:rgba(255,204,0,0.12);color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:700;margin-left:auto}
+    .hero{margin-top:14px;border-radius:10px;overflow:hidden}
+    .hero img{width:100%;height:auto;display:block}
+    .passbox{display:flex;gap:8px;align-items:center;margin-top:12px}
+    input[type=text]{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;outline:none}
+    button{padding:11px 14px;border-radius:10px;border:0;background:var(--accent);color:#081020;font-weight:700;cursor:pointer}
+    .notice{margin-top:10px;color:var(--muted);font-size:13px}
+    .vip{margin-top:18px;padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);display:none}
+    .vip h2{margin:0 0 8px}
+    .grid{display:grid;grid-template-columns:1fr 300px;gap:14px}
+    .video-placeholder{background:linear-gradient(90deg,#07192b,#081027);height:220px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
+    .download{display:flex;flex-direction:column;gap:8px}
+    .download a{display:block;text-decoration:none;padding:10px;border-radius:8px;background:rgba(255,255,255,0.03);color:#fff;text-align:center}
+    .small{font-size:13px;color:var(--muted)}
+    footer{margin-top:16px;color:var(--muted);font-size:13px}
+    @media(max-width:780px){.grid{grid-template-columns:1fr}.logo{width:52px;height:52px}}
   </style>
 </head>
 <body>
-  <div class="vault-box">
-    <h2>🔐 Welcome to the Nextup Vault</h2>
-    <p>Only real ones know the password 👀</p>
-    <input type="password" id="password" placeholder="Enter Password">
-    <br>
-    <button onclick="checkPassword()">Unlock</button>
-    <p class="error" id="error"></p>
-    
-    <div class="hidden-content" id="vaultContent">
-      <h3>🎉 Welcome Insider!</h3>
-      <p>Here's your exclusive content:</p>
-      <ul>
-        <li>😆 <b>Bloopers:</b> Coming Soon...</li>
-        <li>🎶 <b>Unreleased Track:</b> “Boom Boom Extended” sneak peek</li>
-        <li>🤫 <b>Upcoming Project:</b> “AI vs Human” Music Video Teaser (TBA)</li>
-        <li>🔥 <b>Meme Dump Vault</b> (downloadable zip – coming soon)</li>
-      </ul>
-    </div>
+  <div class="container">
+    <div class="card">
+      <header>
+        <div class="logo">NU</div>
+        <div>
+          <h1>Nextup Vault — 500 Subscribers Special Launch</h1>
+          <p class="lead">Bhai log — THANK YOU! 🎉 Tumhare support se humne 500 subscribers cross kiye! Is milestone ke liye main laaya hoon <strong>Nextup Vault</strong> — ek special launch drop sirf tumhare liye.</p>
+        </div>
+        <div class="badge">500 Subscribers</div>
+      </header><!-- Hero image for social / post — replace /assets/500-special.png with your real file -->
+  <div class="hero">
+    <img src="/assets/500-special.png" alt="500 Subscribers Special — Nextup Vault Launch" />
   </div>
 
-  <script>
-    function checkPassword() {
-      const input = document.getElementById("password").value;
-      const content = document.getElementById("vaultContent");
-      const error = document.getElementById("error");
+  <div class="body">
+    <p class="small">Vault launch me milega: Exclusive BTS clip, custom beats & ringtones, 4K wallpaper, aur kuch hidden surprises. Yeh launch special hai — sirf 500 subscribers celebration ke liye.</p>
 
-      if (input === "opbolte") {
-        content.style.display = "block";
-        error.textContent = "";
-      } else {
-        content.style.display = "none";
-        error.textContent = "❌ Wrong password. Try again.";
-      }
-    }
-  </script>
-</body>
+    <div class="passbox">
+      <input id="passInput" type="text" placeholder="Enter passcode here" aria-label="Passcode input">
+      <button id="unlockBtn">Unlock</button>
+    </div>
+    <div class="notice">Passcode: <strong>opbolte</strong> (case-insensitive) — copy paste karke try karo.</div>
+
+    <div id="vipContent" class="vip" role="region" aria-hidden="true">
+      <h2>🎁 Welcome to the Nextup Vault</h2>
+      <div class="grid">
+        <div>
+          <div id="videoSlot" class="video-placeholder">[Exclusive BTS Clip — Embed Your Video Here]</div>
+          <p class="small" style="margin-top:10px">Yeh clip pehli baar public ho raha hai Vault launch ke saath.</p>
+        </div>
+        <aside class="download">
+          <a id="dlPoster" href="/assets/500-special.png" download>Download 500 Special Poster</a>
+          <a id="dlWallpaper" href="#" download="Nextup-500-wallpaper-4k.jpg">Download 4K Wallpaper</a>
+          <a id="dlBeat" href="#" download="Nextup-Exclusive-Beat.mp3">Download Exclusive Beat</a>
+          <a id="dlRingtone" href="#" download="Nextup-Ringtone.mp3">Download Ringtone</a>
+          <div class="small">Tip: Upload your files to /assets/ and replace the hrefs with actual URLs.</div>
+        </aside>
+      </div>
+
+      <hr style="opacity:0.06;margin:16px 0">
+      <p class="small">Vault launch ke baad mai regular exclusive drops karunga — tumhare suggestions bhejo agar tum chahte ho koi special shoutout ya custom content.</p>
+    </div>
+
+    <footer>
+      <div>File name suggestion: <code>vault-500.html</code>. Upload this to your site and make sure <code>/assets/500-special.png</code> exists (poster image). Passcode: <strong>opbolte</strong>.</div>
+    </footer>
+  </div>
+</div>
+
+  </div>  <script>
+    const pass = 'opbolte';
+    const unlockBtn = document.getElementById('unlockBtn');
+    const passInput = document.getElementById('passInput');
+    const vip = document.getElementById('vipContent');
+    function showVIP(){ vip.style.display = 'block'; vip.setAttribute('aria-hidden','false'); passInput.value = ''; window.location.hash = '#vault'; }
+    function hideVIP(){ vip.style.display = 'none'; vip.setAttribute('aria-hidden','true'); }
+    hideVIP();
+    unlockBtn.addEventListener('click', ()=>{
+      const val = (passInput.value||'').trim().toLowerCase();
+      if(val === pass){ showVIP(); } else { alert('Passcode galat hai — dobara try karo!'); passInput.focus(); }
+    });
+    passInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') unlockBtn.click(); });
+    // Auto-unlock if hash contains correct pass (optional): mysite.com/vault-500.html#opbolte
+    (function(){ const h = (location.hash||'').replace('#','').toLowerCase(); if(h==='opbolte'){ showVIP(); } })();
+  </script></body>
 </html>
