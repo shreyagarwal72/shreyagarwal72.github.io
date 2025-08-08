@@ -6,13 +6,37 @@
   <title>Games - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Sidebar (Nav bar) style — Pehle jaisa */
+    /* Reset & base */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: white;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    /* Layout Flex */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+      transition: margin-left 0.3s ease;
+    }
+
+    /* Sidebar */
     .sidebar {
-      width: 200px;
       background-color: #121212;
+      width: 200px;
       padding: 20px;
       box-sizing: border-box;
       height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+      z-index: 1000;
     }
 
     .sidebar h2 {
@@ -21,7 +45,6 @@
       font-weight: normal;
       font-size: 24px;
       text-align: center;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .sidebar a {
@@ -33,7 +56,6 @@
       border-radius: 4px;
       font-weight: 600;
       font-size: 18px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       transition: background-color 0.3s ease;
     }
 
@@ -48,22 +70,17 @@
       font-weight: 700;
     }
 
-    /* Layout and main content */
-    .layout {
-      display: flex;
-      min-height: 100vh;
-      background: #121212;
-      color: white;
-    }
-
+    /* Main Content */
     .main-content {
+      margin-left: 200px;
       flex: 1;
       padding: 30px;
       box-sizing: border-box;
       text-align: center;
+      transition: margin-left 0.3s ease;
     }
 
-    /* Buttons style */
+    /* Buttons */
     button {
       background-color: #00bcd4;
       color: #121212;
@@ -82,7 +99,7 @@
       color: white;
     }
 
-    /* Game container styles */
+    /* Game containers */
     .quiz-container, .hide-seek-container, .rope-bridge-container, .reaction-container {
       max-width: 600px;
       margin: 20px auto 0;
@@ -103,19 +120,71 @@
       width: 100%;
       font-weight: bold;
     }
+
+    /* Hamburger Menu Button */
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      z-index: 1100;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hamburger div {
+      background-color: #90e0ef;
+      height: 4px;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Sidebar hidden on mobile */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-220px);
+        width: 200px;
+        height: 100vh;
+        position: fixed;
+        z-index: 1000;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 80px 20px 20px 20px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Hamburger menu -->
+  <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
   <div class="layout">
-    <div class="sidebar">
+    <nav class="sidebar" id="sidebar">
       <h2>Nextup Studio</h2>
       <a href="index.html">Home</a>
       <a href="yt.html">YouTube</a>
       <a href="journey.html">My Journey</a>
       <a href="game.html" class="active">Game</a>
-    </div>
+    </nav>
 
-    <div class="main-content">
+    <main class="main-content">
       <h1 id="gameTitle">Choose a Game to Play</h1>
 
       <!-- Initial choice menu -->
@@ -129,10 +198,25 @@
 
       <!-- Game content container -->
       <div id="gameContainer"></div>
-    </div>
+    </main>
   </div>
 
   <script>
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+    // Close sidebar when clicking outside (optional)
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+        sidebar.classList.remove('open');
+      }
+    });
+
     const quizData = [
       {
         question: "Minecraft mein Nether ka main portal kaise banate hain?",
@@ -147,16 +231,16 @@
       {
         question: "YouTube par sabse zyada subscribers wala channel kaun hai?",
         options: ["T-Series", "PewDiePie", "Cocomelon", "MrBeast"],
-        answer: "MrBeast"
+        answer: "T-Series"
       },
       {
         question: "Squid Game mein guard ke mask par kaun sa shape hota hai?",
         options: ["Circle", "Triangle", "Square", "Star"],
-        answer: "Triangle"
+        answer: "Circle"
       },
       {
-        question: "Minecraft mein Creeper kisse dur rehta hai?",
-        options: ["Cat", "Wolf/Dog", "Water", "Lava"],
+        question: "Minecraft mein Creeper kis block se dur rehta hai?",
+        options: ["Cat", "Stone", "Water", "Lava"],
         answer: "Cat"
       }
     ];
