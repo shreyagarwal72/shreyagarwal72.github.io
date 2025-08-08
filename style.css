@@ -9,12 +9,15 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #121212;
   color: #f0f0f0;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* Layout */
 .layout {
   display: flex;
   min-height: 100vh;
+  background-color: #121212;
 }
 
 /* Sidebar */
@@ -25,11 +28,21 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
 }
 
 .sidebar h2 {
   color: #00bcd4;
   margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 26px;
+  text-align: center;
+  user-select: none;
 }
 
 .sidebar a {
@@ -37,7 +50,10 @@ body {
   text-decoration: none;
   padding: 10px;
   border-radius: 5px;
-  transition: background 0.2s;
+  font-weight: 600;
+  font-size: 18px;
+  transition: background 0.2s, color 0.2s;
+  user-select: none;
 }
 
 .sidebar a:hover {
@@ -47,17 +63,20 @@ body {
 .sidebar a.active {
   background-color: #00bcd4;
   color: #121212;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 /* Main Content */
 .main-content {
   flex: 1;
   padding: 30px;
+  margin-left: 220px;
+  transition: margin-left 0.3s ease;
+  min-height: 100vh;
 }
 
 /* Buttons */
-.button {
+.button, button {
   display: inline-block;
   background-color: #00bcd4;
   color: #121212;
@@ -66,10 +85,14 @@ body {
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
-  transition: background 0.3s;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  user-select: none;
 }
 
-.button:hover {
+.button:hover, button:hover {
   background-color: #0097a7;
   color: #fff;
 }
@@ -86,6 +109,7 @@ body {
   box-shadow: 0 4px 10px rgba(0,0,0,0.4);
   z-index: 999;
   animation: fadeout 10s forwards;
+  max-width: 300px;
 }
 
 @keyframes fadeout {
@@ -115,6 +139,7 @@ body {
   color: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   transition: transform 0.3s ease, opacity 0.3s ease;
+  user-select: none;
 }
 
 .social-buttons a:hover {
@@ -145,18 +170,29 @@ body {
     flex-direction: row;
     justify-content: space-around;
     padding: 10px;
+    height: auto;
+    position: relative;
   }
 
   .sidebar h2 {
     display: none;
   }
 
-  .main-content {
-    padding: 20px;
+  .sidebar a {
+    font-size: 16px;
+    padding: 8px 12px;
+    margin: 0 5px;
+    white-space: nowrap;
   }
 
-  .button {
+  .main-content {
+    margin-left: 0;
+    padding: 20px 15px;
+  }
+
+  .button, button {
     margin-top: 10px;
+    width: 100%;
   }
 
   .popup {
@@ -165,6 +201,7 @@ body {
     bottom: 20px;
     padding: 15px;
     font-size: 14px;
+    max-width: unset;
   }
 
   .social-buttons a {
