@@ -1,96 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vault | Nextup Studio</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-        }
-        input {
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            outline: none;
-            margin-top: 10px;
-            width: 80%;
-            max-width: 300px;
-            text-align: center;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #ff4747;
-            border: none;
-            color: white;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #e63e3e;
-        }
-        .vault-content {
-            display: none;
-            margin-top: 20px;
-            text-align: left;
-            background: #1e1e1e;
-            padding: 15px;
-            border-radius: 10px;
-        }
-        @media (max-width: 600px) {
-            .vault-content {
-                font-size: 14px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vault | Nextup Studio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0d1b2a, #1b263b, #415a77);
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .vault-container {
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    input {
+      padding: 10px;
+      width: 60%;
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #00b4d8;
+      color: white;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+    button:hover {
+      background-color: #0096c7;
+    }
+    .hidden-content {
+      display: none;
+      margin-top: 30px;
+      text-align: left;
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .file-block {
+      background: rgba(255,255,255,0.05);
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+    a {
+      color: #90e0ef;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    img, video {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🔒 Vault Access</h1>
-        <p>Enter Passcode to Unlock</p>
-        <input type="password" id="passcode" placeholder="Enter Passcode">
-        <br>
-        <button onclick="checkPasscode()">Unlock</button>
+  <div class="vault-container">
+    <h1>🔒 Welcome to the Vault</h1>
+    <p>Enter the passcode to unlock hidden content.</p>
+    <input type="password" id="passcode" placeholder="Enter passcode">
+    <button onclick="unlockVault()">Unlock</button>
 
-        <div class="vault-content" id="vaultContent">
-            <h2>Welcome to the Vault</h2>
-            <p>
-                Ye tumhara secret area hai jisme sirf passcode wale hi aa sakte hain.
-                Isme tumhara wahi special content hai jo tumne "naye vault" ke liye diya tha —
-                chahe wo exclusive links ho, hidden text ho ya kuch aur jo tumne add karwaya tha.
-            </p>
-            <ul>
-                <li>Exclusive behind-the-scenes updates</li>
-                <li>Hidden download links</li>
-                <li>Special sneak peeks</li>
-            </ul>
-        </div>
+    <div class="hidden-content" id="vaultContent">
+      <h2>💎 Hidden Content</h2>
+
+      <div class="file-block">
+        <strong>1. Minecraft Skin</strong><br>
+        <a href="video/1.png" download>Download Skin</a>
+        <br><img src="video/1.png" alt="Minecraft Skin">
+      </div>
+
+      <div class="file-block">
+        <strong>2. Minecraft Editing Video</strong><br>
+        <a href="video/2.mp4" download>Download Video</a>
+        <br><video controls src="video/2.mp4"></video>
+      </div>
+
+      <div class="file-block">
+        <strong>3. My Editing App</strong><br>
+        <a href="https://s1.spiderdown.com/Filmora/Filmora%20v14.9.11%20%28Pro%29.apk" target="_blank">Download APK</a>
+      </div>
+
+      <div class="file-block">
+        <strong>4. My Editing Assets</strong><br>
+        <a href="https://drive.google.com/drive/folders/1C3-5UJ6aeTXC9LnXdvXwMM8iT87e9zfZ" target="_blank">Open Google Drive Folder</a>
+      </div>
     </div>
+  </div>
 
-    <script>
-        function checkPasscode() {
-            const code = document.getElementById("passcode").value;
-            const vault = document.getElementById("vaultContent");
-
-            // Passcode check (you can change this)
-            if (code === "1234") {
-                vault.style.display = "block";
-            } else {
-                alert("Wrong passcode!");
-            }
-        }
-    </script>
+  <script>
+    function unlockVault() {
+      const pass = document.getElementById('passcode').value;
+      if (pass === 'opbolte') {
+        document.getElementById('vaultContent').style.display = 'block';
+      } else {
+        alert('❌ Wrong passcode!');
+      }
+    }
+  </script>
 </body>
 </html>
