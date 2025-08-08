@@ -2,73 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz Game - Nextup Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Games - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .quiz-container {
-      max-width: 600px;
-      margin: auto;
+    /* (Same styles as before) */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+      background: #121212;
+      color: white;
+    }
+    .sidebar {
+      width: 200px;
       background: #1e1e1e;
       padding: 20px;
-      border-radius: 10px;
+      box-sizing: border-box;
     }
-
-    .question {
+    .sidebar h2 {
       margin-bottom: 20px;
     }
-
-    .options button {
+    .sidebar a {
       display: block;
-      margin: 10px 0;
-      padding: 10px;
+      color: #90e0ef;
+      text-decoration: none;
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    .sidebar a.active, .sidebar a:hover {
+      background-color: #007ea7;
+      color: white;
+    }
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    button {
       background-color: #00bcd4;
       color: #121212;
       border: none;
       border-radius: 5px;
-      font-weight: bold;
+      padding: 15px 25px;
       cursor: pointer;
-      transition: background 0.2s;
-      width: 100%;
+      margin: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      transition: background-color 0.3s;
     }
-
-    .options button:hover {
+    button:hover {
       background-color: #0097a7;
       color: white;
     }
-
-    #score {
-      font-size: 20px;
-      margin-top: 20px;
+    .quiz-container, .hide-seek-container, .rope-bridge-container, .reaction-container {
+      max-width: 600px;
+      margin: 20px auto 0;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: left;
     }
-
-    #retry, #startBtn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #444;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
+    .question {
+      margin-bottom: 20px;
+      font-size: 18px;
     }
-
-    #startBtn:hover, #retry:hover {
-      background-color: #666;
-    }
-
-    iframe {
-      display: none;
+    .options button {
+      display: block;
+      margin: 10px 0;
+      width: 100%;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <!-- Background Music -->
-  <iframe src="music/Music.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
-  <audio autoplay loop hidden>
-    <source src="music/Music.mp3" type="audio/mpeg">
-  </audio>
-
   <div class="layout">
     <div class="sidebar">
       <h2>Nextup Studio</h2>
@@ -79,44 +87,30 @@
     </div>
 
     <div class="main-content">
-      <h1>Quiz Game</h1>
-      <div class="quiz-container" id="quiz">
-        <div id="question" class="question">Click below to start the quiz.</div>
-        <div class="options" id="options"></div>
-        <div id="score"></div>
-        <button id="startBtn" onclick="startQuiz()">Start Quiz</button>
-        <button id="retry" style="display: none;" onclick="startQuiz()">Retry</button>
+      <h1 id="gameTitle">Choose a Game to Play</h1>
+
+      <!-- Initial choice menu -->
+      <div id="gameChoice">
+        <p>Which game do you want to play?</p>
+        <button onclick="loadGame('quiz')">Quiz Game</button>
+        <button onclick="loadGame('hideSeek')">Hide and Seek</button>
+        <button onclick="loadGame('ropeBridge')">Rope Bridge</button>
+        <button onclick="loadGame('reactionTest')">Reaction Time Test</button>
       </div>
+
+      <!-- Game content container -->
+      <div id="gameContainer"></div>
     </div>
   </div>
 
   <script>
+    // Existing quizData and quiz functions here ...
     const quizData = [
-      {
-        question: "Which game is played in the Nether dimension?",
-        options: ["Free Fire", "Minecraft", "Valorant", "Clash of Clans"],
-        answer: "Minecraft"
-      },
-      {
-        question: "What does AI stand for?",
-        options: ["Artificial Intelligence", "Auto Input", "Android Interface", "Auto Intelligence"],
-        answer: "Artificial Intelligence"
-      },
-      {
-        question: "Which YouTuber is known for MrBeast-style giveaways?",
-        options: ["Dream", "CarryMinati", "MrBeast", "Techno Gamerz"],
-        answer: "MrBeast"
-      },
-      {
-        question: "What color is the Squid Game guard's circle mask?",
-        options: ["Red", "Black", "White", "Green"],
-        answer: "Red"
-      },
-      {
-        question: "Which block do creepers avoid in Minecraft?",
-        options: ["Stone", "Obsidian", "Cat", "Torch"],
-        answer: "Cat"
-      }
+      { question: "Which game is played in the Nether dimension?", options: ["Free Fire", "Minecraft", "Valorant", "Clash of Clans"], answer: "Minecraft" },
+      { question: "What does AI stand for?", options: ["Artificial Intelligence", "Auto Input", "Android Interface", "Auto Intelligence"], answer: "Artificial Intelligence" },
+      { question: "Which YouTuber is known for MrBeast-style giveaways?", options: ["Dream", "CarryMinati", "MrBeast", "Techno Gamerz"], answer: "MrBeast" },
+      { question: "What color is the Squid Game guard's circle mask?", options: ["Red", "Black", "White", "Green"], answer: "Red" },
+      { question: "Which block do creepers avoid in Minecraft?", options: ["Stone", "Obsidian", "Cat", "Torch"], answer: "Cat" }
     ];
 
     let currentQuestion = 0;
@@ -125,44 +119,181 @@
     function startQuiz() {
       currentQuestion = 0;
       score = 0;
-      document.getElementById("score").innerHTML = "";
-      document.getElementById("retry").style.display = "none";
-      document.getElementById("startBtn").style.display = "none";
-      loadQuestion();
+      renderQuizQuestion();
     }
 
-    function loadQuestion() {
+    function renderQuizQuestion() {
+      const container = document.getElementById("gameContainer");
+      if (currentQuestion >= quizData.length) {
+        container.innerHTML = `
+          <div class="quiz-container">
+            <h2>Quiz Completed!</h2>
+            <p>Your Score: <strong>${score}/${quizData.length}</strong></p>
+            <button onclick="startQuiz()">Retry Quiz</button>
+            <button onclick="showGameChoice()">Back to Game Selection</button>
+          </div>
+        `;
+        return;
+      }
+
       const q = quizData[currentQuestion];
-      document.getElementById("question").textContent = q.question;
-      const optionsDiv = document.getElementById("options");
-      optionsDiv.innerHTML = "";
-
-      q.options.forEach(option => {
-        const btn = document.createElement("button");
-        btn.textContent = option;
-        btn.onclick = () => checkAnswer(option);
-        optionsDiv.appendChild(btn);
-      });
+      container.innerHTML = `
+        <div class="quiz-container">
+          <div class="question">${q.question}</div>
+          <div class="options">
+            ${q.options.map(opt => `<button onclick="checkQuizAnswer('${opt}')">${opt}</button>`).join('')}
+          </div>
+        </div>
+      `;
     }
 
-    function checkAnswer(selected) {
-      if (selected === quizData[currentQuestion].answer) {
-        score++;
-      }
+    function checkQuizAnswer(selected) {
+      if (selected === quizData[currentQuestion].answer) score++;
       currentQuestion++;
-      if (currentQuestion < quizData.length) {
-        loadQuestion();
+      renderQuizQuestion();
+    }
+
+    // Hide and Seek Game
+    function loadHideSeek() {
+      const container = document.getElementById("gameContainer");
+      container.innerHTML = `
+        <div class="hide-seek-container">
+          <p><strong>Hide and Seek Game</strong></p>
+          <p>Imagine you're hiding. Click the button to see if you got found!</p>
+          <button onclick="hideSeekPlay()">Check Hide Status</button>
+          <p id="hideSeekResult"></p>
+          <button onclick="loadHideSeek()" style="margin-top:10px;">Restart</button>
+          <button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button>
+        </div>
+      `;
+      document.getElementById("hideSeekResult").textContent = "";
+    }
+
+    function hideSeekPlay() {
+      const result = Math.random() < 0.5 ? "You are still hidden! 🎉" : "Oh no! You got found! 😢";
+      document.getElementById("hideSeekResult").textContent = result;
+    }
+
+    // Rope Bridge Game
+    function loadRopeBridge() {
+      const container = document.getElementById("gameContainer");
+      container.innerHTML = `
+        <div class="rope-bridge-container">
+          <p><strong>Rope Bridge Game</strong></p>
+          <p>Cross the rope bridge by guessing a safe step number from 1 to 5.</p>
+          <input type="number" id="stepInput" min="1" max="5" placeholder="Enter step number (1-5)" />
+          <button onclick="checkRopeBridge()">Cross</button>
+          <p id="ropeBridgeResult"></p>
+          <button onclick="loadRopeBridge()" style="margin-top:10px;">Restart</button>
+          <button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button>
+        </div>
+      `;
+      document.getElementById("ropeBridgeResult").textContent = "";
+    }
+
+    function checkRopeBridge() {
+      const safeStep = Math.floor(Math.random() * 5) + 1;
+      const userStep = parseInt(document.getElementById("stepInput").value);
+      const resultEl = document.getElementById("ropeBridgeResult");
+
+      if (isNaN(userStep) || userStep < 1 || userStep > 5) {
+        resultEl.textContent = "Please enter a valid step number between 1 and 5.";
+        return;
+      }
+
+      if (userStep === safeStep) {
+        resultEl.textContent = "You crossed safely! 🎉";
       } else {
-        showScore();
+        resultEl.textContent = "Oops! The bridge broke! You fell. 😢";
       }
     }
 
-    function showScore() {
-      document.getElementById("question").textContent = "Quiz Completed!";
-      document.getElementById("options").innerHTML = "";
-      document.getElementById("score").innerHTML = `Your Score: <strong>${score}/${quizData.length}</strong>`;
-      document.getElementById("retry").style.display = "inline-block";
+    // Reaction Time Test Game
+    let reactionStartTime = 0;
+    let reactionTimeout;
+
+    function loadReactionTest() {
+      const container = document.getElementById("gameContainer");
+      container.innerHTML = `
+        <div class="reaction-container">
+          <p><strong>Reaction Time Test</strong></p>
+          <p>Wait for the button to turn green, then click it as fast as you can!</p>
+          <button id="reactionBtn" style="background-color: red; color: white; width: 100%; padding: 20px; font-size: 20px; border: none; border-radius: 10px; cursor: not-allowed;" disabled>Wait for green...</button>
+          <p id="reactionResult" style="margin-top: 20px; font-size: 18px;"></p>
+          <button onclick="startReactionTest()" style="margin-top: 15px;">Start Test</button>
+          <button onclick="showGameChoice()" style="margin-top: 15px;">Back to Game Selection</button>
+        </div>
+      `;
     }
+
+    function startReactionTest() {
+      const btn = document.getElementById("reactionBtn");
+      const result = document.getElementById("reactionResult");
+
+      btn.style.backgroundColor = "red";
+      btn.textContent = "Wait for green...";
+      btn.disabled = true;
+      result.textContent = "";
+
+      // Random delay between 2 to 5 seconds before enabling button
+      const delay = Math.floor(Math.random() * 3000) + 2000;
+
+      reactionTimeout = setTimeout(() => {
+        btn.style.backgroundColor = "green";
+        btn.textContent = "Click Now!";
+        btn.disabled = false;
+        btn.style.cursor = "pointer";
+        reactionStartTime = performance.now();
+
+        btn.onclick = () => {
+          const reactionTime = performance.now() - reactionStartTime;
+          btn.style.backgroundColor = "#00bcd4";
+          btn.textContent = `Your reaction time: ${reactionTime.toFixed(2)} ms`;
+          btn.disabled = true;
+          btn.style.cursor = "default";
+          // Remove onclick to prevent multiple clicks
+          btn.onclick = null;
+        };
+      }, delay);
+
+      // If user clicks early, detect that
+      btn.onclick = () => {
+        clearTimeout(reactionTimeout);
+        btn.style.backgroundColor = "red";
+        btn.textContent = "Too Soon! Wait for green.";
+        btn.disabled = true;
+        btn.style.cursor = "default";
+      };
+    }
+
+    // Load selected game
+    function loadGame(game) {
+      document.getElementById("gameChoice").style.display = "none";
+
+      if (game === "quiz") {
+        document.getElementById("gameTitle").textContent = "Quiz Game";
+        startQuiz();
+      } else if (game === "hideSeek") {
+        document.getElementById("gameTitle").textContent = "Hide and Seek";
+        loadHideSeek();
+      } else if (game === "ropeBridge") {
+        document.getElementById("gameTitle").textContent = "Rope Bridge";
+        loadRopeBridge();
+      } else if (game === "reactionTest") {
+        document.getElementById("gameTitle").textContent = "Reaction Time Test";
+        loadReactionTest();
+      }
+    }
+
+    // Show initial game choice menu & clear game container
+    function showGameChoice() {
+      document.getElementById("gameChoice").style.display = "block";
+      document.getElementById("gameTitle").textContent = "Choose a Game to Play";
+      document.getElementById("gameContainer").innerHTML = "";
+    }
+
+    // On page load show choice
+    window.onload = showGameChoice;
   </script>
 </body>
 </html>
