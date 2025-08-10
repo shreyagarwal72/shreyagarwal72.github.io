@@ -104,6 +104,15 @@
       font-weight: bold;
     }
 
+    input[type="text"] {
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      width: calc(100% - 110px);
+      box-sizing: border-box;
+    }
+
     /* Mobile responsive */
     @media (max-width: 768px) {
       .sidebar {
@@ -129,6 +138,27 @@
         margin-left: 0;
         padding: 20px 10px 30px 10px;
       }
+      input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      #submitNameBtn {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+
+    /* Leaderboard styling inside gameChoice */
+    #leaderboard {
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      background:#222;
+      padding:15px;
+      border-radius:10px;
+      color:#00bcd4;
+      text-align:left;
+      display:none;
     }
   </style>
 </head>
@@ -151,6 +181,16 @@
         <button onclick="loadGame('hideSeek')">Hide and Seek</button>
         <button onclick="loadGame('ropeBridge')">Rope Bridge</button>
         <button onclick="loadGame('reactionTest')">Reaction Time Test</button>
+
+        <hr style="margin: 20px 0; border-color: #0097a7;">
+
+        <button id="showLeaderboardBtn" onclick="showLeaderboard()" style="display:none;">Check Leaderboard</button>
+
+        <div id="leaderboard">
+          <h3>Leaderboard - Top Scores</h3>
+          <ol id="leaderboardList"></ol>
+          <button id="closeLeaderboardBtn" onclick="hideLeaderboard()" style="background-color:#0097a7; color:#fff; margin-top:10px; width: 100%;">Close Leaderboard</button>
+        </div>
       </div>
 
       <div id="gameContainer"></div>
@@ -184,33 +224,29 @@
           <p>Your Score: <strong>${score}/${quizData.length}</strong></p>
           <button onclick="startQuiz()">Retry Quiz</button>
           <button onclick="showGameChoice()">Back to Game Selection</button>
-          <button id="showLeaderboardBtn" style="margin-top: 20px;">Check Leaderboard</button>
-          <div id="leaderboard" style="display:none; margin-top: 15px; background:#222; padding:15px; border-radius:10px; color:#00bcd4; text-align:left;">
-            <h3>Leaderboard - Top Scores</h3>
-            <ol id="leaderboardList"></ol>
-            <button id="closeLeaderboardBtn" style="background-color:#0097a7; color:#fff; margin-top:10px; width: 100%;">Close Leaderboard</button>
+          
+          <div id="nameInputSection" style="margin-top:20px;">
+            <label for="playerName" style="font-weight:bold;">Enter your name for leaderboard:</label><br/>
+            <input type="text" id="playerName" placeholder="Your name" />
+            <button id="submitNameBtn">Submit</button>
           </div>
         </div>
         `;
 
-        // Add event listeners for leaderboard buttons
-        document.getElementById('showLeaderboardBtn').addEventListener('click', () => {
-          showLeaderboard();
-          document.getElementById('showLeaderboardBtn').style.display = 'none';
-        });
-        document.getElementById('closeLeaderboardBtn').addEventListener('click', () => {
-          hideLeaderboard();
-          document.getElementById('showLeaderboardBtn').style.display = 'block';
-        });
-
-        // Prompt for player name and save score
-        setTimeout(() => {
-          let name = prompt('Game Over! Enter your name for the leaderboard:');
-          if(name) {
-            saveScore(name, score);
-            alert('Score saved! Ab "Check Leaderboard" button pe click karo.');
+        document.getElementById('submitNameBtn').addEventListener('click', () => {
+          const nameInput = document.getElementById('playerName');
+          const name = nameInput.value.trim();
+          if(name === '') {
+            alert('Please enter a valid name!');
+            return;
           }
-        }, 100);
+          saveScore(name, score);
+          alert('Score saved! Ab aap leaderboard dekh sakte hain game selection screen par.');
+          // Leaderboard button show karo waha:
+          document.getElementById('showLeaderboardBtn').style.display = 'inline-block';
+          // Input form hata do:
+          document.getElementById('nameInputSection').style.display = 'none';
+        });
 
         return;
       }
@@ -278,6 +314,8 @@
 
     function loadGame(game) {
       document.getElementById("gameChoice").style.display = "none";
+      document.getElementById("showLeaderboardBtn").style.display = "none"; // Hide leaderboard button while playing
+
       if (game === "quiz") { 
         document.getElementById("gameTitle").textContent = "Quiz Game"; 
         startQuiz(); 
@@ -299,13 +337,17 @@
       document.getElementById("gameChoice").style.display = "block";
       document.getElementById("gameTitle").textContent = "Choose a Game to Play";
       document.getElementById("gameContainer").innerHTML = "";
+
+      // Show leaderboard button if scores exist
+      let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
+      document.getElementById('showLeaderboardBtn').style.display = scores.length > 0 ? 'inline-block' : 'none';
     }
 
     function saveScore(name, score) {
       let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
       scores.push({name, score});
-      scores.sort((a,b) => b.score - a.score); // Descending order
-      scores = scores.slice(0, 5);
+      scores.sort((a,b) => b.score - a.score); // Descending
+      scores = scores.slice(0, 5); // Top 5
       localStorage.setItem('leaderboardScores', JSON.stringify(scores));
     }
 
@@ -314,22 +356,4 @@
       list.innerHTML = '';
       let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
       if(scores.length === 0) {
-        list.innerHTML = '<li>No scores yet</li>';
-      } else {
-        scores.forEach(entry => {
-          let li = document.createElement('li');
-          li.textContent = `${entry.name} - ${entry.score}`;
-          list.appendChild(li);
-        });
-      }
-      document.getElementById('leaderboard').style.display = 'block';
-    }
-
-    function hideLeaderboard() {
-      document.getElementById('leaderboard').style.display = 'none';
-    }
-
-    window.onload = showGameChoice;
-  </script>
-</body>
-</html>
+        list.innerHTML = '<li>No scores
