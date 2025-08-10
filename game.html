@@ -142,7 +142,7 @@
         width: 100%;
         margin-bottom: 10px;
       }
-      #submitNameBtn {
+      #submitNameBtn, #saveScoreBtn {
         width: 100%;
         margin-left: 0;
       }
@@ -197,7 +197,6 @@
   </div>
 
   <script>
-    // Quiz data
     const quizData = [
       { question: "Minecraft mein Nether ka main portal kaise banate hain?", options: ["Obsidian frame + Flint and Steel", "Wooden frame + Torch", "Stone frame + Pickaxe", "Diamond frame + Fire Charge"], answer: "Obsidian frame + Flint and Steel" },
       { question: "AI ka full form kya hai?", options: ["Artificial Intelligence", "Automatic Input", "Android Interface", "Auto Identification"], answer: "Artificial Intelligence" },
@@ -209,7 +208,6 @@
     let currentQuestion = 0;
     let score = 0;
 
-    // Quiz Game
     function startQuiz() {
       currentQuestion = 0;
       score = 0;
@@ -264,7 +262,6 @@
       renderQuizQuestion();
     }
 
-    // Hide and Seek Game
     function loadHideSeek() {
       const container = document.getElementById("gameContainer");
       container.innerHTML = `
@@ -287,15 +284,13 @@
       let found = Math.random() < 0.5 ? true : false;
       if(found) {
         resultEl.textContent = "Oh no! You got found! 😢";
-        nameInputEl.innerHTML = ""; // no score saved on fail
+        nameInputEl.innerHTML = "";
       } else {
         resultEl.textContent = "You are still hidden! 🎉";
-        // Score 1 on success
         askNameAndSaveScore(1, "Hide and Seek");
       }
     }
 
-    // Rope Bridge Game
     function loadRopeBridge() {
       const container = document.getElementById("gameContainer");
       container.innerHTML = `
@@ -318,7 +313,7 @@
       const userStep = parseInt(document.getElementById("stepInput").value);
       const resultEl = document.getElementById("ropeBridgeResult");
       const nameInputEl = document.getElementById("ropeBridgeNameInput");
-      nameInputEl.innerHTML = ""; // clear old inputs
+      nameInputEl.innerHTML = "";
       if (isNaN(userStep) || userStep < 1 || userStep > 5) {
         resultEl.textContent = "Please enter a valid step number between 1 and 5.";
         return;
@@ -331,7 +326,6 @@
       }
     }
 
-    // Reaction Time Test Game
     let reactionStartTime = 0;
     let reactionTimeout;
     function loadReactionTest() {
@@ -373,7 +367,7 @@
           btn.disabled = true;
           btn.style.cursor = "default";
           btn.onclick = null;
-          // Lower reaction time is better score, invert it: max 3000 ms, score = 3000 - reactionTime
+
           let score = Math.max(0, Math.round(3000 - reactionTime));
           askNameAndSaveScore(score, "Reaction Test");
         };
@@ -388,24 +382,52 @@
       };
     }
 
-    // Common function to ask name and save score after game ends
+    // Save score to localStorage
+    function saveScore(name, score, game) {
+      let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
+      scores.push({ name, score, game });
+      // Sort descending by score
+      scores.sort((a, b) => b.score - a.score);
+      scores = scores.slice(0, 10); // keep top 10 only
+      localStorage.setItem('leaderboardScores', JSON.stringify(scores));
+    }
+
+    // Show leaderboard on game selection screen
+    function showLeaderboard() {
+      const list = document.getElementById('leaderboardList');
+      list.innerHTML = '';
+      let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
+      if (scores.length === 0) {
+        list.innerHTML = '<li>No scores yet</li>';
+      } else {
+        scores.forEach(entry => {
+          const li = document.createElement('li');
+          li.textContent = `${entry.name} - ${entry.score} (${entry.game})`;
+          list.appendChild(li);
+        });
+      }
+      document.getElementById('leaderboard').style.display = 'block';
+      document.getElementById('showLeaderboardBtn').style.display = 'none';
+    }
+    function hideLeaderboard() {
+      document.getElementById('leaderboard').style.display = 'none';
+      document.getElementById('showLeaderboardBtn').style.display = 'inline-block';
+    }
+
+    // Ask for name input and save score, for all games
     function askNameAndSaveScore(score, game) {
-      // Determine correct container based on game
       let containerId = "";
       switch(game) {
         case "Quiz": containerId = "nameInputSection"; break;
         case "Hide and Seek": containerId = "hideSeekNameInput"; break;
         case "Rope Bridge": containerId = "ropeBridgeNameInput"; break;
         case "Reaction Test": containerId = "reactionNameInput"; break;
-        default: containerId = null;
+        default: return;
       }
-      if (!containerId) return;
-
       const container = document.getElementById(containerId);
       if (!container) return;
 
-      // If input already exists, don’t add again
-      if(container.querySelector("input")) return;
+      if(container.querySelector("input")) return; // prevent multiple inputs
 
       container.innerHTML = `
         <label style="font-weight:bold;">Enter your name for leaderboard:</label><br/>
@@ -420,6 +442,4 @@
           return;
         }
         saveScore(name, score, game);
-        alert("Score saved! Leaderboard updated.");
-        container.innerHTML = ""; // Clear input
-        document
+        alert("Score saved! Leaderboard
