@@ -104,7 +104,7 @@
       font-weight: bold;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="number"] {
       padding: 8px;
       font-size: 16px;
       border-radius: 5px;
@@ -138,7 +138,7 @@
         margin-left: 0;
         padding: 20px 10px 30px 10px;
       }
-      input[type="text"] {
+      input[type="text"], input[type="number"] {
         width: 100%;
         margin-bottom: 10px;
       }
@@ -197,6 +197,7 @@
   </div>
 
   <script>
+    // Quiz data
     const quizData = [
       { question: "Minecraft mein Nether ka main portal kaise banate hain?", options: ["Obsidian frame + Flint and Steel", "Wooden frame + Torch", "Stone frame + Pickaxe", "Diamond frame + Fire Charge"], answer: "Obsidian frame + Flint and Steel" },
       { question: "AI ka full form kya hai?", options: ["Artificial Intelligence", "Automatic Input", "Android Interface", "Auto Identification"], answer: "Artificial Intelligence" },
@@ -208,6 +209,7 @@
     let currentQuestion = 0;
     let score = 0;
 
+    // Quiz Game
     function startQuiz() {
       currentQuestion = 0;
       score = 0;
@@ -218,17 +220,17 @@
       const container = document.getElementById("gameContainer");
       if (currentQuestion >= quizData.length) {
         container.innerHTML = `
-        <div class="quiz-container">
-          <h2>Quiz Completed!</h2>
-          <p>Your Score: <strong>${score}/${quizData.length}</strong></p>
-          <button onclick="startQuiz()">Retry Quiz</button>
-          <button onclick="showGameChoice()">Back to Game Selection</button>
-          <div id="nameInputSection" style="margin-top:20px;">
-            <label for="playerName" style="font-weight:bold;">Enter your name for leaderboard:</label><br/>
-            <input type="text" id="playerName" placeholder="Your name" />
-            <button id="submitNameBtn">Submit</button>
+          <div class="quiz-container">
+            <h2>Quiz Completed!</h2>
+            <p>Your Score: <strong>${score}/${quizData.length}</strong></p>
+            <button onclick="startQuiz()">Retry Quiz</button>
+            <button onclick="showGameChoice()">Back to Game Selection</button>
+            <div id="nameInputSection" style="margin-top:20px;">
+              <label for="playerName" style="font-weight:bold;">Enter your name for leaderboard:</label><br/>
+              <input type="text" id="playerName" placeholder="Your name" />
+              <button id="submitNameBtn">Submit</button>
+            </div>
           </div>
-        </div>
         `;
 
         document.getElementById('submitNameBtn').addEventListener('click', () => {
@@ -238,7 +240,7 @@
             alert('Please enter a valid name!');
             return;
           }
-          saveScore(name, score);
+          saveScore(name, score, "Quiz");
           alert('Score saved! Ab aap leaderboard dekh sakte hain game selection screen par.');
           document.getElementById('showLeaderboardBtn').style.display = 'inline-block';
           document.getElementById('nameInputSection').style.display = 'none';
@@ -262,70 +264,101 @@
       renderQuizQuestion();
     }
 
+    // Hide and Seek Game
     function loadHideSeek() {
       const container = document.getElementById("gameContainer");
       container.innerHTML = `
-      <div class="hide-seek-container">
-        <p><strong>Hide and Seek Game</strong></p>
-        <p>Imagine you're hiding. Click the button to see if you got found!</p>
-        <button onclick="hideSeekPlay()">Check Hide Status</button>
-        <p id="hideSeekResult"></p>
-        <button onclick="loadHideSeek()" style="margin-top:10px;">Restart</button>
-        <button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button>
-      </div>`;
+        <div class="hide-seek-container">
+          <p><strong>Hide and Seek Game</strong></p>
+          <p>Imagine you're hiding. Click the button to see if you got found!</p>
+          <button onclick="hideSeekPlay()">Check Hide Status</button>
+          <p id="hideSeekResult"></p>
+          <div id="hideSeekNameInput"></div>
+          <button onclick="loadHideSeek()" style="margin-top:10px;">Restart</button>
+          <button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button>
+        </div>`;
       document.getElementById("hideSeekResult").textContent = "";
-    }
-    function hideSeekPlay() {
-      document.getElementById("hideSeekResult").textContent = Math.random() < 0.5 ? "You are still hidden! 🎉" : "Oh no! You got found! 😢";
+      document.getElementById("hideSeekNameInput").innerHTML = "";
     }
 
+    function hideSeekPlay() {
+      const resultEl = document.getElementById("hideSeekResult");
+      const nameInputEl = document.getElementById("hideSeekNameInput");
+      let found = Math.random() < 0.5 ? true : false;
+      if(found) {
+        resultEl.textContent = "Oh no! You got found! 😢";
+        nameInputEl.innerHTML = ""; // no score saved on fail
+      } else {
+        resultEl.textContent = "You are still hidden! 🎉";
+        // Score 1 on success
+        askNameAndSaveScore(1, "Hide and Seek");
+      }
+    }
+
+    // Rope Bridge Game
     function loadRopeBridge() {
       const container = document.getElementById("gameContainer");
       container.innerHTML = `
-      <div class="rope-bridge-container">
-        <p><strong>Rope Bridge Game</strong></p>
-        <p>Cross the rope bridge by guessing a safe step number from 1 to 5.</p>
-        <input type="number" id="stepInput" min="1" max="5" placeholder="Enter step number (1-5)" />
-        <button onclick="checkRopeBridge()">Cross</button>
-        <p id="ropeBridgeResult"></p>
-        <button onclick="loadRopeBridge()" style="margin-top:10px;">Restart</button>
-        <button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button>
-      </div>`;
+        <div class="rope-bridge-container">
+          <p><strong>Rope Bridge Game</strong></p>
+          <p>Cross the rope bridge by guessing a safe step number from 1 to 5.</p>
+          <input type="number" id="stepInput" min="1" max="5" placeholder="Enter step number (1-5)" />
+          <button onclick="checkRopeBridge()">Cross</button>
+          <p id="ropeBridgeResult"></p>
+          <div id="ropeBridgeNameInput"></div>
+          <button onclick="loadRopeBridge()" style="margin-top:10px;">Restart</button>
+          <button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button>
+        </div>`;
       document.getElementById("ropeBridgeResult").textContent = "";
+      document.getElementById("ropeBridgeNameInput").innerHTML = "";
     }
+
     function checkRopeBridge() {
       const safeStep = Math.floor(Math.random() * 5) + 1;
       const userStep = parseInt(document.getElementById("stepInput").value);
       const resultEl = document.getElementById("ropeBridgeResult");
+      const nameInputEl = document.getElementById("ropeBridgeNameInput");
+      nameInputEl.innerHTML = ""; // clear old inputs
       if (isNaN(userStep) || userStep < 1 || userStep > 5) {
         resultEl.textContent = "Please enter a valid step number between 1 and 5.";
         return;
       }
-      resultEl.textContent = userStep === safeStep ? "You crossed safely! 🎉" : "Oops! The bridge broke! You fell. 😢";
+      if(userStep === safeStep) {
+        resultEl.textContent = "You crossed safely! 🎉";
+        askNameAndSaveScore(1, "Rope Bridge");
+      } else {
+        resultEl.textContent = "Oops! The bridge broke! You fell. 😢";
+      }
     }
 
+    // Reaction Time Test Game
     let reactionStartTime = 0;
     let reactionTimeout;
     function loadReactionTest() {
       const container = document.getElementById("gameContainer");
       container.innerHTML = `
-      <div class="reaction-container">
-        <p><strong>Reaction Time Test</strong></p>
-        <p>Wait for the button to turn green, then click it as fast as you can!</p>
-        <button id="reactionBtn" style="background-color: red; color: white; width: 100%; padding: 20px; font-size: 20px; border: none; border-radius: 10px; cursor: not-allowed;" disabled>Wait for green...</button>
-        <p id="reactionResult" style="margin-top: 20px; font-size: 18px;"></p>
-        <button onclick="startReactionTest()" style="margin-top: 15px;">Start Test</button>
-        <button onclick="showGameChoice()" style="margin-top: 15px;">Back to Game Selection</button>
-      </div>`;
+        <div class="reaction-container">
+          <p><strong>Reaction Time Test</strong></p>
+          <p>Wait for the button to turn green, then click it as fast as you can!</p>
+          <button id="reactionBtn" style="background-color: red; color: white; width: 100%; padding: 20px; font-size: 20px; border: none; border-radius: 10px; cursor: not-allowed;" disabled>Wait for green...</button>
+          <p id="reactionResult" style="margin-top: 20px; font-size: 18px;"></p>
+          <div id="reactionNameInput"></div>
+          <button onclick="startReactionTest()" style="margin-top: 15px;">Start Test</button>
+          <button onclick="showGameChoice()" style="margin-top: 15px;">Back to Game Selection</button>
+        </div>`;
       document.getElementById("reactionResult").textContent = "";
+      document.getElementById("reactionNameInput").innerHTML = "";
     }
     function startReactionTest() {
       const btn = document.getElementById("reactionBtn");
       const result = document.getElementById("reactionResult");
+      const nameInputEl = document.getElementById("reactionNameInput");
       btn.style.backgroundColor = "red";
       btn.textContent = "Wait for green...";
       btn.disabled = true;
       result.textContent = "";
+      nameInputEl.innerHTML = "";
+
       const delay = Math.floor(Math.random() * 3000) + 2000;
       reactionTimeout = setTimeout(() => {
         btn.style.backgroundColor = "green";
@@ -340,8 +373,12 @@
           btn.disabled = true;
           btn.style.cursor = "default";
           btn.onclick = null;
+          // Lower reaction time is better score, invert it: max 3000 ms, score = 3000 - reactionTime
+          let score = Math.max(0, Math.round(3000 - reactionTime));
+          askNameAndSaveScore(score, "Reaction Test");
         };
       }, delay);
+
       btn.onclick = () => {
         clearTimeout(reactionTimeout);
         btn.style.backgroundColor = "red";
@@ -351,69 +388,38 @@
       };
     }
 
-    function loadGame(game) {
-      document.getElementById("gameChoice").style.display = "none";
-      document.getElementById("showLeaderboardBtn").style.display = "none";
-
-      if (game === "quiz") {
-        document.getElementById("gameTitle").textContent = "Quiz Game";
-        startQuiz();
+    // Common function to ask name and save score after game ends
+    function askNameAndSaveScore(score, game) {
+      // Determine correct container based on game
+      let containerId = "";
+      switch(game) {
+        case "Quiz": containerId = "nameInputSection"; break;
+        case "Hide and Seek": containerId = "hideSeekNameInput"; break;
+        case "Rope Bridge": containerId = "ropeBridgeNameInput"; break;
+        case "Reaction Test": containerId = "reactionNameInput"; break;
+        default: containerId = null;
       }
-      else if (game === "hideSeek") {
-        document.getElementById("gameTitle").textContent = "Hide and Seek";
-        loadHideSeek();
-      }
-      else if (game === "ropeBridge") {
-        document.getElementById("gameTitle").textContent = "Rope Bridge";
-        loadRopeBridge();
-      }
-      else if (game === "reactionTest") {
-        document.getElementById("gameTitle").textContent = "Reaction Time Test";
-        loadReactionTest();
-      }
-    }
+      if (!containerId) return;
 
-    function showGameChoice() {
-      document.getElementById("gameChoice").style.display = "block";
-      document.getElementById("gameTitle").textContent = "Choose a Game to Play";
-      document.getElementById("gameContainer").innerHTML = "";
+      const container = document.getElementById(containerId);
+      if (!container) return;
 
-      let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
-      document.getElementById('showLeaderboardBtn').style.display = scores.length > 0 ? 'inline-block' : 'none';
-    }
+      // If input already exists, don’t add again
+      if(container.querySelector("input")) return;
 
-    function saveScore(name, score) {
-      let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
-      scores.push({ name, score });
-      scores.sort((a, b) => b.score - a.score);
-      scores = scores.slice(0, 5);
-      localStorage.setItem('leaderboardScores', JSON.stringify(scores));
-    }
+      container.innerHTML = `
+        <label style="font-weight:bold;">Enter your name for leaderboard:</label><br/>
+        <input type="text" id="playerNameInput" placeholder="Your name" />
+        <button id="saveScoreBtn">Save Score</button>
+      `;
 
-    function showLeaderboard() {
-      const lb = document.getElementById('leaderboard');
-      const list = document.getElementById('leaderboardList');
-      list.innerHTML = '';
-      let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
-      if (scores.length === 0) {
-        list.innerHTML = '<li>No scores yet</li>';
-      } else {
-        scores.forEach(entry => {
-          let li = document.createElement('li');
-          li.textContent = `${entry.name} - ${entry.score}`;
-          list.appendChild(li);
-        });
-      }
-      lb.style.display = 'block';
-    }
-
-    function hideLeaderboard() {
-      document.getElementById('leaderboard').style.display = 'none';
-    }
-
-    window.onload = () => {
-      showGameChoice();
-    };
-  </script>
-</body>
-</html>
+      document.getElementById('saveScoreBtn').onclick = () => {
+        const name = document.getElementById('playerNameInput').value.trim();
+        if(name === '') {
+          alert("Please enter your name!");
+          return;
+        }
+        saveScore(name, score, game);
+        alert("Score saved! Leaderboard updated.");
+        container.innerHTML = ""; // Clear input
+        document
