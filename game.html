@@ -104,6 +104,22 @@
       font-weight: bold;
     }
 
+    /* Leaderboard styles */
+    #leaderboard {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: left;
+      color: #00bcd4;
+      display: none;
+    }
+    #leaderboardList li {
+      margin: 8px 0;
+      font-weight: 600;
+    }
+
     /* Mobile responsive */
     @media (max-width: 768px) {
       .sidebar {
@@ -154,11 +170,20 @@
       </div>
 
       <div id="gameContainer"></div>
+
+      <!-- Leaderboard Button -->
+      <button id="showLeaderboardBtn" style="display:none; margin: 20px auto; display: block;">Check Leaderboard</button>
+
+      <!-- Leaderboard Display -->
+      <div id="leaderboard">
+        <h3>Leaderboard - Top Scores</h3>
+        <ol id="leaderboardList"></ol>
+        <button id="closeLeaderboardBtn" style="background-color:#0097a7; color:#fff; margin-top:10px; width: 100%;">Close Leaderboard</button>
+      </div>
     </div>
   </div>
 
   <script>
-    /* Same JS as your original game.html — unchanged */
     const quizData = [
       { question: "Minecraft mein Nether ka main portal kaise banate hain?", options: ["Obsidian frame + Flint and Steel", "Wooden frame + Torch", "Stone frame + Pickaxe", "Diamond frame + Fire Charge"], answer: "Obsidian frame + Flint and Steel" },
       { question: "AI ka full form kya hai?", options: ["Artificial Intelligence", "Automatic Input", "Android Interface", "Auto Identification"], answer: "Artificial Intelligence" },
@@ -170,22 +195,58 @@
     let currentQuestion = 0;
     let score = 0;
 
-    function startQuiz() { currentQuestion = 0; score = 0; renderQuizQuestion(); }
+    function startQuiz() { 
+      currentQuestion = 0; 
+      score = 0; 
+      renderQuizQuestion(); 
+      // Hide leaderboard button while playing
+      document.getElementById('showLeaderboardBtn').style.display = 'none';
+      // Hide leaderboard display if open
+      document.getElementById('leaderboard').style.display = 'none';
+    }
+
     function renderQuizQuestion() {
       const container = document.getElementById("gameContainer");
       if (currentQuestion >= quizData.length) {
-        container.innerHTML = `<div class="quiz-container"><h2>Quiz Completed!</h2><p>Your Score: <strong>${score}/${quizData.length}</strong></p><button onclick="startQuiz()">Retry Quiz</button><button onclick="showGameChoice()">Back to Game Selection</button></div>`;
+        container.innerHTML = `<div class="quiz-container">
+          <h2>Quiz Completed!</h2>
+          <p>Your Score: <strong>${score}/${quizData.length}</strong></p>
+          <button onclick="startQuiz()">Retry Quiz</button>
+          <button onclick="showGameChoice()">Back to Game Selection</button>
+        </div>`;
+
+        // Prompt for name and save score
+        setTimeout(() => {
+          let name = prompt('Game Over! Enter your name for the leaderboard:');
+          if(name) {
+            saveScore(name, score);
+            alert('Score saved! Ab "Check Leaderboard" button pe click karo.');
+            document.getElementById('showLeaderboardBtn').style.display = 'block';
+          }
+        }, 100);
+
         return;
       }
       const q = quizData[currentQuestion];
-      container.innerHTML = `<div class="quiz-container"><div class="question">${q.question}</div><div class="options">${q.options.map(opt => `<button onclick="checkQuizAnswer('${opt}')">${opt}</button>`).join('')}</div></div>`;
+      container.innerHTML = `<div class="quiz-container">
+        <div class="question">${q.question}</div>
+        <div class="options">${q.options.map(opt => `<button onclick="checkQuizAnswer('${opt}')">${opt}</button>`).join('')}</div>
+      </div>`;
     }
-    function checkQuizAnswer(selected) { if (selected === quizData[currentQuestion].answer) score++; currentQuestion++; renderQuizQuestion(); }
+
+    function checkQuizAnswer(selected) {
+      if (selected === quizData[currentQuestion].answer) score++;
+      currentQuestion++;
+      renderQuizQuestion();
+    }
 
     function loadHideSeek() {
       const container = document.getElementById("gameContainer");
       container.innerHTML = `<div class="hide-seek-container"><p><strong>Hide and Seek Game</strong></p><p>Imagine you're hiding. Click the button to see if you got found!</p><button onclick="hideSeekPlay()">Check Hide Status</button><p id="hideSeekResult"></p><button onclick="loadHideSeek()" style="margin-top:10px;">Restart</button><button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button></div>`;
       document.getElementById("hideSeekResult").textContent = "";
+      // Hide leaderboard button and leaderboard if visible
+      document.getElementById('showLeaderboardBtn').style.display = 'none';
+      document.getElementById('leaderboard').style.display = 'none';
     }
     function hideSeekPlay() { document.getElementById("hideSeekResult").textContent = Math.random() < 0.5 ? "You are still hidden! 🎉" : "Oh no! You got found! 😢"; }
 
@@ -193,6 +254,9 @@
       const container = document.getElementById("gameContainer");
       container.innerHTML = `<div class="rope-bridge-container"><p><strong>Rope Bridge Game</strong></p><p>Cross the rope bridge by guessing a safe step number from 1 to 5.</p><input type="number" id="stepInput" min="1" max="5" placeholder="Enter step number (1-5)" /><button onclick="checkRopeBridge()">Cross</button><p id="ropeBridgeResult"></p><button onclick="loadRopeBridge()" style="margin-top:10px;">Restart</button><button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button></div>`;
       document.getElementById("ropeBridgeResult").textContent = "";
+      // Hide leaderboard button and leaderboard if visible
+      document.getElementById('showLeaderboardBtn').style.display = 'none';
+      document.getElementById('leaderboard').style.display = 'none';
     }
     function checkRopeBridge() {
       const safeStep = Math.floor(Math.random() * 5) + 1;
@@ -207,6 +271,10 @@
     function loadReactionTest() {
       const container = document.getElementById("gameContainer");
       container.innerHTML = `<div class="reaction-container"><p><strong>Reaction Time Test</strong></p><p>Wait for the button to turn green, then click it as fast as you can!</p><button id="reactionBtn" style="background-color: red; color: white; width: 100%; padding: 20px; font-size: 20px; border: none; border-radius: 10px; cursor: not-allowed;" disabled>Wait for green...</button><p id="reactionResult" style="margin-top: 20px; font-size: 18px;"></p><button onclick="startReactionTest()" style="margin-top: 15px;">Start Test</button><button onclick="showGameChoice()" style="margin-top: 15px;">Back to Game Selection</button></div>`;
+      document.getElementById("reactionResult").textContent = "";
+      // Hide leaderboard button and leaderboard if visible
+      document.getElementById('showLeaderboardBtn').style.display = 'none';
+      document.getElementById('leaderboard').style.display = 'none';
     }
     function startReactionTest() {
       const btn = document.getElementById("reactionBtn");
@@ -231,16 +299,67 @@
 
     function loadGame(game) {
       document.getElementById("gameChoice").style.display = "none";
-      if (game === "quiz") { document.getElementById("gameTitle").textContent = "Quiz Game"; startQuiz(); }
-      else if (game === "hideSeek") { document.getElementById("gameTitle").textContent = "Hide and Seek"; loadHideSeek(); }
-      else if (game === "ropeBridge") { document.getElementById("gameTitle").textContent = "Rope Bridge"; loadRopeBridge(); }
-      else if (game === "reactionTest") { document.getElementById("gameTitle").textContent = "Reaction Time Test"; loadReactionTest(); }
+      if (game === "quiz") { 
+        document.getElementById("gameTitle").textContent = "Quiz Game"; 
+        startQuiz(); 
+      }
+      else if (game === "hideSeek") { 
+        document.getElementById("gameTitle").textContent = "Hide and Seek"; 
+        loadHideSeek(); 
+      }
+      else if (game === "ropeBridge") { 
+        document.getElementById("gameTitle").textContent = "Rope Bridge"; 
+        loadRopeBridge(); 
+      }
+      else if (game === "reactionTest") { 
+        document.getElementById("gameTitle").textContent = "Reaction Time Test"; 
+        loadReactionTest(); 
+      }
     }
     function showGameChoice() {
       document.getElementById("gameChoice").style.display = "block";
       document.getElementById("gameTitle").textContent = "Choose a Game to Play";
       document.getElementById("gameContainer").innerHTML = "";
+      // Hide leaderboard and button when showing game choice
+      document.getElementById('leaderboard').style.display = 'none';
+      document.getElementById('showLeaderboardBtn').style.display = 'none';
     }
+
+    // Leaderboard functions
+    function saveScore(name, score) {
+      let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
+      scores.push({name, score});
+      scores.sort((a,b) => b.score - a.score); // Descending order
+      scores = scores.slice(0, 5); // Keep top 5
+      localStorage.setItem('leaderboardScores', JSON.stringify(scores));
+    }
+
+    function showLeaderboard() {
+      const leaderboardDiv = document.getElementById('leaderboard');
+      const list = document.getElementById('leaderboardList');
+      list.innerHTML = '';
+      let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
+      if(scores.length === 0) {
+        list.innerHTML = '<li>No scores yet</li>';
+      } else {
+        scores.forEach(entry => {
+          let li = document.createElement('li');
+          li.textContent = `${entry.name} - ${entry.score}`;
+          list.appendChild(li);
+        });
+      }
+      leaderboardDiv.style.display = 'block';
+      document.getElementById('showLeaderboardBtn').style.display = 'none';
+    }
+
+    function hideLeaderboard() {
+      document.getElementById('leaderboard').style.display = 'none';
+      document.getElementById('showLeaderboardBtn').style.display = 'block';
+    }
+
+    document.getElementById('showLeaderboardBtn').addEventListener('click', showLeaderboard);
+    document.getElementById('closeLeaderboardBtn').addEventListener('click', hideLeaderboard);
+
     window.onload = showGameChoice;
   </script>
 </body>
