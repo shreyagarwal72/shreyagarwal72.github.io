@@ -151,14 +151,13 @@
     /* Leaderboard styling inside gameChoice */
     #leaderboard {
       max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      background:#222;
-      padding:15px;
-      border-radius:10px;
-      color:#00bcd4;
-      text-align:left;
-      display:none;
+      margin: 20px auto 0;
+      background: #222;
+      padding: 15px;
+      border-radius: 10px;
+      color: #00bcd4;
+      text-align: left;
+      display: none;
     }
   </style>
 </head>
@@ -209,10 +208,10 @@
     let currentQuestion = 0;
     let score = 0;
 
-    function startQuiz() { 
-      currentQuestion = 0; 
-      score = 0; 
-      renderQuizQuestion(); 
+    function startQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      renderQuizQuestion();
     }
 
     function renderQuizQuestion() {
@@ -224,7 +223,6 @@
           <p>Your Score: <strong>${score}/${quizData.length}</strong></p>
           <button onclick="startQuiz()">Retry Quiz</button>
           <button onclick="showGameChoice()">Back to Game Selection</button>
-          
           <div id="nameInputSection" style="margin-top:20px;">
             <label for="playerName" style="font-weight:bold;">Enter your name for leaderboard:</label><br/>
             <input type="text" id="playerName" placeholder="Your name" />
@@ -236,15 +234,13 @@
         document.getElementById('submitNameBtn').addEventListener('click', () => {
           const nameInput = document.getElementById('playerName');
           const name = nameInput.value.trim();
-          if(name === '') {
+          if (name === '') {
             alert('Please enter a valid name!');
             return;
           }
           saveScore(name, score);
           alert('Score saved! Ab aap leaderboard dekh sakte hain game selection screen par.');
-          // Leaderboard button show karo waha:
           document.getElementById('showLeaderboardBtn').style.display = 'inline-block';
-          // Input form hata do:
           document.getElementById('nameInputSection').style.display = 'none';
         });
 
@@ -252,10 +248,12 @@
       }
 
       const q = quizData[currentQuestion];
-      container.innerHTML = `<div class="quiz-container">
-        <div class="question">${q.question}</div>
-        <div class="options">${q.options.map(opt => `<button onclick="checkQuizAnswer('${opt}')">${opt}</button>`).join('')}</div>
-      </div>`;
+      container.innerHTML = `
+        <div class="quiz-container">
+          <div class="question">${q.question}</div>
+          <div class="options">${q.options.map(opt => `<button onclick="checkQuizAnswer('${opt}')">${opt}</button>`).join('')}</div>
+        </div>
+      `;
     }
 
     function checkQuizAnswer(selected) {
@@ -266,21 +264,43 @@
 
     function loadHideSeek() {
       const container = document.getElementById("gameContainer");
-      container.innerHTML = `<div class="hide-seek-container"><p><strong>Hide and Seek Game</strong></p><p>Imagine you're hiding. Click the button to see if you got found!</p><button onclick="hideSeekPlay()">Check Hide Status</button><p id="hideSeekResult"></p><button onclick="loadHideSeek()" style="margin-top:10px;">Restart</button><button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button></div>`;
+      container.innerHTML = `
+      <div class="hide-seek-container">
+        <p><strong>Hide and Seek Game</strong></p>
+        <p>Imagine you're hiding. Click the button to see if you got found!</p>
+        <button onclick="hideSeekPlay()">Check Hide Status</button>
+        <p id="hideSeekResult"></p>
+        <button onclick="loadHideSeek()" style="margin-top:10px;">Restart</button>
+        <button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button>
+      </div>`;
       document.getElementById("hideSeekResult").textContent = "";
     }
-    function hideSeekPlay() { document.getElementById("hideSeekResult").textContent = Math.random() < 0.5 ? "You are still hidden! 🎉" : "Oh no! You got found! 😢"; }
+    function hideSeekPlay() {
+      document.getElementById("hideSeekResult").textContent = Math.random() < 0.5 ? "You are still hidden! 🎉" : "Oh no! You got found! 😢";
+    }
 
     function loadRopeBridge() {
       const container = document.getElementById("gameContainer");
-      container.innerHTML = `<div class="rope-bridge-container"><p><strong>Rope Bridge Game</strong></p><p>Cross the rope bridge by guessing a safe step number from 1 to 5.</p><input type="number" id="stepInput" min="1" max="5" placeholder="Enter step number (1-5)" /><button onclick="checkRopeBridge()">Cross</button><p id="ropeBridgeResult"></p><button onclick="loadRopeBridge()" style="margin-top:10px;">Restart</button><button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button></div>`;
+      container.innerHTML = `
+      <div class="rope-bridge-container">
+        <p><strong>Rope Bridge Game</strong></p>
+        <p>Cross the rope bridge by guessing a safe step number from 1 to 5.</p>
+        <input type="number" id="stepInput" min="1" max="5" placeholder="Enter step number (1-5)" />
+        <button onclick="checkRopeBridge()">Cross</button>
+        <p id="ropeBridgeResult"></p>
+        <button onclick="loadRopeBridge()" style="margin-top:10px;">Restart</button>
+        <button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button>
+      </div>`;
       document.getElementById("ropeBridgeResult").textContent = "";
     }
     function checkRopeBridge() {
       const safeStep = Math.floor(Math.random() * 5) + 1;
       const userStep = parseInt(document.getElementById("stepInput").value);
       const resultEl = document.getElementById("ropeBridgeResult");
-      if (isNaN(userStep) || userStep < 1 || userStep > 5) { resultEl.textContent = "Please enter a valid step number between 1 and 5."; return; }
+      if (isNaN(userStep) || userStep < 1 || userStep > 5) {
+        resultEl.textContent = "Please enter a valid step number between 1 and 5.";
+        return;
+      }
       resultEl.textContent = userStep === safeStep ? "You crossed safely! 🎉" : "Oops! The bridge broke! You fell. 😢";
     }
 
@@ -288,72 +308,112 @@
     let reactionTimeout;
     function loadReactionTest() {
       const container = document.getElementById("gameContainer");
-      container.innerHTML = `<div class="reaction-container"><p><strong>Reaction Time Test</strong></p><p>Wait for the button to turn green, then click it as fast as you can!</p><button id="reactionBtn" style="background-color: red; color: white; width: 100%; padding: 20px; font-size: 20px; border: none; border-radius: 10px; cursor: not-allowed;" disabled>Wait for green...</button><p id="reactionResult" style="margin-top: 20px; font-size: 18px;"></p><button onclick="startReactionTest()" style="margin-top: 15px;">Start Test</button><button onclick="showGameChoice()" style="margin-top: 15px;">Back to Game Selection</button></div>`;
+      container.innerHTML = `
+      <div class="reaction-container">
+        <p><strong>Reaction Time Test</strong></p>
+        <p>Wait for the button to turn green, then click it as fast as you can!</p>
+        <button id="reactionBtn" style="background-color: red; color: white; width: 100%; padding: 20px; font-size: 20px; border: none; border-radius: 10px; cursor: not-allowed;" disabled>Wait for green...</button>
+        <p id="reactionResult" style="margin-top: 20px; font-size: 18px;"></p>
+        <button onclick="startReactionTest()" style="margin-top: 15px;">Start Test</button>
+        <button onclick="showGameChoice()" style="margin-top: 15px;">Back to Game Selection</button>
+      </div>`;
       document.getElementById("reactionResult").textContent = "";
     }
     function startReactionTest() {
       const btn = document.getElementById("reactionBtn");
       const result = document.getElementById("reactionResult");
-      btn.style.backgroundColor = "red"; btn.textContent = "Wait for green..."; btn.disabled = true; result.textContent = "";
+      btn.style.backgroundColor = "red";
+      btn.textContent = "Wait for green...";
+      btn.disabled = true;
+      result.textContent = "";
       const delay = Math.floor(Math.random() * 3000) + 2000;
       reactionTimeout = setTimeout(() => {
-        btn.style.backgroundColor = "green"; btn.textContent = "Click Now!"; btn.disabled = false; btn.style.cursor = "pointer";
+        btn.style.backgroundColor = "green";
+        btn.textContent = "Click Now!";
+        btn.disabled = false;
+        btn.style.cursor = "pointer";
         reactionStartTime = performance.now();
         btn.onclick = () => {
           const reactionTime = performance.now() - reactionStartTime;
-          btn.style.backgroundColor = "#00bcd4"; btn.textContent = `Your reaction time: ${reactionTime.toFixed(2)} ms`;
-          btn.disabled = true; btn.style.cursor = "default"; btn.onclick = null;
+          btn.style.backgroundColor = "#00bcd4";
+          btn.textContent = `Your reaction time: ${reactionTime.toFixed(2)} ms`;
+          btn.disabled = true;
+          btn.style.cursor = "default";
+          btn.onclick = null;
         };
       }, delay);
       btn.onclick = () => {
         clearTimeout(reactionTimeout);
-        btn.style.backgroundColor = "red"; btn.textContent = "Too Soon! Wait for green.";
-        btn.disabled = true; btn.style.cursor = "default";
+        btn.style.backgroundColor = "red";
+        btn.textContent = "Too Soon! Wait for green.";
+        btn.disabled = true;
+        btn.style.cursor = "default";
       };
     }
 
     function loadGame(game) {
       document.getElementById("gameChoice").style.display = "none";
-      document.getElementById("showLeaderboardBtn").style.display = "none"; // Hide leaderboard button while playing
+      document.getElementById("showLeaderboardBtn").style.display = "none";
 
-      if (game === "quiz") { 
-        document.getElementById("gameTitle").textContent = "Quiz Game"; 
-        startQuiz(); 
+      if (game === "quiz") {
+        document.getElementById("gameTitle").textContent = "Quiz Game";
+        startQuiz();
       }
-      else if (game === "hideSeek") { 
-        document.getElementById("gameTitle").textContent = "Hide and Seek"; 
-        loadHideSeek(); 
+      else if (game === "hideSeek") {
+        document.getElementById("gameTitle").textContent = "Hide and Seek";
+        loadHideSeek();
       }
-      else if (game === "ropeBridge") { 
-        document.getElementById("gameTitle").textContent = "Rope Bridge"; 
-        loadRopeBridge(); 
+      else if (game === "ropeBridge") {
+        document.getElementById("gameTitle").textContent = "Rope Bridge";
+        loadRopeBridge();
       }
-      else if (game === "reactionTest") { 
-        document.getElementById("gameTitle").textContent = "Reaction Time Test"; 
-        loadReactionTest(); 
+      else if (game === "reactionTest") {
+        document.getElementById("gameTitle").textContent = "Reaction Time Test";
+        loadReactionTest();
       }
     }
+
     function showGameChoice() {
       document.getElementById("gameChoice").style.display = "block";
       document.getElementById("gameTitle").textContent = "Choose a Game to Play";
       document.getElementById("gameContainer").innerHTML = "";
 
-      // Show leaderboard button if scores exist
       let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
       document.getElementById('showLeaderboardBtn').style.display = scores.length > 0 ? 'inline-block' : 'none';
     }
 
     function saveScore(name, score) {
       let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
-      scores.push({name, score});
-      scores.sort((a,b) => b.score - a.score); // Descending
-      scores = scores.slice(0, 5); // Top 5
+      scores.push({ name, score });
+      scores.sort((a, b) => b.score - a.score);
+      scores = scores.slice(0, 5);
       localStorage.setItem('leaderboardScores', JSON.stringify(scores));
     }
 
     function showLeaderboard() {
+      const lb = document.getElementById('leaderboard');
       const list = document.getElementById('leaderboardList');
       list.innerHTML = '';
       let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
-      if(scores.length === 0) {
-        list.innerHTML = '<li>No scores
+      if (scores.length === 0) {
+        list.innerHTML = '<li>No scores yet</li>';
+      } else {
+        scores.forEach(entry => {
+          let li = document.createElement('li');
+          li.textContent = `${entry.name} - ${entry.score}`;
+          list.appendChild(li);
+        });
+      }
+      lb.style.display = 'block';
+    }
+
+    function hideLeaderboard() {
+      document.getElementById('leaderboard').style.display = 'none';
+    }
+
+    window.onload = () => {
+      showGameChoice();
+    };
+  </script>
+</body>
+</html>
