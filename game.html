@@ -163,7 +163,7 @@
   </div>
 
 <script>
-  // Leaderboard store - simple localStorage, array of objects {name, score, game}
+  // Leaderboard storage helpers
   function getLeaderboard() {
     return JSON.parse(localStorage.getItem('leaderboard') || '[]');
   }
@@ -174,9 +174,7 @@
     if (!name || score == null) return;
     let lb = getLeaderboard();
     lb.push({name, score, game});
-    // Sort descending by score
     lb.sort((a,b) => b.score - a.score);
-    // Keep top 10
     lb = lb.slice(0,10);
     saveLeaderboard(lb);
   }
@@ -276,7 +274,6 @@
     }
 
     const q = quizData[currentQuestion];
-    // Clear container and create question + options
     let html = `<div style="max-width:600px; margin:auto; background:#1e1e1e; padding:20px; border-radius:10px; text-align:left;">
       <h3>${q.question}</h3>
       <div id="quizOptions"></div>
@@ -373,6 +370,7 @@
     const result = document.getElementById('ropeBridgeResult');
     const nameInput = document.getElementById('ropeBridgeName');
     const submitBtn = document.getElementById('ropeBridgeSubmit');
+
     crossBtn.addEventListener('click', () => {
       const step = Number(document.getElementById('stepInput').value);
       if (!step || step < 1 || step > 5) {
@@ -403,4 +401,12 @@
       submitBtn.style.display = 'none';
       nameInput.style.display = 'none';
     });
-    document.getElementById('
+    document.getElementById('restartRopeBridge').addEventListener('click', loadRopeBridge);
+    document.getElementById('backToGamesRopeBridge').addEventListener('click', showGameChoice);
+  }
+
+  // ===== REACTION TIME TEST =====
+  let reactionTimeout;
+  let reactionStart;
+  function loadReactionTest() {
+    document.getElementById('game
