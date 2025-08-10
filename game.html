@@ -90,7 +90,6 @@
   #nameInputSection {
     margin-top: 15px;
   }
-
   /* Responsive */
   @media (max-width: 768px) {
     .sidebar {
@@ -159,7 +158,7 @@
         </div>
       </div>
 
-      <div id="gameContainer"></div>
+      <div id="gameContainer" style="display:none;"></div>
     </div>
   </div>
 
@@ -179,7 +178,8 @@
   function loadGame(game) {
     document.getElementById('leaderboard').style.display = 'none';
     document.getElementById('gameChoice').style.display = 'none';
-    document.getElementById('gameContainer').style.display = 'block';
+    const container = document.getElementById('gameContainer');
+    container.style.display = 'block';
     document.getElementById('showLeaderboardBtn').style.display = 'inline-block';
     document.getElementById('gameTitle').textContent = {
       'quiz': 'Quiz Game',
@@ -216,8 +216,8 @@
         <div style="max-width:600px; margin:auto; background:#1e1e1e; padding:20px; border-radius:10px; text-align:center;">
           <h2>Quiz Completed!</h2>
           <p>Your Score: <strong>${score} / ${quizData.length}</strong></p>
-          <button onclick="startQuiz()">Retry Quiz</button>
-          <button onclick="showGameChoice()">Back to Game Selection</button>
+          <button id="retryQuizBtn">Retry Quiz</button>
+          <button id="backToGamesBtn">Back to Game Selection</button>
           <div id="nameInputSection" style="margin-top:15px;">
             <input type="text" id="playerName" placeholder="Enter your name" />
             <button id="submitNameBtn">Submit Score</button>
@@ -233,8 +233,9 @@
         saveScore(name, score, "Quiz");
         alert('Score saved! You can view it in the leaderboard.');
         document.getElementById('nameInputSection').style.display = 'none';
-        document.getElementById('showLeaderboardBtn').style.display = 'inline-block';
       }
+      document.getElementById('retryQuizBtn').onclick = startQuiz;
+      document.getElementById('backToGamesBtn').onclick = showGameChoice;
       return;
     }
 
@@ -242,7 +243,7 @@
     container.innerHTML = `
       <div style="max-width:600px; margin:auto; background:#1e1e1e; padding:20px; border-radius:10px; text-align:left;">
         <h3>${q.question}</h3>
-        ${q.options.map(opt => `<button style="width:100%; margin:5px 0;" onclick="checkQuizAnswer('${opt}')">${opt}</button>`).join('')}
+        ${q.options.map(opt => `<button style="width:100%; margin:5px 0;" onclick="checkQuizAnswer('${opt.replace(/'/g,"\\'")}')">${opt}</button>`).join('')}
       </div>`;
   }
 
@@ -261,8 +262,8 @@
         <button id="hideSeekBtn">Check Hide Status</button>
         <p id="hideSeekResult" style="margin-top:15px;"></p>
         <div id="hideSeekNameInput" style="margin-top:15px;"></div>
-        <button onclick="loadHideSeek()" style="margin-top:15px;">Restart</button>
-        <button onclick="showGameChoice()" style="margin-top:15px;">Back to Game Selection</button>
+        <button id="restartHideSeekBtn" style="margin-top:15px;">Restart</button>
+        <button id="backToGamesHideSeekBtn" style="margin-top:15px;">Back to Game Selection</button>
       </div>`;
 
     document.getElementById('hideSeekBtn').onclick = () => {
@@ -277,6 +278,8 @@
         askNameAndSaveScore(1, 'Hide and Seek', 'hideSeekNameInput');
       }
     }
+    document.getElementById('restartHideSeekBtn').onclick = loadHideSeek;
+    document.getElementById('backToGamesHideSeekBtn').onclick = showGameChoice;
   }
 
   // ROPE BRIDGE
@@ -289,8 +292,8 @@
         <button id="ropeBridgeBtn">Cross</button>
         <p id="ropeBridgeResult" style="margin-top:15px;"></p>
         <div id="ropeBridgeNameInput" style="margin-top:15px;"></div>
-        <button onclick="loadRopeBridge()" style="margin-top:15px;">Restart</button>
-        <button onclick="showGameChoice()" style="margin-top:15px;">Back to Game Selection</button>
+        <button id="restartRopeBridgeBtn" style="margin-top:15px;">Restart</button>
+        <button id="backToGamesRopeBridgeBtn" style="margin-top:15px;">Back to Game Selection</button>
       </div>`;
 
     document.getElementById('ropeBridgeBtn').onclick = () => {
@@ -310,6 +313,8 @@
         resultEl.textContent = 'Oops! The bridge broke! You fell. 😢';
       }
     }
+    document.getElementById('restartRopeBridgeBtn').onclick = loadRopeBridge;
+    document.getElementById('backToGamesRopeBridgeBtn').onclick = showGameChoice;
   }
 
   // REACTION TEST
@@ -324,10 +329,11 @@
         <p id="reactionResult" style="margin-top:15px;"></p>
         <div id="reactionNameInput" style="margin-top:15px;"></div>
         <button id="startReactionBtn" style="margin-top:15px;">Start Test</button>
-        <button onclick="showGameChoice()" style="margin-top:15px;">Back to Game Selection</button>
+        <button id="backToGamesReactionBtn" style="margin-top:15px;">Back to Game Selection</button>
       </div>`;
 
     document.getElementById('startReactionBtn').onclick = startReactionTest;
+    document.getElementById('backToGamesReactionBtn').onclick = showGameChoice;
   }
 
   function startReactionTest() {
@@ -384,7 +390,7 @@
         </div>
         <p id="status" style="color:#00bcd4; font-weight:bold;"></p>
         <button id="restartBtn" style="margin-top:15px;">Restart Game</button>
-        <button onclick="showGameChoice()" style="margin-top:15px;">Back to Game Selection</button>
+        <button id="backToGamesTicBtn" style="margin-top:15px;">Back to Game Selection</button>
       </div>
     `;
 
@@ -395,31 +401,9 @@
 
     function checkWinner() {
       const wins = [
-        [0,1,2],[3,4,5],[6,7,8], // rows
-        [0,3,6],[1,4,7],[2,5,8], // cols
-        [0,4,8],[2,4,6]          // diagonals
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
       ];
-
       for (const [a,b,c] of wins) {
-        if(board[a] && board[a] === board[b] && board[b] === board[c]) {
-          return board[a];
-        }
-      }
-      return board.includes(null) ? null : 'draw';
-    }
-
-    function updateStatus() {
-      const winner = checkWinner();
-      if(winner === 'X' || winner === 'O') {
-        status.textContent = `Player ${winner} wins! 🎉`;
-        saveScoreToLeaderboard(winner);
-        cells.forEach(cell => cell.disabled = true);
-      } else if(winner === 'draw') {
-        status.textContent = "It's a Draw!";
-      } else {
-        status.textContent = `Player ${currentPlayer}'s turn`;
-      }
-    }
-
-    function saveScoreToLeaderboard(winner) {
-      const name =
+        if
