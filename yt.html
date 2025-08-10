@@ -29,6 +29,54 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* --- Easter egg modal styles --- */
+    .secret-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      padding: 20px;
+    }
+    .secret-card {
+      background: #0f1724;
+      color: #f1f5f9;
+      padding: 22px;
+      border-radius: 12px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .secret-card h3 { margin: 0 0 8px 0; }
+    .secret-card p { margin: 6px 0 14px 0; font-size: 14px; color: #cbd5e1; }
+    .secret-btn {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #00bcd4;
+      color: #042028;
+      font-weight: 700;
+      text-decoration: none;
+      margin: 6px 6px 0 6px;
+    }
+    .secret-close {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #93c5fd;
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: none;
+    }
+
+    /* small hint (completely invisible but accessible for screenreaders) */
+    .sr-only { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
   </style>
 </head>
 <body>
@@ -44,7 +92,8 @@
 
     <!-- Main Content -->
     <div class="main-content">
-      <h1>🎥 YouTube Highlights</h1>
+      <!-- NOTE: clicking this heading 7 times reveals the secret -->
+      <h1 id="page-heading">🎥 YouTube Highlights</h1>
 
       <div class="video-grid">
         <!-- Video 1 -->
@@ -55,25 +104,3 @@
 
         <!-- Video 2 (Updated) -->
         <div class="video-item">
-          <iframe src="https://www.youtube.com/embed/FT1cgE6hmBI" title="Boom Boom Lobby - Free Fire Song" allowfullscreen></iframe>
-          <p><strong>💥 Boom Boom Lobby</strong> – Free Fire song with energetic beats and catchy vibe</p>
-        </div>
-      </div>
-
-      <!-- Subscribe Button -->
-      <div style="text-align: center; margin-top: 30px;">
-        <p style="font-size: 1rem; margin-bottom: 10px;">These are some of my top works. Stay tuned!</p>
-        <a href="https://www.youtube.com/@nextupstudioyt" target="_blank" style="display: inline-flex; align-items: center; background-color: #FF0000; color: white; padding: 10px 18px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 16px;">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube" style="height: 20px; margin-right: 10px;">
-          Subscribe
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-  
-  <!-- Hidden music player iframe -->
-  <iframe src="player.html" allow="autoplay" style="display: none;"></iframe>
-</body>
-</html>
