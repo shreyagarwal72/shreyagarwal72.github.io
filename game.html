@@ -146,6 +146,7 @@
         <button onclick="loadGame('hideSeek')">Hide and Seek</button>
         <button onclick="loadGame('ropeBridge')">Rope Bridge</button>
         <button onclick="loadGame('reactionTest')">Reaction Time Test</button>
+        <button onclick="loadGame('ticTacToe')">Tic Tac Toe</button>
 
         <hr style="margin:20px 0; border-color:#0097a7;" />
 
@@ -184,13 +185,15 @@
       'quiz': 'Quiz Game',
       'hideSeek': 'Hide and Seek',
       'ropeBridge': 'Rope Bridge',
-      'reactionTest': 'Reaction Time Test'
+      'reactionTest': 'Reaction Time Test',
+      'ticTacToe': 'Tic Tac Toe'
     }[game];
 
     if(game === 'quiz') startQuiz();
     else if(game === 'hideSeek') loadHideSeek();
     else if(game === 'ropeBridge') loadRopeBridge();
     else if(game === 'reactionTest') loadReactionTest();
+    else if(game === 'ticTacToe') loadTicTacToe();
   }
 
   function showGameChoice() {
@@ -370,67 +373,53 @@
     };
   }
 
-  // Save score in localStorage
-  function saveScore(name, score, game) {
-    let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
-    scores.push({ name, score, game });
-    scores.sort((a,b) => b.score - a.score);
-    if(scores.length > 10) scores = scores.slice(0, 10);
-    localStorage.setItem('leaderboardScores', JSON.stringify(scores));
-  }
-
-  // Show leaderboard list
-  function showLeaderboard() {
-    const leaderboardDiv = document.getElementById('leaderboard');
-    const list = document.getElementById('leaderboardList');
-    list.innerHTML = '';
-    let scores = JSON.parse(localStorage.getItem('leaderboardScores')) || [];
-
-    if(scores.length === 0) {
-      list.innerHTML = '<li>No scores yet.</li>';
-    } else {
-      scores.forEach(entry => {
-        const li = document.createElement('li');
-        li.textContent = `${entry.name} - ${entry.score} (${entry.game})`;
-        list.appendChild(li);
-      });
-    }
-    leaderboardDiv.style.display = 'block';
-    document.getElementById('showLeaderboardBtn').style.display = 'none';
-  }
-
-  function hideLeaderboard() {
-    document.getElementById('leaderboard').style.display = 'none';
-    document.getElementById('showLeaderboardBtn').style.display = 'inline-block';
-  }
-
-  // Show input to get player name and save score
-  function askNameAndSaveScore(score, game, containerId) {
-    const container = document.getElementById(containerId);
-    if(container.querySelector('input')) return; // prevent duplicates
-
+  // TIC TAC TOE
+  function loadTicTacToe() {
+    const container = document.getElementById('gameContainer');
     container.innerHTML = `
-      <input type="text" id="playerNameInput" placeholder="Enter your name" />
-      <button id="saveScoreBtn">Save Score</button>
+      <div style="max-width:400px; margin:auto; background:#1e1e1e; padding:20px; border-radius:10px; text-align:center;">
+        <h2>Tic Tac Toe</h2>
+        <div id="board" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:5px; margin:20px 0;">
+          ${Array(9).fill(0).map((_,i) => `<button class="cell" data-index="${i}" style="font-size:2rem; padding:20px; cursor:pointer; border-radius:8px; background:#333; color:#00bcd4;">&nbsp;</button>`).join('')}
+        </div>
+        <p id="status" style="color:#00bcd4; font-weight:bold;"></p>
+        <button id="restartBtn" style="margin-top:15px;">Restart Game</button>
+        <button onclick="showGameChoice()" style="margin-top:15px;">Back to Game Selection</button>
+      </div>
     `;
-    document.getElementById('saveScoreBtn').onclick = () => {
-      const name = document.getElementById('playerNameInput').value.trim();
-      if(!name) {
-        alert('Please enter your name');
-        return;
-      }
-      saveScore(name, score, game);
-      alert('Score saved! Check leaderboard.');
-      container.innerHTML = '';
-      document.getElementById('showLeaderboardBtn').style.display = 'inline-block';
-    }
-  }
 
-  // On load: show game choice and leaderboard button
-  window.onload = () => {
-    showGameChoice();
-    document.getElementById('showLeaderboardBtn').style.display = 'inline-block';
-  }
-</script>
-</body>
-</html>
+    const board = Array(9).fill(null);
+    let currentPlayer = 'X';
+    const cells = container.querySelectorAll('.cell');
+    const status = container.querySelector('#status');
+
+    function checkWinner() {
+      const wins = [
+        [0,1,2],[3,4,5],[6,7,8], // rows
+        [0,3,6],[1,4,7],[2,5,8], // cols
+        [0,4,8],[2,4,6]          // diagonals
+      ];
+
+      for (const [a,b,c] of wins) {
+        if(board[a] && board[a] === board[b] && board[b] === board[c]) {
+          return board[a];
+        }
+      }
+      return board.includes(null) ? null : 'draw';
+    }
+
+    function updateStatus() {
+      const winner = checkWinner();
+      if(winner === 'X' || winner === 'O') {
+        status.textContent = `Player ${winner} wins! 🎉`;
+        saveScoreToLeaderboard(winner);
+        cells.forEach(cell => cell.disabled = true);
+      } else if(winner === 'draw') {
+        status.textContent = "It's a Draw!";
+      } else {
+        status.textContent = `Player ${currentPlayer}'s turn`;
+      }
+    }
+
+    function saveScoreToLeaderboard(winner) {
+      const name =
