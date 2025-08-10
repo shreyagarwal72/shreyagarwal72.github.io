@@ -6,7 +6,6 @@
   <title>Games - Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Navbar same as yt.html */
     body, html {
       margin: 0; padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,8 +19,9 @@
       min-height: 100vh;
     }
 
+    /* Sidebar/Navbar */
     .sidebar {
-      background-color: #121212;
+      background-color: #1c1c1c;
       width: 220px;
       padding: 20px;
       box-sizing: border-box;
@@ -32,7 +32,7 @@
       z-index: 1000;
     }
     .sidebar h2 {
-      color: #90e0ef;
+      color: #00bcd4;
       margin-bottom: 25px;
       font-weight: normal;
       font-size: 24px;
@@ -40,7 +40,7 @@
     }
     .sidebar a {
       display: block;
-      color: #90e0ef;
+      color: #00bcd4;
       text-decoration: none;
       margin-bottom: 15px;
       padding: 8px 12px;
@@ -50,11 +50,11 @@
       transition: background-color 0.3s ease;
     }
     .sidebar a:hover {
-      background-color: #007ea7;
+      background-color: #0097a7;
       color: #fff;
     }
     .sidebar a.active {
-      background-color: #007ea7;
+      background-color: #0097a7;
       color: #fff;
       font-weight: 700;
     }
@@ -104,7 +104,7 @@
       font-weight: bold;
     }
 
-    /* Mobile responsive, sidebar becomes horizontal menu */
+    /* Mobile responsive */
     @media (max-width: 768px) {
       .sidebar {
         position: relative;
@@ -112,6 +112,7 @@
         height: auto;
         padding: 15px 10px;
         display: flex;
+        justify-content: center;
         overflow-x: auto;
         white-space: nowrap;
       }
@@ -157,205 +158,89 @@
   </div>
 
   <script>
+    /* Same JS as your original game.html — unchanged */
     const quizData = [
-      {
-        question: "Minecraft mein Nether ka main portal kaise banate hain?",
-        options: ["Obsidian frame + Flint and Steel", "Wooden frame + Torch", "Stone frame + Pickaxe", "Diamond frame + Fire Charge"],
-        answer: "Obsidian frame + Flint and Steel"
-      },
-      {
-        question: "AI ka full form kya hai?",
-        options: ["Artificial Intelligence", "Automatic Input", "Android Interface", "Auto Identification"],
-        answer: "Artificial Intelligence"
-      },
-      {
-        question: "YouTube par sabse zyada subscribers wala channel kaun hai?",
-        options: ["T-Series", "PewDiePie", "Cocomelon", "MrBeast"],
-        answer: "MrBeast"
-      },
-      {
-        question: "Squid Game mein guard ke mask par kaun sa shape hota hai?",
-        options: ["Circle", "Triangle", "Square", "Star"],
-        answer: "Triangle"
-      },
-      {
-        question: "Minecraft mein Creeper kisse dur rehta hai?",
-        options: ["Cat", "Wolf", "Water", "Lava"],
-        answer: "Cat"
-      }
+      { question: "Minecraft mein Nether ka main portal kaise banate hain?", options: ["Obsidian frame + Flint and Steel", "Wooden frame + Torch", "Stone frame + Pickaxe", "Diamond frame + Fire Charge"], answer: "Obsidian frame + Flint and Steel" },
+      { question: "AI ka full form kya hai?", options: ["Artificial Intelligence", "Automatic Input", "Android Interface", "Auto Identification"], answer: "Artificial Intelligence" },
+      { question: "YouTube par sabse zyada subscribers wala channel kaun hai?", options: ["T-Series", "PewDiePie", "Cocomelon", "MrBeast"], answer: "MrBeast" },
+      { question: "Squid Game mein guard ke mask par kaun sa shape hota hai?", options: ["Circle", "Triangle", "Square", "Star"], answer: "Triangle" },
+      { question: "Minecraft mein Creeper kisse dur rehta hai?", options: ["Cat", "Wolf", "Water", "Lava"], answer: "Cat" }
     ];
 
     let currentQuestion = 0;
     let score = 0;
 
-    function startQuiz() {
-      currentQuestion = 0;
-      score = 0;
-      renderQuizQuestion();
-    }
-
+    function startQuiz() { currentQuestion = 0; score = 0; renderQuizQuestion(); }
     function renderQuizQuestion() {
       const container = document.getElementById("gameContainer");
       if (currentQuestion >= quizData.length) {
-        container.innerHTML = `
-          <div class="quiz-container">
-            <h2>Quiz Completed!</h2>
-            <p>Your Score: <strong>${score}/${quizData.length}</strong></p>
-            <button onclick="startQuiz()">Retry Quiz</button>
-            <button onclick="showGameChoice()">Back to Game Selection</button>
-          </div>
-        `;
+        container.innerHTML = `<div class="quiz-container"><h2>Quiz Completed!</h2><p>Your Score: <strong>${score}/${quizData.length}</strong></p><button onclick="startQuiz()">Retry Quiz</button><button onclick="showGameChoice()">Back to Game Selection</button></div>`;
         return;
       }
-
       const q = quizData[currentQuestion];
-      container.innerHTML = `
-        <div class="quiz-container">
-          <div class="question">${q.question}</div>
-          <div class="options">
-            ${q.options.map(opt => `<button onclick="checkQuizAnswer('${opt}')">${opt}</button>`).join('')}
-          </div>
-        </div>
-      `;
+      container.innerHTML = `<div class="quiz-container"><div class="question">${q.question}</div><div class="options">${q.options.map(opt => `<button onclick="checkQuizAnswer('${opt}')">${opt}</button>`).join('')}</div></div>`;
     }
-
-    function checkQuizAnswer(selected) {
-      if (selected === quizData[currentQuestion].answer) score++;
-      currentQuestion++;
-      renderQuizQuestion();
-    }
+    function checkQuizAnswer(selected) { if (selected === quizData[currentQuestion].answer) score++; currentQuestion++; renderQuizQuestion(); }
 
     function loadHideSeek() {
       const container = document.getElementById("gameContainer");
-      container.innerHTML = `
-        <div class="hide-seek-container">
-          <p><strong>Hide and Seek Game</strong></p>
-          <p>Imagine you're hiding. Click the button to see if you got found!</p>
-          <button onclick="hideSeekPlay()">Check Hide Status</button>
-          <p id="hideSeekResult"></p>
-          <button onclick="loadHideSeek()" style="margin-top:10px;">Restart</button>
-          <button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button>
-        </div>
-      `;
+      container.innerHTML = `<div class="hide-seek-container"><p><strong>Hide and Seek Game</strong></p><p>Imagine you're hiding. Click the button to see if you got found!</p><button onclick="hideSeekPlay()">Check Hide Status</button><p id="hideSeekResult"></p><button onclick="loadHideSeek()" style="margin-top:10px;">Restart</button><button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button></div>`;
       document.getElementById("hideSeekResult").textContent = "";
     }
-
-    function hideSeekPlay() {
-      const result = Math.random() < 0.5 ? "You are still hidden! 🎉" : "Oh no! You got found! 😢";
-      document.getElementById("hideSeekResult").textContent = result;
-    }
+    function hideSeekPlay() { document.getElementById("hideSeekResult").textContent = Math.random() < 0.5 ? "You are still hidden! 🎉" : "Oh no! You got found! 😢"; }
 
     function loadRopeBridge() {
       const container = document.getElementById("gameContainer");
-      container.innerHTML = `
-        <div class="rope-bridge-container">
-          <p><strong>Rope Bridge Game</strong></p>
-          <p>Cross the rope bridge by guessing a safe step number from 1 to 5.</p>
-          <input type="number" id="stepInput" min="1" max="5" placeholder="Enter step number (1-5)" />
-          <button onclick="checkRopeBridge()">Cross</button>
-          <p id="ropeBridgeResult"></p>
-          <button onclick="loadRopeBridge()" style="margin-top:10px;">Restart</button>
-          <button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button>
-        </div>
-      `;
+      container.innerHTML = `<div class="rope-bridge-container"><p><strong>Rope Bridge Game</strong></p><p>Cross the rope bridge by guessing a safe step number from 1 to 5.</p><input type="number" id="stepInput" min="1" max="5" placeholder="Enter step number (1-5)" /><button onclick="checkRopeBridge()">Cross</button><p id="ropeBridgeResult"></p><button onclick="loadRopeBridge()" style="margin-top:10px;">Restart</button><button onclick="showGameChoice()" style="margin-top:10px;">Back to Game Selection</button></div>`;
       document.getElementById("ropeBridgeResult").textContent = "";
     }
-
     function checkRopeBridge() {
       const safeStep = Math.floor(Math.random() * 5) + 1;
       const userStep = parseInt(document.getElementById("stepInput").value);
       const resultEl = document.getElementById("ropeBridgeResult");
-
-      if (isNaN(userStep) || userStep < 1 || userStep > 5) {
-        resultEl.textContent = "Please enter a valid step number between 1 and 5.";
-        return;
-      }
-
-      if (userStep === safeStep) {
-        resultEl.textContent = "You crossed safely! 🎉";
-      } else {
-        resultEl.textContent = "Oops! The bridge broke! You fell. 😢";
-      }
+      if (isNaN(userStep) || userStep < 1 || userStep > 5) { resultEl.textContent = "Please enter a valid step number between 1 and 5."; return; }
+      resultEl.textContent = userStep === safeStep ? "You crossed safely! 🎉" : "Oops! The bridge broke! You fell. 😢";
     }
 
     let reactionStartTime = 0;
     let reactionTimeout;
-
     function loadReactionTest() {
       const container = document.getElementById("gameContainer");
-      container.innerHTML = `
-        <div class="reaction-container">
-          <p><strong>Reaction Time Test</strong></p>
-          <p>Wait for the button to turn green, then click it as fast as you can!</p>
-          <button id="reactionBtn" style="background-color: red; color: white; width: 100%; padding: 20px; font-size: 20px; border: none; border-radius: 10px; cursor: not-allowed;" disabled>Wait for green...</button>
-          <p id="reactionResult" style="margin-top: 20px; font-size: 18px;"></p>
-          <button onclick="startReactionTest()" style="margin-top: 15px;">Start Test</button>
-          <button onclick="showGameChoice()" style="margin-top: 15px;">Back to Game Selection</button>
-        </div>
-      `;
+      container.innerHTML = `<div class="reaction-container"><p><strong>Reaction Time Test</strong></p><p>Wait for the button to turn green, then click it as fast as you can!</p><button id="reactionBtn" style="background-color: red; color: white; width: 100%; padding: 20px; font-size: 20px; border: none; border-radius: 10px; cursor: not-allowed;" disabled>Wait for green...</button><p id="reactionResult" style="margin-top: 20px; font-size: 18px;"></p><button onclick="startReactionTest()" style="margin-top: 15px;">Start Test</button><button onclick="showGameChoice()" style="margin-top: 15px;">Back to Game Selection</button></div>`;
     }
-
     function startReactionTest() {
       const btn = document.getElementById("reactionBtn");
       const result = document.getElementById("reactionResult");
-
-      btn.style.backgroundColor = "red";
-      btn.textContent = "Wait for green...";
-      btn.disabled = true;
-      result.textContent = "";
-
+      btn.style.backgroundColor = "red"; btn.textContent = "Wait for green..."; btn.disabled = true; result.textContent = "";
       const delay = Math.floor(Math.random() * 3000) + 2000;
-
       reactionTimeout = setTimeout(() => {
-        btn.style.backgroundColor = "green";
-        btn.textContent = "Click Now!";
-        btn.disabled = false;
-        btn.style.cursor = "pointer";
+        btn.style.backgroundColor = "green"; btn.textContent = "Click Now!"; btn.disabled = false; btn.style.cursor = "pointer";
         reactionStartTime = performance.now();
-
         btn.onclick = () => {
           const reactionTime = performance.now() - reactionStartTime;
-          btn.style.backgroundColor = "#00bcd4";
-          btn.textContent = `Your reaction time: ${reactionTime.toFixed(2)} ms`;
-          btn.disabled = true;
-          btn.style.cursor = "default";
-          btn.onclick = null;
+          btn.style.backgroundColor = "#00bcd4"; btn.textContent = `Your reaction time: ${reactionTime.toFixed(2)} ms`;
+          btn.disabled = true; btn.style.cursor = "default"; btn.onclick = null;
         };
       }, delay);
-
       btn.onclick = () => {
         clearTimeout(reactionTimeout);
-        btn.style.backgroundColor = "red";
-        btn.textContent = "Too Soon! Wait for green.";
-        btn.disabled = true;
-        btn.style.cursor = "default";
+        btn.style.backgroundColor = "red"; btn.textContent = "Too Soon! Wait for green.";
+        btn.disabled = true; btn.style.cursor = "default";
       };
     }
 
     function loadGame(game) {
       document.getElementById("gameChoice").style.display = "none";
-
-      if (game === "quiz") {
-        document.getElementById("gameTitle").textContent = "Quiz Game";
-        startQuiz();
-      } else if (game === "hideSeek") {
-        document.getElementById("gameTitle").textContent = "Hide and Seek";
-        loadHideSeek();
-      } else if (game === "ropeBridge") {
-        document.getElementById("gameTitle").textContent = "Rope Bridge";
-        loadRopeBridge();
-      } else if (game === "reactionTest") {
-        document.getElementById("gameTitle").textContent = "Reaction Time Test";
-        loadReactionTest();
-      }
+      if (game === "quiz") { document.getElementById("gameTitle").textContent = "Quiz Game"; startQuiz(); }
+      else if (game === "hideSeek") { document.getElementById("gameTitle").textContent = "Hide and Seek"; loadHideSeek(); }
+      else if (game === "ropeBridge") { document.getElementById("gameTitle").textContent = "Rope Bridge"; loadRopeBridge(); }
+      else if (game === "reactionTest") { document.getElementById("gameTitle").textContent = "Reaction Time Test"; loadReactionTest(); }
     }
-
     function showGameChoice() {
       document.getElementById("gameChoice").style.display = "block";
       document.getElementById("gameTitle").textContent = "Choose a Game to Play";
       document.getElementById("gameContainer").innerHTML = "";
     }
-
     window.onload = showGameChoice;
   </script>
 </body>
