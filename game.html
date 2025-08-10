@@ -23,6 +23,9 @@
     position: fixed;
     height: 100vh;
     overflow-y: auto;
+    top: 0;
+    left: 0;
+    z-index: 1000;
   }
   .sidebar h2 {
     color: #00bcd4;
@@ -87,22 +90,35 @@
   #nameInputSection {
     margin-top: 15px;
   }
+
+  /* Responsive */
   @media (max-width: 768px) {
     .sidebar {
       width: 100%;
-      height: auto;
-      position: relative;
+      height: 60px;
+      position: fixed;
+      top: 0;
+      left: 0;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
+      align-items: center;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 0 10px;
+      z-index: 1000;
+    }
+    .sidebar h2 {
+      display: none;
     }
     .sidebar a {
-      margin: 5px;
-      padding: 10px 15px;
+      margin: 0 8px;
+      padding: 8px 12px;
       font-size: 14px;
+      white-space: nowrap;
     }
     .main-content {
       margin-left: 0;
+      margin-top: 60px;
       padding: 10px;
     }
     input[type="text"], input[type="number"] {
@@ -160,7 +176,6 @@
   let score = 0;
 
   function loadGame(game) {
-    // Reset gameContainer and leaderboard
     document.getElementById('leaderboard').style.display = 'none';
     document.getElementById('gameChoice').style.display = 'none';
     document.getElementById('gameContainer').style.display = 'block';
@@ -418,4 +433,4 @@
   }
 </script>
 </body>
-  </html>
+</html>
