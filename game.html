@@ -1,91 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Games - Nextup Studio</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .top-bar {
-      display: flex;
-      justify-content: flex-end;
-      padding: 10px;
-      background-color: #1e1e1e;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Games - Nextup Studio</title>
+<link rel="stylesheet" href="style.css" />
+<style>
+    .game-container {
+        text-align: center;
+        margin: 20px;
     }
-    .login-btn {
-      background-color: #00bcd4;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      font-family: 'Segoe UI', sans-serif;
-      transition: background-color 0.3s;
+    .leaderboard {
+        margin-top: 40px;
+        padding: 15px;
+        background: #1e1e1e;
+        border-radius: 10px;
     }
-    .login-btn:hover {
-      background-color: #0097a7;
+    .leaderboard h2 {
+        color: #00bcd4;
+        margin-bottom: 10px;
     }
-    .game-list {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
+    .leaderboard table {
+        width: 100%;
+        border-collapse: collapse;
     }
-    .game-button {
-      background-color: #00bcd4;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s;
+    .leaderboard th, .leaderboard td {
+        padding: 10px;
+        border-bottom: 1px solid #333;
+        text-align: center;
+        color: white;
     }
-    .game-button:hover {
-      background-color: #0097a7;
-    }
-    iframe {
-      width: 100%;
-      height: 500px;
-      border: none;
-      border-radius: 8px;
-      background: #000;
-    }
-  </style>
-  <script>
-    function loadGame(url) {
-      document.getElementById("game-frame").src = url;
-    }
-  </script>
+</style>
 </head>
 <body>
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h2>Nextup Studio</h2>
-    <a href="index.html">Home</a>
-    <a href="journey.html">My Journey</a>
-    <a href="yt.html">YouTube</a>
-    <a href="game.html" class="active">Games</a>
-    <a href="vault.html">Vault</a>
-  </div>
 
-  <!-- Main content -->
-  <div class="main-content">
-    <!-- Login Button -->
-    <div class="top-bar">
-      <a href="login.html" target="_blank" class="login-btn">🔑 Login</a>
+<div class="sidebar">
+    <a href="index.html">🏠 Home</a>
+    <a href="game.html" class="active">🎮 Games</a>
+    <a href="journey.html">📜 My Journey</a>
+    <a href="yt.html">▶️ YouTube</a>
+</div>
+
+<div class="main-content">
+    <div class="game-container">
+        <h1>🎯 Reaction Test</h1>
+        <p>Click when the screen turns green!</p>
+        <button id="startBtn">Start Game</button>
+        <h2 id="reactionTime"></h2>
     </div>
 
-    <h1>Games</h1>
-    <p>Select a game to play:</p>
-
-    <div class="game-list">
-      <button class="game-button" onclick="loadGame('tic-tac-toe.html')">Tic Tac Toe</button>
-      <button class="game-button" onclick="loadGame('snake.html')">Snake Game</button>
-      <button class="game-button" onclick="loadGame('memory.html')">Memory Game</button>
+    <div class="leaderboard">
+        <h2>🏆 Leaderboard</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Time (ms)</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboardBody">
+                <tr><td colspan="3">Loading...</td></tr>
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <!-- Game Frame -->
-    <iframe id="game-frame"></iframe>
-  </div>
+<script type="module">
+// Firebase imports
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getDatabase, ref, push, onValue, query, orderByChild, limitToFirst } 
+    from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+// Firebase config
+const firebaseConfig = {
+    apiKey: "AIzaSyBeuHiO0dUrG54Or-VsaHyo8lytjbKZZIA",
+    authDomain: "nextup-studio.firebaseapp.com",
+    projectId: "nextup-studio",
+    storageBucket: "nextup-studio.firebasestorage.app",
+    messagingSenderId: "87842391908",
+    appId: "1:87842391908:web:04221d60a42689fa63dc71",
+    measurementId: "G-WN67T528QY",
+    databaseURL: "https://nextup-studio-default-rtdb.firebaseio.com/"
+};
+
+// Init Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// Game logic
+let startTime;
+const startBtn = document.getElementById("startBtn");
+const reactionTimeDisplay = document.getElementById("reactionTime");
+
+startBtn.addEventListener("click", () => {
+    reactionTimeDisplay.textContent = "Wait for green...";
+    startBtn.disabled = true;
+    startBtn.style.background = "red";
+
+    setTimeout(() => {
+        startBtn.style.background = "green";
+        reactionTimeDisplay.textContent = "CLICK NOW!";
+        startTime = Date.now();
+    }, Math.random() * 3000 + 2000);
+});
+
+startBtn.addEventListener("mouseup", () => {
+    if (startTime) {
+        const reaction = Date.now() - startTime;
+        reactionTimeDisplay.textContent = `Your time: ${reaction} ms`;
+        startBtn.disabled = false;
+        startBtn.style.background = "";
+
+        // Save score to Firebase
+        const playerName = prompt("Enter your name:");
+        if (playerName) {
+            push(ref(db, "reactionScores"), {
+                name: playerName,
+                time: reaction
+            });
+        }
+        startTime = null;
+    }
+});
+
+// Load leaderboard (top 100 players)
+const scoresRef = query(ref(db, "reactionScores"), orderByChild("time"), limitToFirst(100));
+onValue(scoresRef, (snapshot) => {
+    const leaderboardBody = document.getElementById("leaderboardBody");
+    leaderboardBody.innerHTML = "";
+    let rank = 1;
+    snapshot.forEach((child) => {
+        const data = child.val();
+        leaderboardBody.innerHTML += `
+            <tr>
+                <td>${rank}</td>
+                <td>${data.name}</td>
+                <td>${data.time}</td>
+            </tr>
+        `;
+        rank++;
+    });
+});
+</script>
+
 </body>
 </html>
