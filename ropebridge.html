@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rope Bridge - Nextup Studio</title>
+<style>
+    body { font-family: Arial, sans-serif; text-align: center; background: #121212; color: white; }
+    h1 { color: #00bcd4; }
+    canvas { background: #333; display: block; margin: 20px auto; border-radius: 10px; }
+    button { padding: 10px 20px; font-size: 16px; background: #00bcd4; border: none; color: white; cursor: pointer; border-radius: 8px; }
+    button:hover { background: #0097a7; }
+    #leaderboard { max-width: 300px; margin: auto; text-align: left; }
+</style>
+</head>
+<body>
+
+<h1>Rope Bridge</h1>
+<canvas id="gameCanvas" width="400" height="400"></canvas>
+<p><button onclick="startGame()">Start Game</button></p>
+
+<h2>Leaderboard</h2>
+<div id="leaderboard">Loading...</div>
+
+<script type="module">
+// ---------------- FIREBASE SETUP ----------------
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, push, query, orderByChild, limitToLast, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBeuHiO0dUrG54Or-VsaHyo8lytjbKZZIA",
+  authDomain: "nextup-studio.firebaseapp.com",
+  databaseURL: "https://nextup-studio-default-rtdb.firebaseio.com/",
+  projectId: "nextup-studio",
+  storageBucket: "nextup-studio.firebasestorage.app",
+  messagingSenderId: "87842391908",
+  appId: "1:87842391908:web:04221d60a42689fa63dc71",
+  measurementId: "G-WN67T528QY"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// ---------------- GAME VARIABLES ----------------
+let score = 0;
+let gameOver = false;
+let playerName = "";
+
+// ---------------- GAME LOGIC ----------------
+function startGame() {
+    playerName = prompt("Enter your name:");
+    if (!playerName) return;
+
+    score = 0;
+    gameOver = false;
+    let steps = 0;
+    const safeTiles = Math.floor(Math.random() * 10) + 5; // random safe steps
+
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    function drawBridge() {
+        ctx.fillStyle = "#555";
+        ctx.fillRect(180, 0, 40, 400);
+    }
+
+    function drawPlayer(step) {
+        ctx.fillStyle = "#00bcd4";
+        ctx.beginPath();
+        ctx.arc(200, 380 - step * 35, 15, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    function gameLoop() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        drawBridge();
+        drawPlayer(steps);
+    }
+
+    function movePlayer() {
+        if (gameOver) return;
+        steps++;
+        score += 10;
+        if (steps > safeTiles) {
+            alert("Oops! You fell!");
+            gameOver = true;
+            saveScore(playerName, score);
+        }
+        gameLoop();
+    }
+
+    canvas.onclick = movePlayer;
+    gameLoop();
+}
+
+// ---------------- FIREBASE SCORE SAVE ----------------
+function saveScore(name, score) {
+    push(ref(db, "ropebridgeScores"), {
+        name: name,
+        score: score,
+        timestamp: Date.now()
+    }).then(() => {
+        loadLeaderboard();
+    });
+}
+
+// ---------------- LOAD LEADERBOARD ----------------
+function loadLeaderboard() {
+    const leaderboardRef = query(ref(db, "ropebridgeScores"), orderByChild("score"), limitToLast(5));
+    get(leaderboardRef).then(snapshot => {
+        let data = [];
+        snapshot.forEach(child => {
+            data.push(child.val());
+        });
+        data.sort((a,b) => b.score - a.score);
+
+        let html = "<ol>";
+        data.forEach(item => {
+            html += `<li>${item.name} - ${item.score}</li>`;
+        });
+        html += "</ol>";
+        document.getElementById("leaderboard").innerHTML = html;
+    });
+}
+
+loadLeaderboard();
+</script>
+
+</body>
+</html>
