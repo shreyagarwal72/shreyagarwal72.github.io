@@ -1,4 +1,5 @@
-<!DOCTYPE html>  <html lang="en">  
+<!DOCTYPE html>  
+<html lang="en">  
 <head>  
   <meta charset="UTF-8" />  
   <meta name="viewport" content="width=device-width, initial-scale=1" />  
@@ -99,55 +100,63 @@
     <h1>🔒 Welcome to the Vault</h1>  
     <p>Enter the passcode to unlock hidden content.</p>  
     <input type="password" id="passcode" placeholder="Enter passcode" />  
-    <button onclick="unlockVault()">Unlock</button>  <div class="hidden-content" id="vaultContent">  
-  <h2>💎 Hidden Content</h2>  
+    <button onclick="unlockVault()">Unlock</button>  
 
-  <div class="file-block">  
-    <strong>1. Minecraft Skin</strong><br />  
-    <a href="video/1.png" download>Download Skin</a><br />  
-    <img src="video/1.png" alt="Minecraft Skin" />  
+    <div class="hidden-content" id="vaultContent">  
+      <h2>💎 Hidden Content</h2>  
+
+      <div class="file-block">  
+        <strong>1. Minecraft Skin</strong><br />  
+        <a href="video/1.png" download>Download Skin</a><br />  
+        <img src="video/1.png" alt="Minecraft Skin" />  
+      </div>  
+
+      <div class="file-block">  
+        <strong>2. Minecraft Subscribe Video</strong><br />  
+        <a href="video/2.mp4" download>Download Video</a><br />  
+        <video controls src="video/2.mp4"></video>  
+      </div>  
+
+      <div class="file-block">  
+        <strong>3. My Editing App</strong><br />  
+        <a href="https://s1.spiderdown.com/Filmora/Filmora%20v14.9.11%20%28Pro%29.apk" target="_blank">Download APK</a>  
+      </div>  
+
+      <div class="file-block">  
+        <strong>4. My Editing Assets</strong><br />  
+        <a href="https://drive.google.com/drive/folders/1C3-5UJ6aeTXC9LnXdvXwMM8iT87e9zfZ" target="_blank">Open Google Drive Folder</a>  
+      </div>  
+
+      <div class="file-block">  
+        <strong>5. Fav Telegram Channel</strong><br />  
+        <a href="https://t.me/techinsiderashish1" target="_blank" rel="noopener noreferrer">  
+          https://t.me/techinsiderashish1  
+        </a>  
+      </div>  
+
+      <div class="file-block">  
+        <strong>6. App with unlimited entertainment anime and more</strong><br />  
+        <a href="https://cloud.9mod.com/MovieBox/MovieBox%20v3.0.05.0711.03%20%28Premium%29.apk" target="_blank" rel="noopener noreferrer">  
+          Download APK  
+        </a>  
+      </div>  
+
+      <div class="file-block">  
+        <strong>7. Minecraft Patch</strong><br />  
+        <a href="https://www.mediafire.com/file/45r8i1tyg9879g1/MCPE-Patched-Music-1.21.94.apk/file?dkey=su4bgnlq3zz&r=73" target="_blank" rel="noopener noreferrer">  
+          Download APK  
+        </a>  
+      </div>  
+
+      <div class="file-block">  
+        <strong>8. 🎬✨ Unlimited Anime App</strong><br />  
+        <a href="video/base.apk" download>Download APK</a>  
+      </div>  
+
+    </div>  
   </div>  
 
-  <div class="file-block">  
-    <strong>2. Minecraft Subscribe Video</strong><br />  
-    <a href="video/2.mp4" download>Download Video</a><br />  
-    <video controls src="video/2.mp4"></video>  
-  </div>  
-
-  <div class="file-block">  
-    <strong>3. My Editing App</strong><br />  
-    <a href="https://s1.spiderdown.com/Filmora/Filmora%20v14.9.11%20%28Pro%29.apk" target="_blank">Download APK</a>  
-  </div>  
-
-  <div class="file-block">  
-    <strong>4. My Editing Assets</strong><br />  
-    <a href="https://drive.google.com/drive/folders/1C3-5UJ6aeTXC9LnXdvXwMM8iT87e9zfZ" target="_blank">Open Google Drive Folder</a>  
-  </div>  
-
-  <div class="file-block">  
-    <strong>5. Fav Telegram Channel</strong><br />  
-    <a href="https://t.me/techinsiderashish1" target="_blank" rel="noopener noreferrer">  
-      https://t.me/techinsiderashish1  
-    </a>  
-  </div>  
-
-  <div class="file-block">  
-    <strong>6. App with unlimited entertainment anime and more</strong><br />  
-    <a href="https://cloud.9mod.com/MovieBox/MovieBox%20v3.0.05.0711.03%20%28Premium%29.apk" target="_blank" rel="noopener noreferrer">  
-      Download APK  
-    </a>  
-  </div>  
-
-  <div class="file-block">  
-    <strong>7. Minecraft Patch</strong><br />  
-    <a href="https://www.mediafire.com/file/45r8i1tyg9879g1/MCPE-Patched-Music-1.21.94.apk/file?dkey=su4bgnlq3zz&r=73" target="_blank" rel="noopener noreferrer">  
-      Download APK  
-    </a>  
-  </div>  
-
-</div>
-
-  </div>    <script>  
+  <script>  
     function unlockVault() {  
       const pass = document.getElementById('passcode').value;  
       if (pass === 'opbolte') {  
@@ -156,5 +165,6 @@
         alert('❌ Wrong passcode!');  
       }  
     }  
-  </script>  </body>  
-</html>  
+  </script>  
+</body>  
+</html>
