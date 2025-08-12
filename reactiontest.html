@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reaction Time Test - Nextup Studio</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .reaction-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+    #gameBox {
+      width: 300px;
+      height: 300px;
+      margin: 20px auto;
+      background-color: red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      cursor: pointer;
+    }
+    .leaderboard {
+      max-width: 400px;
+      margin: 30px auto;
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .leaderboard h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .leaderboard ol {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="game.html">Games</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <button id="loginBtn" style="float:right;">Login</button>
+  </div>
+
+  <div class="reaction-container">
+    <h1>Reaction Time Test</h1>
+    <p>Click the box as soon as it turns green!</p>
+    <div id="gameBox">Wait for Green...</div>
+    <p id="result"></p>
+  </div>
+
+  <div class="leaderboard">
+    <h2>Leaderboard</h2>
+    <ol id="scoresList"></ol>
+  </div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getDatabase, ref, push, query, orderByChild, limitToFirst, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBeuHiO0dUrG54Or-VsaHyo8lytjbKZZIA",
+      authDomain: "nextup-studio.firebaseapp.com",
+      projectId: "nextup-studio",
+      storageBucket: "nextup-studio.firebasestorage.app",
+      messagingSenderId: "87842391908",
+      appId: "1:87842391908:web:04221d60a42689fa63dc71",
+      measurementId: "G-WN67T528QY",
+      databaseURL: "https://nextup-studio-default-rtdb.firebaseio.com/"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    const db = getDatabase(app);
+
+    let startTime, timeout;
+    const gameBox = document.getElementById("gameBox");
+    const resultEl = document.getElementById("result");
+    let userName = null;
+
+    // Login
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          userName = result.user.displayName;
+          alert(`Logged in as ${userName}`);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+
+    // Reaction game logic
+    gameBox.addEventListener("click", () => {
+      if (gameBox.style.backgroundColor === "green") {
+        const reactionTime = Date.now() - startTime;
+        resultEl.textContent = `Your reaction time: ${reactionTime} ms`;
+
+        if (userName) {
+          push(ref(db, "reactionTimes"), {
+            name: userName,
+            time: reactionTime
+          });
+        } else {
+          alert("Login to save your score!");
+        }
+
+        resetGame();
+      } else if (gameBox.style.backgroundColor === "red") {
+        gameBox.textContent = "Wait for Green...";
+      }
+    });
+
+    function resetGame() {
+      gameBox.style.backgroundColor = "red";
+      gameBox.textContent = "Wait for Green...";
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        gameBox.style.backgroundColor = "green";
+        gameBox.textContent = "CLICK!";
+        startTime = Date.now();
+      }, Math.floor(Math.random() * 3000) + 2000);
+    }
+
+    resetGame();
+
+    // Leaderboard
+    function loadLeaderboard() {
+      const leaderboardRef = query(ref(db, "reactionTimes"), orderByChild("time"), limitToFirst(10));
+      get(leaderboardRef).then(snapshot => {
+        const scoresList = document.getElementById("scoresList");
+        scoresList.innerHTML = "";
+        snapshot.forEach(childSnapshot => {
+          const data = childSnapshot.val();
+          const li = document.createElement("li");
+          li.textContent = `${data.name}: ${data.time} ms`;
+          scoresList.appendChild(li);
+        });
+      });
+    }
+
+    loadLeaderboard();
+  </script>
+</body>
+</html>
