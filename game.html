@@ -1,148 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Games - Nextup Studio</title>
-<link rel="stylesheet" href="style.css" />
-<style>
-    .game-container {
-        text-align: center;
-        margin: 20px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Games - Nextup Studio</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .games-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
     }
-    .leaderboard {
-        margin-top: 40px;
-        padding: 15px;
-        background: #1e1e1e;
-        border-radius: 10px;
+    .game-btn {
+      background: #00bcd4;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-align: center;
+      text-decoration: none;
     }
-    .leaderboard h2 {
-        color: #00bcd4;
-        margin-bottom: 10px;
+    .game-btn:hover {
+      background: #0097a7;
     }
-    .leaderboard table {
-        width: 100%;
-        border-collapse: collapse;
+    #leaderboard {
+      margin-top: 40px;
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 10px;
     }
-    .leaderboard th, .leaderboard td {
-        padding: 10px;
-        border-bottom: 1px solid #333;
-        text-align: center;
-        color: white;
+    #leaderboard h2 {
+      margin-top: 0;
+      color: #00bcd4;
     }
-</style>
+    #login-btn {
+      margin-top: 20px;
+      background: #4caf50;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #login-btn:hover {
+      background: #43a047;
+    }
+  </style>
 </head>
 <body>
+  <div class="sidebar">
+    <h2>Nextup Studio</h2>
+    <a href="index.html">Home</a>
+    <a href="journey.html">My Journey</a>
+    <a href="yt.html">YouTube</a>
+    <a href="game.html" class="active">Games</a>
+    <a href="vault.html">Vault</a>
+  </div>
 
-<div class="sidebar">
-    <a href="index.html">🏠 Home</a>
-    <a href="game.html" class="active">🎮 Games</a>
-    <a href="journey.html">📜 My Journey</a>
-    <a href="yt.html">▶️ YouTube</a>
-</div>
+  <div class="main-content">
+    <h1>Games</h1>
 
-<div class="main-content">
-    <div class="game-container">
-        <h1>🎯 Reaction Test</h1>
-        <p>Click when the screen turns green!</p>
-        <button id="startBtn">Start Game</button>
-        <h2 id="reactionTime"></h2>
+    <button id="login-btn">Login with Google</button>
+
+    <div class="games-container">
+      <a href="ropebridge.html" class="game-btn">Play Rope Bridge</a>
+      <a href="hide-and-seek.html" class="game-btn">Play Hide and Seek</a>
+      <a href="reactiontest.html" class="game-btn">Play Reaction Test</a>
+      <a href="quiz.html" class="game-btn">Play Quiz</a>
     </div>
 
-    <div class="leaderboard">
-        <h2>🏆 Leaderboard</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Player</th>
-                    <th>Time (ms)</th>
-                </tr>
-            </thead>
-            <tbody id="leaderboardBody">
-                <tr><td colspan="3">Loading...</td></tr>
-            </tbody>
-        </table>
+    <div id="leaderboard">
+      <h2>Leaderboard</h2>
+      <ol id="leaderboard-list">
+        <li>Loading...</li>
+      </ol>
     </div>
-</div>
+  </div>
 
-<script type="module">
-// Firebase imports
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getDatabase, ref, push, onValue, query, orderByChild, limitToFirst } 
-    from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// Firebase config
-const firebaseConfig = {
-    apiKey: "AIzaSyBeuHiO0dUrG54Or-VsaHyo8lytjbKZZIA",
-    authDomain: "nextup-studio.firebaseapp.com",
-    projectId: "nextup-studio",
-    storageBucket: "nextup-studio.firebasestorage.app",
-    messagingSenderId: "87842391908",
-    appId: "1:87842391908:web:04221d60a42689fa63dc71",
-    measurementId: "G-WN67T528QY",
-    databaseURL: "https://nextup-studio-default-rtdb.firebaseio.com/"
-};
+    // 🔹 Apna Firebase config yaha paste karo
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
-// Init Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    const db = getFirestore(app);
 
-// Game logic
-let startTime;
-const startBtn = document.getElementById("startBtn");
-const reactionTimeDisplay = document.getElementById("reactionTime");
-
-startBtn.addEventListener("click", () => {
-    reactionTimeDisplay.textContent = "Wait for green...";
-    startBtn.disabled = true;
-    startBtn.style.background = "red";
-
-    setTimeout(() => {
-        startBtn.style.background = "green";
-        reactionTimeDisplay.textContent = "CLICK NOW!";
-        startTime = Date.now();
-    }, Math.random() * 3000 + 2000);
-});
-
-startBtn.addEventListener("mouseup", () => {
-    if (startTime) {
-        const reaction = Date.now() - startTime;
-        reactionTimeDisplay.textContent = `Your time: ${reaction} ms`;
-        startBtn.disabled = false;
-        startBtn.style.background = "";
-
-        // Save score to Firebase
-        const playerName = prompt("Enter your name:");
-        if (playerName) {
-            push(ref(db, "reactionScores"), {
-                name: playerName,
-                time: reaction
-            });
-        }
-        startTime = null;
-    }
-});
-
-// Load leaderboard (top 100 players)
-const scoresRef = query(ref(db, "reactionScores"), orderByChild("time"), limitToFirst(100));
-onValue(scoresRef, (snapshot) => {
-    const leaderboardBody = document.getElementById("leaderboardBody");
-    leaderboardBody.innerHTML = "";
-    let rank = 1;
-    snapshot.forEach((child) => {
-        const data = child.val();
-        leaderboardBody.innerHTML += `
-            <tr>
-                <td>${rank}</td>
-                <td>${data.name}</td>
-                <td>${data.time}</td>
-            </tr>
-        `;
-        rank++;
+    document.getElementById("login-btn").addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, provider);
+        alert("Logged in successfully!");
+      } catch (error) {
+        console.error(error);
+      }
     });
-});
-</script>
 
+    async function loadLeaderboard() {
+      const leaderboardList = document.getElementById("leaderboard-list");
+      leaderboardList.innerHTML = "";
+      try {
+        const querySnapshot = await getDocs(collection(db, "leaderboard"));
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const li = document.createElement("li");
+          li.textContent = `${data.name}: ${data.score}`;
+          leaderboardList.appendChild(li);
+        });
+      } catch (error) {
+        console.error("Error loading leaderboard:", error);
+        leaderboardList.innerHTML = "<li>Error loading leaderboard</li>";
+      }
+    }
+
+    loadLeaderboard();
+  </script>
 </body>
 </html>
