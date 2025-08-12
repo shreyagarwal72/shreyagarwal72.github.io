@@ -1,56 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - Nextup Studio</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       background: #121212;
       color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .login-container {
+      background: #1e1e1e;
       padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #00bcd4;
     }
     button {
       background: #00bcd4;
       color: white;
       border: none;
       padding: 10px 20px;
-      margin: 10px;
+      margin-top: 15px;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 16px;
-      border-radius: 6px;
     }
-    input {
-      padding: 10px;
-      margin: 5px;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
+    button:hover {
+      background: #0097a7;
     }
   </style>
 </head>
 <body>
+  <div class="login-container">
+    <h1>Nextup Studio</h1>
+    <p>Sign in to play games</p>
+    <button id="googleLogin">Login with Google</button>
+  </div>
 
-  <h1>Login to Play Games</h1>
-  
-  <!-- Google Login -->
-  <button id="googleLogin">Login with Google</button>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
 
-  <h3>OR</h3>
-
-  <!-- Email Login -->
-  <input type="email" id="email" placeholder="Email" /><br>
-  <input type="password" id="password" placeholder="Password" /><br>
-  <button id="emailLogin">Login with Email</button>
-  <button id="signup">Sign Up</button>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword } 
-      from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-
+  <script>
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyBeuHiO0dUrG54Or-VsaHyo8lytjbKZZIA",
       authDomain: "nextup-studio.firebaseapp.com",
@@ -61,46 +63,22 @@
       measurementId: "G-WN67T528QY"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    // Init Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-    // Google Login
-    document.getElementById("googleLogin").addEventListener("click", async () => {
-      const provider = new GoogleAuthProvider();
-      try {
-        const result = await signInWithPopup(auth, provider);
-        alert(`Welcome ${result.user.displayName}`);
-        window.location.href = "game.html";
-      } catch (error) {
-        alert(error.message);
-      }
+    document.getElementById("googleLogin").addEventListener("click", () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          // Redirect after login
+          window.location.href = "game.html";
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Login failed! Check console for details.");
+        });
     });
-
-    // Email Login
-    document.getElementById("emailLogin").addEventListener("click", async () => {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert("Login successful");
-        window.location.href = "game.html";
-      } catch (error) {
-        alert(error.message);
-      }
-    });
-
-    // Email Signup
-    document.getElementById("signup").addEventListener("click", async () => {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        alert("Account created successfully");
-      } catch (error) {
-        alert(error.message);
-      }
-    });
-
   </script>
 </body>
 </html>
