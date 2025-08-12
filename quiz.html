@@ -11,121 +11,114 @@
       margin: auto;
       background: #1e1e1e;
       padding: 20px;
-      border-radius: 10px;
-      color: white;
+      border-radius: 12px;
+      text-align: center;
     }
     .question {
       font-size: 18px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     .option {
       background: #00bcd4;
-      margin: 8px 0;
+      color: #000;
       padding: 10px;
-      border-radius: 5px;
+      border-radius: 8px;
+      margin: 5px 0;
       cursor: pointer;
-      transition: background 0.3s;
+      display: block;
+      text-align: center;
     }
     .option:hover {
-      background: #0097a7;
+      background: #00acc1;
     }
-    .score {
+    #score {
       font-size: 20px;
       margin-top: 15px;
-    }
-    .leaderboard {
-      margin-top: 20px;
-      padding: 10px;
-      background: #121212;
-      border-radius: 6px;
-    }
-    .leaderboard h3 {
-      margin-bottom: 8px;
+      color: #00e676;
     }
   </style>
 </head>
 <body>
-  <div class="main-content">
-    <h1>Quiz Game</h1>
-    <div class="quiz-container">
-      <div id="quiz"></div>
-      <div class="score" id="score"></div>
-      <div class="leaderboard">
-        <h3>Leaderboard</h3>
-        <ul id="leaderboard-list"></ul>
-      </div>
-    </div>
+  <div class="quiz-container">
+    <h2>Quiz Game</h2>
+    <div id="question-container"></div>
+    <div id="score"></div>
   </div>
 
-  <script>
+  <script type="module">
+    // Firebase import
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBeuHiO0dUrG54Or-VsaHyo8lytjbKZZIA",
+      authDomain: "nextup-studio.firebaseapp.com",
+      databaseURL: "https://nextup-studio-default-rtdb.firebaseio.com/",
+      projectId: "nextup-studio",
+      storageBucket: "nextup-studio.appspot.com",
+      messagingSenderId: "87842391908",
+      appId: "1:87842391908:web:04221d60a42689fa63dc71",
+      measurementId: "G-WN67T528QY"
+    };
+
+    // Init Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Quiz data
     const questions = [
       {
-        question: "Minecraft me diamond kis layer me zyada milta hai?",
-        options: ["Layer 5-12", "Layer 20-30", "Layer 50-60", "Layer 0-4"],
-        answer: 0
+        question: "Minecraft ka creator kaun hai?",
+        options: ["Notch", "Steve", "Alex", "Jeb"],
+        answer: "Notch"
       },
       {
-        question: "Creeper ka blast kis cheez se hota hai?",
-        options: ["Lightning", "Fall damage", "Player ke paas aane se", "Water"],
-        answer: 2
+        question: "India ka capital kya hai?",
+        options: ["Mumbai", "Delhi", "Kolkata", "Chennai"],
+        answer: "Delhi"
       },
       {
-        question: "Ender Dragon kis dimension me milta hai?",
-        options: ["Nether", "End", "Overworld", "Sky"],
-        answer: 1
+        question: "2 + 2 = ?",
+        options: ["3", "4", "5", "6"],
+        answer: "4"
       }
     ];
 
     let currentQuestion = 0;
     let score = 0;
+    const username = localStorage.getItem("username") || "Guest";
+
+    const questionContainer = document.getElementById("question-container");
+    const scoreDisplay = document.getElementById("score");
 
     function loadQuestion() {
       if (currentQuestion >= questions.length) {
-        document.getElementById('quiz').innerHTML = "<h2>Game Over! Tumhara score: " + score + "</h2>";
-        document.getElementById('score').innerText = "";
-        saveScore(score);
-        loadLeaderboard();
+        questionContainer.innerHTML = "<h3>Quiz Finished!</h3>";
+        scoreDisplay.innerHTML = `Your Score: ${score}`;
+        saveScore();
         return;
       }
-
       let q = questions[currentQuestion];
-      let html = `<div class='question'>${q.question}</div>`;
-      q.options.forEach((opt, i) => {
-        html += `<div class='option' onclick='checkAnswer(${i})'>${opt}</div>`;
+      questionContainer.innerHTML = `
+        <div class="question">${q.question}</div>
+        ${q.options.map(opt => `<div class="option">${opt}</div>`).join("")}
+      `;
+      document.querySelectorAll(".option").forEach(option => {
+        option.addEventListener("click", () => {
+          if (option.textContent === q.answer) score++;
+          currentQuestion++;
+          loadQuestion();
+        });
       });
-      document.getElementById('quiz').innerHTML = html;
-      document.getElementById('score').innerText = `Score: ${score}`;
     }
 
-    function checkAnswer(selected) {
-      if (selected === questions[currentQuestion].answer) {
-        score++;
-      }
-      currentQuestion++;
-      loadQuestion();
-    }
-
-    function saveScore(score) {
-      let leaderboard = JSON.parse(localStorage.getItem("quizLeaderboard")) || [];
-      let name = prompt("Naam likho leaderboard me dikhane ke liye:");
-      if (!name) name = "Player";
-      leaderboard.push({ name, score });
-      leaderboard.sort((a, b) => b.score - a.score);
-      leaderboard = leaderboard.slice(0, 5);
-      localStorage.setItem("quizLeaderboard", JSON.stringify(leaderboard));
-    }
-
-    function loadLeaderboard() {
-      let leaderboard = JSON.parse(localStorage.getItem("quizLeaderboard")) || [];
-      let html = "";
-      leaderboard.forEach((entry, index) => {
-        html += `<li>${index + 1}. ${entry.name} - ${entry.score}</li>`;
-      });
-      document.getElementById("leaderboard-list").innerHTML = html;
+    function saveScore() {
+      const scoresRef = ref(db, "quiz-scores");
+      push(scoresRef, { username: username, score: score, date: Date.now() });
     }
 
     loadQuestion();
-    loadLeaderboard();
   </script>
 </body>
 </html>
