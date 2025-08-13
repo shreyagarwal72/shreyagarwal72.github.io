@@ -6,6 +6,8 @@
   <title>Nextup Studio</title>
   <meta name="description" content="Nextup Studio is the official website of Vanshu Agarwal. Explore original music, Minecraft content, games, and more." />
   <link rel="stylesheet" href="style.css" />
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     /* Notification popup */
     .popup {
@@ -65,6 +67,13 @@
 
     .instagram {
       background-color: #E1306C;
+    }
+
+    /* Google login button wrapper */
+    .google-login {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
     }
 
     @media (max-width: 768px) {
@@ -129,6 +138,15 @@
       </ul>
       <p>Stay connected with me through Instagram, YouTube, and WhatsApp!</p>
 
+      <!-- Google Login Button -->
+      <div class="google-login">
+        <div id="g_id_onload"
+             data-client_id="455141367100-f2jev8v887uer781j5ajg326375bud0h.apps.googleusercontent.com"
+             data-callback="handleCredentialResponse">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
+      </div>
+
       <!-- Secret Vault Link (Hidden above social) -->
       <p class="secret-link">
         Some <a href="vault.html">secrets</a> are better left unspoken...
@@ -154,6 +172,21 @@
     🔔 New! "Nextup Studio Official Trailer" <br>
     Watch it here: <a href="https://youtu.be/b63MnxqG9-c?feature=shared" target="_blank" style="color: #00f;">Click to Watch</a>
   </div>
+
+  <!-- Google Login Script -->
+  <script>
+    function handleCredentialResponse(response) {
+      console.log("Google ID Token:", response.credential);
+
+      // Decode JWT to get user info
+      const base64Url = response.credential.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const user = JSON.parse(atob(base64));
+      console.log("User Info:", user);
+
+      alert(`Hello, ${user.name}! Your email: ${user.email}`);
+    }
+  </script>
 
 </body>
 </html>
