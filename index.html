@@ -6,14 +6,44 @@
 <title>Nextup Studio</title>
 <meta name="description" content="Nextup Studio is the official website of Vanshu Agarwal. Explore original music, Minecraft content, games, and more." />
 <link rel="stylesheet" href="style.css" />
-<!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-/* Notification popup */
-.popup { position: fixed; bottom: 30px; right: 30px; background-color: #222; color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.4); z-index: 999; animation: fadeout 10s forwards; }
-@keyframes fadeout { 0% {opacity:1;} 85% {opacity:1;} 100% {opacity:0;} }
+/* Sidebar & layout are same as before */
+.layout { display:flex; min-height:100vh; }
+.sidebar { width:220px; background:#121212; padding:20px; color:white; display:flex; flex-direction:column; }
+.sidebar a { color:white; text-decoration:none; margin:10px 0; padding:10px; border-radius:8px; transition:0.3s; }
+.sidebar a.active, .sidebar a:hover { background:#00bcd4; color:#121212; }
 
-/* Social buttons */
+.main-content { flex:1; padding:20px; color:#f0f0f0; }
+
+#welcomeUser { text-align:center; margin-top:20px; color:#00bcd4; font-weight:bold; }
+
+/* Logout button fixed on top right */
+#logoutContainer { position: fixed; top: 20px; right: 20px; z-index:1000; }
+#logoutBtn { padding:10px 20px; border:none; border-radius:30px; background:#f44336; color:white; font-weight:bold; cursor:pointer; }
+#logoutBtn:hover { opacity:0.9; transform:scale(1.05); }
+
+/* Music play/pause circular button style */
+#musicBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width:60px; height:60px;
+  border-radius:50%;
+  border:none;
+  background:#00bcd4;
+  color:#121212;
+  font-size:24px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.4);
+  transition:0.3s;
+}
+#musicBtn:hover { transform: scale(1.1); }
+
+/* Other styles */
 .social-buttons { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
 .social-buttons a { display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 30px; font-weight: bold; font-size: 16px; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.3s ease, opacity 0.3s ease; }
 .social-buttons a:hover { transform: scale(1.05); opacity: 0.9; }
@@ -27,31 +57,13 @@
 #setUsernameBtn { padding:10px 20px; border:none; border-radius:30px; background-color:#00bcd4; color:#121212; font-weight:bold; cursor:pointer; }
 #setUsernameBtn:hover { opacity:0.9; transform:scale(1.05); }
 
-/* Welcome user text */
-#welcomeUser { text-align:center; margin-top:20px; color:#00bcd4; font-weight:bold; }
-
-/* Music controls */
-#musicControl { display:flex; justify-content:center; margin-top:20px; gap:10px; }
-#musicControl button { padding:10px 20px; border:none; border-radius:30px; background:#00bcd4; color:#121212; font-weight:bold; cursor:pointer; }
-#musicControl button:hover { opacity:0.9; transform:scale(1.05); }
-
-@media (max-width: 768px) {
-  .popup { right: 10px; left: 10px; bottom: 20px; padding: 15px; font-size: 14px; }
-  .social-buttons a { font-size: 15px; padding: 12px 20px; }
-}
-
-/* Secret link style */
-.secret-link { text-align: center; margin-top: 40px; font-size: 12px; opacity: 0.3; }
-.secret-link a { color: inherit; text-decoration: none; }
-.secret-link a:hover { text-decoration: underline; opacity: 0.6; }
-
-/* Custom Google login container */
-.google-login { display:flex; justify-content:center; margin-top:30px; }
+.secret-link { text-align:center; margin-top:40px; font-size:12px; opacity:0.3; }
+.secret-link a { color: inherit; text-decoration:none; }
+.secret-link a:hover { text-decoration: underline; opacity:0.6; }
 </style>
 </head>
 <body>
 
-<!-- Background music -->
 <audio id="bgMusic" src="music/Music.mp3" loop></audio>
 
 <div class="layout">
@@ -86,15 +98,6 @@
     <!-- Welcome user display -->
     <div id="welcomeUser"></div>
 
-    <!-- Logout button -->
-    <div id="logoutContainer" style="text-align:center; margin-top:15px;"></div>
-
-    <!-- Music play/pause controls -->
-    <div id="musicControl">
-      <button id="playMusicBtn">▶️ Play Music</button>
-      <button id="pauseMusicBtn">⏸ Pause Music</button>
-    </div>
-
     <!-- Secret Vault Link -->
     <p class="secret-link">
       Some <a href="vault.html">secrets</a> are better left unspoken...
@@ -109,10 +112,11 @@
   </div>
 </div>
 
-<div class="popup">
-  🔔 New! "Nextup Studio Official Trailer" <br>
-  Watch it here: <a href="https://youtu.be/b63MnxqG9-c?feature=shared" target="_blank" style="color:#00f;">Click to Watch</a>
-</div>
+<!-- Logout -->
+<div id="logoutContainer"></div>
+
+<!-- Music Play/Pause Button -->
+<button id="musicBtn">▶️</button>
 
 <script>
 const CLIENT_ID = "455141367100-f2jev8v887uer781j5ajg326375bud0h.apps.googleusercontent.com";
@@ -122,21 +126,25 @@ const usernameInput = document.getElementById('usernameInput');
 const setUsernameBtn = document.getElementById('setUsernameBtn');
 const loginContainer = document.getElementById('googleLoginBtnContainer');
 const logoutContainer = document.getElementById('logoutContainer');
-
-// Background music
 const bgMusic = document.getElementById('bgMusic');
-const playMusicBtn = document.getElementById('playMusicBtn');
-const pauseMusicBtn = document.getElementById('pauseMusicBtn');
+const musicBtn = document.getElementById('musicBtn');
 
-playMusicBtn.addEventListener('click', () => bgMusic.play());
-pauseMusicBtn.addEventListener('click', () => bgMusic.pause());
-
-// Load saved user
 let savedUser = JSON.parse(localStorage.getItem('nextupUser'));
 if(savedUser){
   welcomeDiv.textContent = `👋 Welcome, ${savedUser.username}!`;
   addLogoutButton();
 }
+
+// Toggle music play/pause
+musicBtn.addEventListener('click', () => {
+  if(bgMusic.paused){
+    bgMusic.play();
+    musicBtn.textContent = "⏸";
+  } else {
+    bgMusic.pause();
+    musicBtn.textContent = "▶️";
+  }
+});
 
 let tempUser = null;
 
@@ -144,7 +152,6 @@ function handleCredentialResponse(response){
   const base64Url = response.credential.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const user = JSON.parse(atob(base64));
-
   tempUser = user;
   loginContainer.style.display = 'none';
   usernamePrompt.style.display = 'block';
@@ -165,10 +172,7 @@ window.onload = () => {
 
 setUsernameBtn.addEventListener('click', () => {
   const username = usernameInput.value.trim();
-  if(!username){
-    alert("Please enter a username!");
-    return;
-  }
+  if(!username){ alert("Please enter a username!"); return; }
   const finalUser = {
     googleId: tempUser.sub,
     email: tempUser.email,
@@ -182,7 +186,7 @@ setUsernameBtn.addEventListener('click', () => {
 });
 
 function addLogoutButton(){
-  logoutContainer.innerHTML = `<button id="logoutBtn" style="padding:10px 20px; border:none; border-radius:30px; background:#f44336; color:white; font-weight:bold; cursor:pointer;">Logout</button>`;
+  logoutContainer.innerHTML = `<button id="logoutBtn">Logout</button>`;
   document.getElementById('logoutBtn').addEventListener('click', () => {
     localStorage.removeItem('nextupUser');
     location.reload();
