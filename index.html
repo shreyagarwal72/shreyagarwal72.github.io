@@ -1,197 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Nextup Studio</title>
-<meta name="description" content="Nextup Studio is the official website of Vanshu Agarwal. Explore original music, Minecraft content, games, and more." />
-<link rel="stylesheet" href="style.css" />
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-<style>
-/* Sidebar & layout are same as before */
-.layout { display:flex; min-height:100vh; }
-.sidebar { width:220px; background:#121212; padding:20px; color:white; display:flex; flex-direction:column; }
-.sidebar a { color:white; text-decoration:none; margin:10px 0; padding:10px; border-radius:8px; transition:0.3s; }
-.sidebar a.active, .sidebar a:hover { background:#00bcd4; color:#121212; }
-
-.main-content { flex:1; padding:20px; color:#f0f0f0; }
-
-#welcomeUser { text-align:center; margin-top:20px; color:#00bcd4; font-weight:bold; }
-
-/* Logout button fixed on top right */
-#logoutContainer { position: fixed; top: 20px; right: 20px; z-index:1000; }
-#logoutBtn { padding:10px 20px; border:none; border-radius:30px; background:#f44336; color:white; font-weight:bold; cursor:pointer; }
-#logoutBtn:hover { opacity:0.9; transform:scale(1.05); }
-
-/* Music play/pause circular button style */
-#musicBtn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width:60px; height:60px;
-  border-radius:50%;
-  border:none;
-  background:#00bcd4;
-  color:#121212;
-  font-size:24px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 4px 12px rgba(0,0,0,0.4);
-  transition:0.3s;
-}
-#musicBtn:hover { transform: scale(1.1); }
-
-/* Other styles */
-.social-buttons { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-.social-buttons a { display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 30px; font-weight: bold; font-size: 16px; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.3s ease, opacity 0.3s ease; }
-.social-buttons a:hover { transform: scale(1.05); opacity: 0.9; }
-.whatsapp { background-color: #25D366; }
-.youtube { background-color: #FF0000; }
-.instagram { background-color: #E1306C; }
-
-/* Username prompt */
-#usernamePrompt { display:none; margin-top:20px; text-align:center; }
-#usernameInput { padding:10px 15px; border-radius:8px; border:1px solid #00bcd4; outline:none; margin-right:10px; }
-#setUsernameBtn { padding:10px 20px; border:none; border-radius:30px; background-color:#00bcd4; color:#121212; font-weight:bold; cursor:pointer; }
-#setUsernameBtn:hover { opacity:0.9; transform:scale(1.05); }
-
-.secret-link { text-align:center; margin-top:40px; font-size:12px; opacity:0.3; }
-.secret-link a { color: inherit; text-decoration:none; }
-.secret-link a:hover { text-decoration: underline; opacity:0.6; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nextup Studio</title>
+  <meta name="description" content="Nextup Studio is the official website of Vanshu Agarwal. Explore original music, Minecraft content, games, and more." />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Sidebar fix like yt.html */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 220px;
+      background-color: #121212;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+    }
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #00bcd4;
+      color: #121212;
+    }
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      margin-left: 220px;
+      width: calc(100% - 220px);
+    }
+    /* Mobile responsive navbar */
+    @media (max-width: 768px) {
+      .layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px 0;
+        position: relative;
+      }
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<audio id="bgMusic" src="music/Music.mp3" loop></audio>
-
-<div class="layout">
-  <div class="sidebar">
-    <h2>Nextup Studio</h2>
-    <a href="index.html" class="active">Home</a>
-    <a href="yt.html">YouTube</a>
-    <a href="journey.html">My Journey</a>
-    <a href="game.html">Game</a>
-  </div>
-
-  <div class="main-content">
-    <h1>👋 Welcome to Nextup Studio</h1>
-    <p>This is the official site of <strong>Vanshu Agarwal</strong>. Here you’ll find:</p>
-    <ul>
-      <li>🎵 Original Songs</li>
-      <li>🎮 Minecraft Shorts & Gameplay</li>
-      <li>🧠 Quiz Game in Game section</li>
-      <li>📈 My Life Journey and Milestones</li>
-    </ul>
-    <p>Stay connected with me through Instagram, YouTube, and WhatsApp!</p>
-
-    <!-- Google Login Button -->
-    <div class="google-login" id="googleLoginBtnContainer"></div>
-
-    <!-- Username prompt -->
-    <div id="usernamePrompt">
-      <input type="text" id="usernameInput" placeholder="Choose a username" />
-      <button id="setUsernameBtn">Set Username</button>
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <a href="index.html" class="active">Home</a>
+      <a href="yt.html">YouTube</a>
+      <a href="vault.html">Vault</a>
+      <a href="game.html">Games</a>
     </div>
 
-    <!-- Welcome user display -->
-    <div id="welcomeUser"></div>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Logout Button -->
+      <div style="text-align:right;">
+        <button onclick="logout()" style="padding:8px 12px;background:#00bcd4;color:#121212;border:none;border-radius:6px;cursor:pointer;">Logout</button>
+      </div>
 
-    <!-- Secret Vault Link -->
-    <p class="secret-link">
-      Some <a href="vault.html">secrets</a> are better left unspoken...
-    </p>
+      <h1>Welcome to Nextup Studio</h1>
+      <p>This is the official website of Vanshu Agarwal, featuring music, Minecraft content, games, and much more.</p>
 
-    <!-- Social Buttons -->
-    <div class="social-buttons">
-      <a class="whatsapp" href="https://wa.me/919412104618" target="_blank">📱 Chat on WhatsApp</a>
-      <a class="youtube" href="https://www.youtube.com/@nextupstudioyt" target="_blank">▶️ Subscribe on YouTube</a>
-      <a class="instagram" href="https://www.instagram.com/vanshu_ag_72" target="_blank">📷 Follow on Instagram</a>
+      <!-- Social Buttons -->
+      <div style="margin-top:20px;">
+        <a href="https://wa.me/" target="_blank" style="background:#25D366;padding:10px 15px;color:#fff;border-radius:6px;margin-right:10px;text-decoration:none;">WhatsApp</a>
+        <a href="https://youtube.com/@nextupstudioyt" target="_blank" style="background:#FF0000;padding:10px 15px;color:#fff;border-radius:6px;margin-right:10px;text-decoration:none;">YouTube</a>
+        <a href="https://instagram.com/" target="_blank" style="background:#C13584;padding:10px 15px;color:#fff;border-radius:6px;text-decoration:none;">Instagram</a>
+      </div>
+
+      <!-- Background Music -->
+      <div style="margin-top:20px;">
+        <audio id="bg-music" src="music.mp3" loop></audio>
+        <button onclick="toggleMusic()" style="padding:8px 12px;background:#00bcd4;color:#121212;border:none;border-radius:6px;cursor:pointer;">Play/Pause Music</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Logout -->
-<div id="logoutContainer"></div>
-
-<!-- Music Play/Pause Button -->
-<button id="musicBtn">▶️</button>
-
-<script>
-const CLIENT_ID = "455141367100-f2jev8v887uer781j5ajg326375bud0h.apps.googleusercontent.com";
-const welcomeDiv = document.getElementById('welcomeUser');
-const usernamePrompt = document.getElementById('usernamePrompt');
-const usernameInput = document.getElementById('usernameInput');
-const setUsernameBtn = document.getElementById('setUsernameBtn');
-const loginContainer = document.getElementById('googleLoginBtnContainer');
-const logoutContainer = document.getElementById('logoutContainer');
-const bgMusic = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
-
-let savedUser = JSON.parse(localStorage.getItem('nextupUser'));
-if(savedUser){
-  welcomeDiv.textContent = `👋 Welcome, ${savedUser.username}!`;
-  addLogoutButton();
-}
-
-// Toggle music play/pause
-musicBtn.addEventListener('click', () => {
-  if(bgMusic.paused){
-    bgMusic.play();
-    musicBtn.textContent = "◼";
-  } else {
-    bgMusic.pause();
-    musicBtn.textContent = "▶";
-  }
-});
-
-let tempUser = null;
-
-function handleCredentialResponse(response){
-  const base64Url = response.credential.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const user = JSON.parse(atob(base64));
-  tempUser = user;
-  loginContainer.style.display = 'none';
-  usernamePrompt.style.display = 'block';
-}
-
-window.onload = () => {
-  if(!savedUser){
-    google.accounts.id.initialize({
-      client_id: CLIENT_ID,
-      callback: handleCredentialResponse
-    });
-    google.accounts.id.renderButton(
-      loginContainer,
-      { theme: "outline", size: "large", text: "signin_with", shape:"pill" }
-    );
-  }
-};
-
-setUsernameBtn.addEventListener('click', () => {
-  const username = usernameInput.value.trim();
-  if(!username){ alert("Please enter a username!"); return; }
-  const finalUser = {
-    googleId: tempUser.sub,
-    email: tempUser.email,
-    name: tempUser.name,
-    username: username
-  };
-  localStorage.setItem('nextupUser', JSON.stringify(finalUser));
-  welcomeDiv.textContent = `👋 Welcome, ${username}!`;
-  usernamePrompt.style.display = 'none';
-  addLogoutButton();
-});
-
-function addLogoutButton(){
-  logoutContainer.innerHTML = `<button id="logoutBtn">Logout</button>`;
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    localStorage.removeItem('nextupUser');
-    location.reload();
-  });
-}
-</script>
+  <script>
+    function logout(){
+      alert("Logged out!");
+      // Firebase logout code here
+    }
+    function toggleMusic(){
+      let music = document.getElementById("bg-music");
+      if(music.paused){
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+  </script>
 </body>
 </html>
