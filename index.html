@@ -57,23 +57,55 @@
       opacity: 0.9;
     }
 
-    .whatsapp {
-      background-color: #25D366;
-    }
+    .whatsapp { background-color: #25D366; }
+    .youtube { background-color: #FF0000; }
+    .instagram { background-color: #E1306C; }
 
-    .youtube {
-      background-color: #FF0000;
+    /* Custom Google login button */
+    .google-login { display:flex; justify-content:center; margin-top:30px; }
+    #googleLoginBtn {
+      background-color: #00bcd4;
+      color: #121212;
+      font-weight: bold;
+      padding: 14px 30px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
+    #googleLoginBtn:hover { transform: scale(1.05); opacity:0.9; }
 
-    .instagram {
-      background-color: #E1306C;
+    /* Username prompt */
+    #usernamePrompt {
+      display:none;
+      margin-top:20px;
+      text-align:center;
     }
+    #usernameInput {
+      padding:10px 15px;
+      border-radius:8px;
+      border:1px solid #00bcd4;
+      outline:none;
+      margin-right:10px;
+    }
+    #setUsernameBtn {
+      padding:10px 20px;
+      border:none;
+      border-radius:30px;
+      background-color:#00bcd4;
+      color:#121212;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    #setUsernameBtn:hover { opacity:0.9; transform:scale(1.05); }
 
-    /* Google login button wrapper */
-    .google-login {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
+    /* Welcome user text */
+    #welcomeUser {
+      text-align:center;
+      margin-top:20px;
+      color:#00bcd4;
+      font-weight:bold;
     }
 
     @media (max-width: 768px) {
@@ -98,12 +130,10 @@
       font-size: 12px;
       opacity: 0.3;
     }
-
     .secret-link a {
       color: inherit;
       text-decoration: none;
     }
-
     .secret-link a:hover {
       text-decoration: underline;
       opacity: 0.6;
@@ -140,14 +170,19 @@
 
       <!-- Google Login Button -->
       <div class="google-login">
-        <div id="g_id_onload"
-             data-client_id="455141367100-f2jev8v887uer781j5ajg326375bud0h.apps.googleusercontent.com"
-             data-callback="handleCredentialResponse">
-        </div>
-        <div class="g_id_signin" data-type="standard"></div>
+        <button id="googleLoginBtn">🔑 Login with Google</button>
       </div>
 
-      <!-- Secret Vault Link (Hidden above social) -->
+      <!-- Username prompt after Google login -->
+      <div id="usernamePrompt">
+        <input type="text" id="usernameInput" placeholder="Choose a username" />
+        <button id="setUsernameBtn">Set Username</button>
+      </div>
+
+      <!-- Welcome user display -->
+      <div id="welcomeUser"></div>
+
+      <!-- Secret Vault Link -->
       <p class="secret-link">
         Some <a href="vault.html">secrets</a> are better left unspoken...
       </p>
@@ -173,19 +208,61 @@
     Watch it here: <a href="https://youtu.be/b63MnxqG9-c?feature=shared" target="_blank" style="color: #00f;">Click to Watch</a>
   </div>
 
-  <!-- Google Login Script -->
+  <!-- Google Login + Username Script -->
   <script>
-    function handleCredentialResponse(response) {
-      console.log("Google ID Token:", response.credential);
+    const CLIENT_ID = "455141367100-f2jev8v887uer781j5ajg326375bud0h.apps.googleusercontent.com";
+    const loginBtn = document.getElementById('googleLoginBtn');
+    const welcomeDiv = document.getElementById('welcomeUser');
+    const usernamePrompt = document.getElementById('usernamePrompt');
+    const usernameInput = document.getElementById('usernameInput');
+    const setUsernameBtn = document.getElementById('setUsernameBtn');
 
-      // Decode JWT to get user info
+    // Load saved user
+    const savedUser = JSON.parse(localStorage.getItem('nextupUser'));
+    if(savedUser){
+      welcomeDiv.textContent = `👋 Welcome, ${savedUser.username}!`;
+      loginBtn.style.display = 'none';
+    }
+
+    loginBtn.addEventListener('click', () => {
+      google.accounts.id.initialize({
+        client_id: CLIENT_ID,
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.prompt();
+    });
+
+    let tempUser = null;
+
+    function handleCredentialResponse(response){
       const base64Url = response.credential.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       const user = JSON.parse(atob(base64));
-      console.log("User Info:", user);
 
-      alert(`Hello, ${user.name}! Your email: ${user.email}`);
+      // Temporarily save until username is chosen
+      tempUser = user;
+      loginBtn.style.display = 'none';
+      usernamePrompt.style.display = 'block';
     }
+
+    setUsernameBtn.addEventListener('click', () => {
+      const username = usernameInput.value.trim();
+      if(!username){
+        alert("Please enter a username!");
+        return;
+      }
+
+      const finalUser = {
+        googleId: tempUser.sub,
+        email: tempUser.email,
+        name: tempUser.name,
+        username: username
+      };
+
+      localStorage.setItem('nextupUser', JSON.stringify(finalUser));
+      welcomeDiv.textContent = `👋 Welcome, ${username}!`;
+      usernamePrompt.style.display = 'none';
+    });
   </script>
 
 </body>
