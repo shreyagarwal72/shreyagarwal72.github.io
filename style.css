@@ -74,6 +74,25 @@ body {
   color: #fff;
 }
 
+/* Google Login Button */
+.google-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #4285F4;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.google-btn:hover {
+  background-color: #357ae8;
+  transform: scale(1.03);
+}
+
 /* Notification Popup */
 .popup {
   position: fixed;
@@ -89,15 +108,9 @@ body {
 }
 
 @keyframes fadeout {
-  0% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+  0% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* Social Buttons */
@@ -128,17 +141,9 @@ body {
   opacity: 0.9;
 }
 
-.whatsapp {
-  background-color: #25D366;
-}
-
-.youtube {
-  background-color: #FF0000;
-}
-
-.instagram {
-  background-color: #E1306C;
-}
+.whatsapp { background-color: #25D366; }
+.youtube { background-color: #FF0000; }
+.instagram { background-color: #E1306C; }
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -161,7 +166,7 @@ body {
     padding: 20px;
   }
 
-  .button {
+  .button, .google-btn {
     margin-top: 10px;
   }
 
