@@ -1,4 +1,4 @@
-/* Reset & Global Styles */
+/* Global Reset and Dark Theme */
 * {
   margin: 0;
   padding: 0;
@@ -6,10 +6,13 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background-color: #121212;
   color: #f0f0f0;
-  line-height: 1.6;
+}
+
+/* Layout */
+.layout {
   display: flex;
   min-height: 100vh;
 }
@@ -19,12 +22,9 @@ body {
   width: 220px;
   background-color: #1e1e1e;
   padding: 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
   display: flex;
   flex-direction: column;
+  gap: 15px;
 }
 
 .sidebar h2 {
@@ -35,110 +35,151 @@ body {
 .sidebar a {
   color: #f0f0f0;
   text-decoration: none;
-  padding: 10px 0;
-  display: block;
-  transition: color 0.3s;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.2s;
 }
 
 .sidebar a:hover {
-  color: #00bcd4;
+  background-color: #333;
 }
 
 .sidebar a.active {
+  background-color: #00bcd4;
+  color: #121212;
   font-weight: bold;
-  color: #00bcd4;
 }
 
 /* Main Content */
 .main-content {
-  margin-left: 240px;
-  padding: 20px;
   flex: 1;
+  padding: 30px;
 }
 
 /* Buttons */
-button {
+.button {
+  display: inline-block;
   background-color: #00bcd4;
   color: #121212;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
   transition: background 0.3s;
 }
 
-button:hover {
+.button:hover {
   background-color: #0097a7;
+  color: #fff;
 }
 
-/* Popup Notifications */
+/* Google Login Button */
+.google-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #4285F4;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.google-btn:hover {
+  background-color: #357ae8;
+  transform: scale(1.03);
+}
+
+/* Notification Popup */
 .popup {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #222;
-  padding: 15px 20px;
+  bottom: 30px;
+  right: 30px;
+  background-color: #222;
+  color: white;
+  padding: 20px;
   border-radius: 8px;
-  color: #f0f0f0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  z-index: 999;
   animation: fadeout 10s forwards;
-  z-index: 1000;
 }
 
 @keyframes fadeout {
   0% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; display: none; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* Social Buttons */
-.social-btn {
-  display: inline-block;
-  padding: 10px 15px;
-  border-radius: 6px;
-  color: #fff;
-  margin: 5px;
-  text-decoration: none;
-  transition: opacity 0.3s;
+.social-buttons {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
-.social-btn:hover {
-  opacity: 0.8;
-}
-
-.social-btn.youtube { background: #ff0000; }
-.social-btn.instagram { background: #e4405f; }
-.social-btn.whatsapp { background: #25d366; }
-
-/* Daily Quote */
-.daily-quote {
-  margin-top: 30px;
-  padding: 15px 20px;
-  background: rgba(0, 188, 212, 0.1);
-  border-left: 4px solid #00bcd4;
-  font-style: italic;
+.social-buttons a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border-radius: 30px;
+  font-weight: bold;
   font-size: 16px;
-  line-height: 1.5;
-  border-radius: 6px;
-  pointer-events: none; /* ✅ tap/click disable ho gaya */
+  text-decoration: none;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Responsive */
+.social-buttons a:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.whatsapp { background-color: #25D366; }
+.youtube { background-color: #FF0000; }
+.instagram { background-color: #E1306C; }
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  body {
+  .layout {
     flex-direction: column;
   }
 
   .sidebar {
     width: 100%;
-    height: auto;
     flex-direction: row;
     justify-content: space-around;
-    position: relative;
+    padding: 10px;
+  }
+
+  .sidebar h2 {
+    display: none;
   }
 
   .main-content {
-    margin-left: 0;
+    padding: 20px;
+  }
+
+  .button, .google-btn {
     margin-top: 10px;
+  }
+
+  .popup {
+    right: 10px;
+    left: 10px;
+    bottom: 20px;
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .social-buttons a {
+    font-size: 15px;
+    padding: 12px 20px;
   }
 }
