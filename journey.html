@@ -38,9 +38,9 @@
     }
     /* ---- THEME TOGGLE BUTTON STYLES ---- */
     .theme-toggle {
-      position: absolute;
-      top: 26px;
-      right: 24px;
+      position: fixed;
+      top: 32px;
+      right: 32px;
       background: #222;
       border: none;
       border-radius: 50%;
@@ -51,7 +51,7 @@
       justify-content: center;
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(0,0,0,0.20);
-      z-index: 1010;
+      z-index: 2000;
       transition: background 0.2s;
     }
     .theme-toggle:hover { background: #333; }
@@ -74,25 +74,29 @@
     body.light-mode .social-buttons a.youtube { background: #ff7373;}
     body.light-mode .social-buttons a.instagram { background: #ff66a6;}
     body.light-mode .popup { background: #fff; color: #333; }
+    @media (max-width: 768px) {
+      .theme-toggle { top: 14px; right: 18px; }
+    }
   </style>
 </head>
 <body>
   <div class="layout">
-    <div class="sidebar" style="position: relative;">
+    <div class="sidebar">
       <h2>Nextup Studio</h2>
-      <!-- Theme toggle button, sidebar ke andar right-top -->
-      <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme">
-        <svg id="themeIcon" viewBox="0 0 24 24" fill="none">
-          <path d="M18 15.63A8 8 0 0 1 8.37 6
-            a7.99 7.99 0 1 0 9.63 9.63Z"
-            fill="#ffe066" stroke="#ffe066" stroke-width="2"/>
-        </svg>
-      </button>
       <a href="index.html">Home</a>
       <a href="yt.html">YouTube</a>
       <a href="journey.html" class="active">My Journey</a>
       <a href="game.html">Game</a>
     </div>
+
+    <!-- Theme toggle button, now sidebar के बाहर तथा पूरे पेज के टॉप-राइट में fixed -->
+    <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none">
+        <path d="M18 15.63A8 8 0 0 1 8.37 6
+          a7.99 7.99 0 1 0 9.63 9.63Z"
+          fill="#ffe066" stroke="#ffe066" stroke-width="2"/>
+      </svg>
+    </button>
 
     <div class="main-content">
       <h1>My Life Journey</h1>
@@ -108,7 +112,6 @@
         I started experimenting with content at an early age and slowly built what is now known as <a href="secret.html" style="text-decoration: none; color: inherit; cursor: default;"> <strong>Nextup Studio</strong>. 
         I'm excited to share every step of this path with you.
       </p>
-
       <!-- Daily Quote Section -->
       <div class="daily-quote" id="dailyQuote">
         Loading today's quote...
@@ -180,7 +183,7 @@
     function setTheme(isLight) {
       if (isLight) {
         document.body.classList.add('light-mode');
-        // Sun
+        // Sun Icon
         themeIcon.innerHTML = `
           <circle cx="12" cy="12" r="5" fill="#ffc600"/>
           <g stroke="#ffc600" stroke-width="2">
@@ -196,7 +199,6 @@
         `;
       } else {
         document.body.classList.remove('light-mode');
-        // Moon
         themeIcon.innerHTML = `
           <path d="M18 15.63A8 8 0 0 1 8.37 6
             a7.99 7.99 0 1 0 9.63 9.63Z"
