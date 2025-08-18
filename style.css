@@ -145,7 +145,15 @@ body {
 .youtube { background-color: #FF0000; }
 .instagram { background-color: #E1306C; }
 
-/* Responsive Design */
+/* Make social buttons horizontal in desktop, vertical in mobile */
+@media (min-width: 769px) {
+  .social-buttons {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 @media (max-width: 768px) {
   .layout {
     flex-direction: column;
@@ -178,8 +186,43 @@ body {
     font-size: 14px;
   }
 
+  .social-buttons {
+    flex-direction: column;
+    gap: 20px;
+  }
+
   .social-buttons a {
     font-size: 15px;
     padding: 12px 20px;
   }
+}
+
+/* Play/Pause Circular Button */
+.music-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: #00bcd4;
+  color: #121212;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: opacity 0.2s, transform 0.2s;
+  margin: 0 auto;
+}
+
+.music-btn:hover {
+  opacity: 0.9;
+  transform: scale(1.07);
+}
+
+/* Center the music control container */
+#musicControl {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
