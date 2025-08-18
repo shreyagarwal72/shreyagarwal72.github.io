@@ -19,7 +19,7 @@
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      z-index: 997; /* less than audio-button */
+      z-index: 997;
       animation: fadeout 10s forwards;
     }
     @keyframes fadeout {
@@ -27,7 +27,6 @@
       85% {opacity:1;}
       100% {opacity:0;}
     }
-    /* Floating Play/Pause Button */
     .audio-button {
       position: fixed;
       bottom: 30px;
@@ -52,8 +51,6 @@
       height: 28px;
     }
     audio { display: none; }
-
-    /* Social buttons responsive row/col */
     .social-buttons {
       margin-top: 30px;
       display: flex;
@@ -81,6 +78,46 @@
     .whatsapp { background-color: #25D366; }
     .youtube { background-color: #FF0000; }
     .instagram { background-color: #E1306C; }
+    .secret-link { text-align: center; margin-top: 40px; font-size: 12px; opacity: 0.3; }
+    .secret-link a { color: inherit; text-decoration: none; }
+    .secret-link a:hover { text-decoration: underline; opacity: 0.6; }
+    .google-login { display:flex; justify-content:center; margin-top:30px; }
+    #usernamePrompt { display:none; margin-top:20px; text-align:center; }
+    #usernameInput { padding:10px 15px; border-radius:8px; border:1px solid #00bcd4; outline:none; margin-right:10px; }
+    #setUsernameBtn { padding:10px 20px; border:none; border-radius:30px; background-color:#00bcd4; color:#121212; font-weight:bold; cursor:pointer; }
+    #setUsernameBtn:hover { opacity:0.9; transform:scale(1.05); }
+    #welcomeUser { text-align:center; margin-top:20px; color:#00bcd4; font-weight:bold; }
+    #logoutContainer { text-align:center; margin-top:15px; }
+    /* ---- THEME TOGGLE IN TITLE ROW ---- */
+    .index-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    .theme-toggle {
+      position: relative;
+      top: 0; right: 0;
+      background: #222;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.20);
+      z-index: 1010;
+      transition: background 0.2s;
+    }
+    .theme-toggle:hover { background: #333; }
+    .theme-toggle svg {
+      width: 23px;
+      height: 23px;
+      pointer-events: none;
+    }
     @media (min-width: 769px) {
       .social-buttons {
         flex-direction: row;
@@ -99,17 +136,9 @@
         bottom: 20px;
         right: 20px;
       }
+      .index-title-row { gap: 8px; }
+      .theme-toggle { width: 34px; height: 34px; }
     }
-    .secret-link { text-align: center; margin-top: 40px; font-size: 12px; opacity: 0.3; }
-    .secret-link a { color: inherit; text-decoration: none; }
-    .secret-link a:hover { text-decoration: underline; opacity: 0.6; }
-    .google-login { display:flex; justify-content:center; margin-top:30px; }
-    #usernamePrompt { display:none; margin-top:20px; text-align:center; }
-    #usernameInput { padding:10px 15px; border-radius:8px; border:1px solid #00bcd4; outline:none; margin-right:10px; }
-    #setUsernameBtn { padding:10px 20px; border:none; border-radius:30px; background-color:#00bcd4; color:#121212; font-weight:bold; cursor:pointer; }
-    #setUsernameBtn:hover { opacity:0.9; transform:scale(1.05); }
-    #welcomeUser { text-align:center; margin-top:20px; color:#00bcd4; font-weight:bold; }
-    #logoutContainer { text-align:center; margin-top:15px; }
   </style>
 </head>
 <body>
@@ -124,7 +153,16 @@
       <a href="game.html">Game</a>
     </div>
     <div class="main-content">
-      <h1>👋 Welcome to Nextup Studio</h1>
+      <div class="index-title-row">
+        <h1>👋 Welcome to Nextup Studio</h1>
+        <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme">
+          <svg id="themeIcon" viewBox="0 0 24 24" fill="none">
+            <path d="M18 15.63A8 8 0 0 1 8.37 6
+              a7.99 7.99 0 1 0 9.63 9.63Z"
+              fill="#ffe066" stroke="#ffe066" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
       <p>This is the official site of <strong>Vanshu Agarwal</strong>. Here you’ll find:</p>
       <ul>
         <li>🎵 Original Songs</li>
@@ -207,6 +245,43 @@
     setInterval(() => {
       localStorage.setItem('musicTime', player.currentTime);
     }, 1000);
+
+    // THEME TOGGLE JS
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    function setTheme(isLight) {
+      if (isLight) {
+        document.body.classList.add('light-mode');
+        themeIcon.innerHTML = `
+          <circle cx="12" cy="12" r="5" fill="#ffc600"/>
+          <g stroke="#ffc600" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </g>
+        `;
+      } else {
+        document.body.classList.remove('light-mode');
+        themeIcon.innerHTML = `
+          <path d="M18 15.63A8 8 0 0 1 8.37 6
+            a7.99 7.99 0 1 0 9.63 9.63Z"
+            fill="#ffe066" stroke="#ffe066" stroke-width="2"/>
+        `;
+      }
+    }
+    // Sync with previous user selection stored in localStorage
+    const themePref = localStorage.getItem('themeMode');
+    if (themePref === 'light') setTheme(true);
+    themeToggleBtn.addEventListener('click', ()=>{
+      const isLight = !document.body.classList.contains('light-mode');
+      setTheme(isLight);
+      localStorage.setItem('themeMode', isLight ? 'light' : 'dark');
+    });
 
     // ----- USER LOGIN SCRIPTS -----
     const CLIENT_ID = "455141367100-f2jev8v887uer781j5ajg326375bud0h.apps.googleusercontent.com";
