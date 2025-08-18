@@ -1,4 +1,4 @@
-/* Global Reset and Dark Theme */
+/* --- Global Reset & Dark Theme --- */
 * {
   margin: 0;
   padding: 0;
@@ -9,15 +9,15 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #121212;
   color: #f0f0f0;
+  transition: background 0.2s, color 0.2s;
 }
 
-/* Layout */
 .layout {
   display: flex;
   min-height: 100vh;
 }
 
-/* Sidebar (Same for All Pages) */
+/* --- Sidebar --- */
 .sidebar {
   width: 220px;
   background-color: #1e1e1e;
@@ -27,6 +27,7 @@ body {
   gap: 15px;
   height: 100vh;
   position: relative;
+  z-index: 101;
 }
 
 .sidebar h2 {
@@ -54,7 +55,7 @@ body {
   font-weight: bold;
 }
 
-/* Main Content */
+/* --- Main Content --- */
 .main-content {
   flex: 1;
   padding: 30px;
@@ -62,7 +63,14 @@ body {
   box-sizing: border-box;
 }
 
-/* Button styles (general) */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.5rem; }
+
+/* --- Buttons --- */
 .button {
   display: inline-block;
   background-color: #00bcd4;
@@ -72,6 +80,7 @@ body {
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
+  border: none;
   transition: background 0.3s;
 }
 
@@ -80,7 +89,7 @@ body {
   color: #fff;
 }
 
-/* Google Login Button */
+/* --- Google Login Button --- */
 .google-btn {
   display: inline-flex;
   align-items: center;
@@ -99,27 +108,7 @@ body {
   transform: scale(1.03);
 }
 
-/* Notification Popup */
-.popup {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background-color: #222;
-  color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  z-index: 999;
-  animation: fadeout 10s forwards;
-}
-
-@keyframes fadeout {
-  0% { opacity: 1; }
-  85% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-/* Social Buttons */
+/* --- Social Buttons --- */
 .social-buttons {
   margin-top: 30px;
   display: flex;
@@ -127,7 +116,6 @@ body {
   align-items: center;
   gap: 20px;
 }
-
 .social-buttons a {
   display: flex;
   align-items: center;
@@ -141,17 +129,13 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-
 .social-buttons a:hover {
   transform: scale(1.05);
   opacity: 0.9;
 }
-
 .whatsapp { background-color: #25D366; }
 .youtube { background-color: #FF0000; }
 .instagram { background-color: #E1306C; }
-
-/* Make social buttons horizontal in desktop, vertical in mobile */
 @media (min-width: 769px) {
   .social-buttons {
     flex-direction: row;
@@ -160,7 +144,7 @@ body {
   }
 }
 
-/* Floating Play/Pause Music Button (like journey/index) */
+/* --- Floating Play/Pause Music Button --- */
 .audio-button, .music-btn {
   position: fixed;
   bottom: 30px;
@@ -175,7 +159,7 @@ body {
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
+  z-index: 1500;
   transition: background 0.2s, transform 0.2s;
   font-size: 28px;
 }
@@ -189,14 +173,63 @@ body {
   pointer-events: none;
 }
 
-/* If you are using a centered music control container */
-#musicControl {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+/* --- Notification Popup --- */
+.popup {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #222;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  animation: fadeout 10s forwards;
+}
+@keyframes fadeout {
+  0% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
-/* Responsive adjustments for mobile */
+/* --- Daily Quote / Card --- */
+.daily-quote {
+  margin-top: 30px;
+  padding: 15px 20px;
+  background: rgba(0, 188, 212, 0.1);
+  border-left: 4px solid #00bcd4;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 6px;
+}
+
+/* --- Theme Toggle Button (fixed top right, all pages) --- */
+.theme-toggle {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  background: #222;
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.20);
+  z-index: 2000;
+  transition: background 0.2s;
+}
+.theme-toggle:hover { background: #333; }
+.theme-toggle svg {
+  width: 23px;
+  height: 23px;
+  pointer-events: none;
+}
+
+/* --- Responsive Design --- */
 @media (max-width: 768px) {
   .layout {
     flex-direction: column;
@@ -244,4 +277,22 @@ body {
     bottom: 20px;
     right: 20px;
   }
+  .theme-toggle { top: 14px; right: 18px; }
 }
+
+/* --- Light Mode Overrides --- */
+body.light-mode {
+  background: #f9f9f9;
+  color: #222;
+  transition: background 0.2s, color 0.2s;
+}
+body.light-mode .sidebar { background: #e3f4fa; }
+body.light-mode .sidebar h2,
+body.light-mode .sidebar a { color: #0087a7; }
+body.light-mode .sidebar a.active,
+body.light-mode .sidebar a:hover { background: #00bcd4; color: #fff;}
+body.light-mode .main-content { background: #fff; color: #222; }
+body.light-mode .social-buttons a.whatsapp { background: #65e19a;}
+body.light-mode .social-buttons a.youtube { background: #ff7373;}
+body.light-mode .social-buttons a.instagram { background: #ff66a6;}
+body.light-mode .popup { background: #fff; color: #333; }
