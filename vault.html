@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vault | Nextup Studio</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     /* Dark Theme Base */
     body {
@@ -13,6 +14,7 @@
       margin: 0;
       padding: 0;
       text-align: center;
+      transition: background 0.2s, color 0.2s;
     }
 
     h1, h2 {
@@ -118,6 +120,16 @@
         margin: 10px 0;
       }
     }
+
+    /* ---------- Light mode support ---------- */
+    body.light-mode {
+      background: #f9f9f9;
+      color: #222;
+    }
+    body.light-mode .vault-container { background: #fff; }
+    body.light-mode h1, body.light-mode h2 { color: #00bcd4; }
+    body.light-mode .hidden-content { background: #e8f5fc; color: #222; }
+    body.light-mode .file-block { background: #dcf3ff; }
   </style>
 </head>
 <body>
@@ -126,7 +138,6 @@
     <p>Enter the passcode to unlock hidden content.</p>
     <input type="password" id="passcode" placeholder="Enter passcode" />
     <button onclick="unlockVault()">Unlock</button>
-
     <div class="hidden-content" id="vaultContent">
       <h2>💎 Hidden Content</h2>
 
@@ -186,6 +197,20 @@
   </div>
 
   <script>
+    // Theme sync with entire site (no toggle button)
+    function setThemeFromStorage() {
+      const themePref = localStorage.getItem('themeMode');
+      if (themePref === 'light') {
+        document.body.classList.add('light-mode');
+      } else {
+        document.body.classList.remove('light-mode');
+      }
+    }
+    setThemeFromStorage();
+    window.addEventListener('storage', function(e){
+      if (e.key === 'themeMode') setThemeFromStorage();
+    });
+
     function unlockVault() {
       const pass = document.getElementById('passcode').value.trim();
       if (pass === 'opbolte') {
@@ -196,4 +221,4 @@
     }
   </script>
 </body>
-</html> 
+</html>
