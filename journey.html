@@ -46,7 +46,6 @@
       font-weight: 600;
       color: #555;
     }
-    /* ---- THEME TOGGLE IN TITLE ROW ---- */
     .journey-title-row {
       display: flex;
       align-items: center;
@@ -124,8 +123,8 @@
       </p>
       <p style="margin-top: 20px;">
         From childhood dreams to creating epic Minecraft moments and Squid Game shorts, my journey has been all about creativity and passion.
-        I started experimenting with content at an early age and slowly built what is now known as <a href="secret.html" style="text-decoration: none; color: inherit; cursor: default;"> <strong>Nextup Studio</strong>.
-        I'm excited to share every step of this path with you.
+        I started experimenting with content at an early age and slowly built what is now known as <a href="secret.html" style="text-decoration: none; color: inherit; cursor: default;">
+        <strong>Nextup Studio</strong></a>. I'm excited to share every step of this path with you.
       </p>
       <!-- Milestones: Subscriber Counter -->
       <section class="milestones">
@@ -139,12 +138,11 @@
     </div>
   </div>
 
-  <!-- 🎵 Hidden Audio & Floating Play Button -->
+  <!-- 🎵 Audio & Floating Play Button -->
   <audio id="song-player" autoplay loop>
     <source src="music/Raat-Ka-Banda.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
-
   <button class="audio-button" onclick="togglePlayPause()">
     <img id="play-icon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">
   </button>
@@ -182,7 +180,7 @@
       localStorage.setItem('musicTime', player.currentTime);
     }, 1000);
 
-    // Daily Quote System
+    // Daily Quote
     const quotes = [
       "Every great journey begins with a single step.",
       "Your story is unique — make it worth telling.",
@@ -198,7 +196,7 @@
     const todayIndex = new Date().getDate() % quotes.length;
     document.getElementById("dailyQuote").innerText = quotes[todayIndex];
 
-    // Theme Toggle (Sun/Moon)
+    // Theme Toggle
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const themeIcon = document.getElementById('themeIcon');
     function setTheme(isLight) {
@@ -234,10 +232,9 @@
       localStorage.setItem('themeMode', isLight ? 'light' : 'dark');
     });
 
-    // Milestones: Live YouTube Subscribers Counter
+    // Milestones: YouTube Subscriber Counter
     const apiKey = "AIzaSyCBT-gq8LitqS1aNnoPjrRGBrQvJ9wTwIc";
     const channelId = "UCFEyuiIys7KoiZkczq4erJw";
-
     function fetchSubscribers() {
       fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`)
         .then(response => response.json())
@@ -256,10 +253,8 @@
         })
         .catch(error => {
           document.getElementById("subscriberCount").textContent = "Error";
-          console.error("Failed to fetch subscribers:", error);
         });
     }
-
     fetchSubscribers();
   </script>
 </body>
