@@ -9,7 +9,23 @@
   <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
-    /* Notification popup */
+    .hidden-egg-link {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: inherit;
+      /* Koi underline/cursor pointer effect nahi */
+    }
+    .hidden-egg-link:visited,
+    .hidden-egg-link:active,
+    .hidden-egg-link:focus,
+    .hidden-egg-link:hover {
+      color: inherit;
+      text-decoration: none;
+      outline: none;
+      /* Hover, click pe bhi koi hint nahi dikhayega */
+    }
+    /* Baaki aapka design as it is rehta hai */
     .popup {
       position: fixed;
       bottom: 30px;
@@ -88,7 +104,6 @@
     #setUsernameBtn:hover { opacity:0.9; transform:scale(1.05); }
     #welcomeUser { text-align:center; margin-top:20px; color:#00bcd4; font-weight:bold; }
     #logoutContainer { text-align:center; margin-top:15px; }
-    /* ---- THEME TOGGLE IN TITLE ROW ---- */
     .index-title-row {
       display: flex;
       align-items: center;
@@ -162,9 +177,9 @@
           </svg>
         </button>
       </div>
-      <!-- SECRET LINK ADDED BELOW -->
+      <!-- SECRET HIDDEN LINK (NO UNDERLINE) -->
       <p>This is the official site of <strong>
-        <a href="egg.html" style="color:inherit; text-decoration:underline dotted; opacity:0.96;" title="Secret!">Vanshu Agarwal</a>
+        <a href="egg.html" class="hidden-egg-link" tabindex="-1">Vanshu Agarwal</a>
       </strong>. Here you’ll find:</p>
       <!-- END SECRET LINK -->
       <ul>
