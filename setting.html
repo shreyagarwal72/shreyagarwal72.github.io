@@ -49,7 +49,7 @@
       font-size: 1em;
       outline: none;
       margin-top: 2px;
-      box-shadow:inset 0 2px 7px rgba(0,188,212,0.15);
+      box-shadow:inset 0 2px 7px rgba(0,188,212,0.13);
     }
     .settings-group input[type="checkbox"] {
       transform: scale(1.1);
@@ -75,7 +75,6 @@
       cursor: pointer;
       font-size: 19px;
       transition: background 0.18s, color 0.18s;
-      box-shadow:0 2px 8px rgba(0,188,212,0.11);
       margin-top:14px;
     }
     .settings-actions button:hover {
@@ -104,7 +103,7 @@
     }
     @media (max-width:700px) {
       .settings-main { max-width:99vw; padding:13px 2vw 18px 2vw; margin:15px 0; }
-      .settings-main h1 { font-size: 1.17rem; }
+      .settings-main h1 { font-size: 1.20rem; }
     }
     body.light-mode {
       background: #f9f9f9;
@@ -154,7 +153,7 @@
       <div class="settings-group">
         <label for="theme">Theme</label>
         <select id="theme">
-          <option value="auto">Auto</option>
+          <option value="auto">Auto (System)</option>
           <option value="dark">Dark</option>
           <option value="light">Light</option>
         </select>
@@ -176,54 +175,76 @@
     <a href="index.html" class="settings-back">← Back to Home</a>
   </div>
   <script>
-    // Theme Auto Sync
-    function setTheme(mode) {
-      if (mode === "auto") {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.body.classList.toggle('light-mode', !prefersDark);
-      } else if (mode === "light") {
+    // Immediately set theme on page load (even before DOMContentLoaded)
+    (function setThemeImmediately() {
+      let mode = localStorage.getItem('themeMode');
+      if(!mode || mode==='auto'){
+        // system default
+        if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+          document.body.classList.remove('light-mode');
+        }else{
+          document.body.classList.add('light-mode');
+        }
+      } else if(mode==='light'){
         document.body.classList.add('light-mode');
       } else {
         document.body.classList.remove('light-mode');
       }
-      localStorage.setItem('settingsThemeMode', mode);
-    }
-    // On load, apply saved or auto theme
-    (function() {
-      let theme = localStorage.getItem('settingsThemeMode') || "auto";
-      setTheme(theme);
-      document.getElementById('theme').value = theme;
     })();
-    // Apply theme on change
-    document.getElementById('theme').addEventListener('change', function() {
-      setTheme(this.value);
-    });
 
-    // Username auto sync (from site Google login/localStorage)
-    document.addEventListener('DOMContentLoaded', function () {
+    // On DOMContentLoaded, complete sync for dropdown and user fields
+    document.addEventListener('DOMContentLoaded',function(){
+      // Dropdown selection matches themeMode
+      let mode = localStorage.getItem('themeMode')||'auto';
+      document.getElementById('theme').value = mode;
+
+      // Re-sync theme on dropdown change
+      document.getElementById('theme').addEventListener('change',function(){
+        localStorage.setItem('themeMode',this.value);
+        // Apply
+        if(this.value==='auto'){
+          if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+            document.body.classList.remove('light-mode');
+          }else{
+            document.body.classList.add('light-mode');
+          }
+        } else if(this.value==='light'){
+          document.body.classList.add('light-mode');
+        } else {
+          document.body.classList.remove('light-mode');
+        }
+      });
+
+      // Live theme sync (if system theme changes while on auto)
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){
+        let mode = localStorage.getItem('themeMode')||'auto';
+        if(mode==="auto"){
+          if(e.matches){
+            document.body.classList.remove('light-mode');
+          }else{
+            document.body.classList.add('light-mode');
+          }
+        }
+      });
+
+      // LocalStorage user fields auto-fill
       let user = localStorage.getItem('nextupUser');
-      if (user) {
-        try {
-          let obj = JSON.parse(user);
-          if (obj.username) document.getElementById('username').value = obj.username;
-          if (obj.name) document.getElementById('name').value = obj.name;
-          if (obj.email) document.getElementById('email').value = obj.email;
-        } catch(e) {}
+      if(user){
+        try{
+          let obj=JSON.parse(user);
+          if(obj.username) document.getElementById('username').value=obj.username;
+          if(obj.name) document.getElementById('name').value=obj.name;
+          if(obj.email) document.getElementById('email').value=obj.email;
+        }catch(e){}
       }
     });
 
-    // After Save, show success, hide form
-    document.getElementById('settingsForm').addEventListener('submit', function(e){
+    // Success message after Save, remove form
+    document.getElementById('settingsForm').addEventListener('submit',function(e){
       e.preventDefault();
-      document.getElementById('settingsForm').style.display = 'none';
+      document.getElementById('settingsForm').style.display='none';
       document.getElementById('settingsArea').insertAdjacentHTML('beforeend',
         `<div class="settings-success">✅ Changes Saved Successfully!</div>`);
-    });
-
-    // Re-apply theme if system changes (auto mode)
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-      let mode = localStorage.getItem('settingsThemeMode') || "auto";
-      if(mode==="auto") setTheme("auto");
     });
   </script>
 </body>
