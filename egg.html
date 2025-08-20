@@ -1,115 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Nextup Developer Egg</title>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>🥚 Secret Egg | Nextup Studio</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background: #111;
+      background: #181818;
       color: #00bcd4;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
       font-family: 'Segoe UI', sans-serif;
-      text-align:center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 96vh;
+      text-align: center;
     }
-    .egg-ani {
-      font-size:65px;
-      margin-bottom:24px;
-      animation: spin 1.2s infinite cubic-bezier(.7,.3,.3,.7);
-      display:inline-block;
+    .egg-container {
+      margin-top: 44px;
+      margin-bottom: 18px;
     }
-    @keyframes spin {
-      0% {transform:rotate(0);}
-      80%{transform:rotate(23deg);}
-      100% {transform:rotate(-15deg);}
+    .egg {
+      font-size: 88px;
+      cursor: pointer;
+      transition: transform 0.13s;
+      user-select: none;
+      display: inline-block;
+      animation: jump .9s infinite;
     }
-    .hidden-pop {
+    @keyframes jump {
+      0% {transform: translateY(0);}
+      60%{transform: translateY(-20px);}
+      100% {transform: translateY(0);}
+    }
+    .egg:active { transform: scale(1.08); }
+    .egg-crack {
+      animation: crack 0.6s;
+      color: #ffe066;
+    }
+    @keyframes crack {
+      0% {transform: scale(1) rotate(0deg);}
+      35% {transform: scale(1.12) rotate(-12deg);}
+      70% {transform: scale(.89) rotate(16deg);}
+      100% {transform: scale(1) rotate(0deg);}
+    }
+    .gift-img {
+      margin: 36px 0 22px 0;
+      max-width: 85vw;
+      width: 325px;
+      border-radius: 12px;
+      box-shadow: 0 6px 44px #00bcd454;
       display: none;
-      position: fixed;
-      top: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #111;
-      color: #00e29c;
-      border: 3px solid #00bcd4;
-      border-radius: 11px;
-      padding: 25px 38px;
-      font-size: 1.11em;
-      z-index: 3333;
-      box-shadow: 0 10px 40px #00bcd4a8;
-      font-weight: 700;
-      letter-spacing: .1px;
-      animation: slidein .45s cubic-bezier(.48,.36,.36,.9);
+      opacity: 0;
+      transition: opacity 0.7s;
     }
-    @keyframes slidein {
-      0% { top:-100px; opacity:0;}
-      65% { top:40px; opacity:.9;}
-      100% {top:32px; opacity:1;}
+    .gift-img.reveal {
+      display: block;
+      opacity: 1;
     }
-    .msg {
-      color:#fff; margin-top:24px; opacity:.84;font-size:.99em;
+    .egg-msg {
+      color: #fff;
+      font-size: 1.13em;
+      margin-top: 34px;
+      margin-bottom: 4px;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+    .egg-note {
+      color: #00bcd4;
+      opacity: 0.4;
+      font-size: 13px;
     }
     a {
-      color:#0ff;
-      font-weight:bold;
-      text-decoration:none;
-      margin-top:32px;
-      display:inline-block;
+      color: #00efff;
+      text-decoration: underline;
+      margin-top: 38px;
+      display: inline-block;
+      font-size: 1em;
     }
-    a:hover { text-decoration:underline;}
+    a:hover { color: #fff;}
   </style>
 </head>
 <body>
-  <div class="egg-ani">🥚</div>
-  <h1>Nextup Studio<br>Secret Dev Panel</h1>
-  <div class="msg">
-    <b>Pssst... Yahan sirf jo log “inspect” par aye hain, unhi ko yeh message dikhega. <br>
-    <span style="color:#00e29c;">You found Vanshu’s developer easter egg!</span></b><br><br>
-    Ab tum developer squad ke member ho. 😁<br>
-    <small>(Try closing dev tools to hide this again.)</small>
+  <div class="egg-container">
+    <span id="egg" class="egg" title="Tap to crack!">🥚</span>
   </div>
-
+  <img src="video/3.jpg" alt="Secret Gift" id="gift" class="gift-img" />
+  <div class="egg-msg" id="msg">
+    Yeh hai Nextup Studio ka secret egg.<br>
+    Click the egg to reveal your gift!
+  </div>
+  <div class="egg-note">
+    <span id="note-text">Try it, but don't tell anyone 😄</span>
+  </div>
   <a href="index.html">← Back to Home</a>
-
-  <div class="hidden-pop" id="devpopup">
-    🕵️‍♂️ Wow! You opened Developer Tools!<br>
-    Welcome to the secret squad, coder.<br>
-    <span style="font-size:19px;color:#fff;">#NextupDev</span>
-  </div>
-
   <script>
-    // Detect dev tools (works in major browsers)
-    let shown = false;
-    function checkDevTools() {
-      const devPopup = document.getElementById('devpopup');
-      const threshold = 160; // Typical dev tools open reduces viewport width/height
-      if (
-        window.outerWidth - window.innerWidth > threshold ||
-        window.outerHeight - window.innerHeight > threshold
-      ) {
-        if(!shown){
-          devPopup.style.display = 'block';
-          shown=true;
-        }
-      } else {
-        if(shown){
-          devPopup.style.display = 'none';
-          shown=false;
-        }
-      }
-    }
-    setInterval(checkDevTools, 500);
+    // Animation: Egg crack & Gift reveal
+    const egg = document.getElementById('egg');
+    const msg = document.getElementById('msg');
+    const gift = document.getElementById('gift');
+    const note = document.getElementById('note-text');
+    let cracked = false;
 
-    // Also listen for F12 or Ctrl+Shift+I
-    window.addEventListener('keydown', function(e){
-      if ((e.key === 'F12') || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i'))) {
-        document.getElementById('devpopup').style.display = 'block';
-        shown=true;
+    egg.addEventListener('click', function() {
+      if(!cracked) {
+        egg.textContent = "🥚";
+        egg.classList.add("egg-crack");
+        setTimeout(()=>{
+          egg.style.display = "none";
+          gift.classList.add("reveal");
+          msg.textContent = "Badhai ho! You discovered the hidden gift:";
+          note.textContent = "Nextup Studio masti... Secret screenshot leke Insta story tag karo! 🎉";
+        }, 670);
+        cracked = true;
       }
     });
   </script>
