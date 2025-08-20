@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nextup Developer Egg</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: #111;
+      color: #00bcd4;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      font-family: 'Segoe UI', sans-serif;
+      text-align:center;
+    }
+    .egg-ani {
+      font-size:65px;
+      margin-bottom:24px;
+      animation: spin 1.2s infinite cubic-bezier(.7,.3,.3,.7);
+      display:inline-block;
+    }
+    @keyframes spin {
+      0% {transform:rotate(0);}
+      80%{transform:rotate(23deg);}
+      100% {transform:rotate(-15deg);}
+    }
+    .hidden-pop {
+      display: none;
+      position: fixed;
+      top: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111;
+      color: #00e29c;
+      border: 3px solid #00bcd4;
+      border-radius: 11px;
+      padding: 25px 38px;
+      font-size: 1.11em;
+      z-index: 3333;
+      box-shadow: 0 10px 40px #00bcd4a8;
+      font-weight: 700;
+      letter-spacing: .1px;
+      animation: slidein .45s cubic-bezier(.48,.36,.36,.9);
+    }
+    @keyframes slidein {
+      0% { top:-100px; opacity:0;}
+      65% { top:40px; opacity:.9;}
+      100% {top:32px; opacity:1;}
+    }
+    .msg {
+      color:#fff; margin-top:24px; opacity:.84;font-size:.99em;
+    }
+    a {
+      color:#0ff;
+      font-weight:bold;
+      text-decoration:none;
+      margin-top:32px;
+      display:inline-block;
+    }
+    a:hover { text-decoration:underline;}
+  </style>
+</head>
+<body>
+  <div class="egg-ani">🥚</div>
+  <h1>Nextup Studio<br>Secret Dev Panel</h1>
+  <div class="msg">
+    <b>Pssst... Yahan sirf jo log “inspect” par aye hain, unhi ko yeh message dikhega. <br>
+    <span style="color:#00e29c;">You found Vanshu’s developer easter egg!</span></b><br><br>
+    Ab tum developer squad ke member ho. 😁<br>
+    <small>(Try closing dev tools to hide this again.)</small>
+  </div>
+
+  <a href="index.html">← Back to Home</a>
+
+  <div class="hidden-pop" id="devpopup">
+    🕵️‍♂️ Wow! You opened Developer Tools!<br>
+    Welcome to the secret squad, coder.<br>
+    <span style="font-size:19px;color:#fff;">#NextupDev</span>
+  </div>
+
+  <script>
+    // Detect dev tools (works in major browsers)
+    let shown = false;
+    function checkDevTools() {
+      const devPopup = document.getElementById('devpopup');
+      const threshold = 160; // Typical dev tools open reduces viewport width/height
+      if (
+        window.outerWidth - window.innerWidth > threshold ||
+        window.outerHeight - window.innerHeight > threshold
+      ) {
+        if(!shown){
+          devPopup.style.display = 'block';
+          shown=true;
+        }
+      } else {
+        if(shown){
+          devPopup.style.display = 'none';
+          shown=false;
+        }
+      }
+    }
+    setInterval(checkDevTools, 500);
+
+    // Also listen for F12 or Ctrl+Shift+I
+    window.addEventListener('keydown', function(e){
+      if ((e.key === 'F12') || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i'))) {
+        document.getElementById('devpopup').style.display = 'block';
+        shown=true;
+      }
+    });
+  </script>
+</body>
+</html>
