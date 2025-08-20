@@ -36,6 +36,16 @@
       line-height: 1.5;
       border-radius: 6px;
     }
+    .milestones {
+      margin-top: 30px;
+      padding: 15px 20px;
+      background: rgba(255, 235, 59, 0.1);
+      border-left: 4px solid #ffeb3b;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #555;
+    }
     /* ---- THEME TOGGLE IN TITLE ROW ---- */
     .journey-title-row {
       display: flex;
@@ -108,17 +118,20 @@
         </button>
       </div>
       <p>
-        Welcome to my journey! I'm <strong>Vanshu Agarwal</strong> aka <em>Shrey</em>, the creator behind <strong>Nextup Studio</strong>
-        </a>. 
-        This page is all about my path — from my early interests to becoming a content creator blending AI, music, and gaming into one experience. 
+        Welcome to my journey! I'm <strong>Vanshu Agarwal</strong> aka <em>Shrey</em>, the creator behind <strong>Nextup Studio</strong>.
+        This page is all about my path — from my early interests to becoming a content creator blending AI, music, and gaming into one experience.
         Thanks for being a part of it!
       </p>
-      
       <p style="margin-top: 20px;">
-        From childhood dreams to creating epic Minecraft moments and Squid Game shorts, my journey has been all about creativity and passion. 
-        I started experimenting with content at an early age and slowly built what is now known as <a href="secret.html" style="text-decoration: none; color: inherit; cursor: default;"> <strong>Nextup Studio</strong>. 
+        From childhood dreams to creating epic Minecraft moments and Squid Game shorts, my journey has been all about creativity and passion.
+        I started experimenting with content at an early age and slowly built what is now known as <a href="secret.html" style="text-decoration: none; color: inherit; cursor: default;"> <strong>Nextup Studio</strong>.
         I'm excited to share every step of this path with you.
       </p>
+      <!-- Milestones: Subscriber Counter -->
+      <section class="milestones">
+        <h2>Milestones</h2>
+        <p>Subscribers: <span id="subscriberCount">Loading...</span></p>
+      </section>
       <!-- Daily Quote Section -->
       <div class="daily-quote" id="dailyQuote">
         Loading today's quote...
@@ -137,6 +150,7 @@
   </button>
 
   <script>
+    // Audio player
     const player = document.getElementById('song-player');
     const playIcon = document.getElementById('play-icon');
     const savedTime = localStorage.getItem('musicTime');
@@ -219,6 +233,34 @@
       setTheme(isLight);
       localStorage.setItem('themeMode', isLight ? 'light' : 'dark');
     });
+
+    // Milestones: Live YouTube Subscribers Counter
+    const apiKey = "AIzaSyCBT-gq8LitqS1aNnoPjrRGBrQvJ9wTwIc";
+    const channelId = "UCFEyuiIys7KoiZkczq4erJw";
+
+    function fetchSubscribers() {
+      fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`)
+        .then(response => response.json())
+        .then(data => {
+          if (
+            data &&
+            data.items &&
+            data.items.length > 0 &&
+            data.items[0].statistics.subscriberCount
+          ) {
+            const count = data.items.statistics.subscriberCount;
+            document.getElementById("subscriberCount").textContent = Number(count).toLocaleString();
+          } else {
+            document.getElementById("subscriberCount").textContent = "Not found";
+          }
+        })
+        .catch(error => {
+          document.getElementById("subscriberCount").textContent = "Error";
+          console.error("Failed to fetch subscribers:", error);
+        });
+    }
+
+    fetchSubscribers();
   </script>
 </body>
 </html>
