@@ -231,8 +231,8 @@
       localStorage.setItem('themeMode', isLight ? 'light' : 'dark');
     });
 
-    // Milestones: YouTube Subscriber Counter - Fixed to correct API response path
-    const apiKey = "AIzaSyCBT-gq8LitqS1aNnoPjrRGBrQvJ9wTwIc";
+    // Milestones: YouTube Subscriber Counter with your key
+    const apiKey = "AIzaSyCM7WK3KYdLFh2xPOFL8amaFxgVCg3etU4";
     const channelId = "UCFEyuiIys7KoiZkczq4erJw";
     function fetchSubscribers() {
       fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`)
@@ -242,7 +242,7 @@
             data &&
             data.items &&
             data.items.length > 0 &&
-            data.items.statistics &&
+            data.items[0].statistics &&
             data.items.statistics.subscriberCount
           ) {
             const count = data.items.statistics.subscriberCount;
@@ -259,4 +259,3 @@
   </script>
 </body>
 </html>
-
