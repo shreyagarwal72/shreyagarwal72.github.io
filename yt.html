@@ -60,6 +60,19 @@
       .yt-title-row { gap: 8px; }
       .theme-toggle { width: 34px; height: 34px; }
     }
+    .channel-stats {
+      margin-top: 30px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #555;
+      background: rgba(255, 235, 59, 0.1);
+      border-left: 4px solid #ffeb3b;
+      border-radius: 6px;
+      padding: 15px 20px;
+    }
+    .channel-stats p {
+      margin: 8px 0;
+    }
   </style>
 </head>
 <body>
@@ -84,6 +97,11 @@
               fill="#ffe066" stroke="#ffe066" stroke-width="2"/>
           </svg>
         </button>
+      </div>
+
+      <div class="channel-stats">
+        <p>Subscribers: <span id="subscriberCount">Loading...</span></p>
+        <p>Total Views: <span id="totalViews">Loading...</span></p>
       </div>
 
       <div class="video-grid">
@@ -147,6 +165,34 @@
       setTheme(isLight);
       localStorage.setItem('themeMode', isLight ? 'light' : 'dark');
     });
+
+    // Fetch YouTube Channel Stats (Subscribers & Total Views)
+    const apiKey = "AIzaSyCM7WK3KYdLFh2xPOFL8amaFxgVCg3etU4";
+    const channelId = "UCFEyuiIys7KoiZkczq4erJw";
+    function fetchChannelStats() {
+      fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`)
+        .then(response => response.json())
+        .then(data => {
+          if (
+            data &&
+            data.items &&
+            data.items.length > 0 &&
+            data.items[0].statistics
+          ) {
+            const stats = data.items[0].statistics;
+            document.getElementById("subscriberCount").textContent = Number(stats.subscriberCount).toLocaleString();
+            document.getElementById("totalViews").textContent = Number(stats.viewCount).toLocaleString();
+          } else {
+            document.getElementById("subscriberCount").textContent = "Not found";
+            document.getElementById("totalViews").textContent = "Not found";
+          }
+        })
+        .catch(() => {
+          document.getElementById("subscriberCount").textContent = "Error";
+          document.getElementById("totalViews").textContent = "Error";
+        });
+    }
+    fetchChannelStats();
   </script>
 </body>
 </html>
