@@ -243,9 +243,9 @@
             data.items &&
             data.items.length > 0 &&
             data.items[0].statistics &&
-            data.items.statistics.subscriberCount
+            data.items[0].statistics.subscriberCount
           ) {
-            const count = data.items.statistics.subscriberCount;
+            const count = data.items[0].statistics.subscriberCount;
             document.getElementById("subscriberCount").textContent = Number(count).toLocaleString();
           } else {
             document.getElementById("subscriberCount").textContent = "Not found";
