@@ -34,6 +34,13 @@
       gap: 18px;
       margin-bottom: 18px;
     }
+    .yt-title-row h1 {
+      /* Ensure single line */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0;
+    }
     .theme-toggle {
       position: relative;
       top: 0; right: 0;
@@ -65,8 +72,8 @@
       font-size: 16px;
       font-weight: 600;
       color: #555;
-      background: rgba(255, 235, 59, 0.1);
-      border-left: 4px solid #ffeb3b;
+      background: rgba(100, 230, 120, 0.1); /* light green background */
+      border-left: 4px solid #4caf50; /* green border instead of yellow */
       border-radius: 6px;
       padding: 15px 20px;
     }
@@ -89,12 +96,12 @@
     <!-- Main Content -->
     <div class="main-content">
       <div class="yt-title-row">
-        <h1>🎥 YouTube Highlights</h1>
+        <h1>YouTube Highlights</h1> <!-- Removed emoji and forced single line -->
         <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme">
           <svg id="themeIcon" viewBox="0 0 24 24" fill="none">
             <path d="M18 15.63A8 8 0 0 1 8.37 6
               a7.99 7.99 0 1 0 9.63 9.63Z"
-              fill="#ffe066" stroke="#ffe066" stroke-width="2"/>
+              fill="#4caf50" stroke="#4caf50" stroke-width="2"/> <!-- icon color changed to green -->
           </svg>
         </button>
       </div>
@@ -136,8 +143,8 @@
       if (isLight) {
         document.body.classList.add('light-mode');
         themeIcon.innerHTML = `
-          <circle cx="12" cy="12" r="5" fill="#ffc600"/>
-          <g stroke="#ffc600" stroke-width="2">
+          <circle cx="12" cy="12" r="5" fill="#4caf50"/>
+          <g stroke="#4caf50" stroke-width="2">
             <line x1="12" y1="1" x2="12" y2="3"/>
             <line x1="12" y1="21" x2="12" y2="23"/>
             <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
@@ -153,7 +160,7 @@
         themeIcon.innerHTML = `
           <path d="M18 15.63A8 8 0 0 1 8.37 6
             a7.99 7.99 0 1 0 9.63 9.63Z"
-            fill="#ffe066" stroke="#ffe066" stroke-width="2"/>
+            fill="#4caf50" stroke="#4caf50" stroke-width="2"/>
         `;
       }
     }
