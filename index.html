@@ -4,136 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nextup Studio</title>
-  <meta name="description" content="Nextup Studio is the official website of Vanshu Agarwal. Explore original music, Minecraft content, games, and more." />
-  <link rel="stylesheet" href="style.css" />
-  <!-- Google Identity Services -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <style>
-    /* --- ADS BLOCK STYLE --- */
-    .ads {
-      margin: 30px auto;
-      max-width: 728px;
-      text-align: center;
-      padding: 15px;
-      background: #1e1e1e;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-    }
-    .ads span {
-      font-size: 12px;
-      opacity: 0.6;
-      display: block;
-      margin-bottom: 8px;
-    }
-    @media(max-width:768px){
-      .ads { max-width: 100%; padding: 10px; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <audio id="bgMusic" src="music/Music.mp3" loop></audio>
-  <div class="layout">
-    <div class="sidebar">
-      <h2>Nextup Studio</h2>
-      <a href="index.html" class="active">Home</a>
-      <a href="yt.html">YouTube</a>
-      <a href="journey.html">My Journey</a>
-      <a href="game.html">Game</a>
-    </div>
-    <div class="main-content">
-      <div class="index-title-row">
-        <h1>👋 Welcome to Nextup Studio</h1>
-        <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme">
-          <svg id="themeIcon" viewBox="0 0 24 24" fill="none">
-            <path d="M18 15.63A8 8 0 0 1 8.37 6
-              a7.99 7.99 0 1 0 9.63 9.63Z"
-              fill="#ffe066" stroke="#ffe066" stroke-width="2"/>
-          </svg>
-        </button>
-      </div>
-
-      <p>This is the official site of <strong>
-        <a href="egg.html" class="hidden-egg-link" tabindex="-1">Vanshu Agarwal</a>
-      </strong>. Here you’ll find:</p>
-      <ul>
-        <li>🎵 Original Songs</li>
-        <li>🎮 Minecraft Shorts & Gameplay</li>
-        <li>🧠 Mind Relax Game </li>
-        <li>📈 My Life Journey and Milestones</li>
-      </ul>
-      <p>Stay connected with me through Instagram, YouTube, and WhatsApp!</p>
-
-      <!-- Google Login Button -->
-      <div class="google-login" id="googleLoginBtnContainer"></div>
-
-      <!-- Username prompt -->
-      <div id="usernamePrompt">
-        <input type="text" id="usernameInput" placeholder="Choose a username" />
-        <button id="setUsernameBtn">Set Username</button>
-      </div>
-
-      <!-- Welcome user display -->
-      <div id="welcomeUser"></div>
-
-      <!-- Logout button -->
-      <div id="logoutContainer"></div>
-
-      <!-- Settings button -->
-      <div id="settingsContainer" style="text-align:center; margin-top:10px;">
-        <a href="setting.html" class="button" style="
-          display:inline-block;
-          background-color:#00bcd4;
-          color:#121212;
-          padding:10px 25px;
-          border-radius:5px;
-          font-weight:bold;
-          margin-top:10px;
-          text-decoration:none;
-          box-shadow:0 2px 8px rgba(0,188,212,0.20);
-          transition:background 0.3s;
-        ">Settings</a>
-      </div>
-
-      <p class="secret-link">
-        Some <a href="vault.html">secrets</a> are better left unspoken...
-      </p>
-
-      <div class="social-buttons">
-        <a class="whatsapp" href="https://wa.me/919412104618" target="_blank">📱 Chat on WhatsApp</a>
-        <a class="youtube" href="https://www.youtube.com/@nextupstudioyt" target="_blank">▶️ Subscribe on YouTube</a>
-        <a class="instagram" href="https://www.instagram.com/vanshu_ag_72" target="_blank">📷 Follow on Instagram</a>
-      </div>
-
-      <!-- CLEAN AD BLOCK (FOOTER STYLE) -->
-      <div class="ads">
-        <span>Advertisement</span>
-        <!-- Yaha apna Google AdSense ya banner code paste karo -->
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="pub-5680314597533936"
-            data-ad-slot="1234567890"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
-
-    </div>
+  <div class="sidebar">
+    <h2>Nextup Studio</h2>
+    <a href="index.html">Home</a>
+    <a href="journey.html">My Journey</a>
+    <a href="yt.html">My Videos</a>
+    <a href="vault.html">Vault</a>
+    <a href="game.html">Games</a>
   </div>
 
-  <!-- Floating Play/Pause Music Button -->
-  <button class="audio-button" onclick="togglePlayPause()">
-    <img id="play-icon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">
-  </button>
+  <div class="main-content">
+    <h1>Welcome to Nextup Studio</h1>
+    <p>Ye hai mera official website jaha tumhe milega music, games, aur bahut kuch 🔥</p>
 
-  <div class="popup">
-    🔔 New! "Skyveil - The Echoes Beyond" <br>
-    Watch it here: <a href="https://youtu.be/6-JN1GLXdgY?feature=shared" target="_blank" style="color:#00f;">Click to Watch</a>
+    <!-- Baaki ka content yahan hoga -->
+
+    <!-- Support Button -->
+    <div style="text-align:center; margin-top:40px;">
+      <a href="support.html" class="btn">🙏 Support</a>
+    </div>
   </div>
-
-  <!-- scripts neeche same jaise tumhare original -->
-  <script>
-    // (music, theme, login scripts – same as tumhare original)
-  </script>
 </body>
 </html>
