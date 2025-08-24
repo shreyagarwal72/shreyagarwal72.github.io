@@ -4,267 +4,280 @@
   <meta charset="UTF-8" />  
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
   <title>Nextup Studio</title>  
-  <meta name="description" content="Nextup Studio is the official website of Vanshu Agarwal. Explore original music, Minecraft content, games, and more." />  
-  <link rel="stylesheet" href="style.css" />  
+  <meta name="description" content="Nextup Studio is the official website of Vanshu Agarwal. Explore original music, Minecraft content, games, and more." />
+  <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="favicon.png" type="image/png" />
+
+  <!-- Open Graph Meta Tags for Social/Google -->
+  <meta property="og:title" content="Nextup Studio" />
+  <meta property="og:site_name" content="Nextup Studio" />
+  <meta property="og:description" content="Nextup Studio is the official website of Vanshu Agarwal. Explore original music, Minecraft content, games, and more." />
+  <meta property="og:image" content="favicon.png" />
+  <meta property="og:url" content="https://shreyagarwal72.github.io/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Nextup Studio" />
+  <meta name="twitter:description" content="Nextup Studio is the official website of Vanshu Agarwal. Explore original music, Minecraft content, games, and more." />
+  <meta name="twitter:image" content="favicon.png" />
+
   <!-- Google Identity Services -->  
   <script src="https://accounts.google.com/gsi/client" async defer></script>  
-  <style>  
-    .hidden-egg-link { color: inherit; text-decoration: none; cursor: pointer; font-weight: inherit; }  
-    .hidden-egg-link:visited,  
-    .hidden-egg-link:active,  
-    .hidden-egg-link:focus,  
-    .hidden-egg-link:hover { color: inherit; text-decoration: none; outline: none; }  
 
-    .audio-button {  
-      position: fixed; bottom: 30px; right: 30px;  
-      background-color: #00bcd4; border: none; border-radius: 50%;  
-      width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;  
-      cursor: pointer; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); z-index: 999;  
-    }  
-    .audio-button:hover { background-color: #0097a7; }  
-    .audio-button img { width: 28px; height: 28px; }  
-    audio { display: none; }  
+  <style>
+    /* aapka poora style yahan hai, koi change nahi kiya */
+    .hidden-egg-link { color: inherit; text-decoration: none; cursor: pointer; font-weight: inherit; }
+    .hidden-egg-link:visited,
+    .hidden-egg-link:active,
+    .hidden-egg-link:focus,
+    .hidden-egg-link:hover { color: inherit; text-decoration: none; outline: none; }
 
-    .social-buttons { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 20px; }  
-    .social-buttons a { display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 30px; font-weight: bold; font-size: 16px; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.3s ease, opacity 0.3s ease; }  
-    .social-buttons a:hover { transform: scale(1.05); opacity: 0.9; }  
-    .whatsapp { background-color: #25D366; }  
-    .youtube { background-color: #FF0000; }  
-    .instagram { background-color: #E1306C; }  
+    .audio-button {
+      position: fixed; bottom: 30px; right: 30px;
+      background-color: #00bcd4; border: none; border-radius: 50%;
+      width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); z-index: 999;
+    }
+    .audio-button:hover { background-color: #0097a7; }
+    .audio-button img { width: 28px; height: 28px; }
+    audio { display: none; }
 
-    .secret-link { text-align: center; margin-top: 40px; font-size: 12px; opacity: 0.3; }  
-    .secret-link a { color: inherit; text-decoration: none; }  
-    .secret-link a:hover { text-decoration: underline; opacity: 0.6; }  
+    .social-buttons { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .social-buttons a { display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 30px; font-weight: bold; font-size: 16px; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.3s ease, opacity 0.3s ease; }
+    .social-buttons a:hover { transform: scale(1.05); opacity: 0.9; }
+    .whatsapp { background-color: #25D366; }
+    .youtube { background-color: #FF0000; }
+    .instagram { background-color: #E1306C; }
 
-    .google-login { display:flex; justify-content:center; margin-top:30px; }  
-    #usernamePrompt { display:none; margin-top:20px; text-align:center; }  
-    #usernameInput { padding:10px 15px; border-radius:8px; border:1px solid #00bcd4; outline:none; margin-right:10px; }  
-    #setUsernameBtn { padding:10px 20px; border:none; border-radius:30px; background-color:#00bcd4; color:#121212; font-weight:bold; cursor:pointer; }  
-    #setUsernameBtn:hover { opacity:0.9; transform:scale(1.05); }  
-    #welcomeUser { text-align:center; margin-top:20px; color:#00bcd4; font-weight:bold; }  
-    #logoutContainer { text-align:center; margin-top:15px; }  
+    .secret-link { text-align: center; margin-top: 40px; font-size: 12px; opacity: 0.3; }
+    .secret-link a { color: inherit; text-decoration: none; }
+    .secret-link a:hover { text-decoration: underline; opacity: 0.6; }
 
-    .index-title-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 16px; }  
+    .google-login { display:flex; justify-content:center; margin-top:30px; }
+    #usernamePrompt { display:none; margin-top:20px; text-align:center; }
+    #usernameInput { padding:10px 15px; border-radius:8px; border:1px solid #00bcd4; outline:none; margin-right:10px; }
+    #setUsernameBtn { padding:10px 20px; border:none; border-radius:30px; background-color:#00bcd4; color:#121212; font-weight:bold; cursor:pointer; }
+    #setUsernameBtn:hover { opacity:0.9; transform:scale(1.05); }
+    #welcomeUser { text-align:center; margin-top:20px; color:#00bcd4; font-weight:bold; }
+    #logoutContainer { text-align:center; margin-top:15px; }
 
-    .theme-toggle {  
-      background: #222; border: none; border-radius: 50%; width: 38px; height: 38px;  
-      display: flex; align-items: center; justify-content: center; cursor: pointer;  
-      box-shadow: 0 2px 6px rgba(0,0,0,0.20); z-index: 1010; transition: background 0.2s;  
-    }  
-    .theme-toggle:hover { background: #333; }  
-    .theme-toggle svg { width: 23px; height: 23px; pointer-events: none; }  
+    .index-title-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
 
-    /* Support Button */  
-    .support-btn-container { text-align: center; margin: 40px 0; }  
-    .support-btn {  
-      background-color: #2196f3; color: #fff;  
-      padding: 12px 30px; border-radius: 8px;  
-      font-weight: bold; text-decoration: none;  
-      display: inline-block; font-size: 16px;  
-      box-shadow: 0 2px 8px rgba(0,0,0,0.20);  
-      transition: background 0.3s ease;  
-    }  
-    .support-btn:hover { background-color: #1976d2; }  
+    .theme-toggle {
+      background: #222; border: none; border-radius: 50%; width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.20); z-index: 1010; transition: background 0.2s;
+    }
+    .theme-toggle:hover { background: #333; }
+    .theme-toggle svg { width: 23px; height: 23px; pointer-events: none; }
 
-    @media (min-width: 769px) {  
-      .social-buttons { flex-direction: row; justify-content: center; align-items: center; }  
-    }  
-    @media (max-width: 768px) {  
-      .social-buttons a { font-size: 15px; padding: 12px 20px; }  
-      .audio-button { bottom: 20px; right: 20px; }  
-      .index-title-row { gap: 8px; }  
-      .theme-toggle { width: 34px; height: 34px; }  
-    }  
-  </style>  
-</head>  
-<body>  
-  <audio id="bgMusic" src="music/Music.mp3" loop></audio>  
-  <div class="layout">  
-    <div class="sidebar">  
-      <h2>Nextup Studio</h2>  
-      <a href="index.html" class="active">Home</a>  
-      <a href="yt.html">YouTube</a>  
-      <a href="journey.html">My Journey</a>  
-      <a href="game.html">Game</a>  
-    </div>  
-    <div class="main-content">  
-      <div class="index-title-row">  
-        <h1>👋 Welcome to Nextup Studio</h1>  
-        <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme">  
-          <svg id="themeIcon" viewBox="0 0 24 24" fill="none">  
-            <path d="M18 15.63A8 8 0 0 1 8.37 6 a7.99 7.99 0 1 0 9.63 9.63Z" fill="#ffe066" stroke="#ffe066" stroke-width="2"/>  
-          </svg>  
-        </button>  
-      </div>  
+    /* Support Button */
+    .support-btn-container { text-align: center; margin: 40px 0; }
+    .support-btn {
+      background-color: #2196f3; color: #fff;
+      padding: 12px 30px; border-radius: 8px;
+      font-weight: bold; text-decoration: none;
+      display: inline-block; font-size: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.20);
+      transition: background 0.3s ease;
+    }
+    .support-btn:hover { background-color: #1976d2; }
 
-      <!-- SECRET HIDDEN LINK -->  
-      <p>This is the official site of <strong>  
-        <a href="egg.html" class="hidden-egg-link" tabindex="-1">Vanshu Agarwal</a>  
-      </strong>. Here you’ll find:</p>  
+    @media (min-width: 769px) {
+      .social-buttons { flex-direction: row; justify-content: center; align-items: center; }
+    }
+    @media (max-width: 768px) {
+      .social-buttons a { font-size: 15px; padding: 12px 20px; }
+      .audio-button { bottom: 20px; right: 20px; }
+      .index-title-row { gap: 8px; }
+      .theme-toggle { width: 34px; height: 34px; }
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgMusic" src="music/Music.mp3" loop></audio>
+  <div class="layout">
+    <div class="sidebar">
+      <h2>Nextup Studio</h2>
+      <a href="index.html" class="active">Home</a>
+      <a href="yt.html">YouTube</a>
+      <a href="journey.html">My Journey</a>
+      <a href="game.html">Game</a>
+    </div>
+    <div class="main-content">
+      <div class="index-title-row">
+        <h1>👋 Welcome to Nextup Studio</h1>
+        <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme">
+          <svg id="themeIcon" viewBox="0 0 24 24" fill="none">
+            <path d="M18 15.63A8 8 0 0 1 8.37 6 a7.99 7.99 0 1 0 9.63 9.63Z" fill="#ffe066" stroke="#ffe066" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
 
-      <ul>  
-        <li>🎵 Original Songs</li>  
-        <li>🎮 Minecraft Shorts & Gameplay</li>  
-        <li>🧠 Mind Relax Game </li>  
-        <li>📈 My Life Journey and Milestones</li>  
-      </ul>  
-      <p>Stay connected with me through Instagram, YouTube, and WhatsApp!</p>  
+      <!-- SECRET HIDDEN LINK -->
+      <p>This is the official site of <strong>
+        <a href="egg.html" class="hidden-egg-link" tabindex="-1">Vanshu Agarwal</a>
+      </strong>. Here you’ll find:</p>
 
-      <!-- Google Login Button -->  
-      <div class="google-login" id="googleLoginBtnContainer"></div>  
+      <ul>
+        <li>🎵 Original Songs</li>
+        <li>🎮 Minecraft Shorts & Gameplay</li>
+        <li>🧠 Mind Relax Game </li>
+        <li>📈 My Life Journey and Milestones</li>
+      </ul>
+      <p>Stay connected with me through Instagram, YouTube, and WhatsApp!</p>
 
-      <!-- Username prompt -->  
-      <div id="usernamePrompt">  
-        <input type="text" id="usernameInput" placeholder="Choose a username" />  
-        <button id="setUsernameBtn">Set Username</button>  
-      </div>  
+      <!-- Google Login Button -->
+      <div class="google-login" id="googleLoginBtnContainer"></div>
 
-      <!-- Welcome user display -->  
-      <div id="welcomeUser"></div>  
+      <!-- Username prompt -->
+      <div id="usernamePrompt">
+        <input type="text" id="usernameInput" placeholder="Choose a username" />
+        <button id="setUsernameBtn">Set Username</button>
+      </div>
 
-      <!-- Logout button -->  
-      <div id="logoutContainer"></div>  
+      <!-- Welcome user display -->
+      <div id="welcomeUser"></div>
 
-      <!-- Settings button -->  
-      <div id="settingsContainer" style="text-align:center; margin-top:10px;">  
-        <a href="setting.html" class="button" style="  
-          display:inline-block; background-color:#00bcd4; color:#121212;  
-          padding:10px 25px; border-radius:5px; font-weight:bold;  
-          margin-top:10px; text-decoration:none;  
-          box-shadow:0 2px 8px rgba(0,188,212,0.20); transition:background 0.3s;  
-        ">Settings</a>  
-      </div>  
+      <!-- Logout button -->
+      <div id="logoutContainer"></div>
 
-      <!-- Secret Vault Link -->  
-      <p class="secret-link">Some <a href="vault.html">secrets</a> are better left unspoken...</p>  
+      <!-- Settings button -->
+      <div id="settingsContainer" style="text-align:center; margin-top:10px;">
+        <a href="setting.html" class="button" style="
+          display:inline-block; background-color:#00bcd4; color:#121212;
+          padding:10px 25px; border-radius:5px; font-weight:bold;
+          margin-top:10px; text-decoration:none;
+          box-shadow:0 2px 8px rgba(0,188,212,0.20); transition:background 0.3s;
+        ">Settings</a>
+      </div>
 
-      <!-- Social Buttons -->  
-      <div class="social-buttons">  
-        <a class="whatsapp" href="https://wa.me/919412104618" target="_blank">📱 Chat on WhatsApp</a>  
-        <a class="youtube" href="https://www.youtube.com/@nextupstudioyt" target="_blank">▶️ Subscribe on YouTube</a>  
-        <a class="instagram" href="https://www.instagram.com/vanshu_ag_72" target="_blank">📷 Follow on Instagram</a>  
-      </div>  
+      <!-- Secret Vault Link -->
+      <p class="secret-link">Some <a href="vault.html">secrets</a> are better left unspoken...</p>
 
-      <!-- ✅ Support Button (redirects to ads site) -->  
-      <div class="support-btn-container">  
-        <a href="https://shreyagarwal72.github.io/support.html" class="support-btn">💙 Support Us</a>  
-      </div>  
+      <!-- Social Buttons -->
+      <div class="social-buttons">
+        <a class="whatsapp" href="https://wa.me/919412104618" target="_blank">📱 Chat on WhatsApp</a>
+        <a class="youtube" href="https://www.youtube.com/@nextupstudioyt" target="_blank">▶️ Subscribe on YouTube</a>
+        <a class="instagram" href="https://www.instagram.com/vanshu_ag_72" target="_blank">📷 Follow on Instagram</a>
+      </div>
 
-    </div>  
-  </div>  
+      <!-- ✅ Support Button (redirects to ads site) -->
+      <div class="support-btn-container">
+        <a href="https://shreyagarwal72.github.io/support.html" class="support-btn">💙 Support Us</a>
+      </div>
+    </div>
+  </div>
 
-  <!-- Floating Play/Pause Music Button -->    
-  <button class="audio-button" onclick="togglePlayPause()">  
-    <img id="play-icon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">  
-  </button>    
+  <!-- Floating Play/Pause Music Button -->
+  <button class="audio-button" onclick="togglePlayPause()">
+    <img id="play-icon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">
+  </button>
 
-  <script>  
-    // 🎵 Play/Pause Music Floating Button  
-    const player = document.getElementById('bgMusic');  
-    const playIcon = document.getElementById('play-icon');  
-    const savedTime = localStorage.getItem('musicTime');  
-    const isPaused = localStorage.getItem('musicPaused');  
-    let isPlaying = true;  
+  <script>
+    // 🎵 Play/Pause Music Floating Button
+    const player = document.getElementById('bgMusic');
+    const playIcon = document.getElementById('play-icon');
+    const savedTime = localStorage.getItem('musicTime');
+    const isPaused = localStorage.getItem('musicPaused');
+    let isPlaying = true;
 
-    if (savedTime) player.currentTime = parseFloat(savedTime);  
-    if (isPaused === 'true') {  
-      player.pause(); isPlaying = false;  
-      playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";  
-    } else {  
-      player.play(); isPlaying = true;  
-      playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";  
-    }  
+    if (savedTime) player.currentTime = parseFloat(savedTime);
+    if (isPaused === 'true') {
+      player.pause(); isPlaying = false;
+      playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";
+    } else {
+      player.play(); isPlaying = true;
+      playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";
+    }
 
-    function togglePlayPause() {  
-      if (isPlaying) {  
-        player.pause();  
-        playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";  
-        localStorage.setItem('musicPaused', 'true');  
-      } else {  
-        player.play();  
-        playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";  
-        localStorage.setItem('musicPaused', 'false');  
-      }  
-      isPlaying = !isPlaying;  
-    }  
-    setInterval(() => { localStorage.setItem('musicTime', player.currentTime); }, 1000);  
+    function togglePlayPause() {
+      if (isPlaying) {
+        player.pause();
+        playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";
+        localStorage.setItem('musicPaused', 'true');
+      } else {
+        player.play();
+        playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";
+        localStorage.setItem('musicPaused', 'false');
+      }
+      isPlaying = !isPlaying;
+    }
+    setInterval(() => { localStorage.setItem('musicTime', player.currentTime); }, 1000);
 
-    // 🌙 Theme Toggle  
-    const themeToggleBtn = document.getElementById('themeToggleBtn');  
-    const themeIcon = document.getElementById('themeIcon');  
-    function setTheme(isLight) {  
-      if (isLight) {  
-        document.body.classList.add('light-mode');  
-        themeIcon.innerHTML = `<circle cx="12" cy="12" r="5" fill="#ffc600"/>  
-          <g stroke="#ffc600" stroke-width="2">  
-            <line x1="12" y1="1" x2="12" y2="3"/>  
-            <line x1="12" y1="21" x2="12" y2="23"/>  
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>  
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>  
-            <line x1="1" y1="12" x2="3" y2="12"/>  
-            <line x1="21" y1="12" x2="23" y2="12"/>  
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>  
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>  
-          </g>`;  
-      } else {  
-        document.body.classList.remove('light-mode');  
-        themeIcon.innerHTML = `<path d="M18 15.63A8 8 0 0 1 8.37 6 a7.99 7.99 0 1 0 9.63 9.63Z" fill="#ffe066" stroke="#ffe066" stroke-width="2"/>`;  
-      }  
-    }  
-    const themePref = localStorage.getItem('themeMode');  
-    if (themePref === 'light') setTheme(true);  
-    themeToggleBtn.addEventListener('click', ()=>{  
-      const isLight = !document.body.classList.contains('light-mode');  
-      setTheme(isLight);  
-      localStorage.setItem('themeMode', isLight ? 'light' : 'dark');  
-    });  
+    // 🌙 Theme Toggle
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    function setTheme(isLight) {
+      if (isLight) {
+        document.body.classList.add('light-mode');
+        themeIcon.innerHTML = `<circle cx="12" cy="12" r="5" fill="#ffc600"/>
+          <g stroke="#ffc600" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </g>`;
+      } else {
+        document.body.classList.remove('light-mode');
+        themeIcon.innerHTML = `<path d="M18 15.63A8 8 0 0 1 8.37 6 a7.99 7.99 0 1 0 9.63 9.63Z" fill="#ffe066" stroke="#ffe066" stroke-width="2"/>`;
+      }
+    }
+    const themePref = localStorage.getItem('themeMode');
+    if (themePref === 'light') setTheme(true);
+    themeToggleBtn.addEventListener('click', ()=>{
+      const isLight = !document.body.classList.contains('light-mode');
+      setTheme(isLight);
+      localStorage.setItem('themeMode', isLight ? 'light' : 'dark');
+    });
 
-    // 👤 Google Login + Username  
-    const CLIENT_ID = "455141367100-f2jev8v887uer781j5ajg326375bud0h.apps.googleusercontent.com";  
-    const welcomeDiv = document.getElementById('welcomeUser');  
-    const usernamePrompt = document.getElementById('usernamePrompt');  
-    const usernameInput = document.getElementById('usernameInput');  
-    const setUsernameBtn = document.getElementById('setUsernameBtn');  
-    const loginContainer = document.getElementById('googleLoginBtnContainer');  
-    const logoutContainer = document.getElementById('logoutContainer');  
+    // 👤 Google Login + Username
+    const CLIENT_ID = "455141367100-f2jev8v887uer781j5ajg326375bud0h.apps.googleusercontent.com";
+    const welcomeDiv = document.getElementById('welcomeUser');
+    const usernamePrompt = document.getElementById('usernamePrompt');
+    const usernameInput = document.getElementById('usernameInput');
+    const setUsernameBtn = document.getElementById('setUsernameBtn');
+    const loginContainer = document.getElementById('googleLoginBtnContainer');
+    const logoutContainer = document.getElementById('logoutContainer');
 
-    let savedUser = JSON.parse(localStorage.getItem('nextupUser'));  
-    if(savedUser){  
-      welcomeDiv.textContent = `👋 Welcome, ${savedUser.username}!`;  
-      addLogoutButton();  
-    }  
-    let tempUser = null;  
+    let savedUser = JSON.parse(localStorage.getItem('nextupUser'));
+    if(savedUser){
+      welcomeDiv.textContent = `👋 Welcome, ${savedUser.username}!`;
+      addLogoutButton();
+    }
+    let tempUser = null;
 
-    function handleCredentialResponse(response){  
-      const base64Url = response.credential.split('.')[1];  
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');  
-      const user = JSON.parse(atob(base64));  
-      tempUser = user;  
-      loginContainer.style.display = 'none';  
-      usernamePrompt.style.display = 'block';  
-    }  
-    window.onload = () => {  
-      if(!savedUser){  
-        google.accounts.id.initialize({ client_id: CLIENT_ID, callback: handleCredentialResponse });  
-        google.accounts.id.renderButton(loginContainer, { theme: "outline", size: "large", text: "signin_with", shape:"pill" });  
-      }  
-    };  
-    setUsernameBtn && setUsernameBtn.addEventListener('click', () => {  
-      const username = usernameInput.value.trim();  
-      if(!username){ alert("Please enter a username!"); return; }  
-      const finalUser = { googleId: tempUser.sub, email: tempUser.email, name: tempUser.name, username: username };  
-      localStorage.setItem('nextupUser', JSON.stringify(finalUser));  
-      welcomeDiv.textContent = `👋 Welcome, ${username}!`;  
-      usernamePrompt.style.display = 'none';  
-      addLogoutButton();  
-    });  
-    function addLogoutButton(){  
-      logoutContainer.innerHTML = `<button id="logoutBtn" style="padding:10px 20px; border:none; border-radius:30px; background:#f44336; color:white; font-weight:bold; cursor:pointer;">Logout</button>`;  
-      document.getElementById('logoutBtn').addEventListener('click', () => {  
-        localStorage.removeItem('nextupUser'); location.reload();  
-      });  
-    }  
-  </script>  
-</body>  
+    function handleCredentialResponse(response){
+      const base64Url = response.credential.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const user = JSON.parse(atob(base64));
+      tempUser = user;
+      loginContainer.style.display = 'none';
+      usernamePrompt.style.display = 'block';
+    }
+    window.onload = () => {
+      if(!savedUser){
+        google.accounts.id.initialize({ client_id: CLIENT_ID, callback: handleCredentialResponse });
+        google.accounts.id.renderButton(loginContainer, { theme: "outline", size: "large", text: "signin_with", shape:"pill" });
+      }
+    };
+    setUsernameBtn && setUsernameBtn.addEventListener('click', () => {
+      const username = usernameInput.value.trim();
+      if(!username){ alert("Please enter a username!"); return; }
+      const finalUser = { googleId: tempUser.sub, email: tempUser.email, name: tempUser.name, username: username };
+      localStorage.setItem('nextupUser', JSON.stringify(finalUser));
+      welcomeDiv.textContent = `👋 Welcome, ${username}!`;
+      usernamePrompt.style.display = 'none';
+      addLogoutButton();
+    });
+    function addLogoutButton(){
+      logoutContainer.innerHTML = `<button id="logoutBtn" style="padding:10px 20px; border:none; border-radius:30px; background:#f44336; color:white; font-weight:bold; cursor:pointer;">Logout</button>`;
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        localStorage.removeItem('nextupUser'); location.reload();
+      });
+    }
+  </script>
+</body>
 </html>
