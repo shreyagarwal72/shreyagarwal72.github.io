@@ -6,8 +6,24 @@
   <title>Nextup Studio</title>  
   <meta name="description" content="Nextup Studio is the official website of Vanshu Agarwal. Explore original music, Minecraft content, games, and more." />  
   <link rel="stylesheet" href="style.css" />  
+
+  <!-- ✅ Favicon -->  
+  <link rel="icon" type="image/png" href="favicon.png">  
+  <link rel="shortcut icon" type="image/png" href="favicon.png">  
+
+  <!-- ✅ Schema.org for Logo in Google Search -->  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://shreyagarwal72.github.io",  
+    "logo": "https://shreyagarwal72.github.io/favicon.png"
+  }
+  </script>  
+
   <!-- Google Identity Services -->  
   <script src="https://accounts.google.com/gsi/client" async defer></script>  
+
   <style>  
     .hidden-egg-link { color: inherit; text-decoration: none; cursor: pointer; font-weight: inherit; }  
     .hidden-egg-link:visited,  
@@ -54,7 +70,6 @@
     .theme-toggle:hover { background: #333; }  
     .theme-toggle svg { width: 23px; height: 23px; pointer-events: none; }  
 
-    /* Support Button */  
     .support-btn-container { text-align: center; margin: 40px 0; }  
     .support-btn {  
       background-color: #2196f3; color: #fff;  
@@ -78,192 +93,75 @@
   </style>  
 </head>  
 <body>  
-  <audio id="bgMusic" src="music/Music.mp3" loop></audio>  
-  <div class="layout">  
-    <div class="sidebar">  
-      <h2>Nextup Studio</h2>  
-      <a href="index.html" class="active">Home</a>  
-      <a href="yt.html">YouTube</a>  
-      <a href="journey.html">My Journey</a>  
-      <a href="game.html">Game</a>  
+
+  <div class="sidebar">  
+    <h2>Nextup Studio</h2>  
+    <a href="index.html">Home</a>  
+    <a href="journey.html">My Journey</a>  
+    <a href="yt.html">My Videos</a>  
+    <a href="vault.html">The Vault</a>  
+    <a href="game.html">Games</a>  
+  </div>  
+
+  <div class="main-content">  
+    <div class="index-title-row">  
+      <h1>Welcome to <span class="hidden-egg-link">Nextup Studio</span></h1>  
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">  
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0 0 18c4.97 0 9-4.03 9-9 0-4.97-4.03-9-9-9z"/></svg>  
+      </button>  
     </div>  
-    <div class="main-content">  
-      <div class="index-title-row">  
-        <h1>👋 Welcome to Nextup Studio</h1>  
-        <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme">  
-          <svg id="themeIcon" viewBox="0 0 24 24" fill="none">  
-            <path d="M18 15.63A8 8 0 0 1 8.37 6 a7.99 7.99 0 1 0 9.63 9.63Z" fill="#ffe066" stroke="#ffe066" stroke-width="2"/>  
-          </svg>  
-        </button>  
+
+    <p>Hello! I’m Vanshu Agarwal, creator of <strong>Nextup Studio</strong>. This is my official website where I share my music, videos, and projects. </p>  
+
+    <div class="social-buttons">  
+      <a href="https://wa.me/919045221955" class="whatsapp" target="_blank">WhatsApp</a>  
+      <a href="https://www.youtube.com/@nextupstudioyt" class="youtube" target="_blank">YouTube</a>  
+      <a href="https://www.instagram.com/vanshu_agarwal_72" class="instagram" target="_blank">Instagram</a>  
+    </div>  
+
+    <div class="support-btn-container">  
+      <a href="https://www.buymeacoffee.com/nextupstudio" target="_blank" class="support-btn">☕ Support My Work</a>  
+    </div>  
+
+    <div class="google-login">  
+      <div id="g_id_onload"  
+           data-client_id="YOUR_GOOGLE_CLIENT_ID"  
+           data-context="signin"  
+           data-ux_mode="popup"  
+           data-callback="handleCredentialResponse"  
+           data-auto_prompt="false">  
       </div>  
+      <div class="g_id_signin" data-type="standard"></div>  
+    </div>  
 
-      <!-- SECRET HIDDEN LINK -->  
-      <p>This is the official site of <strong>  
-        <a href="egg.html" class="hidden-egg-link" tabindex="-1">Vanshu Agarwal</a>  
-      </strong>. Here you’ll find:</p>  
+    <div id="usernamePrompt">  
+      <input type="text" id="usernameInput" placeholder="Enter your username" />  
+      <button id="setUsernameBtn">Set Username</button>  
+    </div>  
 
-      <ul>  
-        <li>🎵 Original Songs</li>  
-        <li>🎮 Minecraft Shorts & Gameplay</li>  
-        <li>🧠 Mind Relax Game </li>  
-        <li>📈 My Life Journey and Milestones</li>  
-      </ul>  
-      <p>Stay connected with me through Instagram, YouTube, and WhatsApp!</p>  
+    <div id="welcomeUser"></div>  
+    <div id="logoutContainer"></div>  
 
-      <!-- Google Login Button -->  
-      <div class="google-login" id="googleLoginBtnContainer"></div>  
-
-      <!-- Username prompt -->  
-      <div id="usernamePrompt">  
-        <input type="text" id="usernameInput" placeholder="Choose a username" />  
-        <button id="setUsernameBtn">Set Username</button>  
-      </div>  
-
-      <!-- Welcome user display -->  
-      <div id="welcomeUser"></div>  
-
-      <!-- Logout button -->  
-      <div id="logoutContainer"></div>  
-
-      <!-- Settings button -->  
-      <div id="settingsContainer" style="text-align:center; margin-top:10px;">  
-        <a href="setting.html" class="button" style="  
-          display:inline-block; background-color:#00bcd4; color:#121212;  
-          padding:10px 25px; border-radius:5px; font-weight:bold;  
-          margin-top:10px; text-decoration:none;  
-          box-shadow:0 2px 8px rgba(0,188,212,0.20); transition:background 0.3s;  
-        ">Settings</a>  
-      </div>  
-
-      <!-- Secret Vault Link -->  
-      <p class="secret-link">Some <a href="vault.html">secrets</a> are better left unspoken...</p>  
-
-      <!-- Social Buttons -->  
-      <div class="social-buttons">  
-        <a class="whatsapp" href="https://wa.me/919412104618" target="_blank">📱 Chat on WhatsApp</a>  
-        <a class="youtube" href="https://www.youtube.com/@nextupstudioyt" target="_blank">▶️ Subscribe on YouTube</a>  
-        <a class="instagram" href="https://www.instagram.com/vanshu_ag_72" target="_blank">📷 Follow on Instagram</a>  
-      </div>  
-
-      <!-- ✅ Support Button (redirects to ads site) -->  
-      <div class="support-btn-container">  
-        <a href="https://shreyagarwal72.github.io/support.html" class="support-btn">💙 Support Us</a>  
-      </div>  
-
+    <div class="secret-link">  
+      <a href="secret.html">Secret</a>  
     </div>  
   </div>  
 
-  <!-- Floating Play/Pause Music Button -->    
-  <button class="audio-button" onclick="togglePlayPause()">  
-    <img id="play-icon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">  
-  </button>    
+  <button class="audio-button" onclick="toggleAudio()">  
+    <img src="music-icon.png" alt="Play Music">  
+  </button>  
+  <audio id="bgMusic" loop>  
+    <source src="background.mp3" type="audio/mpeg">  
+  </audio>  
 
   <script>  
-    // 🎵 Play/Pause Music Floating Button  
-    const player = document.getElementById('bgMusic');  
-    const playIcon = document.getElementById('play-icon');  
-    const savedTime = localStorage.getItem('musicTime');  
-    const isPaused = localStorage.getItem('musicPaused');  
-    let isPlaying = true;  
-
-    if (savedTime) player.currentTime = parseFloat(savedTime);  
-    if (isPaused === 'true') {  
-      player.pause(); isPlaying = false;  
-      playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";  
-    } else {  
-      player.play(); isPlaying = true;  
-      playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";  
-    }  
-
-    function togglePlayPause() {  
-      if (isPlaying) {  
-        player.pause();  
-        playIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";  
-        localStorage.setItem('musicPaused', 'true');  
-      } else {  
-        player.play();  
-        playIcon.src = "https://cdn-icons-png.flaticon.com/512/1792/1792930.png";  
-        localStorage.setItem('musicPaused', 'false');  
-      }  
+    const audio = document.getElementById('bgMusic');  
+    let isPlaying = false;  
+    function toggleAudio() {  
+      if (isPlaying) { audio.pause(); } else { audio.play(); }  
       isPlaying = !isPlaying;  
     }  
-    setInterval(() => { localStorage.setItem('musicTime', player.currentTime); }, 1000);  
-
-    // 🌙 Theme Toggle  
-    const themeToggleBtn = document.getElementById('themeToggleBtn');  
-    const themeIcon = document.getElementById('themeIcon');  
-    function setTheme(isLight) {  
-      if (isLight) {  
-        document.body.classList.add('light-mode');  
-        themeIcon.innerHTML = `<circle cx="12" cy="12" r="5" fill="#ffc600"/>  
-          <g stroke="#ffc600" stroke-width="2">  
-            <line x1="12" y1="1" x2="12" y2="3"/>  
-            <line x1="12" y1="21" x2="12" y2="23"/>  
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>  
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>  
-            <line x1="1" y1="12" x2="3" y2="12"/>  
-            <line x1="21" y1="12" x2="23" y2="12"/>  
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>  
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>  
-          </g>`;  
-      } else {  
-        document.body.classList.remove('light-mode');  
-        themeIcon.innerHTML = `<path d="M18 15.63A8 8 0 0 1 8.37 6 a7.99 7.99 0 1 0 9.63 9.63Z" fill="#ffe066" stroke="#ffe066" stroke-width="2"/>`;  
-      }  
-    }  
-    const themePref = localStorage.getItem('themeMode');  
-    if (themePref === 'light') setTheme(true);  
-    themeToggleBtn.addEventListener('click', ()=>{  
-      const isLight = !document.body.classList.contains('light-mode');  
-      setTheme(isLight);  
-      localStorage.setItem('themeMode', isLight ? 'light' : 'dark');  
-    });  
-
-    // 👤 Google Login + Username  
-    const CLIENT_ID = "455141367100-f2jev8v887uer781j5ajg326375bud0h.apps.googleusercontent.com";  
-    const welcomeDiv = document.getElementById('welcomeUser');  
-    const usernamePrompt = document.getElementById('usernamePrompt');  
-    const usernameInput = document.getElementById('usernameInput');  
-    const setUsernameBtn = document.getElementById('setUsernameBtn');  
-    const loginContainer = document.getElementById('googleLoginBtnContainer');  
-    const logoutContainer = document.getElementById('logoutContainer');  
-
-    let savedUser = JSON.parse(localStorage.getItem('nextupUser'));  
-    if(savedUser){  
-      welcomeDiv.textContent = `👋 Welcome, ${savedUser.username}!`;  
-      addLogoutButton();  
-    }  
-    let tempUser = null;  
-
-    function handleCredentialResponse(response){  
-      const base64Url = response.credential.split('.')[1];  
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');  
-      const user = JSON.parse(atob(base64));  
-      tempUser = user;  
-      loginContainer.style.display = 'none';  
-      usernamePrompt.style.display = 'block';  
-    }  
-    window.onload = () => {  
-      if(!savedUser){  
-        google.accounts.id.initialize({ client_id: CLIENT_ID, callback: handleCredentialResponse });  
-        google.accounts.id.renderButton(loginContainer, { theme: "outline", size: "large", text: "signin_with", shape:"pill" });  
-      }  
-    };  
-    setUsernameBtn && setUsernameBtn.addEventListener('click', () => {  
-      const username = usernameInput.value.trim();  
-      if(!username){ alert("Please enter a username!"); return; }  
-      const finalUser = { googleId: tempUser.sub, email: tempUser.email, name: tempUser.name, username: username };  
-      localStorage.setItem('nextupUser', JSON.stringify(finalUser));  
-      welcomeDiv.textContent = `👋 Welcome, ${username}!`;  
-      usernamePrompt.style.display = 'none';  
-      addLogoutButton();  
-    });  
-    function addLogoutButton(){  
-      logoutContainer.innerHTML = `<button id="logoutBtn" style="padding:10px 20px; border:none; border-radius:30px; background:#f44336; color:white; font-weight:bold; cursor:pointer;">Logout</button>`;  
-      document.getElementById('logoutBtn').addEventListener('click', () => {  
-        localStorage.removeItem('nextupUser'); location.reload();  
-      });  
-    }  
   </script>  
+
 </body>  
 </html>
