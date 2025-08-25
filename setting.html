@@ -188,7 +188,7 @@
         <label for="language">Language</label>
         <select id="language">
           <option value="en">English</option>
-          <option value="hi">Hindi</option>
+          <option value="hi">हिन्दी</option>
         </select>
       </div>
       <div class="settings-group">
@@ -225,7 +225,55 @@
     </form>
     <a href="index.html" class="settings-back">← Back to Home</a>
   </div>
+
   <script>
+    const translations = {
+      en: {
+        title: "Settings | Nextup Studio",
+        heading: "⚙️ Settings",
+        displayName: "Display Name",
+        languageLabel: "Language",
+        themeLabel: "Theme",
+        newsletterLabel: "Receive Newsletter",
+        productUpdatesLabel: "Receive Product Updates",
+        privacyModeLabel: "Enable Privacy Mode",
+        signatureLabel: "Custom Signature",
+        saveButton: "Save Changes",
+        backHome: "← Back to Home",
+        saveAlert: "Settings saved successfully!"
+      },
+      hi: {
+        title: "सेटिंग्स | नेक्स्टअप स्टूडियो",
+        heading: "⚙️ सेटिंग्स",
+        displayName: "प्रदर्शित नाम",
+        languageLabel: "भाषा",
+        themeLabel: "थीम",
+        newsletterLabel: "समाचार पत्र प्राप्त करें",
+        productUpdatesLabel: "उत्पाद अपडेट प्राप्त करें",
+        privacyModeLabel: "गोपनीयता मोड सक्षम करें",
+        signatureLabel: "कस्टम हस्ताक्षर",
+        saveButton: "परिवर्तन सहेजें",
+        backHome: "← मुख पृष्ठ पर लौटें",
+        saveAlert: "सेटिंग्स सफलतापूर्वक सहेजे गए!"
+      }
+    };
+
+    function applyLanguage(lang) {
+      const t = translations[lang] || translations.en;
+      document.title = t.title;
+      document.querySelector('h1').textContent = t.heading;
+      document.querySelector('label[for="displayName"]').textContent = t.displayName;
+      document.querySelector('label[for="language"]').textContent = t.languageLabel;
+      document.querySelector('label[for="theme"]').textContent = t.themeLabel;
+      document.querySelector('label[for="newsletter"]').nextElementSibling.textContent = t.newsletterLabel;
+      document.querySelector('label[for="productupdates"]').nextElementSibling.textContent = t.productUpdatesLabel;
+      document.querySelector('label[for="privacyMode"]').nextElementSibling.textContent = t.privacyModeLabel;
+      document.querySelector('label[for="signature"]').textContent = t.signatureLabel;
+      document.querySelector('.settings-actions button').textContent = t.saveButton;
+      document.querySelector('.settings-back').textContent = t.backHome;
+      return t;
+    }
+
     (function setThemeImmediately() {
       let mode = localStorage.getItem('themeMode');
       if(!mode || mode === 'auto'){
@@ -242,14 +290,13 @@
     })();
 
     document.addEventListener('DOMContentLoaded', function() {
-      // Restore saved settings
+      // Load saved data
       if(localStorage.getItem('displayName'))
         document.getElementById('displayName').value = localStorage.getItem('displayName');
 
-      if(localStorage.getItem('language'))
-        document.getElementById('language').value = localStorage.getItem('language');
-      else 
-        document.getElementById('language').value = 'en';
+      const savedLang = localStorage.getItem('language') || 'en';
+      document.getElementById('language').value = savedLang;
+      applyLanguage(savedLang);
 
       if(localStorage.getItem('themeMode'))
         document.getElementById('theme').value = localStorage.getItem('themeMode');
@@ -259,10 +306,17 @@
       document.getElementById('newsletter').checked = localStorage.getItem('newsletter') === 'true';
       document.getElementById('productupdates').checked = localStorage.getItem('productupdates') !== 'false'; // default true
       document.getElementById('privacyMode').checked = localStorage.getItem('privacyMode') === 'true';
+
       if(localStorage.getItem('signature'))
         document.getElementById('signature').value = localStorage.getItem('signature');
 
-      // Theme dropdown change handler
+      // Change language instantly on dropdown change (optional)
+      document.getElementById('language').addEventListener('change', function() {
+        const newLang = this.value;
+        applyLanguage(newLang);
+      });
+
+      // Theme dropdown change event
       document.getElementById('theme').addEventListener('change', function() {
         localStorage.setItem('themeMode', this.value);
         if(this.value === 'auto'){
@@ -278,28 +332,41 @@
         }
       });
 
-      // Save form handler
-      document.getElementById('settingsForm').addEventListener('submit', function(e){
-        e.preventDefault();
-        localStorage.setItem('displayName', document.getElementById('displayName').value.trim());
-        localStorage.setItem('language', document.getElementById('language').value);
-        localStorage.setItem('themeMode', document.getElementById('theme').value);
-        localStorage.setItem('newsletter', document.getElementById('newsletter').checked);
-        localStorage.setItem('productupdates', document.getElementById('productupdates').checked);
-        localStorage.setItem('privacyMode', document.getElementById('privacyMode').checked);
-        localStorage.setItem('signature', document.getElementById('signature').value.trim());
-        alert('Settings saved!');
-      });
-
-      // Listen to system theme changes when in auto mode
+      // Listen for system theme changes when in auto
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        if(document.getElementById('theme').value === 'auto'){
+        let mode = localStorage.getItem('themeMode') || 'auto';
+        if(mode === "auto"){
           if(e.matches){
             document.body.classList.remove('light-mode');
           } else {
             document.body.classList.add('light-mode');
           }
         }
+      });
+
+      // Form submission saves data and applies language
+      document.getElementById('settingsForm').addEventListener('submit', function(e){
+        e.preventDefault();
+
+        const displayName = document.getElementById('displayName').value.trim();
+        const lang = document.getElementById('language').value;
+        const theme = document.getElementById('theme').value;
+        const newsletter = document.getElementById('newsletter').checked;
+        const productupdates = document.getElementById('productupdates').checked;
+        const privacyMode = document.getElementById('privacyMode').checked;
+        const signature = document.getElementById('signature').value.trim();
+
+        localStorage.setItem('displayName', displayName);
+        localStorage.setItem('language', lang);
+        localStorage.setItem('themeMode', theme);
+        localStorage.setItem('newsletter', newsletter);
+        localStorage.setItem('productupdates', productupdates);
+        localStorage.setItem('privacyMode', privacyMode);
+        localStorage.setItem('signature', signature);
+
+        applyLanguage(lang);
+
+        alert(translations[lang].saveAlert);
       });
     });
   </script>
