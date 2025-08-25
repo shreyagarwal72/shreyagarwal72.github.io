@@ -14,7 +14,7 @@
       color: #f0f0f0;
     }
     .settings-main {
-      max-width: 550px;
+      max-width: 600px;
       margin: 48px auto 32px auto;
       padding: 36px 34px 28px 34px;
       border-radius: 12px;
@@ -62,7 +62,8 @@
       box-shadow: 0 0 6px 2px #00bcd4;
       outline: none;
     }
-    .settings-group input[type="checkbox"] {
+    .settings-group input[type="checkbox"],
+    .settings-group input[type="radio"] {
       transform: scale(1.15);
       margin-right: 8px;
       accent-color: #00bcd4;
@@ -185,13 +186,6 @@
         <input type="text" id="displayName" placeholder="Your display name visible to others" />
       </div>
       <div class="settings-group">
-        <label for="language">Language</label>
-        <select id="language">
-          <option value="en">English</option>
-          <option value="hi">हिन्दी</option>
-        </select>
-      </div>
-      <div class="settings-group">
         <label for="theme">Theme</label>
         <select id="theme">
           <option value="auto">Auto (System)</option>
@@ -201,19 +195,39 @@
       </div>
       <div class="settings-group">
         <div class="settings-checkbox">
+          <input type="checkbox" id="notificationSound" />
+          <label for="notificationSound" style="margin:0;">Enable Notification Sounds</label>
+        </div>
+        <div class="settings-checkbox">
           <input type="checkbox" id="newsletter" />
           <label for="newsletter" style="margin:0;">Receive Newsletter</label>
         </div>
         <div class="settings-checkbox">
-          <input type="checkbox" id="productupdates" checked />
-          <label for="productupdates" style="margin:0;">Receive Product Updates</label>
+          <input type="checkbox" id="productUpdates" checked />
+          <label for="productUpdates" style="margin:0;">Receive Product Updates</label>
         </div>
-      </div>
-      <div class="settings-group">
         <div class="settings-checkbox">
           <input type="checkbox" id="privacyMode" />
           <label for="privacyMode" style="margin:0;">Enable Privacy Mode</label>
         </div>
+      </div>
+      <div class="settings-group">
+        <label for="fontSize">Font Size</label>
+        <select id="fontSize">
+          <option value="small">Small</option>
+          <option value="medium" selected>Medium</option>
+          <option value="large">Large</option>
+        </select>
+      </div>
+      <div class="settings-group">
+        <label for="timezone">Timezone</label>
+        <select id="timezone">
+          <option value="default">System Default</option>
+          <option value="IST">India Standard Time (IST)</option>
+          <option value="UTC">Coordinated Universal Time (UTC)</option>
+          <option value="EST">Eastern Standard Time (EST)</option>
+          <option value="PST">Pacific Standard Time (PST)</option>
+        </select>
       </div>
       <div class="settings-group">
         <label for="signature">Custom Signature</label>
@@ -227,53 +241,6 @@
   </div>
 
   <script>
-    const translations = {
-      en: {
-        title: "Settings | Nextup Studio",
-        heading: "⚙️ Settings",
-        displayName: "Display Name",
-        languageLabel: "Language",
-        themeLabel: "Theme",
-        newsletterLabel: "Receive Newsletter",
-        productUpdatesLabel: "Receive Product Updates",
-        privacyModeLabel: "Enable Privacy Mode",
-        signatureLabel: "Custom Signature",
-        saveButton: "Save Changes",
-        backHome: "← Back to Home",
-        saveAlert: "Settings saved successfully!"
-      },
-      hi: {
-        title: "सेटिंग्स | नेक्स्टअप स्टूडियो",
-        heading: "⚙️ सेटिंग्स",
-        displayName: "प्रदर्शित नाम",
-        languageLabel: "भाषा",
-        themeLabel: "थीम",
-        newsletterLabel: "समाचार पत्र प्राप्त करें",
-        productUpdatesLabel: "उत्पाद अपडेट प्राप्त करें",
-        privacyModeLabel: "गोपनीयता मोड सक्षम करें",
-        signatureLabel: "कस्टम हस्ताक्षर",
-        saveButton: "परिवर्तन सहेजें",
-        backHome: "← मुख पृष्ठ पर लौटें",
-        saveAlert: "सेटिंग्स सफलतापूर्वक सहेजे गए!"
-      }
-    };
-
-    function applyLanguage(lang) {
-      const t = translations[lang] || translations.en;
-      document.title = t.title;
-      document.querySelector('h1').textContent = t.heading;
-      document.querySelector('label[for="displayName"]').textContent = t.displayName;
-      document.querySelector('label[for="language"]').textContent = t.languageLabel;
-      document.querySelector('label[for="theme"]').textContent = t.themeLabel;
-      document.querySelector('label[for="newsletter"]').nextElementSibling.textContent = t.newsletterLabel;
-      document.querySelector('label[for="productupdates"]').nextElementSibling.textContent = t.productUpdatesLabel;
-      document.querySelector('label[for="privacyMode"]').nextElementSibling.textContent = t.privacyModeLabel;
-      document.querySelector('label[for="signature"]').textContent = t.signatureLabel;
-      document.querySelector('.settings-actions button').textContent = t.saveButton;
-      document.querySelector('.settings-back').textContent = t.backHome;
-      return t;
-    }
-
     (function setThemeImmediately() {
       let mode = localStorage.getItem('themeMode');
       if(!mode || mode === 'auto'){
@@ -290,33 +257,25 @@
     })();
 
     document.addEventListener('DOMContentLoaded', function() {
-      // Load saved data
       if(localStorage.getItem('displayName'))
         document.getElementById('displayName').value = localStorage.getItem('displayName');
-
-      const savedLang = localStorage.getItem('language') || 'en';
-      document.getElementById('language').value = savedLang;
-      applyLanguage(savedLang);
 
       if(localStorage.getItem('themeMode'))
         document.getElementById('theme').value = localStorage.getItem('themeMode');
       else
         document.getElementById('theme').value = 'auto';
 
+      document.getElementById('notificationSound').checked = localStorage.getItem('notificationSound') === 'true';
       document.getElementById('newsletter').checked = localStorage.getItem('newsletter') === 'true';
-      document.getElementById('productupdates').checked = localStorage.getItem('productupdates') !== 'false'; // default true
+      document.getElementById('productUpdates').checked = localStorage.getItem('productUpdates') !== 'false'; // default true
       document.getElementById('privacyMode').checked = localStorage.getItem('privacyMode') === 'true';
+
+      document.getElementById('fontSize').value = localStorage.getItem('fontSize') || 'medium';
+      document.getElementById('timezone').value = localStorage.getItem('timezone') || 'default';
 
       if(localStorage.getItem('signature'))
         document.getElementById('signature').value = localStorage.getItem('signature');
 
-      // Change language instantly on dropdown change (optional)
-      document.getElementById('language').addEventListener('change', function() {
-        const newLang = this.value;
-        applyLanguage(newLang);
-      });
-
-      // Theme dropdown change event
       document.getElementById('theme').addEventListener('change', function() {
         localStorage.setItem('themeMode', this.value);
         if(this.value === 'auto'){
@@ -332,7 +291,6 @@
         }
       });
 
-      // Listen for system theme changes when in auto
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
         let mode = localStorage.getItem('themeMode') || 'auto';
         if(mode === "auto"){
@@ -344,29 +302,20 @@
         }
       });
 
-      // Form submission saves data and applies language
       document.getElementById('settingsForm').addEventListener('submit', function(e){
         e.preventDefault();
 
-        const displayName = document.getElementById('displayName').value.trim();
-        const lang = document.getElementById('language').value;
-        const theme = document.getElementById('theme').value;
-        const newsletter = document.getElementById('newsletter').checked;
-        const productupdates = document.getElementById('productupdates').checked;
-        const privacyMode = document.getElementById('privacyMode').checked;
-        const signature = document.getElementById('signature').value.trim();
+        localStorage.setItem('displayName', document.getElementById('displayName').value.trim());
+        localStorage.setItem('themeMode', document.getElementById('theme').value);
+        localStorage.setItem('notificationSound', document.getElementById('notificationSound').checked);
+        localStorage.setItem('newsletter', document.getElementById('newsletter').checked);
+        localStorage.setItem('productUpdates', document.getElementById('productUpdates').checked);
+        localStorage.setItem('privacyMode', document.getElementById('privacyMode').checked);
+        localStorage.setItem('fontSize', document.getElementById('fontSize').value);
+        localStorage.setItem('timezone', document.getElementById('timezone').value);
+        localStorage.setItem('signature', document.getElementById('signature').value.trim());
 
-        localStorage.setItem('displayName', displayName);
-        localStorage.setItem('language', lang);
-        localStorage.setItem('themeMode', theme);
-        localStorage.setItem('newsletter', newsletter);
-        localStorage.setItem('productupdates', productupdates);
-        localStorage.setItem('privacyMode', privacyMode);
-        localStorage.setItem('signature', signature);
-
-        applyLanguage(lang);
-
-        alert(translations[lang].saveAlert);
+        alert('Settings saved successfully!');
       });
     });
   </script>
