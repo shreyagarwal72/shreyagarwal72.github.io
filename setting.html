@@ -10,6 +10,8 @@
       min-height: 100vh;
       background: #121212;
       transition: background 0.2s, color 0.2s;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #f0f0f0;
     }
     .settings-main {
       max-width: 550px;
@@ -17,7 +19,6 @@
       padding: 36px 34px 28px 34px;
       border-radius: 12px;
       background: #1e1e1e;
-      color: #f0f0f0;
       box-shadow: 0 10px 32px rgba(0,188,212,0.08);
     }
     .settings-main h1 {
@@ -32,35 +33,49 @@
       margin-bottom: 26px;
     }
     .settings-group label {
-      font-weight: bold;
+      font-weight: 700;
       display: block;
       margin-bottom: 8px;
+      font-size: 1rem;
+      color: #00bcd4;
     }
     .settings-group input[type="text"],
-    .settings-group input[type="email"],
-    .settings-group input[type="password"],
-    .settings-group select {
+    .settings-group select,
+    .settings-group textarea {
       width: 100%;
       padding: 10px 12px;
       background: #121212;
       border: none;
       border-radius: 5px;
       color: #f0f0f0;
-      font-size: 1em;
+      font-size: 1rem;
       outline: none;
       margin-top: 2px;
-      box-shadow:inset 0 2px 7px rgba(0,188,212,0.13);
+      box-shadow: inset 0 2px 7px rgba(0,188,212,0.13);
+      transition: box-shadow 0.3s ease;
+      resize: vertical;
+      min-height: 60px;
+    }
+    .settings-group input[type="text"]:focus,
+    .settings-group select:focus,
+    .settings-group textarea:focus {
+      box-shadow: 0 0 6px 2px #00bcd4;
+      outline: none;
     }
     .settings-group input[type="checkbox"] {
-      transform: scale(1.1);
-      margin-right: 7px;
+      transform: scale(1.15);
+      margin-right: 8px;
       accent-color: #00bcd4;
+      cursor: pointer;
     }
     .settings-checkbox {
       display: flex;
       align-items: center;
       margin-bottom: 10px;
-      font-weight: 500;
+      font-weight: 600;
+      color: #00bcd4;
+      cursor: pointer;
+      font-size: 1rem;
     }
     .settings-actions {
       text-align: center;
@@ -68,43 +83,60 @@
     .settings-actions button {
       background: #00bcd4;
       color: #121212;
-      font-weight: bold;
+      font-weight: 700;
       border: none;
-      border-radius: 5px;
-      padding: 12px 44px;
+      border-radius: 6px;
+      padding: 14px 48px;
       cursor: pointer;
-      font-size: 19px;
-      transition: background 0.18s, color 0.18s;
-      margin-top:14px;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 14px rgba(0,188,212,0.6);
+      transition: background 0.25s ease, color 0.25s ease;
     }
     .settings-actions button:hover {
       background: #0097a7;
       color: #fff;
     }
     .settings-back {
-      display: block;
+      display: inline-block;
       text-align: center;
       color: #00bcd4;
-      font-weight: bold;
+      font-weight: 700;
       text-decoration: none;
       margin-top: 34px;
-      font-size: 1.00em;
-      opacity: .82;
-      transition: opacity 0.2s;
+      font-size: 1rem;
+      opacity: .85;
+      transition: opacity 0.25s ease;
     }
-    .settings-back:hover { opacity: 1; text-decoration: underline; }
+    .settings-back:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
     .settings-success {
-      text-align:center;
+      text-align: center;
       color: #10e890;
       margin-top: 40px;
-      font-size: 1.16em;
-      font-weight: 650;
-      letter-spacing: .15px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.15px;
     }
-    @media (max-width:700px) {
-      .settings-main { max-width:99vw; padding:13px 2vw 18px 2vw; margin:15px 0; }
-      .settings-main h1 { font-size: 1.20rem; }
+    @media (max-width: 700px) {
+      .settings-main {
+        max-width: 95vw;
+        padding: 28px 20px 28px 20px;
+        margin: 20px auto;
+      }
+      .settings-main h1 {
+        font-size: 1.6rem;
+      }
+      .settings-actions button {
+        padding: 12px 36px;
+        font-size: 1rem;
+      }
+      .settings-back {
+        font-size: 0.9rem;
+      }
     }
+    /* Light mode */
     body.light-mode {
       background: #f9f9f9;
       color: #232323;
@@ -112,36 +144,45 @@
     body.light-mode .settings-main {
       background: #e0fbfe;
       color: #222;
+      box-shadow: 0 10px 32px rgba(0,188,212,0.12);
     }
-    body.light-mode .settings-main h1 { color: #0097a7; }
-    body.light-mode .settings-actions button { background: #00bcd4; color: #fff; }
-    body.light-mode .settings-actions button:hover { background:#00acc1; color:#fff; }
+    body.light-mode .settings-main h1 {
+      color: #0097a7;
+    }
+    body.light-mode .settings-group label,
+    body.light-mode .settings-checkbox {
+      color: #007c91;
+    }
     body.light-mode .settings-group input,
-    body.light-mode .settings-group select {
+    body.light-mode .settings-group select,
+    body.light-mode .settings-group textarea {
       background: #fff;
       color: #171a1b;
+      box-shadow: inset 0 2px 7px rgba(0,124,145,0.1);
+      border: 1px solid #ccc;
+    }
+    body.light-mode .settings-group input:focus,
+    body.light-mode .settings-group select:focus,
+    body.light-mode .settings-group textarea:focus {
+      box-shadow: 0 0 8px 2px #007c91;
+    }
+    body.light-mode .settings-actions button {
+      background: #007c91;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(0,124,145,0.7);
+    }
+    body.light-mode .settings-actions button:hover {
+      background: #005f63;
     }
   </style>
 </head>
 <body>
   <div class="settings-main" id="settingsArea">
     <h1>⚙️ Settings</h1>
-    <form id="settingsForm" autocomplete="off">
+    <form id="settingsForm" autocomplete="off" novalidate>
       <div class="settings-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" required />
-      </div>
-      <div class="settings-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" placeholder="Enter Name" />
-      </div>
-      <div class="settings-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="your@email.com" />
-      </div>
-      <div class="settings-group">
-        <label for="password">Change Password</label>
-        <input type="password" id="password" placeholder="New Password" />
+        <label for="displayName">Display Name</label>
+        <input type="text" id="displayName" placeholder="Your display name visible to others" />
       </div>
       <div class="settings-group">
         <label for="language">Language</label>
@@ -160,13 +201,23 @@
       </div>
       <div class="settings-group">
         <div class="settings-checkbox">
-          <input type="checkbox" id="newsletter">
+          <input type="checkbox" id="newsletter" />
           <label for="newsletter" style="margin:0;">Receive Newsletter</label>
         </div>
         <div class="settings-checkbox">
-          <input type="checkbox" id="productupdates" checked>
-          <label for="productupdates" style="margin:0;">Product Updates</label>
+          <input type="checkbox" id="productupdates" checked />
+          <label for="productupdates" style="margin:0;">Receive Product Updates</label>
         </div>
+      </div>
+      <div class="settings-group">
+        <div class="settings-checkbox">
+          <input type="checkbox" id="privacyMode" />
+          <label for="privacyMode" style="margin:0;">Enable Privacy Mode</label>
+        </div>
+      </div>
+      <div class="settings-group">
+        <label for="signature">Custom Signature</label>
+        <textarea id="signature" placeholder="Your custom signature for messages/posts"></textarea>
       </div>
       <div class="settings-actions">
         <button type="submit">Save Changes</button>
@@ -175,76 +226,81 @@
     <a href="index.html" class="settings-back">← Back to Home</a>
   </div>
   <script>
-    // Immediately set theme on page load (even before DOMContentLoaded)
     (function setThemeImmediately() {
       let mode = localStorage.getItem('themeMode');
-      if(!mode || mode==='auto'){
-        // system default
+      if(!mode || mode === 'auto'){
         if(window.matchMedia('(prefers-color-scheme: dark)').matches){
           document.body.classList.remove('light-mode');
-        }else{
+        } else {
           document.body.classList.add('light-mode');
         }
-      } else if(mode==='light'){
+      } else if(mode === 'light') {
         document.body.classList.add('light-mode');
       } else {
         document.body.classList.remove('light-mode');
       }
     })();
 
-    // On DOMContentLoaded, complete sync for dropdown and user fields
-    document.addEventListener('DOMContentLoaded',function(){
-      // Dropdown selection matches themeMode
-      let mode = localStorage.getItem('themeMode')||'auto';
-      document.getElementById('theme').value = mode;
+    document.addEventListener('DOMContentLoaded', function() {
+      // Restore saved settings
+      if(localStorage.getItem('displayName'))
+        document.getElementById('displayName').value = localStorage.getItem('displayName');
 
-      // Re-sync theme on dropdown change
-      document.getElementById('theme').addEventListener('change',function(){
-        localStorage.setItem('themeMode',this.value);
-        // Apply
-        if(this.value==='auto'){
+      if(localStorage.getItem('language'))
+        document.getElementById('language').value = localStorage.getItem('language');
+      else 
+        document.getElementById('language').value = 'en';
+
+      if(localStorage.getItem('themeMode'))
+        document.getElementById('theme').value = localStorage.getItem('themeMode');
+      else
+        document.getElementById('theme').value = 'auto';
+
+      document.getElementById('newsletter').checked = localStorage.getItem('newsletter') === 'true';
+      document.getElementById('productupdates').checked = localStorage.getItem('productupdates') !== 'false'; // default true
+      document.getElementById('privacyMode').checked = localStorage.getItem('privacyMode') === 'true';
+      if(localStorage.getItem('signature'))
+        document.getElementById('signature').value = localStorage.getItem('signature');
+
+      // Theme dropdown change handler
+      document.getElementById('theme').addEventListener('change', function() {
+        localStorage.setItem('themeMode', this.value);
+        if(this.value === 'auto'){
           if(window.matchMedia('(prefers-color-scheme: dark)').matches){
             document.body.classList.remove('light-mode');
-          }else{
+          } else {
             document.body.classList.add('light-mode');
           }
-        } else if(this.value==='light'){
+        } else if(this.value === 'light'){
           document.body.classList.add('light-mode');
         } else {
           document.body.classList.remove('light-mode');
         }
       });
 
-      // Live theme sync (if system theme changes while on auto)
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){
-        let mode = localStorage.getItem('themeMode')||'auto';
-        if(mode==="auto"){
+      // Save form handler
+      document.getElementById('settingsForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        localStorage.setItem('displayName', document.getElementById('displayName').value.trim());
+        localStorage.setItem('language', document.getElementById('language').value);
+        localStorage.setItem('themeMode', document.getElementById('theme').value);
+        localStorage.setItem('newsletter', document.getElementById('newsletter').checked);
+        localStorage.setItem('productupdates', document.getElementById('productupdates').checked);
+        localStorage.setItem('privacyMode', document.getElementById('privacyMode').checked);
+        localStorage.setItem('signature', document.getElementById('signature').value.trim());
+        alert('Settings saved!');
+      });
+
+      // Listen to system theme changes when in auto mode
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if(document.getElementById('theme').value === 'auto'){
           if(e.matches){
             document.body.classList.remove('light-mode');
-          }else{
+          } else {
             document.body.classList.add('light-mode');
           }
         }
       });
-
-      // LocalStorage user fields auto-fill
-      let user = localStorage.getItem('nextupUser');
-      if(user){
-        try{
-          let obj=JSON.parse(user);
-          if(obj.username) document.getElementById('username').value=obj.username;
-          if(obj.name) document.getElementById('name').value=obj.name;
-          if(obj.email) document.getElementById('email').value=obj.email;
-        }catch(e){}
-      }
-    });
-
-    // Success message after Save, remove form
-    document.getElementById('settingsForm').addEventListener('submit',function(e){
-      e.preventDefault();
-      document.getElementById('settingsForm').style.display='none';
-      document.getElementById('settingsArea').insertAdjacentHTML('beforeend',
-        `<div class="settings-success">✅ Changes Saved Successfully!</div>`);
     });
   </script>
 </body>
