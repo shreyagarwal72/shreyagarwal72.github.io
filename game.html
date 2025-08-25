@@ -52,7 +52,6 @@
       margin-left: 0;
       box-sizing: border-box;
       text-align: center;
-      /* No max-width, no margin: auto */
     }
     button {
       background: #00bcd4;
@@ -96,6 +95,47 @@
       max-width: 100%;
       height: auto;
     }
+    /* Custom Modal Styles */
+    #customModal {
+      display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.5); z-index: 9999;
+      align-items: center; justify-content: center;
+    }
+    #customModal .modal-content {
+      background: #212e2e;
+      color: #00bcd4;
+      border-radius: 18px;
+      padding: 29px 28px 22px 28px;
+      max-width: 300px;
+      margin: auto;
+      text-align: center;
+      box-shadow: 0 6px 32px #0008;
+      animation: popfancy .2s;
+      font-size: 1.1em;
+    }
+    #customModal .modal-title {
+      font-size: 1.3em; font-weight: bold; margin-bottom:6px;
+      color: #fff;
+    }
+    #customModal .modal-emoji {
+      font-size:2.25em;line-height:1.2;margin-bottom: 10px;
+      display:block;
+    }
+    #customModal .close-btn {
+      margin-top: 20px;
+      background: #00bcd4;
+      color: #121212;
+      border: none;
+      padding: 8px 22px;
+      border-radius: 8px;
+      font-size: 1.13em;
+      cursor: pointer;
+      font-weight:bold;
+      transition:.2s;
+      box-shadow:0 2px 5px #0087a749;
+    }
+    #customModal .close-btn:hover { background: #0097a7; color: #fff; }
+    @keyframes popfancy { from {transform:scale(.9);opacity:0;} to {transform:scale(1);opacity:1;} }
     /* Responsive design */
     @media(max-width: 768px){
       .layout{flex-direction: column;}
@@ -122,6 +162,8 @@
     body.light-mode .sidebar a.active,body.light-mode .sidebar a:hover {background:#00bcd4;color:#fff;}
     body.light-mode .main-content{background:#fff;color:#222;}
     body.light-mode #leaderboard{background:#daf1fc;color:#0087a7;}
+    body.light-mode #customModal .modal-content {background: #e9fafd; color: #0097a7;}
+    body.light-mode #customModal .modal-title {color:#212;}
   </style>
 </head>
 <body>
@@ -154,6 +196,11 @@
   </div>
 </div>
 
+<!-- Custom Modal HTML -->
+<div id="customModal">
+  <div class="modal-content" id="customModalContent"></div>
+</div>
+
 <script>
   // THEME SYNC (dark/light mode auto, no toggle)
   function setThemeFromStorage() {
@@ -165,6 +212,20 @@
   window.addEventListener('storage', function(e){
     if (e.key === 'themeMode') setThemeFromStorage();
   });
+
+  // Custom Modal Functions
+  function showCustomModal(message, emoji='🎉', title='Well done!') {
+    document.getElementById('customModalContent').innerHTML = `
+      <div class="modal-emoji">${emoji}</div>
+      <div class="modal-title">${title}</div>
+      <div style="margin:14px 0 10px 0;font-size:1.08em;">${message}</div>
+      <button class="close-btn" onclick="hideCustomModal()">OK</button>
+    `;
+    document.getElementById('customModal').style.display = 'flex';
+  }
+  function hideCustomModal() {
+    document.getElementById('customModal').style.display = 'none';
+  }
 
   // ---------------------- LOGIN SYNC ----------------------  
   let savedUserObj = JSON.parse(localStorage.getItem('nextupUser'));  
@@ -280,7 +341,7 @@
       checkCollision();
       if(player.y === 0){
         setTimeout(() => {
-          alert('You crossed safely! 🎉');
+          showCustomModal('You crossed safely! 🎉', '🚦', 'Congratulations');
           askNameAndSaveScore(1, 'Cross the Road', null);
           restartGame();
         }, 100);
@@ -292,7 +353,7 @@
         if(ob.row === player.y && Math.abs(ob.x - player.x) < 1){
           player.alive = false;
           setTimeout(() => {
-            alert('You got hit! Game over.');
+            showCustomModal('You got hit! Game over. 👾', '💥', 'Oops!');
             restartGame();
           }, 300);
         }
@@ -333,7 +394,7 @@
     document.getElementById('rightBtn').onclick = () => movePlayer(1,0);
   }
 
-  // --- LEADERBOARD AND SCORE FUNCTIONS (existing code) ---
+  // --- LEADERBOARD AND SCORE FUNCTIONS (existing) ---
   function saveScore(name, score, game){
     let scores=JSON.parse(localStorage.getItem('leaderboardScores'))||[];
     scores.push({name,score,game});
@@ -361,7 +422,7 @@
   function askNameAndSaveScore(score, game, containerId){
     if(currentUserName){
       saveScore(currentUserName, score, game);
-      alert(`Score saved automatically for ${currentUserName}!`);
+      showCustomModal(`Score saved automatically for <b>${currentUserName}</b>!`, '🎯', 'Saved!');
       document.getElementById('showLeaderboardBtn').style.display='inline-block';
       return;
     }
@@ -373,9 +434,9 @@
       <button id="saveScoreBtn">Save Score</button>`;
     document.getElementById('saveScoreBtn').onclick=()=>{
       const name=document.getElementById('playerNameInput').value.trim();
-      if(!name){ alert('Please enter your name'); return; }
+      if(!name){ showCustomModal('Please enter your name.', '📝', 'Name Required'); return; }
       saveScore(name, score, game);
-      alert('Score saved! Check leaderboard.');
+      showCustomModal('Score saved! Check leaderboard.', '🏆', 'Congrats!');
       container.innerHTML='';
       document.getElementById('showLeaderboardBtn').style.display='inline-block';
     }
