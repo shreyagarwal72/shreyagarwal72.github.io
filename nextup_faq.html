@@ -1,43 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Nextup Studio FAQs</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nextup Studio FAQs</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <style>
+    /* Base styling similar to Nextup Studio site */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #121212;
+      color: #eee;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    h1 {
+      color: #00bcd4;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    section {
+      margin-bottom: 24px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 15px;
+    }
+    h2 {
+      color: #00bcd4;
+      margin-bottom: 8px;
+      cursor: pointer;
+      position: relative;
+      padding-right: 20px;
+    }
+    h2::after {
+      content: '+';
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+    h2.active::after {
+      content: '-';
+      transform: rotate(180deg);
+    }
+    p {
+      margin: 0 0 10px 0;
+      line-height: 1.5;
+      display: none;
+    }
+    section.open p {
+      display: block;
+    }
+    a {
+      color: #00bcd4;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    /* Light mode styles */
+    body.light-mode {
+      background-color: #f4f4f4;
+      color: #121212;
+    }
+    body.light-mode h1,
+    body.light-mode h2,
+    body.light-mode a {
+      color: #007c91;
+    }
+    body.light-mode section {
+      border-color: #ccc;
+    }
+  </style>
 </head>
 <body>
-    <h1>Frequently Asked Questions about Nextup Studio</h1>
-    <section>
-        <h2>What is Nextup Studio?</h2>
-        <p>Nextup Studio is a digital platform offering creative services and solutions such as web development, design, and marketing.</p>
-    </section>
-    <section>
-        <h2>What services does Nextup Studio provide?</h2>
-        <p>Nextup Studio provides services including website design, app development, branding, digital marketing, and content creation.</p>
-    </section>
-    <section>
-        <h2>How can I contact Nextup Studio?</h2>
-        <p>You can contact Nextup Studio via their website contact form, email, or social media channels listed on the site.</p>
-    </section>
-    <section>
-        <h2>Does Nextup Studio offer custom projects?</h2>
-        <p>Yes, Nextup Studio works with clients to create custom solutions tailored to their unique needs and goals.</p>
-    </section>
-    <section>
-        <h2>Where is Nextup Studio located?</h2>
-        <p>Nextup Studio is based in India, serving clients locally and internationally through its online platform.</p>
-    </section>
-    <section>
-        <h2>Are there any hidden Easter eggs on the Nextup Studio website?</h2>
-        <p>Yes, there are some hidden Easter eggs designed for visitors to discover. For example, try exploring special key sequences or look carefully in the footer area.</p>
-    </section>
-    <section>
-        <h2>Where can I find the hidden Easter eggs on the Nextup Studio website?</h2>
-        <p>Hidden Easter eggs can be found by entering specific key codes like the Konami Code or by interacting with small icons or logos subtly placed, especially near the footer or contact page.</p>
-    </section>
-    <section>
-        <h2>What happens when I find an Easter egg on the site?</h2>
-        <p>Discovering an Easter egg may unlock fun animations, secret messages, or small interactive features as a surprise for curious visitors.</p>
-    </section>
+  <h1>Frequently Asked Questions about Nextup Studio</h1>
+
+  <section>
+    <h2>What is Nextup Studio?</h2>
+    <p>Nextup Studio is a digital platform offering creative services and solutions such as web development, design, and marketing.</p>
+  </section>
+
+  <section>
+    <h2>What services does Nextup Studio provide?</h2>
+    <p>Nextup Studio provides services including website design, app development, branding, digital marketing, and content creation.</p>
+  </section>
+
+  <section>
+    <h2>How can I contact Nextup Studio?</h2>
+    <p>You can contact Nextup Studio via their website contact form, email, or social media channels listed on the site.</p>
+  </section>
+
+  <section>
+    <h2>Does Nextup Studio offer custom projects?</h2>
+    <p>Yes, Nextup Studio works with clients to create custom solutions tailored to their unique needs and goals.</p>
+  </section>
+
+  <section>
+    <h2>Where is Nextup Studio located?</h2>
+    <p>Nextup Studio is based in India, serving clients locally and internationally through its online platform.</p>
+  </section>
+
+  <section>
+    <h2>Are there any hidden Easter eggs on the Nextup Studio website?</h2>
+    <p>Yes, there are some hidden Easter eggs designed for visitors to discover. For example, try exploring special key sequences or look carefully in the footer area.</p>
+  </section>
+
+  <section>
+    <h2>Where can I find the hidden Easter eggs on the Nextup Studio website?</h2>
+    <p>Hidden Easter eggs can be found by entering specific key codes like the Konami Code or by interacting with small icons or logos subtly placed, especially near the footer or contact page.</p>
+  </section>
+
+  <section>
+    <h2>What happens when I find an Easter egg on the site?</h2>
+    <p>Discovering an Easter egg may unlock fun animations, secret messages, or small interactive features as a surprise for curious visitors.</p>
+  </section>
+
+  <script>
+    // Toggle FAQ answers expand/collapse
+    const sections = document.querySelectorAll('section h2');
+    sections.forEach(header => {
+      header.addEventListener('click', () => {
+        const section = header.parentElement;
+        const isOpen = section.classList.contains('open');
+        if (isOpen) {
+          section.classList.remove('open');
+          header.classList.remove('active');
+        } else {
+          section.classList.add('open');
+          header.classList.add('active');
+        }
+      });
+    });
+
+    // Dark/light mode sync with index.html using localStorage
+    function applyTheme(isLight) {
+      if (isLight) {
+        document.body.classList.add('light-mode');
+      } else {
+        document.body.classList.remove('light-mode');
+      }
+    }
+    // Initial set based on saved theme preference
+    const savedTheme = localStorage.getItem('themeMode') === 'light';
+    applyTheme(savedTheme);
+
+    // Listen for changes to theme from localStorage (sync between tabs/windows)
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'themeMode') {
+        applyTheme(e.newValue === 'light');
+      }
+    });
+  </script>
 </body>
 </html>
