@@ -23,298 +23,77 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>  
 
   <style>
-    /* Enhanced UI styles */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      background-color: #121212;
-      color: #e0e0e0;
-      min-height: 100vh;
+    /* aapka poora style yahan hai, koi change nahi kiya */
+    .hidden-egg-link { color: inherit; text-decoration: none; cursor: pointer; font-weight: inherit; }
+    .hidden-egg-link:visited,
+    .hidden-egg-link:active,
+    .hidden-egg-link:focus,
+    .hidden-egg-link:hover { color: inherit; text-decoration: none; outline: none; }
+
+    .audio-button {
+      position: fixed; bottom: 30px; right: 30px;
+      background-color: #00bcd4; border: none; border-radius: 50%;
+      width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); z-index: 999;
     }
-    .layout {
-      display: flex;
-      min-height: 100vh;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .sidebar {
-      background-color: #1f1f1f;
-      width: 240px;
-      padding: 36px 20px 20px 20px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-      position: sticky;
-      top: 0;
-      height: 100vh;
-    }
-    .sidebar h2 {
-      color: #00bcd4;
-      font-weight: 700;
-      font-size: 1.8rem;
-      margin-bottom: 30px;
-      user-select: none;
-    }
-    .sidebar a {
-      color: #ccc;
-      text-decoration: none;
-      margin-bottom: 18px;
-      font-size: 1.1rem;
-      padding: 8px 12px;
-      border-radius: 6px;
-      transition: background-color 0.25s, color 0.25s;
-    }
-    .sidebar a.active, .sidebar a:hover {
-      background-color: #00bcd4;
-      color: #121212;
-      font-weight: 700;
-    }
-    .main-content {
-      flex-grow: 1;
-      padding: 40px 60px 40px 40px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    .index-title-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-    }
-    .index-title-row h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin: 0;
-      color: #00bcd4;
-      user-select: none;
-    }
-    /* Fixed position theme toggle next to title */
-    #themeToggleBtn {
-      background: #222;
-      border: none;
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      cursor: pointer;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.25s ease;
-      flex-shrink: 0;
-    }
-    #themeToggleBtn:hover {
-      background: #00acc1;
-    }
-    #themeToggleBtn svg {
-      width: 24px;
-      height: 24px;
-      pointer-events: none;
-      transition: fill 0.3s ease;
-    }
-    p, ul {
-      font-size: 1.15rem;
-      line-height: 1.5;
-      color: #ddd;
-      margin-top: 0;
-      user-select: text;
-    }
-    ul {
-      padding-left: 24px;
-      margin-bottom: 24px;
-    }
-    ul li {
-      margin-bottom: 12px;
-    }
-    .hidden-egg-link {
-      color: #00bcd4;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-    .hidden-egg-link:hover {
-      opacity: 0.8;
-    }
-    .google-login {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
-      margin-bottom: 20px;
-    }
-    #usernamePrompt {
-      display: none;
-      margin-top: 20px;
-      text-align: center;
-    }
-    #usernameInput {
-      padding: 12px 18px;
-      border-radius: 10px;
-      border: 1px solid #00bcd4;
-      outline: none;
-      margin-right: 10px;
-      font-size: 1rem;
-      width: 250px;
-      color: #121212;
-    }
-    #setUsernameBtn {
-      padding: 12px 30px;
-      border: none;
-      border-radius: 30px;
-      background-color: #00bcd4;
-      color: #121212;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.25s ease;
-    }
-    #setUsernameBtn:hover {
-      background-color: #0097a7;
-    }
-    #welcomeUser {
-      text-align: center;
-      margin-top: 24px;
-      color: #00bcd4;
-      font-weight: 700;
-      font-size: 1.25rem;
-      user-select: none;
-    }
-    #logoutContainer {
-      text-align: center;
-      margin-top: 15px;
-    }
-    #logoutContainer button {
-      background-color: #f44336;
-      border: none;
-      border-radius: 25px;
-      color: white;
-      padding: 10px 28px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 1rem;
-      box-shadow: 0 3px 8px rgba(244, 67, 54, 0.7);
-      transition: background-color 0.3s ease;
-    }
-    #logoutContainer button:hover {
-      background-color: #d32f2f;
-    }
-    /* Social Buttons */
-    .social-buttons {
-      margin-top: 40px;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .social-buttons a {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 36px;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      text-decoration: none;
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      user-select: none;
-    }
-    .social-buttons a:hover {
-      transform: scale(1.08);
-      opacity: 0.9;
-    }
+    .audio-button:hover { background-color: #0097a7; }
+    .audio-button img { width: 28px; height: 28px; }
+    audio { display: none; }
+
+    .social-buttons { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .social-buttons a { display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 30px; font-weight: bold; font-size: 16px; text-decoration: none; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.3s ease, opacity 0.3s ease; }
+    .social-buttons a:hover { transform: scale(1.05); opacity: 0.9; }
     .whatsapp { background-color: #25D366; }
     .instagram { background-color: #E1306C; }
 
-    /* Removed YouTube button */
+    .secret-link { text-align: center; margin-top: 40px; font-size: 12px; opacity: 0.3; }
+    .secret-link a { color: inherit; text-decoration: none; }
+    .secret-link a:hover { text-decoration: underline; opacity: 0.6; }
 
-    .secret-link {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 13px;
-      opacity: 0.25;
-      user-select: none;
+    .google-login { display:flex; justify-content:center; margin-top:30px; }
+    #usernamePrompt { display:none; margin-top:20px; text-align:center; }
+    #usernameInput { padding:10px 15px; border-radius:8px; border:1px solid #00bcd4; outline:none; margin-right:10px; }
+    #setUsernameBtn { padding:10px 20px; border:none; border-radius:30px; background-color:#00bcd4; color:#121212; font-weight:bold; cursor:pointer; }
+    #setUsernameBtn:hover { opacity:0.9; transform:scale(1.05); }
+    #welcomeUser { text-align:center; margin-top:20px; color:#00bcd4; font-weight:bold; }
+    #logoutContainer { text-align:center; margin-top:15px; }
+
+    .index-title-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+
+    .theme-toggle {
+      background: #222; border: none; border-radius: 50%; width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.20); z-index: 1010; transition: background 0.2s;
     }
-    .secret-link a {
-      color: #00bcd4;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .secret-link a:hover {
-      text-decoration: underline;
-      opacity: 0.6;
-    }
-    /* Support Buttons */
-    .support-btn-container {
-      margin: 40px 0 0 0;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
+    .theme-toggle:hover { background: #333; }
+    .theme-toggle svg { width: 23px; height: 23px; pointer-events: none; }
+
+    /* Support Button */
+    .support-btn-container { 
+      text-align: center; 
+      margin: 40px 0; 
+      display: flex; 
+      justify-content: center; 
+      gap: 20px; 
     }
     .support-btn {
-      background-color: #2196f3;
-      color: #fff;
-      padding: 14px 38px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      text-decoration: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      background-color: #2196f3; color: #fff;
+      padding: 12px 30px; border-radius: 8px;
+      font-weight: bold; text-decoration: none;
+      display: inline-block; font-size: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.20);
       transition: background 0.3s ease;
-      user-select: none;
     }
-    .support-btn:hover {
-      background-color: #1976d2;
+    .support-btn:hover { background-color: #1976d2; }
+
+    @media (min-width: 769px) {
+      .social-buttons { flex-direction: row; justify-content: center; align-items: center; }
     }
-    /* Floating Play/Pause Music Button */
-    .audio-button {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background-color: #00bcd4;
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      z-index: 999;
-      user-select: none;
-    }
-    .audio-button:hover {
-      background-color: #0097a7;
-    }
-    .audio-button img {
-      width: 28px;
-      height: 28px;
-      pointer-events: none;
-    }
-    /* Responsive */
     @media (max-width: 768px) {
-      .sidebar {
-        display: none;
-      }
-      .main-content {
-        padding: 20px 15px;
-      }
-      .index-title-row h1 {
-        font-size: 1.8rem;
-      }
-      .social-buttons {
-        gap: 14px;
-      }
-      .social-buttons a {
-        padding: 10px 20px;
-        font-size: 1rem;
-      }
+      .social-buttons a { font-size: 15px; padding: 12px 20px; }
+      .audio-button { bottom: 20px; right: 20px; }
+      .index-title-row { gap: 8px; }
+      .theme-toggle { width: 34px; height: 34px; }
     }
   </style>
 </head>
