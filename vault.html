@@ -6,19 +6,31 @@
   <title>Vault | Nextup Studio</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Dark Theme Base */
+    /* ---------- Global Styles ---------- */
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #121212;
+      background: #121212;
       color: #f0f0f0;
       margin: 0;
       padding: 0;
       text-align: center;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.3s, color 0.3s;
     }
 
-    h1, h2 {
+    /* Header */
+    h1 {
+      color: #fff;
+      font-size: 2rem;
+      background: linear-gradient(90deg, #00bcd4, #007ACC);
+      padding: 20px;
+      margin: 0;
+      border-bottom: 3px solid #00bcd4;
+      text-shadow: 0 2px 10px rgba(0, 188, 212, 0.5);
+    }
+
+    h2 {
       color: #00bcd4;
+      margin-bottom: 10px;
     }
 
     /* Container */
@@ -32,7 +44,7 @@
     input {
       padding: 12px 16px;
       width: 60%;
-      max-width: 500px;
+      max-width: 400px;
       border: 2px solid #00bcd4;
       background: #1e1e1e;
       border-radius: 5px;
@@ -40,10 +52,12 @@
       font-size: 16px;
       color: #f0f0f0;
       outline: none;
+      transition: 0.2s;
     }
 
     input:focus {
-      border-color: #00acc1;
+      border-color: #0096c7;
+      box-shadow: 0 0 8px rgba(0, 188, 212, 0.5);
     }
 
     /* Buttons */
@@ -51,16 +65,18 @@
       padding: 12px 20px;
       border: none;
       border-radius: 5px;
-      background-color: #00bcd4;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
       color: white;
       cursor: pointer;
-      margin-left: 8px;
+      margin-left: 10px;
       font-size: 16px;
-      transition: background-color 0.3s ease;
+      font-weight: bold;
+      transition: 0.3s;
     }
 
     button:hover {
-      background-color: #0096c7;
+      background: linear-gradient(90deg, #0072ff, #00c6ff);
+      transform: scale(1.05);
     }
 
     /* Hidden Content */
@@ -70,23 +86,35 @@
       text-align: left;
       background: #1e1e1e;
       padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 188, 212, 0.4);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
     }
 
     /* File Blocks */
     .file-block {
       background: rgba(255, 255, 255, 0.05);
-      padding: 15px;
+      padding: 18px;
       margin: 15px 0;
-      border-radius: 5px;
-      word-wrap: break-word;
+      border-radius: 8px;
+      border-left: 4px solid #00bcd4;
+      transition: 0.3s;
+    }
+
+    .file-block:hover {
+      background: rgba(0, 188, 212, 0.15);
+      transform: translateX(5px);
+    }
+
+    strong {
+      font-size: 1.1rem;
+      color: #00e5ff;
     }
 
     a {
       color: #00bcd4;
       text-decoration: none;
       word-break: break-all;
+      font-weight: 500;
     }
 
     a:hover {
@@ -105,7 +133,8 @@
         width: 80%;
       }
       button {
-        margin-left: 5px;
+        margin-top: 10px;
+        margin-left: 0;
         padding: 10px 15px;
         font-size: 14px;
       }
@@ -116,8 +145,7 @@
         padding: 15px;
       }
       .file-block {
-        padding: 10px;
-        margin: 10px 0;
+        padding: 12px;
       }
     }
 
@@ -126,8 +154,10 @@
       background: #f9f9f9;
       color: #222;
     }
-    body.light-mode .vault-container { background: #fff; }
-    body.light-mode h1, body.light-mode h2 { color: #00bcd4; }
+    body.light-mode h1 {
+      background: linear-gradient(90deg, #00bcd4, #007ACC);
+      color: #fff;
+    }
     body.light-mode .hidden-content { background: #e8f5fc; color: #222; }
     body.light-mode .file-block { background: #dcf3ff; }
   </style>
@@ -138,6 +168,7 @@
     <p>Enter the passcode to unlock hidden content.</p>
     <input type="password" id="passcode" placeholder="Enter passcode" />
     <button onclick="unlockVault()">Unlock</button>
+
     <div class="hidden-content" id="vaultContent">
       <h2>💎 Hidden Content</h2>
 
@@ -193,11 +224,18 @@
         <strong>8. 🎬✨ Unlimited Anime App</strong><br />
         <a href="video/base.apk" download>Download APK</a>
       </div>
+
+      <div class="file-block">
+        <strong>9. 📺 Unlimited Live TV for Android TV & Phone</strong><br />
+        <a href="https://www.mediafire.com/file/0s4rqywxv9zvgyt/base.apk/file" target="_blank" rel="noopener noreferrer">
+          Download APK
+        </a>
+      </div>
     </div>
   </div>
 
   <script>
-    // Theme sync with entire site (no toggle button)
+    // Theme sync with entire site
     function setThemeFromStorage() {
       const themePref = localStorage.getItem('themeMode');
       if (themePref === 'light') {
@@ -213,7 +251,7 @@
 
     function unlockVault() {
       const pass = document.getElementById('passcode').value.trim();
-      if (pass === 'opbolte') {
+      if (pass === 'opbro') {
         document.getElementById('vaultContent').style.display = 'block';
       } else {
         alert('❌ Wrong passcode!');
