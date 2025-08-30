@@ -1,142 +1,157 @@
 /* ==========================
-   Global Reset
+   GLOBAL RESET
 ========================== */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  transition: all 0.3s ease;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
 }
 
-/* ==========================
-   Body
-========================== */
 body {
-  background: linear-gradient(135deg, #121212, #1f1f1f);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  text-align: center;
-  padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #121212, #1f1f1f);
+    color: #fff;
+    padding: 20px;
 }
 
 /* ==========================
-   Landing Container
+   LANDING CONTAINER
 ========================== */
 .landing-container {
-  max-width: 850px;
-  width: 100%;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(15px);
-  padding: 50px 35px;
-  border-radius: 20px;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+    max-width: 900px;
+    width: 100%;
+    padding: 50px 40px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+    text-align: center;
 }
 
 /* ==========================
-   Header
+   HEADER
 ========================== */
 header h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
+    font-size: 3rem;
+    margin-bottom: 10px;
 }
 
 header h1 .highlight {
-  color: #00bcd4;
-  text-shadow: 0 2px 15px rgba(0,188,212,0.5);
+    color: #00bcd4;
+    text-shadow: 0 2px 15px rgba(0,188,212,0.5);
 }
 
 header h2 {
-  font-size: 1.7rem;
-  font-weight: 400;
-  color: #ccc;
-  margin-bottom: 25px;
+    font-size: 1.7rem;
+    font-weight: 400;
+    color: #ccc;
+    margin-bottom: 25px;
 }
 
 /* ==========================
-   Intro Text
+   INTRO TEXT
 ========================== */
 .intro {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  margin-bottom: 30px;
-  color: #ddd;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    color: #ddd;
 }
 
 /* ==========================
-   Sections & HR
+   HR
 ========================== */
-section {
-  margin: 30px 0;
-}
-
 hr {
-  border: none;
-  height: 1px;
-  background: rgba(255,255,255,0.2);
-  margin: 25px 0;
-  border-radius: 5px;
+    border: none;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+    margin: 25px 0;
+    border-radius: 5px;
 }
 
 /* ==========================
-   Links / Buttons
+   CONTACT LINKS / BUTTONS
 ========================== */
 .contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px 0;
 }
 
 .contact-links a {
-  display: inline-block;
-  text-decoration: none;
-  padding: 14px 24px;
-  border-radius: 12px;
-  background: #00bcd4;
-  color: #121212;
-  font-weight: 600;
-  font-size: 1rem;
-  box-shadow: 0 4px 15px rgba(0,188,212,0.5);
-  transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    background: #00bcd4;
+    color: #121212;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(0,188,212,0.5);
+    transition: 0.3s;
 }
 
 .contact-links a:hover {
-  background: #0097a7;
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 6px 20px rgba(0,188,212,0.6);
+    background: #0097a7;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(0,188,212,0.6);
 }
 
 /* ==========================
-   Footer
+   SECTIONS
+========================== */
+.section {
+    margin-bottom: 4rem;
+}
+
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #00bcd4;
+}
+
+.section p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ==========================
+   FOOTER
 ========================== */
 footer p {
-  margin-top: 35px;
-  font-size: 0.9rem;
-  color: #aaa;
+    margin-top: 35px;
+    font-size: 0.9rem;
+    color: #aaa;
 }
 
 /* ==========================
-   Responsive Design
+   RESPONSIVE
 ========================== */
-@media (max-width: 768px) {
-  .landing-container {
-    padding: 35px 20px;
-  }
-  header h1 {
-    font-size: 2.2rem;
-  }
-  header h2 {
-    font-size: 1.3rem;
-  }
-  .intro {
-    font-size: 1rem;
-  }
-  .contact-links a {
-    font-size: 0.95rem;
-    padding: 12px 18px;
-  }
+@media screen and (max-width: 768px) {
+    .landing-container {
+        padding: 35px 20px;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+    }
+
+    header h2 {
+        font-size: 1.3rem;
+    }
+
+    .intro {
+        font-size: 1rem;
+    }
+
+    .contact-links a {
+        font-size: 0.95rem;
+        padding: 12px 18px;
+    }
 }
