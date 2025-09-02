@@ -3,51 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vanshu - Nextup Studio</title>
+  <title>Vanshu - Nextup Studio | Music, Minecraft & Web Tools</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Welcome to Nextup Studio by Vanshu. Explore original songs, Minecraft content, mini-games, and useful web tools.">
+  <meta name="keywords" content="Vanshu, Nextup Studio, Music, Minecraft, Mini Games, Web Tools, Creative Content, YouTube Shorts">
+  <meta name="author" content="Vanshu">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Vanshu - Nextup Studio">
+  <meta property="og:description" content="Explore original songs, Minecraft content, mini-games, and web tools by Vanshu.">
+  <meta property="og:image" content="favicon.png">
+  <meta property="og:type" content="website">
+  
   <link rel="stylesheet" href="css/style2.css" />
   <link rel="icon" href="favicon.png" type="image/png" />
 </head>
 <body>
-  <div class="landing-container">
+  <main class="landing-container">
+    
     <header>
       <h1>I'm <span class="highlight">Vanshu</span></h1>
       <h2>a Creative Mind</h2>
     </header>
 
-    <main>
-      <p class="intro">
+    <section class="intro">
+      <p>
         Welcome to <b>Nextup Studio</b> – Explore my world of music, Minecraft, games, and web tools.
       </p>
+    </section>
 
-      <hr>
+    <hr>
 
-      <section>
-        <h3>What I Do</h3>
-        <p>🎵 Original Songs • 🎮 Minecraft Shorts & Gameplay • 🧠 Fun Mini-Games • 🛠️ Useful Web Tools</p>
-      </section>
+    <section class="section">
+      <h3>What I Do</h3>
+      <p>🎵 Original Songs • 🎮 Minecraft Shorts & Gameplay • 🧠 Fun Mini-Games • 🛠️ Useful Web Tools</p>
+    </section>
 
-      <hr>
+    <hr>
 
-      <section>
-        <h3>Explore My Work</h3>
-        <div class="contact-links">
-          <a href="home.html">🌐 Enter Main Site</a>
-          <a href="https://shreyagarwal72.github.io/Nextup-Studio" target="_blank">🟩 My Minecraft Site</a>
-          <a href="https://shreyagarwal72.github.io/toolhub" target="_blank">🛠️ My Webtools Site</a>
-        </div>
-      </section>
+    <section class="section">
+      <h3>Explore My Work</h3>
+      <div class="contact-links">
+        <a href="home.html" title="Enter Main Site">🌐 Enter Main Site</a>
+        <a href="https://shreyagarwal72.github.io/Nextup-Studio" target="_blank" rel="noopener" title="Visit My Minecraft Site">🟩 My Minecraft Site</a>
+        <a href="https://shreyagarwal72.github.io/toolhub" target="_blank" rel="noopener" title="Visit My Web Tools Site">🛠️ My Webtools Site</a>
+      </div>
+    </section>
 
-      <hr>
+    <hr>
 
-      <section>
-        <h3>Connect With Me</h3>
-        <p>You can always follow my journey through <b>Nextup Studio</b>.</p>
-      </section>
-    </main>
+    <section class="section">
+      <h3>Connect With Me</h3>
+      <p>You can always follow my journey through <b>Nextup Studio</b> on YouTube and other platforms.</p>
+    </section>
 
     <footer>
       <p>© 2025 Vanshu | Nextup Studio</p>
     </footer>
-  </div>
+
+  </main>
+
+  <!-- Optional: Smooth scroll JS if you want to scroll to sections -->
+  <script>
+    // Example for smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
 </body>
 </html>
