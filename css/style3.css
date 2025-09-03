@@ -89,27 +89,28 @@ p {
     overflow: hidden;
     cursor: pointer;
     animation: floatUp 0.8s ease forwards;
+    transform-style: preserve-3d;
 }
 
-.file-block::before {
+/* Hover 3D tilt effect */
+.file-block:hover {
+    transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-5px) scale(1.03);
+    box-shadow: 0 20px 50px rgba(0, 188, 212, 0.4);
+}
+
+/* Shimmer background */
+.file-block::after {
     content: '';
     position: absolute;
-    left: -100%;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 188, 212, 0.1);
-    transition: all 0.6s ease;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(120deg, rgba(0,188,212,0.15), rgba(255,255,255,0.05), rgba(0,188,212,0.15));
+    transform: rotate(25deg) translateX(-200%);
     z-index: 0;
-}
-
-.file-block:hover::before {
-    left: 0;
-}
-
-.file-block:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 15px 40px rgba(0, 188, 212, 0.3);
+    pointer-events: none;
+    animation: shimmer 3s linear infinite;
 }
 
 .file-block strong {
@@ -126,7 +127,7 @@ p {
     word-break: break-word;
     position: relative;
     z-index: 1;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .file-block a:hover {
@@ -155,29 +156,6 @@ p {
     border-radius: 12px;
     position: relative;
     z-index: 1;
-}
-
-/* ==========================
-   NEON SHIMMER ANIMATION
-========================== */
-.file-block::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(120deg, rgba(0,188,212,0.15), rgba(255,255,255,0.05), rgba(0,188,212,0.15));
-    transform: rotate(25deg) translateX(-200%);
-    transition: none;
-    z-index: 0;
-    pointer-events: none;
-    animation: shimmer 3s linear infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: rotate(25deg) translateX(-200%); }
-    100% { transform: rotate(25deg) translateX(200%); }
 }
 
 /* ==========================
@@ -247,4 +225,9 @@ body.light-mode .file-block {
 @keyframes expandLine {
     0% { width: 0; }
     100% { width: 80px; }
+}
+
+@keyframes shimmer {
+    0% { transform: rotate(25deg) translateX(-200%); }
+    100% { transform: rotate(25deg) translateX(200%); }
 }
