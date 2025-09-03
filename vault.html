@@ -6,7 +6,6 @@
   <title>Vault | Nextup Studio</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    /* ---------- Global Styles ---------- */
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #121212;
@@ -20,7 +19,6 @@
       min-height: 100vh;
     }
 
-    /* Main container as a centered card */
     .vault-container {
       width: 100%;
       max-width: 850px;
@@ -31,7 +29,6 @@
       box-shadow: 0 0 20px rgba(0, 188, 212, 0.25);
     }
 
-    /* Header (simple blue like before) */
     h1 {
       color: #00bcd4;
       font-size: 2rem;
@@ -50,59 +47,6 @@
       margin-bottom: 12px;
     }
 
-    /* Input & Button */
-    .input-area {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    input {
-      padding: 12px 16px;
-      width: 60%;
-      max-width: 400px;
-      border: 2px solid #00bcd4;
-      background: #1e1e1e;
-      border-radius: 6px;
-      font-size: 16px;
-      color: #f0f0f0;
-      outline: none;
-      transition: 0.2s;
-    }
-
-    input:focus {
-      border-color: #0096c7;
-      box-shadow: 0 0 8px rgba(0, 188, 212, 0.4);
-    }
-
-    button {
-      padding: 12px 20px;
-      border: none;
-      border-radius: 6px;
-      background: #00bcd4;
-      color: white;
-      cursor: pointer;
-      margin-left: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #0096c7;
-    }
-
-    /* Hidden Content */
-    .hidden-content {
-      display: none;
-      margin-top: 30px;
-      text-align: left;
-      background: #222;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 188, 212, 0.2);
-    }
-
-    /* File Blocks */
     .file-block {
       background: rgba(255, 255, 255, 0.05);
       padding: 18px 20px;
@@ -139,45 +83,29 @@
       border-radius: 8px;
     }
 
-    /* Responsive */
     @media (max-width: 600px) {
-      input {
-        width: 75%;
-      }
-      button {
-        display: block;
-        margin: 12px auto;
-        width: 60%;
-      }
       .vault-container {
         margin: 20px;
         padding: 20px;
       }
     }
 
-    /* ---------- Light mode ---------- */
     body.light-mode {
       background: #f9f9f9;
       color: #222;
     }
     body.light-mode .vault-container { background: #fff; }
     body.light-mode h1, body.light-mode h2 { color: #00bcd4; }
-    body.light-mode .hidden-content { background: #e8f5fc; color: #222; }
     body.light-mode .file-block { background: #dcf3ff; }
   </style>
 </head>
 <body>
   <div class="vault-container">
-    <h1>🔒 Welcome to the Vault</h1>
-    <p>Enter the passcode to unlock hidden content.</p>
-    
-    <div class="input-area">
-      <input type="password" id="passcode" placeholder="Enter passcode" />
-      <button onclick="unlockVault()">Unlock</button>
-    </div>
+    <h1>💎 Nextup Studio Vault</h1>
+    <p>Exclusive content and resources are available here.</p>
 
-    <div class="hidden-content" id="vaultContent">
-      <h2>💎 Hidden Content</h2>
+    <div id="vaultContent">
+      <h2>Hidden Content</h2>
 
       <div class="file-block">
         <strong>1. Minecraft Skin</strong><br />
@@ -217,24 +145,18 @@
       </div>
 
       <div class="file-block">
-        <strong>7. Minecraft Patch</strong><br />
-        <a href="https://dl2.cdn9mc.com/index.php?act=download&id=1755863852&hash=68b586e3290ba" target="_blank">Download APK</a>
-      </div>
-
-      <div class="file-block">
-        <strong>8. 🎬✨ Unlimited Anime App</strong><br />
+        <strong>7. 🎬✨ Unlimited Anime App</strong><br />
         <a href="video/base.apk" download>Download APK</a>
       </div>
 
       <div class="file-block">
-        <strong>9. 📺 Unlimited Live TV for Android TV & Phone</strong><br />
+        <strong>8. 📺 Unlimited Live TV for Android TV & Phone</strong><br />
         <a href="https://www.mediafire.com/file/0s4rqywxv9zvgyt/base.apk/file" target="_blank">Download APK</a>
       </div>
     </div>
   </div>
 
   <script>
-    // Theme sync with entire site
     function setThemeFromStorage() {
       const themePref = localStorage.getItem('themeMode');
       if (themePref === 'light') {
@@ -247,16 +169,6 @@
     window.addEventListener('storage', function(e){
       if (e.key === 'themeMode') setThemeFromStorage();
     });
-
-    // Unlock function
-    function unlockVault() {
-      const pass = document.getElementById('passcode').value.trim();
-      if (pass === 'opbro') {
-        document.getElementById('vaultContent').style.display = 'block';
-      } else {
-        alert('❌ Wrong passcode!');
-      }
-    }
   </script>
 </body>
 </html>
