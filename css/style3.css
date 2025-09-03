@@ -12,7 +12,7 @@
 html, body {
     width: 100%;
     min-height: 100%;
-    background: linear-gradient(135deg, #0f0c29, #1c1c2e);
+    background: linear-gradient(135deg, #0f0c29, #121212);
     color: #f0f0f0;
     display: flex;
     justify-content: center;
@@ -30,7 +30,7 @@ html, body {
     background: rgba(28, 28, 46, 0.95);
     padding: 35px 45px;
     border-radius: 20px;
-    box-shadow: 0 0 70px rgba(188, 63, 255, 0.3);
+    box-shadow: 0 0 70px rgba(0, 255, 171, 0.3);
     backdrop-filter: blur(18px);
     animation: fadeInUp 1s ease forwards;
     overflow: hidden;
@@ -40,7 +40,7 @@ html, body {
    HEADINGS & TEXT
 ========================== */
 h1 {
-    color: #bc3fff; /* purple glow */
+    color: #00ffab; /* neon teal */
     font-size: 2.8rem;
     text-align: center;
     margin-bottom: 15px;
@@ -53,14 +53,14 @@ h1::after {
     display: block;
     width: 0;
     height: 4px;
-    background: linear-gradient(90deg, #bc3fff, #7ae7ff);
+    background: linear-gradient(90deg, #00ffab, #00ffd5);
     margin: 10px auto 0;
     border-radius: 2px;
     animation: expandLine 1s ease forwards;
 }
 
 h2 {
-    color: #7ae7ff; /* cyan-purple */
+    color: #00ffd5; /* soft cyan */
     margin-bottom: 20px;
     font-size: 1.7rem;
     text-align: center;
@@ -83,7 +83,7 @@ p {
     padding: 22px 28px;
     margin: 18px 0;
     border-radius: 18px;
-    border-left: 6px solid #bc3fff;
+    border-left: 6px solid #00ffab;
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
@@ -95,7 +95,7 @@ p {
 /* Hover 3D tilt + neon glow + scale */
 .file-block:hover {
     transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-5px) scale(1.05);
-    box-shadow: 0 25px 60px rgba(188, 63, 255, 0.5);
+    box-shadow: 0 25px 60px rgba(0, 255, 171, 0.5);
 }
 
 /* Shimmer background */
@@ -106,7 +106,7 @@ p {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(120deg, rgba(188,63,255,0.15), rgba(255,255,255,0.05), rgba(122,231,255,0.15));
+    background: linear-gradient(120deg, rgba(0,255,171,0.15), rgba(255,255,255,0.05), rgba(0,255,213,0.15));
     transform: rotate(25deg) translateX(-200%);
     z-index: 0;
     pointer-events: none;
@@ -115,13 +115,13 @@ p {
 
 .file-block strong {
     font-size: 1.2rem;
-    color: #bc3fff;
+    color: #00ffab;
     position: relative;
     z-index: 1;
 }
 
 .file-block a {
-    color: #7ae7ff;
+    color: #00ffd5;
     text-decoration: none;
     font-weight: 500;
     word-break: break-word;
@@ -131,7 +131,7 @@ p {
 }
 
 .file-block a:hover {
-    color: #bc3fff;
+    color: #00ffab;
 }
 
 .file-block a::after {
@@ -139,7 +139,7 @@ p {
     position: absolute;
     width: 0;
     height: 2px;
-    background: #7ae7ff;
+    background: #00ffd5;
     left: 0;
     bottom: -3px;
     transition: width 0.3s ease;
@@ -168,16 +168,16 @@ body.light-mode {
 
 body.light-mode .vault-container {
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 0 70px rgba(188, 63, 255, 0.2);
+    box-shadow: 0 0 70px rgba(0, 255, 171, 0.2);
 }
 
 body.light-mode h1, body.light-mode h2 {
-    color: #bc3fff;
+    color: #00ffab;
 }
 
 body.light-mode .file-block {
     background: rgba(220, 243, 255, 0.15);
-    border-left-color: #bc3fff;
+    border-left-color: #00ffab;
 }
 
 /* ==========================
