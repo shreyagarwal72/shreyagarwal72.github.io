@@ -12,7 +12,7 @@
 html, body {
     width: 100%;
     min-height: 100%;
-    background: linear-gradient(135deg, #0f0c29, #121212);
+    background: linear-gradient(135deg, #0f0c29, #1c1c2e);
     color: #f0f0f0;
     display: flex;
     justify-content: center;
@@ -27,11 +27,11 @@ html, body {
 .vault-container {
     width: 100%;
     max-width: 950px;
-    background: rgba(26, 26, 26, 0.9);
+    background: rgba(28, 28, 46, 0.95);
     padding: 35px 45px;
     border-radius: 20px;
-    box-shadow: 0 0 60px rgba(0, 188, 212, 0.3);
-    backdrop-filter: blur(15px);
+    box-shadow: 0 0 70px rgba(188, 63, 255, 0.3);
+    backdrop-filter: blur(18px);
     animation: fadeInUp 1s ease forwards;
     overflow: hidden;
 }
@@ -40,7 +40,7 @@ html, body {
    HEADINGS & TEXT
 ========================== */
 h1 {
-    color: #00bcd4;
+    color: #bc3fff; /* purple glow */
     font-size: 2.8rem;
     text-align: center;
     margin-bottom: 15px;
@@ -53,14 +53,14 @@ h1::after {
     display: block;
     width: 0;
     height: 4px;
-    background: linear-gradient(90deg, #00e5ff, #00bcd4);
+    background: linear-gradient(90deg, #bc3fff, #7ae7ff);
     margin: 10px auto 0;
     border-radius: 2px;
     animation: expandLine 1s ease forwards;
 }
 
 h2 {
-    color: #00e5ff;
+    color: #7ae7ff; /* cyan-purple */
     margin-bottom: 20px;
     font-size: 1.7rem;
     text-align: center;
@@ -82,8 +82,8 @@ p {
     background: rgba(255, 255, 255, 0.05);
     padding: 22px 28px;
     margin: 18px 0;
-    border-radius: 15px;
-    border-left: 6px solid #00bcd4;
+    border-radius: 18px;
+    border-left: 6px solid #bc3fff;
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
@@ -92,10 +92,10 @@ p {
     transform-style: preserve-3d;
 }
 
-/* Hover 3D tilt effect */
+/* Hover 3D tilt + neon glow + scale */
 .file-block:hover {
-    transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-5px) scale(1.03);
-    box-shadow: 0 20px 50px rgba(0, 188, 212, 0.4);
+    transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-5px) scale(1.05);
+    box-shadow: 0 25px 60px rgba(188, 63, 255, 0.5);
 }
 
 /* Shimmer background */
@@ -106,7 +106,7 @@ p {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(120deg, rgba(0,188,212,0.15), rgba(255,255,255,0.05), rgba(0,188,212,0.15));
+    background: linear-gradient(120deg, rgba(188,63,255,0.15), rgba(255,255,255,0.05), rgba(122,231,255,0.15));
     transform: rotate(25deg) translateX(-200%);
     z-index: 0;
     pointer-events: none;
@@ -115,13 +115,13 @@ p {
 
 .file-block strong {
     font-size: 1.2rem;
-    color: #00e5ff;
+    color: #bc3fff;
     position: relative;
     z-index: 1;
 }
 
 .file-block a {
-    color: #00bcd4;
+    color: #7ae7ff;
     text-decoration: none;
     font-weight: 500;
     word-break: break-word;
@@ -131,7 +131,7 @@ p {
 }
 
 .file-block a:hover {
-    color: #00ffff;
+    color: #bc3fff;
 }
 
 .file-block a::after {
@@ -139,7 +139,7 @@ p {
     position: absolute;
     width: 0;
     height: 2px;
-    background: #00bcd4;
+    background: #7ae7ff;
     left: 0;
     bottom: -3px;
     transition: width 0.3s ease;
@@ -168,16 +168,16 @@ body.light-mode {
 
 body.light-mode .vault-container {
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 0 60px rgba(0, 188, 212, 0.15);
+    box-shadow: 0 0 70px rgba(188, 63, 255, 0.2);
 }
 
 body.light-mode h1, body.light-mode h2 {
-    color: #00bcd4;
+    color: #bc3fff;
 }
 
 body.light-mode .file-block {
     background: rgba(220, 243, 255, 0.15);
-    border-left-color: #00bcd4;
+    border-left-color: #bc3fff;
 }
 
 /* ==========================
@@ -203,12 +203,12 @@ body.light-mode .file-block {
    ANIMATIONS
 ========================== */
 @keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(30px); }
+    0% { opacity: 0; transform: translateY(40px); }
     100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInDown {
-    0% { opacity: 0; transform: translateY(-30px); }
+    0% { opacity: 0; transform: translateY(-40px); }
     100% { opacity: 1; transform: translateY(0); }
 }
 
@@ -218,13 +218,13 @@ body.light-mode .file-block {
 }
 
 @keyframes floatUp {
-    0% { transform: translateY(15px); opacity: 0; }
+    0% { transform: translateY(20px); opacity: 0; }
     100% { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes expandLine {
     0% { width: 0; }
-    100% { width: 80px; }
+    100% { width: 90px; }
 }
 
 @keyframes shimmer {
