@@ -1,62 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Support Us - Nextup Studio</title>
+  <meta name="description" content="Support Nextup Studio by viewing ads and helping us grow. Your contribution enables us to create more content and projects." />
+  <meta name="keywords" content="Nextup Studio support, ads support, donate, help Nextup Studio, content support" />
+  <meta name="author" content="Nextup Studio" />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #121212;
-      color: #ffffff;
-      text-align: center;
-    }
-    header {
-      background: #00bcd4;
-      padding: 15px;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-    main {
+    .support-container {
+      max-width: 800px;
+      margin: 60px auto;
       padding: 20px;
+      background: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+      animation: fadeIn 1s ease-in-out;
+    }
+    .support-container h2 {
+      color: #00bcd4;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+    .support-container p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      color: #ccc;
     }
     .ads {
-      margin: 20px auto;
+      margin: 0 auto 30px auto;
       max-width: 100%;
+      text-align: center;
     }
     footer {
-      margin-top: 30px;
+      margin-top: 40px;
       padding: 15px;
       background: #1e1e1e;
       color: #aaa;
       font-size: 0.9em;
+      border-top: 1px solid #333;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <header>Support Nextup Studio</header>
+  <header class="header-bar">Support Nextup Studio</header>
+
   <main>
-    <h2>Support Us By Viewing Ads</h2>
-    <p>By visiting this page and viewing ads, you are helping us grow and create more content. Thank you!</p>
-    
-    <!-- Google AdSense Ad Unit -->
-    <div class="ads">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5680314597533936"
-           crossorigin="anonymous"></script>
-      <!-- 1 -->
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-5680314597533936"
-           data-ad-slot="1153733670"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+    <div class="support-container">
+      <h2>Support Us By Viewing Ads</h2>
+      <p>By visiting this page and viewing ads, you are helping us grow and continue creating more content for the community. Thank you for your support!</p>
+      
+      <!-- Google AdSense Ad Unit -->
+      <div class="ads">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5680314597533936"
+             crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5680314597533936"
+             data-ad-slot="1153733670"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
     </div>
   </main>
+
   <footer>
     &copy; 2025 Nextup Studio. All Rights Reserved.
   </footer>
