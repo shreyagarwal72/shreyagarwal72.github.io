@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Journey - Nextup Studio</title>
+  <title>My Life Journey - Nextup Studio</title>
   <link rel="stylesheet" href="css/style.css" />
-  <meta name="description" content="Explore the personal journey of Vanshu Agarwal, the creator behind Nextup Studio." />
+  <meta name="description" content="My Life Journey - Vanshu Agarwal (Shrey), creator of Nextup Studio. Discover my path from childhood dreams to creating music, Minecraft shorts, and Squid Game content." />
+  <meta name="keywords" content="Nextup Studio, Vanshu Agarwal, Shrey, My Journey, Life Story, Content Creator, Minecraft, Squid Game, Music" />
+  <meta name="author" content="Vanshu Agarwal" />
   <style>
     .audio-button {
       position: fixed;
@@ -22,10 +24,15 @@
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       z-index: 999;
+      transition: transform 0.3s ease, background 0.3s ease;
     }
-    .audio-button:hover { background-color: #0097a7; }
+    .audio-button:hover { 
+      background-color: #0097a7; 
+      transform: scale(1.1);
+    }
     .audio-button img { width: 28px; height: 28px; }
     audio { display: none; }
+
     .daily-quote {
       margin-top: 30px;
       padding: 15px 20px;
@@ -35,6 +42,7 @@
       font-size: 16px;
       line-height: 1.5;
       border-radius: 6px;
+      animation: fadeInUp 1s ease;
     }
     .milestones {
       margin-top: 30px;
@@ -45,6 +53,7 @@
       font-size: 18px;
       font-weight: 600;
       color: #555;
+      animation: fadeInUp 1s ease;
     }
     .journey-title-row {
       display: flex;
@@ -54,8 +63,6 @@
       margin-bottom: 18px;
     }
     .theme-toggle {
-      position: relative;
-      top: 0; right: 0;
       background: #222;
       border: none;
       border-radius: 50%;
@@ -67,9 +74,12 @@
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(0,0,0,0.20);
       z-index: 1010;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.3s ease;
     }
-    .theme-toggle:hover { background: #333; }
+    .theme-toggle:hover { 
+      background: #333; 
+      transform: rotate(20deg);
+    }
     .theme-toggle svg {
       width: 23px;
       height: 23px;
@@ -79,6 +89,8 @@
       .journey-title-row { gap: 8px; }
       .theme-toggle { width: 34px; height: 34px; }
     }
+
+    /* Light Mode */
     body.light-mode {
       background: #f9f9f9;
       color: #222;
@@ -93,10 +105,17 @@
     body.light-mode .social-buttons a.youtube { background: #ff7373;}
     body.light-mode .social-buttons a.instagram { background: #ff66a6;}
     body.light-mode .popup { background: #fff; color: #333; }
+
     /* Remove underline from links inside paragraphs */
     .main-content p a {
       text-decoration: none;
       color: inherit;
+    }
+
+    /* Fade animation */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -122,7 +141,7 @@
         </button>
       </div>
       <p>
-        Welcome to my journey! I'm <strong>Vanshu Agarwal</strong> aka <em>Shrey</em>, the creator behind <strong><a >Nextup Studio</a></strong>.
+        Welcome to my journey! I'm <strong>Vanshu Agarwal</strong> aka <em>Shrey</em>, the creator behind <strong><a href="home.html">Nextup Studio</a></strong>.
         This page is all about my path — from my early interests to becoming a content creator blending AI, music, and gaming into one experience.
         Thanks for being a part of it!
       </p>
@@ -152,7 +171,7 @@
   </button>
 
   <script>
-    // Audio player
+    // 🎵 Audio player
     const player = document.getElementById('song-player');
     const playIcon = document.getElementById('play-icon');
     const savedTime = localStorage.getItem('musicTime');
@@ -184,7 +203,7 @@
       localStorage.setItem('musicTime', player.currentTime);
     }, 1000);
 
-    // Daily Quote
+    // ✨ Daily Quote
     const quotes = [
       "Every great journey begins with a single step.",
       "Your story is unique — make it worth telling.",
@@ -200,7 +219,7 @@
     const todayIndex = new Date().getDate() % quotes.length;
     document.getElementById("dailyQuote").innerText = quotes[todayIndex];
 
-    // Theme Toggle
+    // 🌙 Theme Toggle
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const themeIcon = document.getElementById('themeIcon');
     function setTheme(isLight) {
@@ -236,20 +255,14 @@
       localStorage.setItem('themeMode', isLight ? 'light' : 'dark');
     });
 
-    // Milestones: YouTube Subscriber Counter with your key
+    // 📊 Milestones: YouTube Subscriber Counter
     const apiKey = "AIzaSyCM7WK3KYdLFh2xPOFL8amaFxgVCg3etU4";
     const channelId = "UCFEyuiIys7KoiZkczq4erJw";
     function fetchSubscribers() {
       fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`)
         .then(response => response.json())
         .then(data => {
-          if (
-            data &&
-            data.items &&
-            data.items.length > 0 &&
-            data.items[0].statistics &&
-            data.items[0].statistics.subscriberCount
-          ) {
+          if (data?.items?.length > 0) {
             const count = data.items[0].statistics.subscriberCount;
             document.getElementById("subscriberCount").textContent = Number(count).toLocaleString();
           } else {
