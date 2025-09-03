@@ -1,0 +1,216 @@
+/* ==========================
+   GLOBAL RESET & BASE THEME
+========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    background: #121212;
+    color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* ==========================
+   CONTAINER
+========================== */
+.vault-container {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(26, 26, 26, 0.95);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 40px rgba(0, 188, 212, 0.25);
+    backdrop-filter: blur(12px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+/* ==========================
+   HEADINGS & TEXT
+========================== */
+h1 {
+    color: #00bcd4;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #00bcd4;
+    margin: 8px auto 0;
+    border-radius: 2px;
+    animation: expandLine 1s ease forwards;
+}
+
+h2 {
+    color: #00bcd4;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+p {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #bbb;
+    font-size: 1rem;
+}
+
+/* ==========================
+   FILE BLOCKS
+========================== */
+.file-block {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px 25px;
+    margin: 15px 0;
+    border-radius: 10px;
+    border-left: 5px solid #00bcd4;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.file-block::before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 188, 212, 0.1);
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+.file-block:hover::before {
+    left: 0;
+}
+
+.file-block:hover {
+    transform: translateX(5px);
+    box-shadow: 0 8px 20px rgba(0, 188, 212, 0.3);
+}
+
+.file-block strong {
+    font-size: 1.15rem;
+    color: #00e5ff;
+    position: relative;
+    z-index: 1;
+}
+
+.file-block a {
+    color: #00bcd4;
+    text-decoration: none;
+    font-weight: 500;
+    word-break: break-word;
+    position: relative;
+    z-index: 1;
+}
+
+.file-block a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #00bcd4;
+    left: 0;
+    bottom: -2px;
+    transition: width 0.3s ease;
+}
+
+.file-block a:hover::after {
+    width: 100%;
+}
+
+.file-block img, 
+.file-block video {
+    max-width: 100%;
+    margin-top: 12px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================
+   LIGHT MODE
+========================== */
+body.light-mode {
+    background: #f9f9f9;
+    color: #222;
+}
+
+body.light-mode .vault-container {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 40px rgba(0, 188, 212, 0.15);
+}
+
+body.light-mode h1, body.light-mode h2 {
+    color: #00bcd4;
+}
+
+body.light-mode .file-block {
+    background: rgba(220, 243, 255, 0.15);
+    border-left-color: #00bcd4;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+@media (max-width: 768px) {
+    .vault-container {
+        padding: 25px 20px;
+    }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+    .vault-container {
+        padding: 20px 15px;
+    }
+}
+
+/* ==========================
+   ANIMATIONS
+========================== */
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes expandLine {
+    0% { width: 0; }
+    100% { width: 60px; }
+}
+
+/* Optional subtle floating animation for file-blocks */
+.file-block {
+    animation: floatUp 1s ease forwards;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(10px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
