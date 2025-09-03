@@ -1,23 +1,43 @@
-/* --- Global Reset & Dark Theme --- */
+/* ==========================
+   GLOBAL RESET & BASE THEME
+========================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
+  transition: all 0.3s ease;
 }
 
-body {
-  font-family: 'Segoe UI', sans-serif;
+html, body {
+  height: 100%;
+  overflow-x: hidden;
   background-color: #121212;
   color: #f0f0f0;
-  transition: background 0.2s, color 0.2s;
 }
 
+/* Hide scrollbar */
+::-webkit-scrollbar { display: none; }
+* { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ==========================
+   LAYOUT
+========================== */
 .layout {
   display: flex;
   min-height: 100vh;
+  animation: fadeIn 1s ease;
 }
 
-/* --- Sidebar --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================
+   SIDEBAR
+========================== */
 .sidebar {
   width: 220px;
   background-color: #1e1e1e;
@@ -26,8 +46,14 @@ body {
   flex-direction: column;
   gap: 15px;
   height: 100vh;
-  position: relative;
   z-index: 101;
+  position: relative;
+  animation: slideIn 0.8s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
 .sidebar h2 {
@@ -36,6 +62,12 @@ body {
   font-size: 22px;
   font-weight: 700;
   letter-spacing: 1px;
+  animation: glowText 2s infinite alternate;
+}
+
+@keyframes glowText {
+  from { text-shadow: 0 0 5px #00bcd4; }
+  to { text-shadow: 0 0 15px #00e5ff; }
 }
 
 .sidebar a {
@@ -45,23 +77,32 @@ body {
   border-radius: 5px;
   font-weight: 500;
   margin-bottom: 6px;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.3s ease;
   display: block;
+  transform: translateX(0);
 }
 
-.sidebar a.active, .sidebar a:hover {
+.sidebar a:hover, .sidebar a.active {
   background-color: #00bcd4;
   color: #181818;
   font-weight: bold;
+  transform: translateX(6px);
 }
 
-/* --- Main Content --- */
+/* ==========================
+   MAIN CONTENT
+========================== */
 .main-content {
   flex: 1;
   padding: 30px;
   margin-left: 0;
   box-sizing: border-box;
-  /* No max-width, no margin auto! */
+  animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 h1, h2, h3, h4 {
@@ -71,26 +112,31 @@ h1, h2, h3, h4 {
 h1 { font-size: 2.1rem; }
 h2 { font-size: 1.5rem; }
 
-/* --- Buttons --- */
+/* ==========================
+   BUTTONS
+========================== */
 .button {
   display: inline-block;
   background-color: #00bcd4;
   color: #121212;
   padding: 10px 20px;
-  margin-right: 10px;
-  border-radius: 5px;
+  margin: 10px 10px 10px 0;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
   border: none;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .button:hover {
   background-color: #0097a7;
   color: #fff;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
 }
 
-/* --- Google Login Button --- */
+/* Google Login Button */
 .google-btn {
   display: inline-flex;
   align-items: center;
@@ -98,18 +144,21 @@ h2 { font-size: 1.5rem; }
   background-color: #4285F4;
   color: #fff;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 8px;
   font-weight: bold;
   text-decoration: none;
-  transition: background 0.3s, transform 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .google-btn:hover {
   background-color: #357ae8;
-  transform: scale(1.03);
+  transform: translateY(-2px) scale(1.03);
 }
 
-/* --- Social Buttons --- */
+/* ==========================
+   SOCIAL BUTTONS
+========================== */
 .social-buttons {
   margin-top: 30px;
   display: flex;
@@ -117,6 +166,7 @@ h2 { font-size: 1.5rem; }
   align-items: center;
   gap: 20px;
 }
+
 .social-buttons a {
   display: flex;
   align-items: center;
@@ -128,24 +178,21 @@ h2 { font-size: 1.5rem; }
   text-decoration: none;
   color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: all 0.3s ease;
 }
+
 .social-buttons a:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
+  transform: scale(1.08) rotate(-2deg);
+  opacity: 0.95;
 }
+
 .whatsapp { background-color: #25D366; }
 .youtube { background-color: #FF0000; }
 .instagram { background-color: #E1306C; }
-@media (min-width: 769px) {
-  .social-buttons {
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-}
 
-/* --- Floating Play/Pause Music Button --- */
+/* ==========================
+   FLOATING MUSIC BUTTON
+========================== */
 .audio-button, .music-btn {
   position: fixed;
   bottom: 30px;
@@ -159,22 +206,25 @@ h2 { font-size: 1.5rem; }
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   z-index: 1500;
-  transition: background 0.2s, transform 0.2s;
   font-size: 28px;
-}
-.audio-button:hover, .music-btn:hover {
-  background-color: #0097a7;
-  transform: scale(1.07);
-}
-.audio-button img, .music-btn img {
-  width: 28px;
-  height: 28px;
-  pointer-events: none;
+  animation: pulse 2s infinite;
 }
 
-/* --- Notification Popup --- */
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 8px #00bcd4; }
+  50% { transform: scale(1.08); box-shadow: 0 0 18px #00e5ff; }
+  100% { transform: scale(1); box-shadow: 0 0 8px #00bcd4; }
+}
+
+.audio-button:hover, .music-btn:hover {
+  background-color: #0097a7;
+}
+
+/* ==========================
+   NOTIFICATION POPUP
+========================== */
 .popup {
   position: fixed;
   bottom: 30px;
@@ -182,18 +232,26 @@ h2 { font-size: 1.5rem; }
   background-color: #222;
   color: white;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
   z-index: 999;
-  animation: fadeout 10s forwards;
+  animation: fadeout 10s forwards, slideUp 0.6s ease;
 }
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 @keyframes fadeout {
   0% { opacity: 1; }
   85% { opacity: 1; }
   100% { opacity: 0; }
 }
 
-/* --- Daily Quote / Card --- */
+/* ==========================
+   DAILY QUOTE CARD
+========================== */
 .daily-quote {
   margin-top: 30px;
   padding: 15px 20px;
@@ -203,9 +261,12 @@ h2 { font-size: 1.5rem; }
   font-size: 16px;
   line-height: 1.5;
   border-radius: 6px;
+  animation: fadeIn 1s ease;
 }
 
-/* --- Theme Toggle Button (fixed top right, all pages) --- */
+/* ==========================
+   THEME TOGGLE
+========================== */
 .theme-toggle {
   position: fixed;
   top: 32px;
@@ -219,81 +280,53 @@ h2 { font-size: 1.5rem; }
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.20);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   z-index: 2000;
-  transition: background 0.2s;
-}
-.theme-toggle:hover { background: #333; }
-.theme-toggle svg {
-  width: 23px;
-  height: 23px;
-  pointer-events: none;
 }
 
-/* --- Responsive Design --- */
+.theme-toggle:hover {
+  background: #333;
+  transform: rotate(20deg);
+}
+
+/* ==========================
+   RESPONSIVE DESIGN
+========================== */
 @media (max-width: 768px) {
-  .layout {
-    flex-direction: column;
-  }
+  .layout { flex-direction: column; }
   .sidebar {
     width: 100%;
     height: 60px;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    gap: 0;
     padding: 10px;
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
   }
   .sidebar h2 { display: none; }
-  .sidebar a {
-    margin:0 8px; padding:8px 12px; font-size:14px; white-space:nowrap;
-  }
-  .main-content {
-    margin-left: 0;
-    margin-top: 60px;
-    padding: 10px;
-  }
-  .button, .google-btn {
-    margin-top: 10px;
-  }
-  .popup {
-    right: 10px;
-    left: 10px;
-    bottom: 20px;
-    padding: 15px;
-    font-size: 14px;
-  }
-  .social-buttons {
-    flex-direction: column;
-    gap: 20px;
-  }
-  .social-buttons a {
-    font-size: 15px;
-    padding: 12px 20px;
-  }
-  .audio-button, .music-btn {
-    bottom: 20px;
-    right: 20px;
-  }
+  .sidebar a { margin:0 8px; padding:8px 12px; font-size:14px; }
+  .main-content { margin-top: 70px; padding: 15px; }
+  .social-buttons { flex-direction: column; gap: 16px; }
+  .audio-button, .music-btn { bottom: 20px; right: 20px; }
   .theme-toggle { top: 14px; right: 18px; }
 }
 
-/* --- Light Mode Overrides --- */
+/* ==========================
+   LIGHT MODE
+========================== */
 body.light-mode {
   background: #f9f9f9;
   color: #222;
-  transition: background 0.2s, color 0.2s;
 }
 body.light-mode .sidebar { background: #e3f4fa; }
 body.light-mode .sidebar h2,
 body.light-mode .sidebar a { color: #0087a7; }
 body.light-mode .sidebar a.active,
-body.light-mode .sidebar a:hover { background: #00bcd4; color: #fff;}
+body.light-mode .sidebar a:hover { background: #00bcd4; color: #fff; }
 body.light-mode .main-content { background: #fff; color: #222; }
-body.light-mode .social-buttons a.whatsapp { background: #65e19a;}
-body.light-mode .social-buttons a.youtube { background: #ff7373;}
-body.light-mode .social-buttons a.instagram { background: #ff66a6;}
+body.light-mode .social-buttons a.whatsapp { background: #65e19a; }
+body.light-mode .social-buttons a.youtube { background: #ff7373; }
+body.light-mode .social-buttons a.instagram { background: #ff66a6; }
 body.light-mode .popup { background: #fff; color: #333; }
