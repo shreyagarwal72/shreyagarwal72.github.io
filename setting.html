@@ -4,22 +4,34 @@
   <meta charset="UTF-8" />
   <title>Settings | Nextup Studio</title>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Customize your Nextup Studio experience. Change theme, notifications, privacy, font size, timezone, and more."/>
+  <meta name="keywords" content="Nextup Studio, Settings, Theme, Privacy, Notifications, Vanshu Agarwal, Shrey"/>
+  <meta name="author" content="Vanshu Agarwal"/>
+  <meta property="og:title" content="Settings | Nextup Studio"/>
+  <meta property="og:description" content="Manage your preferences on Nextup Studio — theme, privacy, notifications and more."/>
+  <meta property="og:type" content="website"/>
   <link rel="stylesheet" href="css/style.css">
+
   <style>
     body {
       min-height: 100vh;
       background: #121212;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.3s, color 0.3s;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #f0f0f0;
     }
     .settings-main {
-      max-width: 600px;
-      margin: 48px auto 32px auto;
-      padding: 36px 34px 28px 34px;
-      border-radius: 12px;
+      max-width: 640px;
+      margin: 48px auto;
+      padding: 36px;
+      border-radius: 14px;
       background: #1e1e1e;
-      box-shadow: 0 10px 32px rgba(0,188,212,0.08);
+      box-shadow: 0 10px 32px rgba(0,188,212,0.1);
+      animation: fadeIn 0.6s ease-out;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
     }
     .settings-main h1 {
       text-align: center;
@@ -27,7 +39,6 @@
       color: #00bcd4;
       font-size: 2rem;
       font-weight: 800;
-      letter-spacing: .4px;
     }
     .settings-group {
       margin-bottom: 26px;
@@ -39,47 +50,45 @@
       font-size: 1rem;
       color: #00bcd4;
     }
-    .settings-group input[type="text"],
+    .settings-group input,
     .settings-group select,
     .settings-group textarea {
       width: 100%;
       padding: 10px 12px;
       background: #121212;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       color: #f0f0f0;
       font-size: 1rem;
       outline: none;
       margin-top: 2px;
-      box-shadow: inset 0 2px 7px rgba(0,188,212,0.13);
-      transition: box-shadow 0.3s ease;
+      box-shadow: inset 0 2px 7px rgba(0,188,212,0.12);
+      transition: all 0.3s ease;
       resize: vertical;
-      min-height: 60px;
+      min-height: 50px;
     }
-    .settings-group input[type="text"]:focus,
+    .settings-group input:focus,
     .settings-group select:focus,
     .settings-group textarea:focus {
-      box-shadow: 0 0 6px 2px #00bcd4;
-      outline: none;
-    }
-    .settings-group input[type="checkbox"],
-    .settings-group input[type="radio"] {
-      transform: scale(1.15);
-      margin-right: 8px;
-      accent-color: #00bcd4;
-      cursor: pointer;
+      box-shadow: 0 0 8px 2px #00bcd4;
     }
     .settings-checkbox {
       display: flex;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       font-weight: 600;
       color: #00bcd4;
       cursor: pointer;
       font-size: 1rem;
     }
+    .settings-checkbox input {
+      transform: scale(1.2);
+      margin-right: 10px;
+      accent-color: #00bcd4;
+    }
     .settings-actions {
       text-align: center;
+      margin-top: 20px;
     }
     .settings-actions button {
       background: #00bcd4;
@@ -91,19 +100,20 @@
       cursor: pointer;
       font-size: 1.1rem;
       box-shadow: 0 4px 14px rgba(0,188,212,0.6);
-      transition: background 0.25s ease, color 0.25s ease;
+      transition: background 0.3s ease, transform 0.2s;
     }
     .settings-actions button:hover {
       background: #0097a7;
       color: #fff;
+      transform: translateY(-2px);
     }
     .settings-back {
-      display: inline-block;
+      display: block;
       text-align: center;
       color: #00bcd4;
       font-weight: 700;
       text-decoration: none;
-      margin-top: 34px;
+      margin-top: 30px;
       font-size: 1rem;
       opacity: .85;
       transition: opacity 0.25s ease;
@@ -113,29 +123,17 @@
       text-decoration: underline;
     }
     .settings-success {
+      display: none;
       text-align: center;
       color: #10e890;
-      margin-top: 40px;
+      margin-top: 25px;
       font-size: 1.2rem;
       font-weight: 600;
-      letter-spacing: 0.15px;
+      animation: fadeSuccess 0.6s ease-in-out;
     }
-    @media (max-width: 700px) {
-      .settings-main {
-        max-width: 95vw;
-        padding: 28px 20px 28px 20px;
-        margin: 20px auto;
-      }
-      .settings-main h1 {
-        font-size: 1.6rem;
-      }
-      .settings-actions button {
-        padding: 12px 36px;
-        font-size: 1rem;
-      }
-      .settings-back {
-        font-size: 0.9rem;
-      }
+    @keyframes fadeSuccess {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
     }
     /* Light mode */
     body.light-mode {
@@ -143,7 +141,7 @@
       color: #232323;
     }
     body.light-mode .settings-main {
-      background: #e0fbfe;
+      background: #ffffff;
       color: #222;
       box-shadow: 0 10px 32px rgba(0,188,212,0.12);
     }
@@ -159,8 +157,8 @@
     body.light-mode .settings-group textarea {
       background: #fff;
       color: #171a1b;
-      box-shadow: inset 0 2px 7px rgba(0,124,145,0.1);
       border: 1px solid #ccc;
+      box-shadow: inset 0 2px 7px rgba(0,124,145,0.08);
     }
     body.light-mode .settings-group input:focus,
     body.light-mode .settings-group select:focus,
@@ -170,24 +168,38 @@
     body.light-mode .settings-actions button {
       background: #007c91;
       color: #fff;
-      box-shadow: 0 4px 14px rgba(0,124,145,0.7);
+      box-shadow: 0 4px 14px rgba(0,124,145,0.6);
     }
     body.light-mode .settings-actions button:hover {
       background: #005f63;
     }
+    @media (max-width: 700px) {
+      .settings-main {
+        max-width: 95vw;
+        padding: 24px 18px;
+        margin: 20px auto;
+      }
+      .settings-main h1 {
+        font-size: 1.6rem;
+      }
+      .settings-actions button {
+        padding: 12px 36px;
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="settings-main" id="settingsArea">
+  <main class="settings-main" id="settingsArea" role="form">
     <h1>⚙️ Settings</h1>
     <form id="settingsForm" autocomplete="off" novalidate>
       <div class="settings-group">
         <label for="displayName">Display Name</label>
-        <input type="text" id="displayName" placeholder="Your display name visible to others" />
+        <input type="text" id="displayName" placeholder="Your display name" aria-label="Display Name"/>
       </div>
       <div class="settings-group">
         <label for="theme">Theme</label>
-        <select id="theme">
+        <select id="theme" aria-label="Theme">
           <option value="auto">Auto (System)</option>
           <option value="dark">Dark</option>
           <option value="light">Light</option>
@@ -195,20 +207,20 @@
       </div>
       <div class="settings-group">
         <div class="settings-checkbox">
-          <input type="checkbox" id="notificationSound" />
-          <label for="notificationSound" style="margin:0;">Enable Notification Sounds</label>
+          <input type="checkbox" id="notificationSound"/>
+          <label for="notificationSound">Enable Notification Sounds</label>
         </div>
         <div class="settings-checkbox">
-          <input type="checkbox" id="newsletter" />
-          <label for="newsletter" style="margin:0;">Receive Newsletter</label>
+          <input type="checkbox" id="newsletter"/>
+          <label for="newsletter">Receive Newsletter</label>
         </div>
         <div class="settings-checkbox">
-          <input type="checkbox" id="productUpdates" checked />
-          <label for="productUpdates" style="margin:0;">Receive Product Updates</label>
+          <input type="checkbox" id="productUpdates" checked/>
+          <label for="productUpdates">Receive Product Updates</label>
         </div>
         <div class="settings-checkbox">
-          <input type="checkbox" id="privacyMode" />
-          <label for="privacyMode" style="margin:0;">Enable Privacy Mode</label>
+          <input type="checkbox" id="privacyMode"/>
+          <label for="privacyMode">Enable Privacy Mode</label>
         </div>
       </div>
       <div class="settings-group">
@@ -231,14 +243,15 @@
       </div>
       <div class="settings-group">
         <label for="signature">Custom Signature</label>
-        <textarea id="signature" placeholder="Your custom signature for messages/posts"></textarea>
+        <textarea id="signature" placeholder="Your custom signature"></textarea>
       </div>
       <div class="settings-actions">
-        <button type="submit">Save Changes</button>
+        <button type="submit">💾 Save Changes</button>
       </div>
     </form>
+    <p class="settings-success" id="successMsg">✅ Settings saved successfully!</p>
     <a href="home.html" class="settings-back">← Back to Home</a>
-  </div>
+  </main>
 
   <script>
     (function setThemeImmediately() {
@@ -257,25 +270,17 @@
     })();
 
     document.addEventListener('DOMContentLoaded', function() {
-      if(localStorage.getItem('displayName'))
-        document.getElementById('displayName').value = localStorage.getItem('displayName');
+      // Load saved settings
+      const fields = ["displayName","theme","notificationSound","newsletter","productUpdates","privacyMode","fontSize","timezone","signature"];
+      fields.forEach(f => {
+        let el = document.getElementById(f);
+        if(!el) return;
+        if(el.type === "checkbox") el.checked = localStorage.getItem(f) === "true";
+        else if(el.tagName === "SELECT") el.value = localStorage.getItem(f) || el.value;
+        else if(el.tagName === "TEXTAREA" || el.type === "text") el.value = localStorage.getItem(f) || "";
+      });
 
-      if(localStorage.getItem('themeMode'))
-        document.getElementById('theme').value = localStorage.getItem('themeMode');
-      else
-        document.getElementById('theme').value = 'auto';
-
-      document.getElementById('notificationSound').checked = localStorage.getItem('notificationSound') === 'true';
-      document.getElementById('newsletter').checked = localStorage.getItem('newsletter') === 'true';
-      document.getElementById('productUpdates').checked = localStorage.getItem('productUpdates') !== 'false'; // default true
-      document.getElementById('privacyMode').checked = localStorage.getItem('privacyMode') === 'true';
-
-      document.getElementById('fontSize').value = localStorage.getItem('fontSize') || 'medium';
-      document.getElementById('timezone').value = localStorage.getItem('timezone') || 'default';
-
-      if(localStorage.getItem('signature'))
-        document.getElementById('signature').value = localStorage.getItem('signature');
-
+      // Theme change live
       document.getElementById('theme').addEventListener('change', function() {
         localStorage.setItem('themeMode', this.value);
         if(this.value === 'auto'){
@@ -291,31 +296,18 @@
         }
       });
 
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        let mode = localStorage.getItem('themeMode') || 'auto';
-        if(mode === "auto"){
-          if(e.matches){
-            document.body.classList.remove('light-mode');
-          } else {
-            document.body.classList.add('light-mode');
-          }
-        }
-      });
-
+      // Save form
       document.getElementById('settingsForm').addEventListener('submit', function(e){
         e.preventDefault();
-
-        localStorage.setItem('displayName', document.getElementById('displayName').value.trim());
-        localStorage.setItem('themeMode', document.getElementById('theme').value);
-        localStorage.setItem('notificationSound', document.getElementById('notificationSound').checked);
-        localStorage.setItem('newsletter', document.getElementById('newsletter').checked);
-        localStorage.setItem('productUpdates', document.getElementById('productUpdates').checked);
-        localStorage.setItem('privacyMode', document.getElementById('privacyMode').checked);
-        localStorage.setItem('fontSize', document.getElementById('fontSize').value);
-        localStorage.setItem('timezone', document.getElementById('timezone').value);
-        localStorage.setItem('signature', document.getElementById('signature').value.trim());
-
-        alert('Settings saved successfully!');
+        fields.forEach(f => {
+          let el = document.getElementById(f);
+          if(!el) return;
+          if(el.type === "checkbox") localStorage.setItem(f, el.checked);
+          else localStorage.setItem(f, el.value.trim());
+        });
+        const msg = document.getElementById("successMsg");
+        msg.style.display = "block";
+        setTimeout(()=> msg.style.display="none", 3000);
       });
     });
   </script>
