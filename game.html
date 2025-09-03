@@ -1,341 +1,448 @@
-/* ==========================
-   GLOBAL RESET & BASE THEME
-========================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-  scroll-behavior: smooth;
-  transition: all 0.3s ease;
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+  <meta charset="UTF-8" />    
+  <meta name="viewport" content="width=device-width, initial-scale=1" />    
+  <title>Games - Nextup Studio</title>    
+  <link rel="stylesheet" href="style.css" />  
+  <style>  
+    body {  
+      margin:0; padding:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+      background:#121212; color:white;  
+      transition: background 0.2s, color 0.2s;  
+    }  
+    .layout { display: flex; min-height: 100vh; }  
+    .sidebar {  
+      width: 220px;  
+      background: #1e1e1e;  
+      padding: 20px;  
+      box-sizing: border-box;  
+      display: flex;  
+      flex-direction: column;  
+      gap: 15px;  
+      height: 100vh;  
+      position: relative;  
+    }  
+    .sidebar h2 {  
+      color: #00bcd4;  
+      margin-bottom: 20px;  
+      text-align: left;  
+      font-size: 22px;  
+      font-weight: 700;  
+      letter-spacing: 1px;  
+    }  
+    .sidebar a {  
+      color: #f0f0f0;  
+      text-decoration: none;  
+      padding: 10px;  
+      border-radius: 5px;  
+      font-weight: 500;  
+      margin-bottom: 6px;  
+      transition: background 0.2s, color 0.2s;  
+      display: block;  
+    }  
+    .sidebar a.active, .sidebar a:hover {  
+      background: #00bcd4;  
+      color: #181818;  
+      font-weight: bold;  
+    }  
+    .main-content {  
+      flex: 1;  
+      padding: 30px;  
+      margin-left: 0;  
+      box-sizing: border-box;  
+      text-align: center;  
+    }  
+    button {  
+      background: #00bcd4;  
+      border: none;  
+      padding: 12px 20px;  
+      border-radius: 5px;  
+      margin:8px 8px 8px 0;  
+      cursor: pointer;  
+      font-weight: bold;  
+      color: #121212;  
+      font-size: 16px;  
+      transition: background 0.3s, color 0.2s;  
+      display:inline-block;  
+    }  
+    button:hover {  
+      background: #0097a7;  
+      color: white;  
+    }  
+    #leaderboard {  
+      max-width: 400px;  
+      margin: 20px auto 0;  
+      background: #222;  
+      padding: 15px;  
+      border-radius: 10px;  
+      color: #00bcd4;  
+      text-align: left;  
+      display: none;  
+    }  
+    #leaderboardList li { margin-bottom: 5px; }  
+    input[type="text"], input[type="number"] {  
+      padding: 8px; border-radius: 5px; border: none;  
+      font-size: 16px; width:80%; margin-right:10px;  
+    }  
+    #nameInputSection { margin-top: 15px; }  
+    #gameCanvas {  
+      margin-top: 20px;  
+      border: 2px solid #00bcd4;  
+      border-radius: 10px;  
+      background: #232;  
+      touch-action: none;  
+      max-width: 100%;  
+      height: auto;  
+    }  
+    /* Custom Modal Styles */  
+    #customModal {  
+      display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;  
+      background: rgba(0,0,0,0.5); z-index: 9999;  
+      align-items: center; justify-content: center;  
+    }  
+    #customModal .modal-content {  
+      background: #212e2e;  
+      color: #00bcd4;  
+      border-radius: 18px;  
+      padding: 29px 28px 22px 28px;  
+      max-width: 300px;  
+      margin: auto;  
+      text-align: center;  
+      box-shadow: 0 6px 32px #0008;  
+      animation: popfancy .2s;  
+      font-size: 1.1em;  
+    }  
+    #customModal .modal-title {  
+      font-size: 1.3em; font-weight: bold; margin-bottom:6px;  
+      color: #fff;  
+    }  
+    #customModal .modal-emoji {  
+      font-size:2.25em;line-height:1.2;margin-bottom: 10px;  
+      display:block;  
+    }  
+    #customModal .close-btn {  
+      margin-top: 20px;  
+      background: #00bcd4;  
+      color: #121212;  
+      border: none;  
+      padding: 8px 22px;  
+      border-radius: 8px;  
+      font-size: 1.13em;  
+      cursor: pointer;  
+      font-weight:bold;  
+      transition:.2s;  
+      box-shadow:0 2px 5px #0087a749;  
+    }  
+    #customModal .close-btn:hover { background: #0097a7; color: #fff; }  
+    @keyframes popfancy { from {transform:scale(.9);opacity:0;} to {transform:scale(1);opacity:1;} }  
+    /* Responsive design */  
+    @media(max-width: 768px){  
+      .layout{flex-direction: column;}  
+      .sidebar{  
+        width:100%; height: 60px;  
+        padding:10px;  
+        flex-direction: row;  
+        justify-content: space-around;  
+        align-items:center;  
+        position:fixed; top:0; left:0; right:0;  
+        z-index:1000;  
+        gap: 0;  
+      }  
+      .sidebar h2{display:none;}  
+      .sidebar a{margin:0 8px; padding:8px 12px; font-size:14px; white-space:nowrap;}  
+      .main-content{margin-left:0; margin-top:60px; padding:10px;}  
+      input[type="text"], input[type="number"]{width:100%; margin-bottom:10px;}  
+      button {margin:8px 0;}  
+    }  
+    /* Light mode */  
+    body.light-mode { background:#f9f9f9; color:#222;}  
+    body.light-mode .sidebar{background:#e3f4fa;}  
+    body.light-mode .sidebar h2, body.light-mode .sidebar a { color:#0087a7; }  
+    body.light-mode .sidebar a.active,body.light-mode .sidebar a:hover {background:#00bcd4;color:#fff;}  
+    body.light-mode .main-content{background:#fff;color:#222;}  
+    body.light-mode #leaderboard{background:#daf1fc;color:#0087a7;}  
+    body.light-mode #customModal .modal-content {background: #e9fafd; color: #0097a7;}  
+    body.light-mode #customModal .modal-title {color:#212;}  
+  </style>  
+</head>  
+<body>  
+<div class="layout">  
+  <div class="sidebar">  
+    <h2>Nextup Studio</h2>  
+    <a href="home.html">Home</a>  
+    <a href="yt.html">YouTube</a>  
+    <a href="journey.html">My Journey</a>  
+    <a href="game.html" class="active">Game</a>  
+  </div>  
+  <div class="main-content">  
+    <h1 id="gameTitle">Choose a Game to Play</h1>  
+    <div id="gameChoice">  
+      <p>Which game do you want to play?</p>  
+      <button onclick="loadGame('quiz')">Quiz Game</button>  
+      <button onclick="loadGame('hideSeek')">Hide and Seek</button>  
+      <button onclick="loadGame('ropeBridge')">Rope Bridge</button>  
+      <button onclick="loadGame('reactionTest')">Reaction Time Test</button>  
+      <button onclick="loadGame('crossRoad')">Cross the Road</button>  
+      <hr style="margin:20px 0; border-color:#0097a7;" />  
+      <button id="showLeaderboardBtn" onclick="showLeaderboard()">Show Leaderboard</button>  
+      <div id="leaderboard">  
+        <h3>Leaderboard - Top Scores</h3>  
+        <ol id="leaderboardList"></ol>  
+        <button id="closeLeaderboardBtn" onclick="hideLeaderboard()">Close Leaderboard</button>  
+      </div>  
+    </div>  
+    <div id="gameContainer"></div>  
+  </div>  
+</div>  
+<!-- CUSTOM MODAL -->  
+<div id="customModal">  
+  <div class="modal-content" id="customModalContent"></div>  
+</div>  
+<script>  
+  // Custom Modal  
+  function showCustomModal(message, emoji='🎉', title='Well done!') {  
+    document.getElementById('customModalContent').innerHTML = `  
+      <div class="modal-emoji">${emoji}</div>  
+      <div class="modal-title">${title}</div>  
+      <div style="margin:14px 0 10px 0;font-size:1.08em;">${message}</div>  
+      <button class="close-btn" onclick="hideCustomModal()">OK</button>  
+    `;  
+    document.getElementById('customModal').style.display = 'flex';  
+  }  
+  function hideCustomModal() {  
+    document.getElementById('customModal').style.display = 'none';  
+  }  // THEME SYNC (dark/light mode auto, no toggle)
+function setThemeFromStorage() {
+const themePref = localStorage.getItem('themeMode');
+if (themePref === 'light') document.body.classList.add('light-mode');
+else document.body.classList.remove('light-mode');
+}
+setThemeFromStorage();
+window.addEventListener('storage', function(e){
+if (e.key === 'themeMode') setThemeFromStorage();
+});
+
+// GAME CHEAT PATTERN (ROPE BRIDGE)
+let safePattern = [1, 3, 5, 2, 4];
+let patternIndex = 0;
+
+// ---------------------- LOGIN SYNC ----------------------
+let savedUserObj = JSON.parse(localStorage.getItem('nextupUser'));
+let currentUserName = savedUserObj ? savedUserObj.username : null;
+
+// ---------------------- QUIZ ----------------------
+const quizData = [
+{ question:"Minecraft mein Nether ka main portal kaise banate hain?", options:["Obsidian frame + Flint and Steel","Wooden frame + Torch","Stone frame + Pickaxe","Diamond frame + Fire Charge"], answer:"Obsidian frame + Flint and Steel"},
+{ question:"AI ka full form kya hai?", options:["Artificial Intelligence","Automatic Input","Android Interface","Auto Identification"], answer:"Artificial Intelligence"},
+{ question:"YouTube par sabse zyada subscribers wala channel kaun hai?", options:["T-Series","PewDiePie","Cocomelon","MrBeast"], answer:"MrBeast"},
+{ question:"Squid Game mein guard ke mask par kaun sa shape hota hai?", options:["Circle","Triangle","Square","Star"], answer:"Triangle"},
+{ question:"Minecraft mein Creeper kisse dur rehta hai?", options:["Cat","Wolf","Water","Lava"], answer:"Cat"}
+];
+let currentQuestion=0, score=0;
+
+function loadGame(game){
+document.getElementById('leaderboard').style.display='none';
+document.getElementById('gameChoice').style.display='none';
+document.getElementById('gameContainer').style.display='block';
+document.getElementById('showLeaderboardBtn').style.display='inline-block';
+document.getElementById('gameTitle').textContent = {
+'quiz':'Quiz Game',
+'hideSeek':'Hide and Seek',
+'ropeBridge':'Rope Bridge',
+'reactionTest':'Reaction Time Test',
+'crossRoad':'Cross the Road'
+}[game];
+if(game==='quiz') startQuiz();
+else if(game==='hideSeek') loadHideSeek();
+else if(game==='ropeBridge') loadRopeBridge();
+else if(game==='reactionTest') loadReactionTest();
+else if(game==='crossRoad') loadCrossRoad();
 }
 
-html, body {
-  height: 100%;
-  overflow-x: hidden;
-  background-color: #121212;
-  color: #f0f0f0;
+function showGameChoice(){
+document.getElementById('gameChoice').style.display='block';
+document.getElementById('gameContainer').style.display='none';
+document.getElementById('gameTitle').textContent='Choose a Game to Play';
 }
 
-/* Hide scrollbar */
-::-webkit-scrollbar { display: none; }
-* { -ms-overflow-style: none; scrollbar-width: none; }
+// --- QUIZ LOGIC ---
+function startQuiz(){ currentQuestion=0; score=0; renderQuizQuestion(); }
+function renderQuizQuestion(){
+const container = document.getElementById("gameContainer");
+if(currentQuestion>=quizData.length){
+container.innerHTML=   <div style="max-width:600px;margin:auto;background:#1e1e1e;padding:20px;border-radius:10px;text-align:center;">   <h2>Quiz Completed!</h2>   <p>Your Score: <strong>${score}/${quizData.length}</strong></p>   <button onclick="startQuiz()">Retry Quiz</button>   <button onclick="showGameChoice()">Back to Game Selection</button>   <div id="nameInputSection" style="margin-top:15px;"></div>   </div>;
+if(currentUserName){
+saveScore(currentUserName, score, "Quiz");
+showCustomModal(Score saved automatically for <b>${currentUserName}</b>!, '🎯', 'Saved!');
+document.getElementById('showLeaderboardBtn').style.display='inline-block';
+} else {
+const nameInputSection = document.getElementById('nameInputSection');
+nameInputSection.innerHTML=   <input type="text" id="playerName" placeholder="Enter your name"/>   <button id="submitNameBtn">Submit Score</button>;
+document.getElementById('submitNameBtn').onclick=()=>{
+const name=document.getElementById('playerName').value.trim();
+if(!name){ showCustomModal('Please enter your name.', '📝', 'Name Required'); return; }
+saveScore(name, score, "Quiz");
+showCustomModal('Score saved! Check leaderboard.', '🏆', 'Congrats!');
+nameInputSection.innerHTML='';
+}
+}
+return;
+}
+const q = quizData[currentQuestion];
+container.innerHTML=<div style="max-width:600px;margin:auto;background:#1e1e1e;padding:20px;border-radius:10px;text-align:left;">   <h3>${q.question}</h3>   ${q.options.map(opt=><button style="width:100%;margin:5px 0;" onclick="checkQuizAnswer('${opt}')">${opt}</button>).join('')}   </div>;
+}
+function checkQuizAnswer(selected){ if(selected===quizData[currentQuestion].answer) score++; currentQuestion++; renderQuizQuestion(); }
 
-/* ==========================
-   LAYOUT
-========================== */
-.layout {
-  display: flex;
-  min-height: 100vh;
-  animation: fadeIn 1s ease;
+// --- HIDE AND SEEK ---
+function loadHideSeek(){
+const container = document.getElementById("gameContainer");
+container.innerHTML=<div style="max-width:600px;margin:auto;background:#1e1e1e;padding:20px;border-radius:10px;text-align:center;">   <p>Click the button to see if you got found!</p>   <button id="hideSeekBtn">Check Hide Status</button>   <p id="hideSeekResult" style="margin-top:15px;"></p>   <div id="hideSeekNameInput" style="margin-top:15px;"></div>   <button onclick="loadHideSeek()" style="margin-top:15px;">Restart</button>   <button onclick="showGameChoice()" style="margin-top:15px;">Back to Game Selection</button>   </div>;
+document.getElementById('hideSeekBtn').onclick=()=>{
+const resultEl = document.getElementById('hideSeekResult');
+const nameInputEl = document.getElementById('hideSeekNameInput');
+nameInputEl.innerHTML='';
+const found = Math.random()<0.5;
+if(found){
+resultEl.textContent='Oh no! You got found! 😢';
+showCustomModal('Oh no! You got found! 😢', '🤐', 'Try Again');
+}
+else {
+resultEl.textContent='You are still hidden! 🎉';
+showCustomModal('You are still hidden! 🎉', '🙈', 'Safe!');
+askNameAndSaveScore(1,'Hide and Seek','hideSeekNameInput');
+}
+}
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+// --- ROPE BRIDGE --- (THIS FUNCTION IS FULLY UPDATED FOR PATTERN)
+function loadRopeBridge(){
+const container = document.getElementById("gameContainer");
+container.innerHTML=<div style="max-width:600px;margin:auto;background:#1e1e1e;padding:20px;border-radius:10px;text-align:center;">   <p>Guess a safe step number (1 to 5) to cross the bridge.</p>   <input id="stepInput" type="number" min="1" max="5" placeholder="Step number"/>   <button id="ropeBridgeBtn">Cross</button>   <p id="ropeBridgeResult" style="margin-top:15px;"></p>   <div id="ropeBridgeNameInput" style="margin-top:15px;"></div>   <button onclick="loadRopeBridge()" style="margin-top:15px;">Restart</button>   <button onclick="showGameChoice()" style="margin-top:15px;">Back to Game Selection</button>   </div>;
+document.getElementById('ropeBridgeBtn').onclick=()=>{
+const step=Number(document.getElementById('stepInput').value);
+const resultEl=document.getElementById('ropeBridgeResult');
+const nameInputEl=document.getElementById('ropeBridgeNameInput');
+nameInputEl.innerHTML='';
+if(!step || step<1 || step>5){
+resultEl.textContent='Please enter a valid step between 1 and 5.';
+showCustomModal('Please enter a valid step between 1 and 5.', '🔢', 'Invalid!');
+return;
+}
+// Pattern logic
+const safeStep = safePattern[patternIndex];
+patternIndex = (patternIndex + 1) % safePattern.length;
+
+if(step===safeStep){   
+    resultEl.textContent='You crossed safely! 🎉';   
+    showCustomModal('You crossed safely! 🎉', '🌉', 'Congratulations');  
+    askNameAndSaveScore(1,'Rope Bridge','ropeBridgeNameInput');   
+  }  
+  else {   
+    resultEl.textContent='Oops! The bridge broke! You fell. 😢';   
+    showCustomModal('Oops! The bridge broke! You fell. 😢', '💀', 'Failed!');  
+  }  
 }
 
-/* ==========================
-   SIDEBAR
-========================== */
-.sidebar {
-  width: 220px;
-  background-color: #1e1e1e;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  height: 100vh;
-  z-index: 101;
-  position: relative;
-  animation: slideIn 0.8s ease;
 }
 
-@keyframes slideIn {
-  from { transform: translateX(-100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+// --- REACTION TEST ---
+let reactionTimeout, reactionStart;
+function loadReactionTest(){
+const container = document.getElementById("gameContainer");
+container.innerHTML=<div style="max-width:600px;margin:auto;background:#1e1e1e;padding:20px;border-radius:10px;text-align:center;">   <p>Wait for green, then click as fast as you can!</p>   <button id="reactionBtn" disabled style="background:red;color:white;padding:20px;font-size:20px;border:none;border-radius:10px;cursor:not-allowed;">Wait for green...</button>   <p id="reactionResult" style="margin-top:15px;"></p>   <div id="reactionNameInput" style="margin-top:15px;"></div>   <button id="startReactionBtn" style="margin-top:15px;">Start Test</button>   <button onclick="showGameChoice()" style="margin-top:15px;">Back to Game Selection</button>   </div>;
+document.getElementById('startReactionBtn').onclick=startReactionTest;
+}
+function startReactionTest(){
+const btn=document.getElementById('reactionBtn');
+const result=document.getElementById('reactionResult');
+const nameInputEl=document.getElementById('reactionNameInput');
+btn.style.backgroundColor='red'; btn.textContent='Wait for green...'; btn.disabled=true; btn.style.cursor='not-allowed';
+result.textContent=''; nameInputEl.innerHTML='';
+const delay=Math.floor(Math.random()*3000)+2000;
+reactionTimeout=setTimeout(()=>{
+btn.style.backgroundColor='green'; btn.textContent='Click Now!'; btn.disabled=false; btn.style.cursor='pointer';
+reactionStart=performance.now();
+btn.onclick=()=>{
+const reactionTime=performance.now()-reactionStart;
+btn.style.backgroundColor='#00bcd4'; btn.textContent=Your reaction time: ${reactionTime.toFixed(2)} ms;
+btn.disabled=true; btn.style.cursor='default'; btn.onclick=null;
+const score=Math.max(0,Math.round(3000-reactionTime));
+showCustomModal(Your reaction time: <b>${reactionTime.toFixed(2)} ms</b>, '⚡', 'Result');
+askNameAndSaveScore(score,'Reaction Test','reactionNameInput');
+}
+},delay);
+btn.onclick=()=>{
+clearTimeout(reactionTimeout);
+btn.style.backgroundColor='red'; btn.textContent='Too Soon! Wait for green.'; btn.disabled=true; btn.style.cursor='default';
+showCustomModal('Too Soon! Wait for green.', '⏱️', 'Wait!');
+}
 }
 
-.sidebar h2 {
-  color: #00bcd4;
-  margin-bottom: 20px;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  animation: glowText 2s infinite alternate;
-}
+// --- CROSS THE ROAD GAME ---
+function loadCrossRoad(){
+const container = document.getElementById('gameContainer');
+container.innerHTML =   <div style="max-width: 600px; margin: auto; color: white; text-align: center;">   <p>Use arrow keys or on-screen buttons to cross the road safely!</p>   <canvas id="gameCanvas"></canvas>   <div style="margin-top: 10px;">   <button id="upBtn">⬆️</button>   <button id="leftBtn">⬅️</button>   <button id="downBtn">⬇️</button>   <button id="rightBtn">➡️</button>   </div>   <button style="margin-top: 20px;" onclick="showGameChoice()">Back to Game Selection</button>   </div>  ;
 
-@keyframes glowText {
-  from { text-shadow: 0 0 5px #00bcd4; }
-  to { text-shadow: 0 0 15px #00e5ff; }
-}
+const canvas = document.getElementById('gameCanvas');  
+const ctx = canvas.getContext('2d');  
+const GRID = 50;  
+let rows, cols;  
+let player;  
+let obstacles = [];  
 
-.sidebar a {
-  color: #f0f0f0;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 5px;
-  font-weight: 500;
-  margin-bottom: 6px;
-  transition: all 0.3s ease;
-  display: block;
-  transform: translateX(0);
-}
+function resizeCanvas() {  
+  canvas.width = container.clientWidth * 0.95;  
+  canvas.height = canvas.width * 1.5; // 2:3 ratio approx  
+  rows = Math.floor(canvas.height / GRID);  
+  cols = Math.floor(canvas.width / GRID);  
+  restartGame();  
+}  
+window.addEventListener('resize', resizeCanvas);  
+resizeCanvas();  
 
-.sidebar a:hover, .sidebar a.active {
-  background-color: #00bcd4;
-  color: #181818;
-  font-weight: bold;
-  transform: translateX(6px);
-}
+function restartGame(){  
+  player = { x: Math.floor(cols/2), y: rows-1, alive: true };  
+  obstacles = [];  
+  for(let r=0; r<rows-1; r++){  
+    let speed = Math.random() > 0.5 ? 0.8 : -0.8;  
+    let startX = speed > 0 ? -1 : cols;  
+    obstacles.push({ row: r, x: startX, speed, color: '#f33' });  
+  }  
+}  
 
-/* ==========================
-   MAIN CONTENT
-========================== */
-.main-content {
-  flex: 1;
-  padding: 30px;
-  margin-left: 0;
-  box-sizing: border-box;
-  animation: fadeUp 0.8s ease;
-}
+function drawGame(){  
+  ctx.clearRect(0, 0, canvas.width, canvas.height);  
+  for(let r=0; r<rows; r++){  
+    ctx.fillStyle = r % 2 === 0 ? '#484' : '#272';  
+    ctx.fillRect(0, r*GRID, canvas.width, GRID);  
+  }  
+  obstacles.forEach(ob => {  
+    ctx.fillStyle = ob.color;  
+    ctx.fillRect(ob.x * GRID, ob.row * GRID + 10, GRID - 10, GRID - 20);  
+  });  
+  ctx.beginPath();  
+  ctx.arc(player.x * GRID + GRID/2, player.y * GRID + GRID/2, GRID/2.2, 0, Math.PI*2);  
+  ctx.fillStyle = player.alive ? '#ff0' : '#888';  
+  ctx.fill();  
+}  
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+function movePlayer(dx, dy){  
+  if(!player.alive) return;  
+  let nx = Math.max(0, Math.min(cols-1, player.x + dx));  
+  let ny = Math.max(0, Math.min(rows-1, player.y + dy));  
+  player.x = nx;  
+  player.y = ny;  
+  checkCollision();  
+  if(player.y === 0){  
+    setTimeout(() => {  
+      showCustomModal('You crossed safely! 🎉', '🚦', 'Congratulations');  
+      askNameAndSaveScore(1, 'Cross the Road', null);  
+      restartGame();  
+    }, 100);  
+  }  
+}  
 
-h1, h2, h3, h4 {
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-h1 { font-size: 2.1rem; }
-h2 { font-size: 1.5rem; }
+function checkCollision(){
 
-/* ==========================
-   GAME GRID
-========================== */
-.game-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-  animation: fadeUp 1s ease;
-}
+Ab bhejo
 
-.game-card {
-  background: #1f1f1f;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.game-card:hover {
-  background: #00bcd4;
-  color: #121212;
-  transform: translateY(-6px) scale(1.05);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.5);
-}
-
-/* ==========================
-   LEADERBOARD
-========================== */
-.leaderboard {
-  margin-top: 30px;
-  background: #1e1e1e;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  animation: fadeIn 1s ease;
-}
-
-.leaderboard h2 {
-  color: #00bcd4;
-  margin-bottom: 15px;
-}
-
-.leaderboard ul {
-  list-style: none;
-}
-
-.leaderboard li {
-  padding: 8px 12px;
-  margin-bottom: 6px;
-  background: #2a2a2a;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.leaderboard li:hover {
-  background: #00bcd4;
-  color: #121212;
-  transform: translateX(6px);
-}
-
-/* ==========================
-   MODALS
-========================== */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 2000;
-  justify-content: center;
-  align-items: center;
-  animation: fadeIn 0.4s ease;
-}
-
-.modal-content {
-  background: #1e1e1e;
-  padding: 25px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 500px;
-  text-align: center;
-  animation: scaleIn 0.5s ease;
-}
-
-@keyframes scaleIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.close-btn {
-  float: right;
-  font-size: 24px;
-  cursor: pointer;
-  color: #aaa;
-  transition: color 0.3s;
-}
-.close-btn:hover { color: #fff; }
-
-/* ==========================
-   BUTTONS
-========================== */
-.button {
-  display: inline-block;
-  background-color: #00bcd4;
-  color: #121212;
-  padding: 10px 20px;
-  margin: 10px 10px 10px 0;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  border: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-.button:hover {
-  background-color: #0097a7;
-  color: #fff;
-  transform: translateY(-3px) scale(1.05);
-}
-
-/* ==========================
-   SOCIAL BUTTONS
-========================== */
-.social-buttons {
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.social-buttons a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 24px;
-  border-radius: 30px;
-  font-weight: bold;
-  font-size: 16px;
-  text-decoration: none;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-.social-buttons a:hover {
-  transform: scale(1.08) rotate(-2deg);
-  opacity: 0.95;
-}
-
-.whatsapp { background-color: #25D366; }
-.youtube { background-color: #FF0000; }
-.instagram { background-color: #E1306C; }
-
-/* ==========================
-   FLOATING MUSIC BUTTON
-========================== */
-.audio-button, .music-btn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background-color: #00bcd4;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  z-index: 1500;
-  font-size: 28px;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); box-shadow: 0 0 8px #00bcd4; }
-  50% { transform: scale(1.08); box-shadow: 0 0 18px #00e5ff; }
-  100% { transform: scale(1); box-shadow: 0 0 8px #00bcd4; }
-}
-
-/* ==========================
-   RESPONSIVE DESIGN
-========================== */
-@media (max-width: 768px) {
-  .layout { flex-direction: column; }
-  .sidebar {
-    width: 100%;
-    height: 60px;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-  }
-  .sidebar h2 { display: none; }
-  .sidebar a { margin:0 8px; padding:8px 12px; font-size:14px; }
-  .main-content { margin-top: 70px; padding: 15px; }
-  .game-container { grid-template-columns: repeat(2, 1fr); }
-  .social-buttons { flex-direction: column; gap: 16px; }
-  .audio-button, .music-btn { bottom: 20px; right: 20px; }
-}
-
-/* ==========================
-   LIGHT MODE
-========================== */
-body.light-mode {
-  background: #f9f9f9;
-  color: #222;
-}
-body.light-mode .sidebar { background: #e3f4fa; }
-body.light-mode .sidebar h2,
-body.light-mode .sidebar a { color: #0087a7; }
-body.light-mode .sidebar a.active,
-body.light-mode .sidebar a:hover { background: #00bcd4; color: #fff; }
-body.light-mode .main-content { background: #fff; color: #222; }
-body.light-mode .game-card { background: #eaeaea; }
-body.light-mode .leaderboard { background: #f0f0f0; }
-body.light-mode .popup { background: #fff; color: #333; }
