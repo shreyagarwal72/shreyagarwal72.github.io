@@ -15,58 +15,23 @@
     }
 
     body {
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      background: #121212;
       color: #e0e0e0;
-      display: flex;
       min-height: 100vh;
-      backdrop-filter: blur(5px);
-    }
-
-    /* ==== Sidebar ==== */
-    .sidebar {
-      width: 220px;
-      background: rgba(255,255,255,0.05);
-      border-right: 1px solid rgba(255,255,255,0.1);
-      flex-shrink: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      backdrop-filter: blur(10px);
-      border-radius: 0 20px 20px 0;
-      position: sticky;
-      top: 20px;
-      height: calc(100vh - 40px);
-      margin: 10px 0;
-    }
-
-    .sidebar a {
-      color: #e0e0e0;
-      text-decoration: none;
-      padding: 12px 15px;
-      border-radius: 12px;
-      transition: 0.3s;
-      font-weight: 500;
-      backdrop-filter: blur(10px);
-    }
-
-    .sidebar a:hover {
-      background: rgba(0, 188, 212, 0.25);
-      color: #00bcd4;
-      backdrop-filter: blur(15px);
+      padding: 40px 20px;
     }
 
     /* ==== Main Content ==== */
     .main {
-      flex: 1;
-      padding: 40px;
-      overflow-y: auto;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     h2 {
       color: #00bcd4;
       margin-bottom: 15px;
       font-weight: 600;
+      font-size: 1.8rem;
     }
 
     p {
@@ -90,7 +55,7 @@
 
     .download-btn {
       display: inline-block;
-      background: rgba(0, 188, 212, 0.25);
+      background: rgba(0, 188, 212, 0.2);
       color: #00bcd4;
       padding: 12px 25px;
       border-radius: 15px;
@@ -107,12 +72,12 @@
       color: #fff;
     }
 
-    /* ==== Highlight / Glass Boxes ==== */
+    /* ==== Glass Sections ==== */
     .highlight {
       background: rgba(255, 255, 255, 0.05);
       border-left: 4px solid #00bcd4;
       padding: 25px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       border-radius: 20px;
       backdrop-filter: blur(15px);
       box-shadow: 0 4px 30px rgba(0,0,0,0.2);
@@ -130,31 +95,46 @@
       margin-top: 40px;
       padding: 20px 0;
       border-top: 1px solid rgba(255,255,255,0.1);
-      color: #aaa;
+      color: #888;
       font-size: 0.9rem;
+    }
+
+    /* ==== Anchor Links ==== */
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #00bcd4;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 10px;
+      background: rgba(0,188,212,0.1);
+      transition: 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-links a:hover {
+      background: rgba(0,188,212,0.25);
+      color: #fff;
     }
 
     /* ==== Responsive ==== */
     @media (max-width: 768px) {
       body {
-        flex-direction: column;
+        padding: 20px 15px;
       }
 
-      .sidebar {
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        overflow-x: auto;
-        border-radius: 0;
-        margin: 0;
+      h2 {
+        font-size: 1.5rem;
       }
 
-      .sidebar a {
-        flex-shrink: 0;
-        margin-right: 10px;
-      }
-
-      .main {
+      .highlight {
         padding: 20px;
       }
     }
@@ -162,38 +142,39 @@
 </head>
 <body>
 
-  <div class="sidebar">
-    <a href="#features">Features</a>
-    <a href="#technology">Technology</a>
-    <a href="#usecases">Use Cases</a>
-    <a href="#roadmap">Roadmap</a>
-    <a href="#download">Download</a>
-  </div>
-
   <div class="main">
+
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#technology">Technology</a>
+      <a href="#usecases">Use Cases</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#download">Download</a>
+    </div>
+
     <h2>🚀 ClimbUp AI - Initial Public Release</h2>
     <p>🎉 Introducing <strong>ClimbUp AI</strong>, a sleek AI-powered assistant designed to boost focus, consistency, and positivity using the advanced Gemini AI model.</p>
 
     <div id="features" class="highlight">
       <h2>✅ Features</h2>
       <ul>
-        <li>Modern, fluid, and responsive dark mode UI with clean sidebar navigation</li>
+        <li>Modern, fluid, and responsive dark mode UI</li>
         <li>Real-time AI chat powered by Google Gemini API</li>
         <li><strong>Bold text parsing</strong> in AI replies for enhanced readability</li>
         <li>Animated loading indicator while awaiting AI responses</li>
         <li>Convenient canned suggestions for quick motivation and tips</li>
         <li>Copy-to-clipboard button for chatbot responses</li>
-        <li>Persistent chat history saved locally for ongoing user sessions</li>
-        <li>Easy one-click Clear Chat option from a sleek three-dot menu</li>
+        <li>Persistent chat history saved locally</li>
+        <li>One-click Clear Chat option from a sleek menu</li>
       </ul>
     </div>
 
     <div id="technology" class="highlight">
       <h2>🛠️ Technology</h2>
       <ul>
-        <li>HTML5, CSS3 modern layouts with mobile-first responsive design</li>
-        <li>Vanilla JavaScript for smooth UI interactivity and API communication</li>
-        <li>Uses Google Gemini API for generative AI conversational responses</li>
+        <li>HTML5, CSS3 modern layouts with responsive design</li>
+        <li>Vanilla JavaScript for smooth UI interactivity</li>
+        <li>Uses Google Gemini API for AI conversational responses</li>
         <li>Progressive web app ready with favicon and manifest support</li>
       </ul>
     </div>
@@ -202,7 +183,7 @@
       <h2>🎯 Use Cases</h2>
       <ul>
         <li>Students and professionals seeking motivation and focus tips</li>
-        <li>Users wanting a simple and intuitive AI companion for daily success</li>
+        <li>Users wanting a simple AI companion for daily success</li>
         <li>Content creators and learners interested in AI-powered productivity tools</li>
       </ul>
     </div>
@@ -211,7 +192,7 @@
       <h2>🐞 Known Issues & Roadmap</h2>
       <ul>
         <li>Initial release; some edge cases in chat parsing may need refinement</li>
-        <li>Future updates will include customizable themes and multi-language support</li>
+        <li>Future updates: customizable themes and multi-language support</li>
         <li>Planned integration with calendar and reminder APIs</li>
       </ul>
     </div>
