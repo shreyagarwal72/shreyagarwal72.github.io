@@ -1,448 +1,216 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-  <meta charset="UTF-8" />    
-  <meta name="viewport" content="width=device-width, initial-scale=1" />    
-  <title>Games - Nextup Studio</title>    
-  <link rel="stylesheet" href="style.css" />  
-  <style>  
-    body {  
-      margin:0; padding:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
-      background:#121212; color:white;  
-      transition: background 0.2s, color 0.2s;  
-    }  
-    .layout { display: flex; min-height: 100vh; }  
-    .sidebar {  
-      width: 220px;  
-      background: #1e1e1e;  
-      padding: 20px;  
-      box-sizing: border-box;  
-      display: flex;  
-      flex-direction: column;  
-      gap: 15px;  
-      height: 100vh;  
-      position: relative;  
-    }  
-    .sidebar h2 {  
-      color: #00bcd4;  
-      margin-bottom: 20px;  
-      text-align: left;  
-      font-size: 22px;  
-      font-weight: 700;  
-      letter-spacing: 1px;  
-    }  
-    .sidebar a {  
-      color: #f0f0f0;  
-      text-decoration: none;  
-      padding: 10px;  
-      border-radius: 5px;  
-      font-weight: 500;  
-      margin-bottom: 6px;  
-      transition: background 0.2s, color 0.2s;  
-      display: block;  
-    }  
-    .sidebar a.active, .sidebar a:hover {  
-      background: #00bcd4;  
-      color: #181818;  
-      font-weight: bold;  
-    }  
-    .main-content {  
-      flex: 1;  
-      padding: 30px;  
-      margin-left: 0;  
-      box-sizing: border-box;  
-      text-align: center;  
-    }  
-    button {  
-      background: #00bcd4;  
-      border: none;  
-      padding: 12px 20px;  
-      border-radius: 5px;  
-      margin:8px 8px 8px 0;  
-      cursor: pointer;  
-      font-weight: bold;  
-      color: #121212;  
-      font-size: 16px;  
-      transition: background 0.3s, color 0.2s;  
-      display:inline-block;  
-    }  
-    button:hover {  
-      background: #0097a7;  
-      color: white;  
-    }  
-    #leaderboard {  
-      max-width: 400px;  
-      margin: 20px auto 0;  
-      background: #222;  
-      padding: 15px;  
-      border-radius: 10px;  
-      color: #00bcd4;  
-      text-align: left;  
-      display: none;  
-    }  
-    #leaderboardList li { margin-bottom: 5px; }  
-    input[type="text"], input[type="number"] {  
-      padding: 8px; border-radius: 5px; border: none;  
-      font-size: 16px; width:80%; margin-right:10px;  
-    }  
-    #nameInputSection { margin-top: 15px; }  
-    #gameCanvas {  
-      margin-top: 20px;  
-      border: 2px solid #00bcd4;  
-      border-radius: 10px;  
-      background: #232;  
-      touch-action: none;  
-      max-width: 100%;  
-      height: auto;  
-    }  
-    /* Custom Modal Styles */  
-    #customModal {  
-      display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;  
-      background: rgba(0,0,0,0.5); z-index: 9999;  
-      align-items: center; justify-content: center;  
-    }  
-    #customModal .modal-content {  
-      background: #212e2e;  
-      color: #00bcd4;  
-      border-radius: 18px;  
-      padding: 29px 28px 22px 28px;  
-      max-width: 300px;  
-      margin: auto;  
-      text-align: center;  
-      box-shadow: 0 6px 32px #0008;  
-      animation: popfancy .2s;  
-      font-size: 1.1em;  
-    }  
-    #customModal .modal-title {  
-      font-size: 1.3em; font-weight: bold; margin-bottom:6px;  
-      color: #fff;  
-    }  
-    #customModal .modal-emoji {  
-      font-size:2.25em;line-height:1.2;margin-bottom: 10px;  
-      display:block;  
-    }  
-    #customModal .close-btn {  
-      margin-top: 20px;  
-      background: #00bcd4;  
-      color: #121212;  
-      border: none;  
-      padding: 8px 22px;  
-      border-radius: 8px;  
-      font-size: 1.13em;  
-      cursor: pointer;  
-      font-weight:bold;  
-      transition:.2s;  
-      box-shadow:0 2px 5px #0087a749;  
-    }  
-    #customModal .close-btn:hover { background: #0097a7; color: #fff; }  
-    @keyframes popfancy { from {transform:scale(.9);opacity:0;} to {transform:scale(1);opacity:1;} }  
-    /* Responsive design */  
-    @media(max-width: 768px){  
-      .layout{flex-direction: column;}  
-      .sidebar{  
-        width:100%; height: 60px;  
-        padding:10px;  
-        flex-direction: row;  
-        justify-content: space-around;  
-        align-items:center;  
-        position:fixed; top:0; left:0; right:0;  
-        z-index:1000;  
-        gap: 0;  
-      }  
-      .sidebar h2{display:none;}  
-      .sidebar a{margin:0 8px; padding:8px 12px; font-size:14px; white-space:nowrap;}  
-      .main-content{margin-left:0; margin-top:60px; padding:10px;}  
-      input[type="text"], input[type="number"]{width:100%; margin-bottom:10px;}  
-      button {margin:8px 0;}  
-    }  
-    /* Light mode */  
-    body.light-mode { background:#f9f9f9; color:#222;}  
-    body.light-mode .sidebar{background:#e3f4fa;}  
-    body.light-mode .sidebar h2, body.light-mode .sidebar a { color:#0087a7; }  
-    body.light-mode .sidebar a.active,body.light-mode .sidebar a:hover {background:#00bcd4;color:#fff;}  
-    body.light-mode .main-content{background:#fff;color:#222;}  
-    body.light-mode #leaderboard{background:#daf1fc;color:#0087a7;}  
-    body.light-mode #customModal .modal-content {background: #e9fafd; color: #0097a7;}  
-    body.light-mode #customModal .modal-title {color:#212;}  
-  </style>  
-</head>  
-<body>  
-<div class="layout">  
-  <div class="sidebar">  
-    <h2>Nextup Studio</h2>  
-    <a href="home.html">Home</a>  
-    <a href="yt.html">YouTube</a>  
-    <a href="journey.html">My Journey</a>  
-    <a href="game.html" class="active">Game</a>  
-  </div>  
-  <div class="main-content">  
-    <h1 id="gameTitle">Choose a Game to Play</h1>  
-    <div id="gameChoice">  
-      <p>Which game do you want to play?</p>  
-      <button onclick="loadGame('quiz')">Quiz Game</button>  
-      <button onclick="loadGame('hideSeek')">Hide and Seek</button>  
-      <button onclick="loadGame('ropeBridge')">Rope Bridge</button>  
-      <button onclick="loadGame('reactionTest')">Reaction Time Test</button>  
-      <button onclick="loadGame('crossRoad')">Cross the Road</button>  
-      <hr style="margin:20px 0; border-color:#0097a7;" />  
-      <button id="showLeaderboardBtn" onclick="showLeaderboard()">Show Leaderboard</button>  
-      <div id="leaderboard">  
-        <h3>Leaderboard - Top Scores</h3>  
-        <ol id="leaderboardList"></ol>  
-        <button id="closeLeaderboardBtn" onclick="hideLeaderboard()">Close Leaderboard</button>  
-      </div>  
-    </div>  
-    <div id="gameContainer"></div>  
-  </div>  
-</div>  
-<!-- CUSTOM MODAL -->  
-<div id="customModal">  
-  <div class="modal-content" id="customModalContent"></div>  
-</div>  
-<script>  
-  // Custom Modal  
-  function showCustomModal(message, emoji='🎉', title='Well done!') {  
-    document.getElementById('customModalContent').innerHTML = `  
-      <div class="modal-emoji">${emoji}</div>  
-      <div class="modal-title">${title}</div>  
-      <div style="margin:14px 0 10px 0;font-size:1.08em;">${message}</div>  
-      <button class="close-btn" onclick="hideCustomModal()">OK</button>  
-    `;  
-    document.getElementById('customModal').style.display = 'flex';  
-  }  
-  function hideCustomModal() {  
-    document.getElementById('customModal').style.display = 'none';  
-  }  // THEME SYNC (dark/light mode auto, no toggle)
-function setThemeFromStorage() {
-const themePref = localStorage.getItem('themeMode');
-if (themePref === 'light') document.body.classList.add('light-mode');
-else document.body.classList.remove('light-mode');
-}
-setThemeFromStorage();
-window.addEventListener('storage', function(e){
-if (e.key === 'themeMode') setThemeFromStorage();
-});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClimbUp AI - Public Release</title>
+  <link rel="icon" href="https://via.placeholder.com/48" type="image/png">
+  <style>
+    /* ==== Global Reset ==== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-// GAME CHEAT PATTERN (ROPE BRIDGE)
-let safePattern = [1, 3, 5, 2, 4];
-let patternIndex = 0;
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+    }
 
-// ---------------------- LOGIN SYNC ----------------------
-let savedUserObj = JSON.parse(localStorage.getItem('nextupUser'));
-let currentUserName = savedUserObj ? savedUserObj.username : null;
+    /* ==== Sidebar ==== */
+    .sidebar {
+      width: 250px;
+      background-color: #1f1f1f;
+      flex-shrink: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
 
-// ---------------------- QUIZ ----------------------
-const quizData = [
-{ question:"Minecraft mein Nether ka main portal kaise banate hain?", options:["Obsidian frame + Flint and Steel","Wooden frame + Torch","Stone frame + Pickaxe","Diamond frame + Fire Charge"], answer:"Obsidian frame + Flint and Steel"},
-{ question:"AI ka full form kya hai?", options:["Artificial Intelligence","Automatic Input","Android Interface","Auto Identification"], answer:"Artificial Intelligence"},
-{ question:"YouTube par sabse zyada subscribers wala channel kaun hai?", options:["T-Series","PewDiePie","Cocomelon","MrBeast"], answer:"MrBeast"},
-{ question:"Squid Game mein guard ke mask par kaun sa shape hota hai?", options:["Circle","Triangle","Square","Star"], answer:"Triangle"},
-{ question:"Minecraft mein Creeper kisse dur rehta hai?", options:["Cat","Wolf","Water","Lava"], answer:"Cat"}
-];
-let currentQuestion=0, score=0;
+    .sidebar h1 {
+      font-size: 1.5rem;
+      color: #00bcd4;
+      margin-bottom: 20px;
+    }
 
-function loadGame(game){
-document.getElementById('leaderboard').style.display='none';
-document.getElementById('gameChoice').style.display='none';
-document.getElementById('gameContainer').style.display='block';
-document.getElementById('showLeaderboardBtn').style.display='inline-block';
-document.getElementById('gameTitle').textContent = {
-'quiz':'Quiz Game',
-'hideSeek':'Hide and Seek',
-'ropeBridge':'Rope Bridge',
-'reactionTest':'Reaction Time Test',
-'crossRoad':'Cross the Road'
-}[game];
-if(game==='quiz') startQuiz();
-else if(game==='hideSeek') loadHideSeek();
-else if(game==='ropeBridge') loadRopeBridge();
-else if(game==='reactionTest') loadReactionTest();
-else if(game==='crossRoad') loadCrossRoad();
-}
+    .sidebar a {
+      color: #e0e0e0;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
 
-function showGameChoice(){
-document.getElementById('gameChoice').style.display='block';
-document.getElementById('gameContainer').style.display='none';
-document.getElementById('gameTitle').textContent='Choose a Game to Play';
-}
+    .sidebar a:hover {
+      background-color: #00bcd4;
+      color: #121212;
+    }
 
-// --- QUIZ LOGIC ---
-function startQuiz(){ currentQuestion=0; score=0; renderQuizQuestion(); }
-function renderQuizQuestion(){
-const container = document.getElementById("gameContainer");
-if(currentQuestion>=quizData.length){
-container.innerHTML=   <div style="max-width:600px;margin:auto;background:#1e1e1e;padding:20px;border-radius:10px;text-align:center;">   <h2>Quiz Completed!</h2>   <p>Your Score: <strong>${score}/${quizData.length}</strong></p>   <button onclick="startQuiz()">Retry Quiz</button>   <button onclick="showGameChoice()">Back to Game Selection</button>   <div id="nameInputSection" style="margin-top:15px;"></div>   </div>;
-if(currentUserName){
-saveScore(currentUserName, score, "Quiz");
-showCustomModal(Score saved automatically for <b>${currentUserName}</b>!, '🎯', 'Saved!');
-document.getElementById('showLeaderboardBtn').style.display='inline-block';
-} else {
-const nameInputSection = document.getElementById('nameInputSection');
-nameInputSection.innerHTML=   <input type="text" id="playerName" placeholder="Enter your name"/>   <button id="submitNameBtn">Submit Score</button>;
-document.getElementById('submitNameBtn').onclick=()=>{
-const name=document.getElementById('playerName').value.trim();
-if(!name){ showCustomModal('Please enter your name.', '📝', 'Name Required'); return; }
-saveScore(name, score, "Quiz");
-showCustomModal('Score saved! Check leaderboard.', '🏆', 'Congrats!');
-nameInputSection.innerHTML='';
-}
-}
-return;
-}
-const q = quizData[currentQuestion];
-container.innerHTML=<div style="max-width:600px;margin:auto;background:#1e1e1e;padding:20px;border-radius:10px;text-align:left;">   <h3>${q.question}</h3>   ${q.options.map(opt=><button style="width:100%;margin:5px 0;" onclick="checkQuizAnswer('${opt}')">${opt}</button>).join('')}   </div>;
-}
-function checkQuizAnswer(selected){ if(selected===quizData[currentQuestion].answer) score++; currentQuestion++; renderQuizQuestion(); }
+    /* ==== Main Content ==== */
+    .main {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+    }
 
-// --- HIDE AND SEEK ---
-function loadHideSeek(){
-const container = document.getElementById("gameContainer");
-container.innerHTML=<div style="max-width:600px;margin:auto;background:#1e1e1e;padding:20px;border-radius:10px;text-align:center;">   <p>Click the button to see if you got found!</p>   <button id="hideSeekBtn">Check Hide Status</button>   <p id="hideSeekResult" style="margin-top:15px;"></p>   <div id="hideSeekNameInput" style="margin-top:15px;"></div>   <button onclick="loadHideSeek()" style="margin-top:15px;">Restart</button>   <button onclick="showGameChoice()" style="margin-top:15px;">Back to Game Selection</button>   </div>;
-document.getElementById('hideSeekBtn').onclick=()=>{
-const resultEl = document.getElementById('hideSeekResult');
-const nameInputEl = document.getElementById('hideSeekNameInput');
-nameInputEl.innerHTML='';
-const found = Math.random()<0.5;
-if(found){
-resultEl.textContent='Oh no! You got found! 😢';
-showCustomModal('Oh no! You got found! 😢', '🤐', 'Try Again');
-}
-else {
-resultEl.textContent='You are still hidden! 🎉';
-showCustomModal('You are still hidden! 🎉', '🙈', 'Safe!');
-askNameAndSaveScore(1,'Hide and Seek','hideSeekNameInput');
-}
-}
-}
+    h2 {
+      color: #00bcd4;
+      margin-bottom: 10px;
+    }
 
-// --- ROPE BRIDGE --- (THIS FUNCTION IS FULLY UPDATED FOR PATTERN)
-function loadRopeBridge(){
-const container = document.getElementById("gameContainer");
-container.innerHTML=<div style="max-width:600px;margin:auto;background:#1e1e1e;padding:20px;border-radius:10px;text-align:center;">   <p>Guess a safe step number (1 to 5) to cross the bridge.</p>   <input id="stepInput" type="number" min="1" max="5" placeholder="Step number"/>   <button id="ropeBridgeBtn">Cross</button>   <p id="ropeBridgeResult" style="margin-top:15px;"></p>   <div id="ropeBridgeNameInput" style="margin-top:15px;"></div>   <button onclick="loadRopeBridge()" style="margin-top:15px;">Restart</button>   <button onclick="showGameChoice()" style="margin-top:15px;">Back to Game Selection</button>   </div>;
-document.getElementById('ropeBridgeBtn').onclick=()=>{
-const step=Number(document.getElementById('stepInput').value);
-const resultEl=document.getElementById('ropeBridgeResult');
-const nameInputEl=document.getElementById('ropeBridgeNameInput');
-nameInputEl.innerHTML='';
-if(!step || step<1 || step>5){
-resultEl.textContent='Please enter a valid step between 1 and 5.';
-showCustomModal('Please enter a valid step between 1 and 5.', '🔢', 'Invalid!');
-return;
-}
-// Pattern logic
-const safeStep = safePattern[patternIndex];
-patternIndex = (patternIndex + 1) % safePattern.length;
+    p {
+      margin-bottom: 15px;
+    }
 
-if(step===safeStep){   
-    resultEl.textContent='You crossed safely! 🎉';   
-    showCustomModal('You crossed safely! 🎉', '🌉', 'Congratulations');  
-    askNameAndSaveScore(1,'Rope Bridge','ropeBridgeNameInput');   
-  }  
-  else {   
-    resultEl.textContent='Oops! The bridge broke! You fell. 😢';   
-    showCustomModal('Oops! The bridge broke! You fell. 😢', '💀', 'Failed!');  
-  }  
-}
+    ul {
+      list-style: disc inside;
+      margin-bottom: 20px;
+    }
 
-}
+    ul li {
+      margin-bottom: 10px;
+    }
 
-// --- REACTION TEST ---
-let reactionTimeout, reactionStart;
-function loadReactionTest(){
-const container = document.getElementById("gameContainer");
-container.innerHTML=<div style="max-width:600px;margin:auto;background:#1e1e1e;padding:20px;border-radius:10px;text-align:center;">   <p>Wait for green, then click as fast as you can!</p>   <button id="reactionBtn" disabled style="background:red;color:white;padding:20px;font-size:20px;border:none;border-radius:10px;cursor:not-allowed;">Wait for green...</button>   <p id="reactionResult" style="margin-top:15px;"></p>   <div id="reactionNameInput" style="margin-top:15px;"></div>   <button id="startReactionBtn" style="margin-top:15px;">Start Test</button>   <button onclick="showGameChoice()" style="margin-top:15px;">Back to Game Selection</button>   </div>;
-document.getElementById('startReactionBtn').onclick=startReactionTest;
-}
-function startReactionTest(){
-const btn=document.getElementById('reactionBtn');
-const result=document.getElementById('reactionResult');
-const nameInputEl=document.getElementById('reactionNameInput');
-btn.style.backgroundColor='red'; btn.textContent='Wait for green...'; btn.disabled=true; btn.style.cursor='not-allowed';
-result.textContent=''; nameInputEl.innerHTML='';
-const delay=Math.floor(Math.random()*3000)+2000;
-reactionTimeout=setTimeout(()=>{
-btn.style.backgroundColor='green'; btn.textContent='Click Now!'; btn.disabled=false; btn.style.cursor='pointer';
-reactionStart=performance.now();
-btn.onclick=()=>{
-const reactionTime=performance.now()-reactionStart;
-btn.style.backgroundColor='#00bcd4'; btn.textContent=Your reaction time: ${reactionTime.toFixed(2)} ms;
-btn.disabled=true; btn.style.cursor='default'; btn.onclick=null;
-const score=Math.max(0,Math.round(3000-reactionTime));
-showCustomModal(Your reaction time: <b>${reactionTime.toFixed(2)} ms</b>, '⚡', 'Result');
-askNameAndSaveScore(score,'Reaction Test','reactionNameInput');
-}
-},delay);
-btn.onclick=()=>{
-clearTimeout(reactionTimeout);
-btn.style.backgroundColor='red'; btn.textContent='Too Soon! Wait for green.'; btn.disabled=true; btn.style.cursor='default';
-showCustomModal('Too Soon! Wait for green.', '⏱️', 'Wait!');
-}
-}
+    strong {
+      font-weight: bold;
+      color: #fff;
+    }
 
-// --- CROSS THE ROAD GAME ---
-function loadCrossRoad(){
-const container = document.getElementById('gameContainer');
-container.innerHTML =   <div style="max-width: 600px; margin: auto; color: white; text-align: center;">   <p>Use arrow keys or on-screen buttons to cross the road safely!</p>   <canvas id="gameCanvas"></canvas>   <div style="margin-top: 10px;">   <button id="upBtn">⬆️</button>   <button id="leftBtn">⬅️</button>   <button id="downBtn">⬇️</button>   <button id="rightBtn">➡️</button>   </div>   <button style="margin-top: 20px;" onclick="showGameChoice()">Back to Game Selection</button>   </div>  ;
+    .download-btn {
+      display: inline-block;
+      background-color: #00bcd4;
+      color: #121212;
+      padding: 12px 25px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+      margin-top: 15px;
+    }
 
-const canvas = document.getElementById('gameCanvas');  
-const ctx = canvas.getContext('2d');  
-const GRID = 50;  
-let rows, cols;  
-let player;  
-let obstacles = [];  
+    .download-btn:hover {
+      background-color: #0097a7;
+    }
 
-function resizeCanvas() {  
-  canvas.width = container.clientWidth * 0.95;  
-  canvas.height = canvas.width * 1.5; // 2:3 ratio approx  
-  rows = Math.floor(canvas.height / GRID);  
-  cols = Math.floor(canvas.width / GRID);  
-  restartGame();  
-}  
-window.addEventListener('resize', resizeCanvas);  
-resizeCanvas();  
+    /* ==== Responsive ==== */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
 
-function restartGame(){  
-  player = { x: Math.floor(cols/2), y: rows-1, alive: true };  
-  obstacles = [];  
-  for(let r=0; r<rows-1; r++){  
-    let speed = Math.random() > 0.5 ? 0.8 : -0.8;  
-    let startX = speed > 0 ? -1 : cols;  
-    obstacles.push({ row: r, x: startX, speed, color: '#f33' });  
-  }  
-}  
+      .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px;
+      }
 
-function drawGame(){  
-  ctx.clearRect(0, 0, canvas.width, canvas.height);  
-  for(let r=0; r<rows; r++){  
-    ctx.fillStyle = r % 2 === 0 ? '#484' : '#272';  
-    ctx.fillRect(0, r*GRID, canvas.width, GRID);  
-  }  
-  obstacles.forEach(ob => {  
-    ctx.fillStyle = ob.color;  
-    ctx.fillRect(ob.x * GRID, ob.row * GRID + 10, GRID - 10, GRID - 20);  
-  });  
-  ctx.beginPath();  
-  ctx.arc(player.x * GRID + GRID/2, player.y * GRID + GRID/2, GRID/2.2, 0, Math.PI*2);  
-  ctx.fillStyle = player.alive ? '#ff0' : '#888';  
-  ctx.fill();  
-}  
+      .sidebar a {
+        flex-shrink: 0;
+        margin-right: 10px;
+      }
 
-function movePlayer(dx, dy){  
-  if(!player.alive) return;  
-  let nx = Math.max(0, Math.min(cols-1, player.x + dx));  
-  let ny = Math.max(0, Math.min(rows-1, player.y + dy));  
-  player.x = nx;  
-  player.y = ny;  
-  checkCollision();  
-  if(player.y === 0){  
-    setTimeout(() => {  
-      showCustomModal('You crossed safely! 🎉', '🚦', 'Congratulations');  
-      askNameAndSaveScore(1, 'Cross the Road', null);  
-      restartGame();  
-    }, 100);  
-  }  
-}  
+      .main {
+        padding: 20px;
+      }
+    }
 
-function checkCollision(){
+    /* ==== Highlight/quote box ==== */
+    .highlight {
+      background-color: #1a1a1a;
+      border-left: 4px solid #00bcd4;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
 
-Ab bhejo
+    /* ==== Footer ==== */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px 0;
+      border-top: 1px solid #333;
+      color: #888;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
 
+  <div class="sidebar">
+    <h1>ClimbUp AI</h1>
+    <a href="#features">Features</a>
+    <a href="#technology">Technology</a>
+    <a href="#usecases">Use Cases</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#download">Download</a>
+  </div>
+
+  <div class="main">
+    <h2>🚀 ClimbUp AI - Initial Public Release</h2>
+    <p>🎉 We are excited to announce the first public release of <strong>ClimbUp AI</strong>, a sleek and powerful AI-powered chat assistant designed to help users boost focus, consistency, and positivity with the advanced Gemini AI model.</p>
+
+    <div id="features" class="highlight">
+      <h2>✅ Features</h2>
+      <ul>
+        <li>Modern, fluid, and responsive dark mode UI with clean sidebar navigation</li>
+        <li>Real-time AI chat powered by Google Gemini API</li>
+        <li><strong>Bold text parsing</strong> in AI replies for enhanced readability</li>
+        <li>Animated loading indicator while awaiting AI responses</li>
+        <li>Convenient canned suggestions for quick motivation and tips</li>
+        <li>Copy-to-clipboard button for chatbot responses</li>
+        <li>Persistent chat history saved locally for ongoing user sessions</li>
+        <li>Easy one-click Clear Chat option from a sleek three-dot menu</li>
+      </ul>
+    </div>
+
+    <div id="technology" class="highlight">
+      <h2>🛠️ Technology</h2>
+      <ul>
+        <li>HTML5, CSS3 modern layouts with mobile-first responsive design</li>
+        <li>Vanilla JavaScript for smooth UI interactivity and API communication</li>
+        <li>Uses Google Gemini API for generative AI conversational responses</li>
+        <li>Progressive web app ready with favicon and manifest support</li>
+      </ul>
+    </div>
+
+    <div id="usecases" class="highlight">
+      <h2>🎯 Use Cases</h2>
+      <ul>
+        <li>Students and professionals seeking motivation and focus tips</li>
+        <li>Users wanting a simple and intuitive AI companion for daily success</li>
+        <li>Content creators and learners interested in AI-powered productivity tools</li>
+      </ul>
+    </div>
+
+    <div id="roadmap" class="highlight">
+      <h2>🐞 Known Issues & Roadmap</h2>
+      <ul>
+        <li>Initial release; some edge cases in chat parsing may need refinement</li>
+        <li>Future updates will include customizable themes and multi-language support</li>
+        <li>Planned integration with calendar and reminder APIs</li>
+      </ul>
+    </div>
+
+    <div id="download" class="highlight">
+      <h2>📥 Download ClimbUp AI</h2>
+      <a href="https://www.mediafire.com/file/fvxbve649zr0293/Climbup_-_AI.apk/file" class="download-btn" target="_blank">Download APK</a>
+    </div>
+
+    <footer>
+      Thank you for trying ClimbUp AI! Your feedback is highly appreciated. 🚀
+    </footer>
+  </div>
+
+</body>
+</html>
