@@ -1,41 +1,40 @@
-# 🌐 Nextup Studio by Vanshu
+# 🎵 Nextup Studio  
 
-Welcome to **Nextup Studio** – the creative hub by *Vanshu*.  
-Explore original **songs, Minecraft content, AI projects, mini-games, and useful web tools** all in one place.  
+**Nextup Studio** is the official website of **Vanshu Agarwal (Shrey)**.  
+It’s a creative hub where you’ll find original music, Minecraft shorts, games, tools, and more – all in one place.  
 
-🚀 Live Website: [shreyagarwal72.github.io](https://shreyagarwal72.github.io)
-
----
-
-## ✨ What You’ll Find Here
-- 🎵 **Original Music & Rap Songs**  
-- 🎮 **Minecraft Shorts & Gameplay**  
-- 🤖 **AI Projects (Climbup AI, experiments, tools)**  
-- 🛠️ **Handy Web Tools & Mini Games**  
+🌐 Live Website: [Nextup Studio](https://shreyagarwal72.github.io/)  
 
 ---
 
-## 🔗 Explore My Work
-- 🌐 [**Official Nextup Studio Website**](https://shreyagarwal72.github.io/home.html)  
-- 🟩 [**Minecraft Hub**](https://shreyagarwal72.github.io/Nextup-Studio)  
-- 🛠️ [**ToolHub – Web Tools**](https://shreyagarwal72.github.io/toolhub)  
+## ✨ Features  
+
+- 🎵 **Original Songs** – Stream and explore Vanshu’s music.  
+- 🎮 **Minecraft Content** – Shorts, gameplay, and creative builds.  
+- 🧠 **Mini Games & AI Tools** – Fun and interactive experiences.  
+- 📈 **Life Journey** – Follow milestones and creative journey.  
+- 🔒 **Hidden Easter Eggs** – Secret links like `egg.html` and `vault.html`.  
+- 🎨 **Dark/Light Theme Toggle** – User-controlled theme preferences.  
+- 🎶 **Floating Music Player** – Background music with pause/resume support.  
+- 👤 **Google Login Integration** – Personalize your experience with username + login.  
+- 📱 **Responsive Design** – Works seamlessly on desktop and mobile.  
 
 ---
 
-## 📺 Connect With Me
-- 🎬 [**YouTube Channel**](https://www.youtube.com/@nextupstudioyt)  
-- 📸 [**Instagram**](https://instagram.com/vanshu_ag_72)  
-  
----
+## 📂 Project Structure---
 
-## 📌 About This Repo
-This repository hosts the **GitHub Pages website** for Nextup Studio.  
-It contains:  
-- `index.html` → Landing page  
-- `home.html` → Main site  
-- `sitemap.xml` + `robots.txt` → SEO optimized files  
+## ⚡ Tech Stack  
+
+- **HTML5, CSS3, JavaScript**  
+- **Google Identity Services** (Login Integration)  
+- **LocalStorage** for saving theme, music, and user data  
+- **SEO Optimized** with meta tags and Open Graph support  
 
 ---
 
-### ⚡ Credits
-Created with ❤️ by **Vanshu (Nextup Studio)**
+## 🚀 Usage  
+
+1. Clone the repo:  
+   ```bash
+   git clone https://github.com/shreyagarwal72/Nextup-Studio.git
+   cd Nextup-Studio
