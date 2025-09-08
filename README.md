@@ -24,9 +24,8 @@ Explore original **songs, Minecraft content, AI projects, mini-games, and useful
 
 ## 📺 Connect With Me
 - 🎬 [**YouTube Channel**](https://www.youtube.com/@nextupstudioyt)  
-- 📸 [**Instagram**](https://instagram.com/) *(add your link)*  
-- 💬 [**Discord**](https://discord.com/) *(optional)*  
-
+- 📸 [**Instagram**](https://instagram.com/vanshu_ag_72)  
+  
 ---
 
 ## 📌 About This Repo
