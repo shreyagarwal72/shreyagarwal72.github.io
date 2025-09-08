@@ -36,5 +36,5 @@ It’s a creative hub where you’ll find original music, Minecraft shorts, game
 
 1. Clone the repo:  
    ```bash
-   git clone https://github.com/shreyagarwal72/Nextup-Studio.git
+   git clone https://github.com/shreyagarwal72/.git
    cd Nextup-Studio
