@@ -3,7 +3,7 @@
 Nextup Studio is the official website of Vanshu Agarwal (Shrey) — a dynamic digital space combining music, creativity, and technology.
 Discover original songs, Minecraft content, mini-games, tools, and more — all crafted with passion and innovation.
 
-🌐 Live Website: Nextup Studio(https://shreyagarwal72.github.io)
+🌐 Live Website: Nextup Studio[https://shreyagarwal72.github.i]
 
 
 ---
