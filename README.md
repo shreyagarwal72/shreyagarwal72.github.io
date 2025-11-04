@@ -1,3 +1,4 @@
+Here’s a polished, GitHub-ready version of your README with professional badges, enhanced structure, and extra “enterprise-grade” touches. Copy-paste ready for the repo root.
 
 ```markdown
 <p align="center">
@@ -145,3 +146,4 @@ MIT © 2025 Vanshu Agarwal. See [LICENSE](LICENSE) for details.
 
 ---
 
+Drop the above into `README.md`, add the logo SVGs to `public/`, and you’re enterprise-ready.
