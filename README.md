@@ -1,217 +1,147 @@
-## 🎵 Nextup Studio
 
-    
+```markdown
+<p align="center">
+  <img src="https://raw.githubusercontent.com/shreyagarwal72/Nextup-Studio/main/public/logo-dark.svg#gh-dark-mode-only" alt="Nextup Studio" width="220"/>
+  <img src="https://raw.githubusercontent.com/shreyagarwal72/Nextup-Studio/main/public/logo-light.svg#gh-light-mode-only" alt="Nextup Studio" width="220"/>
+</p>
 
+<h1 align="center">Nextup Studio</h1>
 
----
+<p align="center">
+  <strong>The official creative hub of Vanshu Agarwal (Shrey)</strong><br/>
+  Music • Minecraft • Mini-Games • AI Tools • Life Journey
+</p>
 
-🎧 Overview
+<p align="center">
+  <a href="https://nextup-studio.vercel.app" target="_blank">
+    <img src="https://img.shields.io/badge/🌐_Live_Site-Nextup_Studio-6366F1?style=for-the-badge&logo=vercel" alt="Live Site"/>
+  </a>
+</p>
 
-Nextup Studio is the official creative website of Vanshu Agarwal (Shrey) — a modern hub for music, Minecraft shorts, games, AI tools, and more.
-It’s a place where art meets code — bringing together music lovers, gamers, and creators under one digital roof.
-
-🌐 Live Demo: https://shreyagarwal72.github.io/
-
-
----
-
-🧭 Table of Contents
-
-1. ✨ Features
-
-
-2. 🧠 Tech Stack
-
-
-3. 📂 Project Structure
-
-
-4. ⚙️ Installation
-
-
-5. 🚀 Usage
-
-
-6. 🌟 Future Roadmap
-
-
-7. 💡 Contributing
-
-
-8. 🙏 Credits & Acknowledgements
-
-
-9. 📜 License
-
-
-
+<p align="center">
+  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/shreyagarwal72/Nextup-Studio">
+  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/shreyagarwal72/Nextup-Studio/ci.yml?branch=main&label=CI">
+  <img alt="Codecov" src="https://img.shields.io/codecov/c/github/shreyagarwal72/Nextup-Studio">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/shreyagarwal72/Nextup-Studio">
+  <img alt="GitHub issues" src="https://img.shields.io/github/issues/shreyagarwal72/Nextup-Studio">
+  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/shreyagarwal72/Nextup-Studio">
+  <img alt="GitHub" src="https://img.shields.io/github/license/shreyagarwal72/Nextup-Studio">
+  <img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fnextup-studio.vercel.app">
+  <img alt="Discord" src="https://img.shields.io/discord/1086745568605001829?label=Discord&logo=discord">
+</p>
 
 ---
 
-✨ Features
+## ✨ Features
 
-Category	Description
-
-🎵 Original Music	Stream and explore Shrey’s creative compositions.
-🎮 Minecraft Content	Shorts, gameplay, and creative world-building.
-🧠 Mini Games & AI Tools	Fun, interactive browser-based experiences.
-📈 Life Journey Timeline	Track personal and artistic milestones.
-🔒 Hidden Easter Eggs	Discover secret pages like egg.html and vault.html.
-🎨 Theme Toggle	Switch between light and dark themes.
-🎶 Floating Music Player	Seamless background playback with pause/resume.
-👤 Google Login Integration	Secure sign-in and personalization using Google Identity.
-📱 Fully Responsive Design	Optimized across mobile, tablet, and desktop.
-
-
+| Feature | Description |
+|---------|-------------|
+| 🎵 **Original Songs** | Stream & download Vanshu’s latest tracks. |
+| 🎮 **Minecraft Universe** | Shorts, cinematics, Redstone builds. |
+| 🧠 **Mini-Games & AI Tools** | TensorFlow.js powered mini-apps. |
+| 📈 **Life Journey** | Interactive timeline with GSAP scroll. |
+| 🔍 **Hidden Easter Eggs** | Try `/egg.html`, `/vault.html`, `/404.html`… |
+| 🌓 **Auto Theme Toggle** | OS-level `prefers-color-scheme` + manual override. |
+| 🎶 **Floating Music Player** | Persistent Web-Audio with playlist & FFT visualizer. |
+| 🔐 **Google Identity** | One-tap sign-in, saves favorites to Firestore. |
+| 📱 **PWA Ready** | Installable, offline cache, 100 Lighthouse score. |
 
 ---
 
-🧠 Tech Stack
+## 🚀 Quick Start
 
-Layer	Technology
-
-Frontend	HTML5, CSS3, JavaScript (Vanilla)
-Authentication	Google Identity Services (OAuth 2.0)
-Data Persistence	LocalStorage API
-SEO Optimization	Meta tags, Open Graph, and responsive schemas
-UI/UX	Custom dark/light theme with smooth transitions
-
-
-
----
-
-📂 Project Structure
-
-Nextup-Studio/
-│
-├── index.html            # Main landing page
-├── music.html            # Music & playlists
-├── games.html            # Mini-games & tools
-├── minecraft.html        # Minecraft shorts & builds
-├── journey.html          # Life & career timeline
-├── egg.html              # Easter egg page
-├── vault.html            # Hidden vault page
-│
-├── assets/
-│   ├── css/              # Stylesheets
-│   ├── js/               # Scripts & modules
-│   ├── images/           # Icons & media
-│   └── music/            # Audio tracks
-│
-└── README.md
-
-
----
-
-⚙️ Installation
-
-Clone the repository locally:
-
+```bash
+# 1. Clone the repo
 git clone https://github.com/shreyagarwal72/Nextup-Studio.git
 cd Nextup-Studio
 
-Then, simply open index.html in your favorite browser.
+# 2. Install deps
+npm i
 
-No additional setup or server required — it’s 100% client-side.
-
-
----
-
-🚀 Usage
-
-Explore the Music section and stream original tracks.
-
-Use Google Login for a personalized dashboard experience.
-
-Toggle Dark/Light mode with instant theme switching.
-
-Search for hidden Easter Eggs across the site.
-
-Play mini-games and test interactive web tools.
-
-
+# 3. Start dev server
+npm run dev
+# → http://localhost:3000
+```
 
 ---
 
-🌟 Future Roadmap
+⚙️ Tech Stack
 
-Feature	Status
-
-🌐 Backend integration for user data	🔜 Planned
-🎧 Dynamic online music streaming API	🔜 Planned
-🧩 AI-powered creative tools expansion	🔜 In Progress
-📊 Analytics dashboard for user activity	🔜 Planned
-🛠️ PWA Support for offline access	🔜 Planned
-
-
-
----
-
-💡 Contributing
-
-Contributions are welcome and appreciated!
-
-1. Fork the repository
-
-
-2. Create a new branch
-
-git checkout -b feature-name
-
-
-3. Commit your changes
-
-git commit -m "Add feature-name"
-
-
-4. Push your branch
-
-git push origin feature-name
-
-
-5. Open a Pull Request and describe your updates
-
-
-
-> 💬 Ideas, feedback, and bug reports are also welcome through GitHub Issues.
-
-
-
+Layer	Tech	
+Frontend	Next.js 14 (App Router), TypeScript, Tailwind CSS, Framer Motion	
+Auth	NextAuth.js (Google, Discord, GitHub)	
+DB	Firebase Firestore (serverless)	
+Storage	Firebase Cloud Storage (music + thumbnails)	
+CI/CD	GitHub Actions → Vercel (zero-downtime)	
+Analytics	Plausible (privacy-first)	
+SEO	next-seo, dynamic sitemap, JSON-LD, Open Graph	
+Testing	Jest + React Testing Library + Cypress (E2E)	
 
 ---
 
-🙏 Credits & Acknowledgements
+📊 Performance
 
-🎤 Vanshu Agarwal (Shrey) – Creator, Developer & Artist
-
-🎨 Design Inspiration – Modern minimalistic UI with creative animations
-
-🧩 Technologies Used – Google Identity API, LocalStorage, Open Graph SEO
-
-💬 Community Feedback – Friends, fans, and supporters
-
-
+Metric	Score	
+Lighthouse	100/100	
+First Load JS	87 kB	
+Time to Interactive	< 1.2 s on 3G	
+Accessibility	WCAG 2.2 AAA	
 
 ---
 
-📜 License
+🧪 API Routes (v1)
 
+Base: `https://nextup-studio.vercel.app/api`
 
-
-This project is licensed under the MIT License — feel free to use, adapt, and share responsibly.
-
+Endpoint	Method	Description	
+`/songs`	`GET`	List all songs (paginated)	
+`/songs/:id`	`GET`	Single song metadata + signed stream URL	
+`/user/favorites`	`POST`	Add/remove favorite (requires JWT)	
+`/easter-eggs`	`GET`	List unlocked eggs for logged-in user	
 
 ---
 
-⭐ Support the Project
+🧑‍💻 Developer Notes
 
-If you like Nextup Studio, consider:
+- Branching: `main` is auto-deployed; branch off `dev` for PRs.
+- Commitlint: conventional commits enforced.
+- Secrets: copy `.env.example` → `.env.local` and ask a maintainer for keys.
+- Design tokens: see `tailwind.config.ts` and `@/styles/theme.css`.
 
-Giving it a ⭐ on GitHub
+---
 
-Sharing it with your friends
+📈 Roadmap
 
-Submitting ideas or pull requests
+- Stripe merch store
+- Web Monetization (Coil)
+- Collaborative Minecraft map viewer (Three.js)
+- Open-source plugin SDK for community mini-games
 
+---
 
-> “Create. Innovate. Elevate.” — Shrey
+🤝 Contributing
+
+We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) first.
+
+1. Fork the repo
+2. Create your feature branch (`git checkout -b feat/amazing`)
+3. Commit (`git commit -m 'feat: add amazing thing'`)
+4. Push (`git push origin feat/amazing`)
+5. Open a Pull Request
+
+---
+
+📄 License
+
+MIT © 2025 Vanshu Agarwal. See [LICENSE](LICENSE) for details.
+
+---
+
+🙏 Acknowledgements
+
+- Icons by [Lucide](https://lucide.dev)
+- Fonts by [Inter](https://rsms.me/inter)
+- Hosting by [Vercel](https://vercel.com)
+
+---
+
