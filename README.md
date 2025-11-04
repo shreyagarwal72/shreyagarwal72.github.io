@@ -58,3 +58,14 @@ npm i
 # 3. Start dev server
 npm run dev
 # → http://localhost:3000
+
+# Tech Stack 
+Layer	Tech	
+Frontend	Next.js 14 (App Router), TypeScript, Tailwind CSS, Framer Motion	
+Auth	NextAuth.js (Google, Discord, GitHub)	
+DB	Firebase Firestore (serverless)	
+Storage	Firebase Cloud Storage (music + thumbnails)	
+CI/CD	GitHub Actions → Vercel (zero-downtime)	
+Analytics	Plausible (privacy-first)	
+SEO	next-seo, dynamic sitemap, JSON-LD, Open Graph	
+Testing	Jest + React Testing Library + Cypress (E2E)
