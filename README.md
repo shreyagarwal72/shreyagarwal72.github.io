@@ -5,7 +5,7 @@ Discover original songs, Minecraft content, mini-games, tools, and more — all 
 
 🌐 Live Website: 
 Nextup Studio
-[https://hereyourchampion.github.io]
+[https://shreyagarwal72-github-io.vercel.app/]
 
 
 ---
